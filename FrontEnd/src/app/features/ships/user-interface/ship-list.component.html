@@ -1,23 +1,19 @@
 <div id="list">
 
     <div id="header">
-        <home-button-and-title [feature]="feature" [icon]="icon" [parentUrl]="parentUrl"></home-button-and-title>
+        <home-button-and-title [feature]="feature" [featureIcon]="featureIcon" [icon]="icon" [parentUrl]="parentUrl"></home-button-and-title>
     </div>
 
     <div id="table-wrapper">
-        <p-table #table [autoLayout]="false" [scrollable]="true" [value]="records" [virtualRowHeight]="33" [virtualScroll]="false" dataKey="id" selectionMode="single" scrollHeight="flex" sortMode="multiple">
+        <p-table #table (onFilter)="filterRecords($event)" [autoLayout]="false" [scrollable]="true" [value]="records" [virtualRowHeight]="33" [virtualScroll]="false" dataKey="id" selectionMode="single" scrollHeight="flex" sortMode="multiple">
             <ng-template pTemplate="header">
                 <tr>
                     <th data-cy="column" style="min-width: 10%; max-width: 10%;" pSortableColumn="isActive">{{ getLabel("headerIsActive") }}<p-sortIcon field="isActive"></p-sortIcon></th>
-                    <th data-cy="column" style="min-width: 40%; max-width: 40%;" pSortableColumn="description">{{ getLabel("headerDescription") }}<p-sortIcon field="description"></p-sortIcon></th>
-                    <th data-cy="column" style="min-width: 40%; max-width: 40%;" pSortableColumn="ownerDescription">{{ getLabel("headerOwnerDescription") }}<p-sortIcon field="ownerDescription"></p-sortIcon></th>
-                    <th data-cy="column" style="min-width: 10%; max-width: 10%;" pSortableColumn="imo">{{ getLabel("headerIMO") }}<p-sortIcon field="imo"></p-sortIcon></th>
+                    <th data-cy="column" style="min-width: 90%; max-width: 90%;" pSortableColumn="description">{{ getLabel("headerDescription") }}<p-sortIcon field="description"></p-sortIcon></th>
                 </tr>
                 <tr>
                     <th style="min-width: 10%; max-width: 10%;"><p-columnFilter data-cy="filter-active" type="boolean" field="isActive"></p-columnFilter></th>
-                    <th style="min-width: 40%; max-width: 40%;"><input data-cy="filter-description" type="text" class="p-inputtext" (input)="table.filter($event.target.value, 'description', 'contains')" [value]="$any(table).filters['description']?.value"></th>
-                    <th style="min-width: 40%; max-width: 40%;"><input data-cy="filter-ownerDescription" type="text" class="p-inputtext" (input)="table.filter($event.target.value, 'ownerDescription', 'contains')" [value]="$any(table).filters['ownerDescription']?.value"></th>
-                    <th style="min-width: 10%; max-width: 10%;"><input data-cy="filter-imo" type="text" class="p-inputtext" (input)="table.filter($event.target.value, 'imo', 'contains')" [value]="$any(table).filters['imo']?.value"></th>
+                    <th style="min-width: 90%; max-width: 90%;"><input data-cy="filter-description" type="text" class="p-inputtext" (input)="table.filter($event.target.value, 'description', 'contains')" [value]="$any(table).filters['description']?.value"></th>
                 </tr>
             </ng-template>
             <ng-template pTemplate="body" let-rowData>
@@ -26,15 +22,23 @@
                         <span *ngIf="rowData.isActive" class="is-active material-icons-outlined">check_circle</span>
                         <span *ngIf="!rowData.isActive" class="is-not-active material-icons-outlined">highlight_off</span>
                     </td>
-                    <td style="min-width: 40%; max-width: 40%;">{{ rowData.description }}</td>
-                    <td style="min-width: 40%; max-width: 40%;">{{ rowData.ownerDescription }}</td>
-                    <td style="min-width: 10%; max-width: 10%; justify-content: center;">{{ rowData.imo }}</td>
+                    <td style="min-width: 90%; max-width: 90%;">{{ rowData.description }}</td>
                 </tr>
             </ng-template>
         </p-table>
     </div>
 
     <div id="footer">
+        <div id="filters">
+            <div class="pill">
+                <img [src]="getIcon('total')">
+                <div class="number description">{{ records.length }}</div>
+            </div>
+            <div class="pill">
+                <img [src]="getIcon('filter')">
+                <div class="number description">{{ recordsFiltered.length }}</div>
+            </div>
+        </div>
         <div class="button-group">
             <button data-cy="new" mat-flat-button class="primary" id="new" (click)="newRecord()">{{ getLabel("newButton") }}</button>
         </div>

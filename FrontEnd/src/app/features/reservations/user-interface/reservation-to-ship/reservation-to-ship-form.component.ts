@@ -3,7 +3,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog'
 // Custom
 import { LocalStorageService } from './../../../../shared/services/local-storage.service'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
-import { ShipDropdownVM } from '../../../ships/classes/view-models/ship-dropdown-vm'
+import { ShipActiveVM } from '../../../ships/classes/view-models/ship-active-vm'
 
 @Component({
     selector: 'reservation-to-ship-form',
@@ -16,7 +16,7 @@ export class ReservationToShipComponent {
     //#region variables
 
     private feature = 'assignToShip'
-    public ships: ShipDropdownVM[] = []
+    public ships: ShipActiveVM[] = []
     public selectedShipId = ''
 
     //#endregion

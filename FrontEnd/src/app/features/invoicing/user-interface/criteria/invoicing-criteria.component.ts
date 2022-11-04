@@ -19,7 +19,7 @@ import { KeyboardShortcuts, Unlisten } from 'src/app/shared/services/keyboard-sh
 import { LocalStorageService } from 'src/app/shared/services/local-storage.service'
 import { MessageHintService } from 'src/app/shared/services/messages-hint.service'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
-import { ShipDropdownVM } from 'src/app/features/ships/classes/view-models/ship-dropdown-vm'
+import { ShipActiveVM } from 'src/app/features/ships/classes/view-models/ship-active-vm'
 import { UserService } from 'src/app/features/users/classes/services/user.service'
 import { ValidationService } from 'src/app/shared/services/validation.service'
 import { CustomerService } from 'src/app/features/customers/classes/services/customer.service'
@@ -47,8 +47,8 @@ export class InvoicingCriteriaComponent {
     public filteredCustomers: Observable<CustomerActiveVM[]>
     public destinations: DestinationActiveVM[] = []
     public filteredDestinations: Observable<DestinationActiveVM[]>
-    public ships: ShipDropdownVM[] = []
-    public filteredShips: Observable<ShipDropdownVM[]>
+    public ships: ShipActiveVM[] = []
+    public filteredShips: Observable<ShipActiveVM[]>
 
     //#endregion
 

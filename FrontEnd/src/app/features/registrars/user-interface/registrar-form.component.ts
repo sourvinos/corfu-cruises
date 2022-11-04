@@ -16,7 +16,7 @@ import { ModalActionResultService } from 'src/app/shared/services/modal-action-r
 import { RegistrarReadDto } from '../classes/dtos/registrar-read-dto'
 import { RegistrarService } from '../classes/services/registrar.service'
 import { RegistrarWriteDto } from '../classes/dtos/registrar-write-dto'
-import { ShipDropdownVM } from '../../ships/classes/view-models/ship-dropdown-vm'
+import { ShipActiveVM } from '../../ships/classes/view-models/ship-active-vm'
 import { ValidationService } from 'src/app/shared/services/validation.service'
 import { map, startWith } from 'rxjs/operators'
 
@@ -40,8 +40,8 @@ export class RegistrarFormComponent {
     public isLoading = new Subject<boolean>()
 
     public isAutoCompleteDisabled = true
-    public ships: ShipDropdownVM[] = []
-    public filteredShips: Observable<ShipDropdownVM[]>
+    public ships: ShipActiveVM[] = []
+    public filteredShips: Observable<ShipActiveVM[]>
 
     //#endregion
 

@@ -2,13 +2,13 @@ import { ActivatedRoute, Router } from '@angular/router'
 import { Component } from '@angular/core'
 import { Subject } from 'rxjs'
 // Custom
-import { ButtonClickService } from 'src/app/shared/services/button-click.service'
 import { HelperService } from 'src/app/shared/services/helper.service'
-import { KeyboardShortcuts, Unlisten } from 'src/app/shared/services/keyboard-shortcuts.service'
 import { ListResolved } from 'src/app/shared/classes/list-resolved'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
-import { SnackbarService } from 'src/app/shared/services/snackbar.service'
+import { ModalActionResultService } from 'src/app/shared/services/modal-action-result.service'
+import { ShipListVM } from '../classes/view-models/ship-list-vm'
+import { environment } from 'src/environments/environment'
 
 @Component({
     selector: 'ship-list',
@@ -20,32 +20,28 @@ export class ShipListComponent {
 
     //#region variables
 
-    private unlisten: Unlisten
     private unsubscribe = new Subject<void>()
     private url = 'ships'
     public feature = 'shipList'
+    public featureIcon = 'ships'
     public icon = 'home'
     public parentUrl = '/'
-    public records = []
+    public records: ShipListVM[] = []
+    public recordsFiltered: ShipListVM[] = []
 
     //#endregion
 
-    constructor(private activatedRoute: ActivatedRoute, private buttonClickService: ButtonClickService, private helperService: HelperService, private keyboardShortcutsService: KeyboardShortcuts, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private router: Router, private snackbarService: SnackbarService) { }
+    constructor(private activatedRoute: ActivatedRoute, private helperService: HelperService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private modalActionResultService: ModalActionResultService, private router: Router) { }
 
     //#region lifecycle hooks
 
     ngOnInit(): void {
-        this.addShortcuts()
         this.loadRecords()
-    }
-
-    ngAfterViewInit(): void {
-        this.changeScrollWheelSpeed()
+        this.calculateTableHeight()
     }
 
     ngOnDestroy(): void {
         this.cleanup()
-        this.unlisten()
     }
 
     //#endregion
@@ -54,6 +50,14 @@ export class ShipListComponent {
 
     public editRecord(id: number): void {
         this.router.navigate([this.url, id])
+    }
+
+    public filterRecords(event: { filteredValue: any[] }) {
+        this.recordsFiltered = event.filteredValue
+    }
+
+    public getIcon(filename: string): string {
+        return environment.criteriaIconDirectory + filename + '.svg'
     }
 
     public getLabel(id: string): string {
@@ -68,22 +72,10 @@ export class ShipListComponent {
 
     //#region private methods
 
-    private addShortcuts(): void {
-        this.unlisten = this.keyboardShortcutsService.listen({
-            'Escape': () => {
-                this.goBack()
-            },
-            'Alt.N': (event: KeyboardEvent) => {
-                this.buttonClickService.clickOnButton(event, 'new')
-            }
-        }, {
-            priority: 0,
-            inputs: true
-        })
-    }
-
-    private changeScrollWheelSpeed(): void {
-        this.helperService.changeScrollWheelSpeed(document.querySelector<HTMLElement>('.cdk-virtual-scroll-viewport'))
+    private calculateTableHeight(): void {
+        setTimeout(() => {
+            document.getElementById('table-wrapper').style.height = this.helperService.calculateTableWrapperHeight('top-bar', 'header', 'footer')
+        }, 500)
     }
 
     private cleanup(): void {
@@ -98,19 +90,16 @@ export class ShipListComponent {
     private loadRecords(): Promise<any> {
         const promise = new Promise((resolve) => {
             const listResolved: ListResolved = this.activatedRoute.snapshot.data[this.feature]
-            if (listResolved.error === null) {
+            if (listResolved.error == null) {
                 this.records = listResolved.list
+                this.recordsFiltered = listResolved.list
                 resolve(this.records)
             } else {
                 this.goBack()
-                this.showSnackbar(this.messageSnackbarService.filterResponse(listResolved.error), 'error')
+                this.modalActionResultService.open(this.messageSnackbarService.filterResponse(new Error('500')), 'error', ['ok'])
             }
         })
         return promise
-    }
-
-    private showSnackbar(message: string, type: string): void {
-        this.snackbarService.open(message, type)
     }
 
     //#endregion

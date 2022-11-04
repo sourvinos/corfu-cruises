@@ -19,7 +19,7 @@ import { MessageHintService } from 'src/app/shared/services/messages-hint.servic
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
 import { PortService } from 'src/app/features/ports/classes/services/port.service'
-import { ShipDropdownVM } from '../../../ships/classes/view-models/ship-dropdown-vm'
+import { ShipActiveVM } from '../../../ships/classes/view-models/ship-active-vm'
 import { ShipService } from 'src/app/features/ships/classes/services/ship.service'
 import { SnackbarService } from 'src/app/shared/services/snackbar.service'
 import { ValidationService } from 'src/app/shared/services/validation.service'
@@ -48,8 +48,8 @@ export class EmbarkationCriteriaComponent {
     public filteredDestinations: Observable<DestinationActiveVM[]>
     public ports: PortActiveVM[] = []
     public filteredPorts: Observable<PortActiveVM[]>
-    public ships: ShipDropdownVM[] = []
-    public filteredShips: Observable<ShipDropdownVM[]>
+    public ships: ShipActiveVM[] = []
+    public filteredShips: Observable<ShipActiveVM[]>
     public selected: Date | null
 
     //#endregion

@@ -1,4 +1,5 @@
 import { ShipOwnerDropdownVM } from './../../../shipOwners/classes/view-models/shipOwner-dropdown-vm'
+
 export interface ShipReadDto {
 
     id: number

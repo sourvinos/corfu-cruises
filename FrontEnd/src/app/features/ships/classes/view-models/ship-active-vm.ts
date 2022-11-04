@@ -1,4 +1,4 @@
-export interface ShipDropdownVM {
+export interface ShipActiveVM {
 
     id: number
     description: string

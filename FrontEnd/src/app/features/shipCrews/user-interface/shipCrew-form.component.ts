@@ -22,7 +22,7 @@ import { NationalityDropdownVM } from '../../nationalities/classes/view-models/n
 import { ShipCrewReadDto } from '../classes/dtos/shipCrew-read-dto'
 import { ShipCrewService } from '../classes/services/shipCrew.service'
 import { ShipCrewWriteDto } from '../classes/dtos/shipCrew-write-dto'
-import { ShipDropdownVM } from '../../ships/classes/view-models/ship-dropdown-vm'
+import { ShipActiveVM } from '../../ships/classes/view-models/ship-active-vm'
 import { ValidationService } from 'src/app/shared/services/validation.service'
 
 @Component({
@@ -53,8 +53,8 @@ export class ShipCrewFormComponent {
     public filteredGenders: Observable<GenderActiveVM[]>
     public nationalities: NationalityDropdownVM[] = []
     public filteredNationalities: Observable<NationalityDropdownVM[]>
-    public ships: ShipDropdownVM[] = []
-    public filteredShips: Observable<ShipDropdownVM[]>
+    public ships: ShipActiveVM[] = []
+    public filteredShips: Observable<ShipActiveVM[]>
 
     //#endregion
 
