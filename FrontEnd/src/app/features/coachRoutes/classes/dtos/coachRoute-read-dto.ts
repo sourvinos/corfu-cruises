@@ -1,4 +1,4 @@
-import { PortActiveVM } from '../../../ports/classes/view-models/port-dropdown-vm'
+import { PortActiveVM } from 'src/app/features/ports/classes/view-models/port-active-vm'
 
 export interface CoachRouteReadDto {
 

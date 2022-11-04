@@ -3,11 +3,10 @@ import { Component } from '@angular/core'
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms'
 import { Subject } from 'rxjs'
 // Custom
-import { ButtonClickService } from 'src/app/shared/services/button-click.service'
 import { DialogService } from 'src/app/shared/services/dialog.service'
+import { FormResolved } from 'src/app/shared/classes/form-resolved'
 import { HelperService, indicate } from 'src/app/shared/services/helper.service'
 import { InputTabStopDirective } from 'src/app/shared/directives/input-tabstop.directive'
-import { KeyboardShortcuts, Unlisten } from 'src/app/shared/services/keyboard-shortcuts.service'
 import { MessageHintService } from 'src/app/shared/services/messages-hint.service'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
@@ -19,29 +18,30 @@ import { PortWriteDto } from '../classes/dtos/port-write-vm'
 @Component({
     selector: 'port-form',
     templateUrl: './port-form.component.html',
-    styleUrls: ['../../../../assets/styles/forms.css']
+    styleUrls: ['../../../../assets/styles/forms.css', './port-form.component.css']
 })
 
 export class PortFormComponent {
 
     //#region variables
 
-    private unlisten: Unlisten
+    private record: PortReadDto
     private unsubscribe = new Subject<void>()
     public feature = 'portForm'
     public form: FormGroup
     public icon = 'arrow_back'
     public input: InputTabStopDirective
-    public parentUrl = '/ports'
     public isLoading = new Subject<boolean>()
+    public parentUrl = '/ports'
 
     //#endregion
 
-    constructor(private activatedRoute: ActivatedRoute, private buttonClickService: ButtonClickService, private dialogService: DialogService, private formBuilder: FormBuilder, private helperService: HelperService, private keyboardShortcutsService: KeyboardShortcuts, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private modalActionResultService: ModalActionResultService, private portService: PortService, private router: Router) {
+    constructor(private activatedRoute: ActivatedRoute, private dialogService: DialogService, private formBuilder: FormBuilder, private helperService: HelperService, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private modalActionResultService: ModalActionResultService, private portService: PortService, private router: Router) {
         this.activatedRoute.params.subscribe(x => {
             if (x.id) {
                 this.initForm()
-                this.getRecord(x.id)
+                this.getRecord()
+                this.populateFields()
             } else {
                 this.initForm()
             }
@@ -51,13 +51,11 @@ export class PortFormComponent {
     //#region lifecycle hooks
 
     ngOnInit(): void {
-        this.addShortcuts()
         this.focusOnField('abbreviation')
     }
 
     ngOnDestroy(): void {
         this.cleanup()
-        this.unlisten()
     }
 
     canDeactivate(): boolean {
@@ -69,6 +67,7 @@ export class PortFormComponent {
                     return true
                 }
             })
+            return false
         } else {
             return true
         }
@@ -109,27 +108,6 @@ export class PortFormComponent {
 
     //#region private methods
 
-    private addShortcuts(): void {
-        this.unlisten = this.keyboardShortcutsService.listen({
-            'Escape': (event: KeyboardEvent) => {
-                if (document.getElementsByClassName('cdk-overlay-pane').length === 0) {
-                    this.buttonClickService.clickOnButton(event, 'goBack')
-                }
-            },
-            'Alt.D': (event: KeyboardEvent) => {
-                this.buttonClickService.clickOnButton(event, 'delete')
-            },
-            'Alt.S': (event: KeyboardEvent) => {
-                if (document.getElementsByClassName('cdk-overlay-pane').length === 0) {
-                    this.buttonClickService.clickOnButton(event, 'save')
-                }
-            }
-        }, {
-            priority: 0,
-            inputs: true
-        })
-    }
-
     private cleanup(): void {
         this.unsubscribe.next()
         this.unsubscribe.unsubscribe()
@@ -140,7 +118,7 @@ export class PortFormComponent {
             id: this.form.value.id,
             abbreviation: this.form.value.abbreviation,
             description: this.form.value.description,
-            isPrimary: this.form.value.isPrimary,
+            stopOrder: this.form.value.stopOrder,
             isActive: this.form.value.isActive
         }
         return port
@@ -150,15 +128,18 @@ export class PortFormComponent {
         this.helperService.focusOnField(field)
     }
 
-    private getRecord(id: number): void {
-        this.portService.getSingle(id).subscribe({
-            next: (response) => {
-                this.populateFields(response)
-            },
-            error: (errorFromInterceptor) => {
-                this.modalActionResultService.open(this.messageSnackbarService.filterResponse(errorFromInterceptor), 'error', ['ok'])
+    private getRecord(): Promise<any> {
+        const promise = new Promise((resolve) => {
+            const formResolved: FormResolved = this.activatedRoute.snapshot.data['portForm']
+            if (formResolved.error == null) {
+                this.record = formResolved.record.body
+                resolve(this.record)
+            } else {
+                this.goBack()
+                this.modalActionResultService.open(this.messageSnackbarService.filterResponse(new Error('500')), 'error', ['ok'])
             }
         })
+        return promise
     }
 
     private goBack(): void {
@@ -170,18 +151,18 @@ export class PortFormComponent {
             id: 0,
             abbreviation: ['', [Validators.required, Validators.maxLength(5)]],
             description: ['', [Validators.required, Validators.maxLength(128)]],
-            isPrimary: false,
+            stopOrder: [0, [Validators.required, Validators.min(1), Validators.max(9)]],
             isActive: true
         })
     }
 
-    private populateFields(result: PortReadDto): void {
+    private populateFields(): void {
         this.form.setValue({
-            id: result.id,
-            abbreviation: result.abbreviation,
-            description: result.description,
-            isPrimary: result.isPrimary,
-            isActive: result.isActive
+            id: this.record.id,
+            abbreviation: this.record.abbreviation,
+            description: this.record.description,
+            stopOrder: this.record.stopOrder,
+            isActive: this.record.isActive
         })
     }
 
@@ -190,25 +171,14 @@ export class PortFormComponent {
     }
 
     private saveRecord(port: PortWriteDto): void {
-        if (port.id === 0) {
-            this.portService.add(port).pipe(indicate(this.isLoading)).subscribe({
-                complete: () => {
-                    this.helperService.doPostSaveFormTasks(this.messageSnackbarService.success(), 'success', this.parentUrl, this.form)
-                },
-                error: (errorFromInterceptor) => {
-                    this.helperService.doPostSaveFormTasks(this.messageSnackbarService.filterResponse(errorFromInterceptor), 'error', this.parentUrl, this.form, false)
-                }
-            })
-        } else {
-            this.portService.update(port.id, port).pipe(indicate(this.isLoading)).subscribe({
-                complete: () => {
-                    this.helperService.doPostSaveFormTasks(this.messageSnackbarService.success(), 'success', this.parentUrl, this.form)
-                },
-                error: (errorFromInterceptor) => {
-                    this.helperService.doPostSaveFormTasks(this.messageSnackbarService.filterResponse(errorFromInterceptor), 'error', this.parentUrl, this.form, false)
-                }
-            })
-        }
+        this.portService.save(port).pipe(indicate(this.isLoading)).subscribe({
+            complete: () => {
+                this.helperService.doPostSaveFormTasks(this.messageSnackbarService.success(), 'success', this.parentUrl, this.form)
+            },
+            error: (errorFromInterceptor) => {
+                this.helperService.doPostSaveFormTasks(this.messageSnackbarService.filterResponse(errorFromInterceptor), 'error', this.parentUrl, this.form, false, false)
+            }
+        })
     }
 
     //#endregion
@@ -221,6 +191,10 @@ export class PortFormComponent {
 
     get description(): AbstractControl {
         return this.form.get('description')
+    }
+
+    get stopOrder(): AbstractControl {
+        return this.form.get('stopOrder')
     }
 
     //#endregion

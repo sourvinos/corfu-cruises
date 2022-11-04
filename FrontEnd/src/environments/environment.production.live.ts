@@ -15,6 +15,7 @@ export const environment = {
     menuIconDirectory: 'assets/images/menu/',
     featuresIconDirectory: 'assets/images/features/',
     criteriaIconDirectory: 'assets/images/criteria/',
+    stopOrdersIconDirectory: 'assets/images/stopOrders/',
     isWideScreen: 1920,
     login: {
         username: '',

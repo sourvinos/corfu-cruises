@@ -20,7 +20,6 @@ import { MessageLabelService } from 'src/app/shared/services/messages-label.serv
 import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
 import { ModalActionResultService } from 'src/app/shared/services/modal-action-result.service'
 import { PickupPointActiveVM } from 'src/app/features/pickupPoints/classes/view-models/pickupPoint-active-vm'
-import { PortActiveVM } from './../../../ports/classes/view-models/port-dropdown-vm'
 import { ReservationGroupDto } from '../../classes/dtos/list/reservation-group-dto'
 import { ReservationService } from './../../classes/services/reservation.service'
 import { ReservationToDriverComponent } from '../reservation-to-driver/reservation-to-driver-form.component'
@@ -28,6 +27,7 @@ import { ReservationToShipComponent } from '../reservation-to-ship/reservation-t
 import { ShipRouteDropdownVM } from './../../../shipRoutes/classes/view-models/shipRoute-dropdown-vm'
 import { ShipService } from 'src/app/features/ships/classes/services/ship.service'
 import { environment } from 'src/environments/environment'
+import { PortActiveVM } from 'src/app/features/ports/classes/view-models/port-active-vm'
 
 @Component({
     selector: 'reservation-list',

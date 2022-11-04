@@ -320,6 +320,10 @@
                 "description": "Ενεργό"
             },
             {
+                "id": "headerStopOrder",
+                "description": "Σειρά προσέγγισης"
+            },
+            {
                 "id": "headerDescription",
                 "description": "Περιγραφή"
             },
@@ -345,8 +349,8 @@
                 "description": "Συντ."
             },
             {
-                "id": "isPrimary",
-                "description": "Πρωτεύον"
+                "id": "stopOrder",
+                "description": "Σειρά προσέγγισης"
             },
             {
                 "id": "isActive",

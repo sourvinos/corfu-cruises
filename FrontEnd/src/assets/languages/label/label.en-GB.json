@@ -320,6 +320,10 @@
                 "description": "Active"
             },
             {
+                "id": "headerStopOrder",
+                "description": "Approach order"
+            },
+            {
                 "id": "headerDescription",
                 "description": "Description"
             },
@@ -345,8 +349,8 @@
                 "description": "Abbr."
             },
             {
-                "id": "isPrimary",
-                "description": "Primary"
+                "id": "stopOrder",
+                "description": "Approach order"
             },
             {
                 "id": "isActive",

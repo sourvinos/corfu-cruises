@@ -1,10 +1,10 @@
-import { HttpClient, HttpResponse } from '@angular/common/http'
+import { HttpClient } from '@angular/common/http'
 import { Injectable } from '@angular/core'
 import { Observable } from 'rxjs'
 // Custom
 import { HttpDataService } from 'src/app/shared/services/http-data.service'
-import { PortActiveVM } from '../view-models/port-dropdown-vm'
 import { environment } from 'src/environments/environment'
+import { PortActiveVM } from '../view-models/port-active-vm'
 
 @Injectable({ providedIn: 'root' })
 
@@ -18,10 +18,6 @@ export class PortService extends HttpDataService {
 
     public getActive(): Observable<PortActiveVM[]> {
         return this.http.get<PortActiveVM[]>(environment.apiUrl + '/ports/getActive')
-    }
-
-    public createPDF(): Observable<HttpResponse<Blob>> {
-        return this.http.get('pdf/create', { responseType: 'blob', observe: 'response' })
     }
 
     //#endregion

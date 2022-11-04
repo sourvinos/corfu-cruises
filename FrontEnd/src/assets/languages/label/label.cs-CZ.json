@@ -320,6 +320,10 @@
                 "description": "Aktivní"
             },
             {
+                "id": "headerStopOrder",
+                "description": "Pořadí přístupu"
+            },
+            {
                 "id": "headerDescription",
                 "description": "Popis"
             },
@@ -345,8 +349,8 @@
                 "description": "Zkr."
             },
             {
-                "id": "isPrimary",
-                "description": "Hlavní"
+                "id": "stopOrder",
+                "description": "Pořadí přístupu"
             },
             {
                 "id": "isActive",

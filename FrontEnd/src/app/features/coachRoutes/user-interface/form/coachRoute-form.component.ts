@@ -16,8 +16,8 @@ import { MessageHintService } from 'src/app/shared/services/messages-hint.servic
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
 import { ModalActionResultService } from 'src/app/shared/services/modal-action-result.service'
-import { PortActiveVM } from 'src/app/features/ports/classes/view-models/port-dropdown-vm'
 import { ValidationService } from 'src/app/shared/services/validation.service'
+import { PortActiveVM } from 'src/app/features/ports/classes/view-models/port-active-vm'
 
 @Component({
     selector: 'coach-route-form',

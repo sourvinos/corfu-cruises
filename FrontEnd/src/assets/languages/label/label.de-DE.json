@@ -320,6 +320,10 @@
                 "description": "Aktiv"
             },
             {
+                "id": "headerStopOrder",
+                "description": "Annäherungsauftrag"
+            },
+            {
                 "id": "headerDescription",
                 "description": "Beschreibung"
             },
@@ -345,8 +349,8 @@
                 "description": "Abk."
             },
             {
-                "id": "isPrimary",
-                "description": "Primär"
+                "id": "stopOrder",
+                "description": "Annäherungsauftrag"
             },
             {
                 "id": "isActive",

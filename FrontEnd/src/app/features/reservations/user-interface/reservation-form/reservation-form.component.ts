@@ -25,7 +25,6 @@ import { ModalActionResultService } from 'src/app/shared/services/modal-action-r
 import { OkIconService } from '../../classes/services/ok-icon.service'
 import { PassengerWriteDto } from '../../classes/dtos/form/passenger-write-dto'
 import { PickupPointActiveVM } from 'src/app/features/pickupPoints/classes/view-models/pickupPoint-active-vm'
-import { PortActiveVM } from 'src/app/features/ports/classes/view-models/port-dropdown-vm'
 import { ReservationReadDto } from '../../classes/dtos/form/reservation-read-dto'
 import { ReservationService } from '../../classes/services/reservation.service'
 import { ReservationWriteDto } from '../../classes/dtos/form/reservation-write-dto'
@@ -33,6 +32,7 @@ import { UserService } from 'src/app/features/users/classes/services/user.servic
 import { ValidationService } from './../../../../shared/services/validation.service'
 import { VoucherService } from '../../classes/voucher/services/voucher.service'
 import { WarningIconService } from '../../classes/services/warning-icon.service'
+import { PortActiveVM } from 'src/app/features/ports/classes/view-models/port-active-vm'
 
 @Component({
     selector: 'reservation-form',

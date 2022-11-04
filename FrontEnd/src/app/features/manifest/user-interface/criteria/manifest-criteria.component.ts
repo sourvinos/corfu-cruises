@@ -18,7 +18,6 @@ import { LocalStorageService } from 'src/app/shared/services/local-storage.servi
 import { MessageHintService } from 'src/app/shared/services/messages-hint.service'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
-import { PortActiveVM } from 'src/app/features/ports/classes/view-models/port-dropdown-vm'
 import { PortService } from 'src/app/features/ports/classes/services/port.service'
 import { ShipDropdownVM } from '../../../ships/classes/view-models/ship-dropdown-vm'
 import { ShipRoute } from 'src/app/features/shipRoutes/classes/models/shipRoute'
@@ -26,6 +25,7 @@ import { ShipRouteService } from 'src/app/features/shipRoutes/classes/services/s
 import { ShipService } from 'src/app/features/ships/classes/services/ship.service'
 import { SnackbarService } from 'src/app/shared/services/snackbar.service'
 import { ValidationService } from 'src/app/shared/services/validation.service'
+import { PortActiveVM } from 'src/app/features/ports/classes/view-models/port-active-vm'
 
 @Component({
     selector: 'manifest-criteria',

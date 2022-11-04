@@ -100,7 +100,7 @@
             },
             {
                 "error": 493,
-                "message": "Soubor nebyl vytvořen."
+                "message": "Přístupový řád již existuje."
             },
             {
                 "error": 494,

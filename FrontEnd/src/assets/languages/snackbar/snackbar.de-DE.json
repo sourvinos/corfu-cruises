@@ -100,7 +100,7 @@
             },
             {
                 "error": 493,
-                "message": "Die Datei wurde nicht erstellt."
+                "message": "Der Anflugauftrag besteht bereits."
             },
             {
                 "error": 494,

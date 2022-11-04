@@ -135,7 +135,7 @@ export class InterceptorService {
             case 492:
                 return throwError(() => new Error('492')) // unable to create user
             case 493:
-                return throwError(() => new Error('493')) // record not saved
+                return throwError(() => new Error('493')) // port approach order already exists
             case 494:
                 return throwError(() => new Error('494')) // unableToChangePassword
             case 497:

@@ -1,7 +1,6 @@
-export interface PortReadDto {
+export interface PortListVM {
 
     id: number
-    abbreviation: string
     description: string
     stopOrder: number
     isActive: boolean

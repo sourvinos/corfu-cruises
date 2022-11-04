@@ -320,6 +320,10 @@
                 "description": "Actif"
             },
             {
+                "id": "headerStopOrder",
+                "description": "Ordre d'approche"
+            },
+            {
                 "id": "headerDescription",
                 "description": "Description"
             },
@@ -345,8 +349,8 @@
                 "description": "Abr."
             },
             {
-                "id": "isPrimary",
-                "description": "Primaire"
+                "id": "stopOrder",
+                "description": "Ordre d'approche"
             },
             {
                 "id": "isActive",
