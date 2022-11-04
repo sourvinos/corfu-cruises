@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core'
 import { Observable } from 'rxjs'
 // Custom
 import { HttpDataService } from 'src/app/shared/services/http-data.service'
-import { ShipRouteDropdownVM } from '../view-models/shipRoute-dropdown-vm'
+import { ShipRouteActiveVM } from '../view-models/shipRoute-active-vm'
 import { environment } from 'src/environments/environment'
 
 @Injectable({ providedIn: 'root' })
@@ -16,8 +16,8 @@ export class ShipRouteService extends HttpDataService {
 
     //#region public methods
 
-    public getActive(): Observable<ShipRouteDropdownVM[]> {
-        return this.http.get<ShipRouteDropdownVM[]>(environment.apiUrl + '/shipRoutes/getActive')
+    public getActive(): Observable<ShipRouteActiveVM[]> {
+        return this.http.get<ShipRouteActiveVM[]>(environment.apiUrl + '/shipRoutes/getActive')
     }
 
     //#endregion

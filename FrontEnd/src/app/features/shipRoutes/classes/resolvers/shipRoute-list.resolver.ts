@@ -7,16 +7,15 @@ import { ShipRouteService } from '../services/shipRoute.service'
 
 @Injectable({ providedIn: 'root' })
 
-export class ShipRouteListResolver  {
+export class ShipRouteListResolver {
 
     constructor(private shipRouteService: ShipRouteService) { }
 
     resolve(): Observable<ListResolved> {
-        return this.shipRouteService.getAll()
-            .pipe(
-                map((shipRouteList) => new ListResolved(shipRouteList)),
-                catchError((err: any) => of(new ListResolved(null, err)))
-            )
+        return this.shipRouteService.getAll().pipe(
+            map((shipRouteList) => new ListResolved(shipRouteList)),
+            catchError((err: any) => of(new ListResolved(null, err)))
+        )
     }
 
 }

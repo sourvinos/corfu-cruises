@@ -1,6 +1,8 @@
 import { ActivatedRouteSnapshot } from '@angular/router'
 import { Injectable } from '@angular/core'
+import { catchError, map, of } from 'rxjs'
 // Custom
+import { FormResolved } from 'src/app/shared/classes/form-resolved'
 import { ShipRouteService } from '../services/shipRoute.service'
 
 @Injectable({ providedIn: 'root' })
@@ -10,11 +12,10 @@ export class ShipRouteFormResolver {
     constructor(private shipRouteService: ShipRouteService) { }
 
     resolve(route: ActivatedRouteSnapshot): any {
-        const response = this.shipRouteService.getSingle(route.params.id)
-        if (response)
-            response.subscribe(() => {
-                return response
-            })
+        return this.shipRouteService.getSingle(route.params.id).pipe(
+            map((customerForm) => new FormResolved(customerForm)),
+            catchError((err: any) => of(new FormResolved(null, err)))
+        )
     }
 
 }

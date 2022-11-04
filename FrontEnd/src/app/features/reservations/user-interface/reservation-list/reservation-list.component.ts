@@ -24,7 +24,7 @@ import { ReservationGroupDto } from '../../classes/dtos/list/reservation-group-d
 import { ReservationService } from './../../classes/services/reservation.service'
 import { ReservationToDriverComponent } from '../reservation-to-driver/reservation-to-driver-form.component'
 import { ReservationToShipComponent } from '../reservation-to-ship/reservation-to-ship-form.component'
-import { ShipRouteDropdownVM } from './../../../shipRoutes/classes/view-models/shipRoute-dropdown-vm'
+import { ShipRouteActiveVM } from '../../../shipRoutes/classes/view-models/shipRoute-active-vm'
 import { ShipService } from 'src/app/features/ships/classes/services/ship.service'
 import { environment } from 'src/environments/environment'
 import { PortActiveVM } from 'src/app/features/ports/classes/view-models/port-active-vm'
@@ -61,7 +61,7 @@ export class ReservationListComponent {
     public dropdownPickupPoints: PickupPointActiveVM[] = []
     public dropdownPorts: PortActiveVM[] = []
     public dropdownCoachRoutes: CoachRouteActiveVM[] = []
-    public dropdownShips: ShipRouteDropdownVM[] = []
+    public dropdownShips: ShipRouteActiveVM[] = []
 
     //#endregion
 
