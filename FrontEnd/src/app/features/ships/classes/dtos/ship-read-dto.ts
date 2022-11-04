@@ -1,9 +1,9 @@
-import { ShipOwnerDropdownVM } from './../../../shipOwners/classes/view-models/shipOwner-dropdown-vm'
+import { ShipOwnerActiveVM } from 'src/app/features/shipOwners/classes/view-models/shipOwner-active-vm'
 
 export interface ShipReadDto {
 
     id: number
-    shipOwner: ShipOwnerDropdownVM
+    shipOwner: ShipOwnerActiveVM
     description: string
     imo: string
     flag: string

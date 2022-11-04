@@ -12,11 +12,10 @@ export class ShipOwnerListResolver {
     constructor(private shipOwnerService: ShipOwnerService) { }
 
     resolve(): Observable<ListResolved> {
-        return this.shipOwnerService.getAll()
-            .pipe(
-                map((shipOwnerList) => new ListResolved(shipOwnerList)),
-                catchError((err: any) => of(new ListResolved(null, err)))
-            )
+        return this.shipOwnerService.getAll().pipe(
+            map((shipOwnerList) => new ListResolved(shipOwnerList)),
+            catchError((err: any) => of(new ListResolved(null, err)))
+        )
     }
 
 }
