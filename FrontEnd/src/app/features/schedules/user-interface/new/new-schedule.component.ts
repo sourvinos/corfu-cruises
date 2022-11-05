@@ -165,7 +165,7 @@ export class NewScheduleComponent {
                 destinationId: formValue.destination.id,
                 portId: formValue.port.id,
                 date: day,
-                maxPassengers: formValue.maxPassengers,
+                maxPax: formValue.maxPax,
                 departureTime: formValue.departureTime,
                 isActive: true
             }
@@ -248,7 +248,7 @@ export class NewScheduleComponent {
             toDate: ['', Validators.required],
             periodToDelete: [''],
             daysToInsert: ['', Validators.required],
-            maxPassengers: [0, [Validators.required, Validators.min(0), Validators.max(999)]],
+            maxPax: [0, [Validators.required, Validators.min(0), Validators.max(999)]],
             departureTime: ['', [Validators.required, ValidationService.isTime]],
             isActive: true
         })
@@ -352,8 +352,8 @@ export class NewScheduleComponent {
         return this.form.get('toDate')
     }
 
-    get maxPassengers(): AbstractControl {
-        return this.form.get('maxPassengers')
+    get maxPax(): AbstractControl {
+        return this.form.get('maxPax')
     }
 
     get departureTime(): AbstractControl {

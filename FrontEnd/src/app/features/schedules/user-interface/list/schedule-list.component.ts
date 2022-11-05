@@ -1,17 +1,15 @@
 import { ActivatedRoute, Router } from '@angular/router'
 import { Component } from '@angular/core'
 import { Subject, takeUntil } from 'rxjs'
-import { Title } from '@angular/platform-browser'
 // Custom
-import { ButtonClickService } from 'src/app/shared/services/button-click.service'
 import { HelperService } from 'src/app/shared/services/helper.service'
 import { InteractionService } from 'src/app/shared/services/interaction.service'
-import { KeyboardShortcuts, Unlisten } from 'src/app/shared/services/keyboard-shortcuts.service'
 import { ListResolved } from 'src/app/shared/classes/list-resolved'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
+import { ModalActionResultService } from 'src/app/shared/services/modal-action-result.service'
 import { ScheduleListVM } from './../../classes/view-models/schedule-list-vm'
-import { SnackbarService } from 'src/app/shared/services/snackbar.service'
+import { environment } from 'src/environments/environment'
 
 @Component({
     selector: 'pickuppoint-list',
@@ -23,13 +21,14 @@ export class ScheduleListComponent {
 
     //#region variables
 
-    private unlisten: Unlisten
     private unsubscribe = new Subject<void>()
     private url = 'schedules'
     public feature = 'scheduleList'
+    public featureIcon = 'schedules'
     public icon = 'home'
     public parentUrl = '/'
     public records: ScheduleListVM[] = []
+    public recordsFiltered: ScheduleListVM[] = []
 
     public dropdownDates = []
     public dropdownDestinations = []
@@ -37,69 +36,58 @@ export class ScheduleListComponent {
 
     //#endregion
 
-    constructor(private activatedRoute: ActivatedRoute, private buttonClickService: ButtonClickService, private helperService: HelperService, private interactionService: InteractionService, private keyboardShortcutsService: KeyboardShortcuts, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private router: Router, private snackbarService: SnackbarService, private titleService: Title) { }
+    constructor(private activatedRoute: ActivatedRoute, private helperService: HelperService, private interactionService: InteractionService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private modalActionResultService: ModalActionResultService, private router: Router) { }
 
     //#region lifecycle hooks
 
     ngOnInit(): void {
-        this.setWindowTitle()
-        this.loadRecords().then(() => {
-            this.formatTableDateColumnToLocale()
-            this.populateDropdownFilters()
-        })
-        this.addShortcuts()
+        this.loadRecords()
+        this.formatTableDateColumnToLocale()
+        this.calculateTableHeight()
+        this.populateDropdownFilters()
         this.subscribeToInteractionService()
-    }
-
-    ngAfterViewInit(): void {
-        this.changeScrollWheelSpeed()
     }
 
     ngOnDestroy(): void {
         this.cleanup()
-        this.unlisten()
     }
 
     //#endregion
 
     //#region public methods
 
+    public editRecord(id: number): void {
+        this.router.navigate([this.url, id])
+    }
+
+    public filterRecords(event: { filteredValue: any[] }) {
+        this.recordsFiltered = event.filteredValue
+    }
+
     public formatDateToLocale(date: string): string {
         return this.helperService.formatISODateToLocale(date)
+    }
+
+    public getIcon(filename: string): string {
+        return environment.criteriaIconDirectory + filename + '.svg'
     }
 
     public getLabel(id: string): string {
         return this.messageLabelService.getDescription(this.feature, id)
     }
 
-    public onEditRecord(id: number): void {
-        this.router.navigate([this.url, id], { queryParams: { returnUrl: this.url } })
-    }
-
-    public onNewRecord(): void {
-        this.router.navigate([this.url + '/new'], { queryParams: { returnUrl: this.url } })
+    public newRecord(): void {
+        this.router.navigate([this.url + '/new'])
     }
 
     //#endregion
 
     //#region private methods
 
-    private addShortcuts(): void {
-        this.unlisten = this.keyboardShortcutsService.listen({
-            'Escape': () => {
-                this.goBack()
-            },
-            'Alt.N': (event: KeyboardEvent) => {
-                this.buttonClickService.clickOnButton(event, 'new')
-            }
-        }, {
-            priority: 0,
-            inputs: true
-        })
-    }
-
-    private changeScrollWheelSpeed(): void {
-        this.helperService.changeScrollWheelSpeed(document.querySelector<HTMLElement>('.cdk-virtual-scroll-viewport'))
+    private calculateTableHeight(): void {
+        setTimeout(() => {
+            document.getElementById('table-wrapper').style.height = this.helperService.calculateTableWrapperHeight('top-bar', 'header', 'footer')
+        }, 500)
     }
 
     private cleanup(): void {
@@ -122,27 +110,20 @@ export class ScheduleListComponent {
             const listResolved: ListResolved = this.activatedRoute.snapshot.data[this.feature]
             if (listResolved.error === null) {
                 this.records = listResolved.list
+                this.recordsFiltered = listResolved.list
                 resolve(this.records)
             } else {
                 this.goBack()
-                this.showSnackbar(this.messageSnackbarService.filterResponse(listResolved.error), 'error')
+                this.modalActionResultService.open(this.messageSnackbarService.filterResponse(new Error('500')), 'error', ['ok'])
             }
         })
         return promise
     }
 
     private populateDropdownFilters() {
-        this.dropdownDates = this.helperService.getDistinctRecords(this.records, 'date')
+        this.dropdownDates = this.helperService.getDistinctRecords(this.records, 'formattedDate')
         this.dropdownDestinations = this.helperService.getDistinctRecords(this.records, 'destinationDescription')
         this.dropdownPorts = this.helperService.getDistinctRecords(this.records, 'portDescription')
-    }
-
-    private setWindowTitle(): void {
-        this.titleService.setTitle(this.helperService.getApplicationTitle() + ' :: ' + this.getLabel('header'))
-    }
-
-    private showSnackbar(message: string, type: string): void {
-        this.snackbarService.open(message, type)
     }
 
     private subscribeToInteractionService(): void {

@@ -1139,7 +1139,7 @@
                 "description": "Ημερολογιακό διάστημα"
             },
             {
-                "id": "maxPassengers",
+                "id": "maxPax",
                 "description": "Μέγιστος αριθμός επιβατών"
             },
             {
@@ -2036,8 +2036,8 @@
                 "description": "Λιμάνι"
             },
             {
-                "id": "headerMaxPassengers",
-                "description": "Επιβάτες"
+                "id": "headerMaxPax",
+                "description": "Χωρητικότητα"
             },
             {
                 "id": "newButton",
@@ -2065,7 +2065,7 @@
                 "description": "Λιμάνι"
             },
             {
-                "id": "maxPassengers",
+                "id": "maxPax",
                 "description": "Μέγιστος αριθμός επιβατών"
             },
             {

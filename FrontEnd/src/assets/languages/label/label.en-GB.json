@@ -1139,7 +1139,7 @@
                 "description": "Calendar period"
             },
             {
-                "id": "maxPassengers",
+                "id": "maxPax",
                 "description": "Maximum number of passengers"
             },
             {
@@ -2036,8 +2036,8 @@
                 "description": "Port"
             },
             {
-                "id": "headerMaxPassengers",
-                "description": "Passengers"
+                "id": "headerMaxPax",
+                "description": "Max Pax"
             },
             {
                 "id": "newButton",
@@ -2065,7 +2065,7 @@
                 "description": "Port"
             },
             {
-                "id": "maxPassengers",
+                "id": "maxPax",
                 "description": "Max number of passengers"
             },
             {

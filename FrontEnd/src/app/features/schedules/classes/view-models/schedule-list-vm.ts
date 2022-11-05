@@ -5,6 +5,6 @@ export interface ScheduleListVM {
     formattedDate: string
     destinationDescription: string
     portDescription: string
-    maxPassengers: number
+    maxPax: number
 
 }

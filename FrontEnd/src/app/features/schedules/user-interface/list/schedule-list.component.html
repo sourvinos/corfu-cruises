@@ -1,22 +1,32 @@
 <div id="list">
 
     <div id="header">
-        <home-button-and-title [feature]="feature" [icon]="icon" [parentUrl]="parentUrl"></home-button-and-title>
+        <home-button-and-title [feature]="feature" [featureIcon]="featureIcon" [icon]="icon" [parentUrl]="parentUrl"></home-button-and-title>
     </div>
 
     <div id="table-wrapper">
-        <p-table #table [autoLayout]="false" [scrollable]="true" [value]="records" [virtualRowHeight]="33" [virtualScroll]="true" dataKey="id" selectionMode="single" scrollHeight="flex" sortMode="multiple">
+        <p-table #table (onFilter)="filterRecords($event)" [autoLayout]="false" [scrollable]="true" [value]="records" [virtualRowHeight]="33" [virtualScroll]="false" dataKey="id" scrollHeight="flex" selectionMode="single" sortMode="multiple" stateKey="schedule-list" stateStorage="local">
             <ng-template pTemplate="header">
                 <tr>
                     <th data-cy="column" style="min-width: 10%; max-width: 10%;" pSortableColumn="isActive">{{ getLabel("headerIsActive") }}<p-sortIcon field="isActive"></p-sortIcon></th>
                     <th data-cy="column" style="min-width: 10%; max-width: 10%;" pSortableColumn="date">{{ getLabel("headerDate") }}<p-sortIcon field="date"></p-sortIcon></th>
                     <th data-cy="column" style="min-width: 40%; max-width: 40%;" pSortableColumn="destinationDescription">{{ getLabel("headerDestinationDescription") }}<p-sortIcon field="destinationDescription"></p-sortIcon></th>
-                    <th data-cy="column" style="min-width: 30%; max-width: 30%; " pSortableColumn="portDescription">{{ getLabel("headerPortDescription") }}<p-sortIcon field="portDescription"></p-sortIcon></th>
-                    <th data-cy="column" style="min-width: 10%; max-width: 10%;" pSortableColumn="maxPassengers">{{ getLabel("headerMaxPassengers") }}<p-sortIcon field="maxPassengers"></p-sortIcon></th>
+                    <th data-cy="column" style="min-width: 30%; max-width: 30%;" pSortableColumn="portDescription">{{ getLabel("headerPortDescription") }}<p-sortIcon field="portDescription"></p-sortIcon></th>
+                    <th data-cy="column" style="min-width: 10%; max-width: 10%;" pSortableColumn="maxPax">{{ getLabel("headerMaxPax") }}<p-sortIcon field="maxPax"></p-sortIcon></th>
                 </tr>
                 <tr>
                     <th style="min-width: 10%; max-width: 10%;"><p-columnFilter data-cy="filter-active" type="boolean" field="isActive"></p-columnFilter></th>
-                    <th style="min-width: 10%; max-width: 10%;"><input data-cy="filter-date" type="text" class="p-inputtext center" (input)="table.filter($event.target.value, 'formattedDate', 'startsWith')" [value]="$any(table).filters['formattedDate']?.value"></th>
+                    <th style="min-width: 10%; max-width: 10%;">
+                        <p-columnFilter style="width: 100%;" field="formattedDate" matchMode="equals" [showMenu]="false">
+                            <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+                                <p-dropdown data-cy="filter-date" [ngModel]="value" [options]="dropdownDates" (onChange)="filter($event.value)" placeholder="⭐" [showClear]="true">
+                                    <ng-template let-option pTemplate="item">
+                                        <span>{{ option.label }}</span>
+                                    </ng-template>
+                                </p-dropdown>
+                            </ng-template>
+                        </p-columnFilter>
+                    </th>
                     <th style="min-width: 40%; max-width: 40%;">
                         <p-columnFilter style="width: 100%;" field="destinationDescription" matchMode="equals" [showMenu]="false">
                             <ng-template pTemplate="filter" let-value let-filter="filterCallback">
@@ -39,11 +49,11 @@
                             </ng-template>
                         </p-columnFilter>
                     </th>
-                    <th style="min-width: 10%; max-width: 10%;"><input data-cy="filter-max-passengers" type="text" class="p-inputtext center" (input)="table.filter($event.target.value, 'maxPassengers', 'contains')" [value]="$any(table).filters['maxPassengers']?.value"></th>
+                    <th style="min-width: 10%; max-width: 10%;"><input data-cy="filter-max-pax" type="text" class="p-inputtext center" (input)="table.filter($event.target.value, 'maxPax', 'contains')" [value]="$any(table).filters['maxPax']?.value"></th>
                 </tr>
             </ng-template>
             <ng-template pTemplate="body" let-rowData>
-                <tr data-cy="row" [pSelectableRow]="rowData" (dblclick)="onEditRecord(rowData.id)">
+                <tr data-cy="row" [pSelectableRow]="rowData" (dblclick)="editRecord(rowData.id)">
                     <td [ngClass]="rowData.isActive ? 'is-active': 'is-not-active'" style="min-width: 10%; max-width: 10%; justify-content: center;">
                         <span *ngIf="rowData.isActive" class="is-active material-icons-outlined">check_circle</span>
                         <span *ngIf="!rowData.isActive" class="is-not-active material-icons-outlined">highlight_off</span>
@@ -51,15 +61,25 @@
                     <td style="min-width: 10%; max-width: 10%; justify-content: center;">{{ rowData.formattedDate }}</td>
                     <td style="min-width: 40%; max-width: 40%;">{{ rowData.destinationDescription }}</td>
                     <td style="min-width: 30%; max-width: 30%;">{{ rowData.portDescription }}</td>
-                    <td style="min-width: 10%; max-width: 10%; justify-content: center;">{{ rowData.maxPassengers }}</td>
+                    <td style="min-width: 10%; max-width: 10%; justify-content: center;">{{ rowData.maxPax }}</td>
                 </tr>
             </ng-template>
         </p-table>
     </div>
 
     <div id="footer">
+        <div id="filters">
+            <div class="pill">
+                <img [src]="getIcon('total')">
+                <div class="number description">{{ records.length }}</div>
+            </div>
+            <div class="pill">
+                <img [src]="getIcon('filter')">
+                <div class="number description">{{ recordsFiltered.length }}</div>
+            </div>
+        </div>
         <div class="button-group">
-            <button data-cy="new" mat-flat-button class="primary" id="new" (click)="onNewRecord()">{{ getLabel("newButton") }}</button>
+            <button data-cy="new" mat-flat-button class="primary" id="new" (click)="newRecord()">{{ getLabel("newButton") }}</button>
         </div>
     </div>
 

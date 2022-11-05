@@ -1139,7 +1139,7 @@
                 "description": "Kalendářní interval"
             },
             {
-                "id": "maxPassengers",
+                "id": "maxPax",
                 "description": "Maximální počet cestujících"
             },
             {
@@ -2036,8 +2036,8 @@
                 "description": "Přístav"
             },
             {
-                "id": "headerMaxPassengers",
-                "description": "Cestující"
+                "id": "headerMaxPax",
+                "description": "Max Pax"
             },
             {
                 "id": "newButton",
@@ -2065,7 +2065,7 @@
                 "description": "Přístav"
             },
             {
-                "id": "maxPassengers",
+                "id": "maxPax",
                 "description": "Maximální počet cestujících"
             },
             {

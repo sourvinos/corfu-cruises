@@ -1139,7 +1139,7 @@
                 "description": "Kalenderintervall"
             },
             {
-                "id": "maxPassengers",
+                "id": "maxPax",
                 "description": "Maximale Anzahl von Passagieren"
             },
             {
@@ -2036,8 +2036,8 @@
                 "description": "Hafen"
             },
             {
-                "id": "headerMaxPassengers",
-                "description": "Passagiere"
+                "id": "headerMaxPax",
+                "description": "Max Pax"
             },
             {
                 "id": "newButton",
@@ -2065,7 +2065,7 @@
                 "description": "Hafen"
             },
             {
-                "id": "maxPassengers",
+                "id": "maxPax",
                 "description": "Maximale Anzahl von Passagieren"
             },
             {

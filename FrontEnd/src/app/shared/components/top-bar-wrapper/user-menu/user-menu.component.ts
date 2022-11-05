@@ -89,7 +89,6 @@ export class UserMenuComponent {
 
     private getUserId(): void {
         this.userId = ConnectedUser.id
-        console.log(this.userId)
     }
 
     //#endregion

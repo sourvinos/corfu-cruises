@@ -6,7 +6,7 @@ export class ScheduleWriteVM {
         public destinationId: number,
         public portId: number,
         public date: string,
-        public maxPassengers: number,
+        public maxPax: number,
         public departureTime: string,
         public isActive: boolean
 
