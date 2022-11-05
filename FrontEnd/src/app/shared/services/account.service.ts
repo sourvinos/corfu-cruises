@@ -47,6 +47,49 @@ export class AccountService extends HttpDataService {
         return this.http.post<any>(environment.apiUrl + '/account/changePassword/', formData)
     }
 
+    public clearStoredVariables(): void {
+        this.localStorageService.deleteItems([
+            // Auth
+            { 'item': 'expiration', 'when': 'always' },
+            { 'item': 'jwt', 'when': 'always' },
+            { 'item': 'loginStatus', 'when': 'always' },
+            { 'item': 'refreshToken', 'when': 'always' },
+            { 'item': 'returnUrl', 'when': 'always' },
+            // Reservations
+            { 'item': 'date', 'when': 'always' },
+            // Criteria
+            { 'item': 'embarkation-criteria', 'when': 'production' },
+            { 'item': 'invoicing-criteria', 'when': 'production' },
+            { 'item': 'manifest-criteria', 'when': 'production' },
+            // Table filters
+            { 'item': 'coachRoute-list', 'when': 'always' },
+            { 'item': 'customer-list', 'when': 'always' },
+            { 'item': 'destination-list', 'when': 'always' },
+            { 'item': 'driver-list', 'when': 'always' },
+            { 'item': 'gender-list', 'when': 'always' },
+            { 'item': 'pickupPoint-list', 'when': 'always' },
+            { 'item': 'port-list', 'when': 'always' },
+            { 'item': 'registrar-list', 'when': 'always' },
+            { 'item': 'schedule-list', 'when': 'always' },
+            { 'item': 'ship-list', 'when': 'always' },
+            { 'item': 'shipCrew-list', 'when': 'always' },
+            { 'item': 'shipOwner-list', 'when': 'always' },
+            { 'item': 'shipRoute-list', 'when': 'always' },
+            { 'item': 'user-list', 'when': 'always' },
+            // Tables
+            { 'item': 'coachRoutes', 'when': 'always' },
+            { 'item': 'customers', 'when': 'always' },
+            { 'item': 'destinations', 'when': 'always' },
+            { 'item': 'drivers', 'when': 'always' },
+            { 'item': 'genders', 'when': 'always' },
+            { 'item': 'nationalities', 'when': 'always' },
+            { 'item': 'pickupPoints', 'when': 'always' },
+            { 'item': 'ports', 'when': 'always' },
+            { 'item': 'shipOwners', 'when': 'always' },
+            { 'item': 'ships', 'when': 'always' }
+        ])
+    }
+
     public forgotPassword(formData: any): Observable<any> {
         return this.http.post<any>(this.urlForgotPassword, formData)
     }
@@ -59,7 +102,7 @@ export class AccountService extends HttpDataService {
             map(response => {
                 if (response.response.token) {
                     this.setLoginStatus(true)
-                    this.populateLocalStorage(response.response)
+                    this.setAuthSettings(response.response)
                 }
                 return <any>response
             })
@@ -72,7 +115,7 @@ export class AccountService extends HttpDataService {
         return this.http.post<any>(this.urlToken, { language, userName, password, grantType }).pipe(map(response => {
             this.setLoginStatus(true)
             this.setUserData(response)
-            this.populateLocalStorage(response)
+            this.setAuthSettings(response)
             this.populateStorageFromAPI()
             this.refreshMenus()
         }))
@@ -80,7 +123,6 @@ export class AccountService extends HttpDataService {
 
     public logout(): void {
         this.setLoginStatus(false)
-        this.clearStoredVariables()
         this.refreshMenus()
         this.navigateToLogin()
     }
@@ -107,20 +149,6 @@ export class AccountService extends HttpDataService {
         return false
     }
 
-    private clearStoredVariables(): void {
-        this.localStorageService.deleteItems([
-            { 'item': 'date', 'when': 'always' },
-            { 'item': 'expiration', 'when': 'always' },
-            { 'item': 'jwt', 'when': 'always' },
-            { 'item': 'loginStatus', 'when': 'always' },
-            { 'item': 'refreshToken', 'when': 'always' },
-            { 'item': 'refNo', 'when': 'always' },
-            { 'item': 'returnUrl', 'when': 'always' },
-            { 'item': 'embarkation-criteria', 'when': 'production' },
-            { 'item': 'invoicing-criteria', 'when': 'production' },
-        ])
-    }
-
     private navigateToLogin(): void {
         this.ngZone.run(() => {
             this.router.navigate(['/login'])
@@ -131,7 +159,7 @@ export class AccountService extends HttpDataService {
         this.interactionService.updateMenus()
     }
 
-    private populateLocalStorage(response: any): void {
+    private setAuthSettings(response: any): void {
         localStorage.setItem('expiration', response.expiration)
         localStorage.setItem('jwt', response.token)
         localStorage.setItem('loginStatus', '1')
@@ -171,6 +199,5 @@ export class AccountService extends HttpDataService {
     }
 
     //#endregion
-
 
 }

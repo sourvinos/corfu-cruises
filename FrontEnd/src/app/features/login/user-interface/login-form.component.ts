@@ -87,17 +87,7 @@ export class LoginFormComponent {
     }
 
     private clearStoredVariables(): void {
-        this.localStorageService.deleteItems([
-            { 'item': 'date', 'when': 'always' },
-            { 'item': 'embarkation-criteria', 'when': 'production' },
-            { 'item': 'expiration', 'when': 'always' },
-            { 'item': 'invocing-criteria', 'when': 'production' },
-            { 'item': 'jwt', 'when': 'always' },
-            { 'item': 'loginStatus', 'when': 'always' },
-            { 'item': 'manifest-criteria', 'when': 'production' },
-            { 'item': 'refreshToken', 'when': 'always' },
-            { 'item': 'returnUrl', 'when': 'always' },
-        ])
+        this.accountService.clearStoredVariables()
     }
 
     private focusOnField(field: string): void {
