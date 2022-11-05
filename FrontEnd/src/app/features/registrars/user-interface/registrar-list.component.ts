@@ -2,14 +2,13 @@ import { ActivatedRoute, Router } from '@angular/router'
 import { Component } from '@angular/core'
 import { Subject } from 'rxjs'
 // Custom
-import { ButtonClickService } from 'src/app/shared/services/button-click.service'
 import { HelperService } from 'src/app/shared/services/helper.service'
-import { KeyboardShortcuts, Unlisten } from 'src/app/shared/services/keyboard-shortcuts.service'
 import { ListResolved } from 'src/app/shared/classes/list-resolved'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
 import { ModalActionResultService } from 'src/app/shared/services/modal-action-result.service'
-import { RegistrarService } from '../classes/services/registrar.service'
+import { RegistrarListVM } from '../classes/view-models/registrar-list-vm'
+import { environment } from 'src/environments/environment'
 
 @Component({
     selector: 'registrar-list',
@@ -21,33 +20,31 @@ export class RegistrarListComponent {
 
     //#region variables
 
-    private unlisten: Unlisten
     private unsubscribe = new Subject<void>()
     private url = 'registrars'
     public feature = 'registrarList'
+    public featureIcon = 'registrars'
     public icon = 'home'
     public parentUrl = '/'
+    public records: RegistrarListVM[] = []
+    public recordsFiltered: RegistrarListVM[] = []
 
-    public records = []
+    public dropdownShips = []
 
     //#endregion
 
-    constructor(private activatedRoute: ActivatedRoute, private buttonClickService: ButtonClickService, private helperService: HelperService, private keyboardShortcutsService: KeyboardShortcuts, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private modalActionResultService: ModalActionResultService, private registrarService: RegistrarService, private router: Router) { }
+    constructor(private activatedRoute: ActivatedRoute, private helperService: HelperService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private modalActionResultService: ModalActionResultService, private router: Router) { }
 
     //#region lifecycle hooks
 
     ngOnInit(): void {
         this.loadRecords()
-        this.addShortcuts()
-    }
-
-    ngAfterViewInit(): void {
-        this.changeScrollWheelSpeed()
+        this.calculateTableHeight()
+        this.populateDropdownFilters()
     }
 
     ngOnDestroy(): void {
         this.cleanup()
-        this.unlisten()
     }
 
     //#endregion
@@ -55,14 +52,15 @@ export class RegistrarListComponent {
     //#region public methods
 
     public editRecord(id: number): void {
-        this.registrarService.getSingle(id).subscribe({
-            next: () => {
-                this.router.navigate([this.url, id])
-            },
-            error: (errorFromInterceptor) => {
-                this.modalActionResultService.open(this.messageSnackbarService.filterResponse(errorFromInterceptor), 'error', ['ok'])
-            }
-        })
+        this.router.navigate([this.url, id])
+    }
+
+    public filterRecords(event: { filteredValue: any[] }) {
+        this.recordsFiltered = event.filteredValue
+    }
+
+    public getIcon(filename: string): string {
+        return environment.criteriaIconDirectory + filename + '.svg'
     }
 
     public getLabel(id: string): string {
@@ -70,29 +68,17 @@ export class RegistrarListComponent {
     }
 
     public newRecord(): void {
-        this.router.navigate([this.url + '/new'], { queryParams: { returnUrl: this.url } })
+        this.router.navigate([this.url + '/new'])
     }
 
     //#endregion
 
     //#region private methods
 
-    private addShortcuts(): void {
-        this.unlisten = this.keyboardShortcutsService.listen({
-            'Escape': () => {
-                this.goBack()
-            },
-            'Alt.N': (event: KeyboardEvent) => {
-                this.buttonClickService.clickOnButton(event, 'new')
-            }
-        }, {
-            priority: 0,
-            inputs: true
-        })
-    }
-
-    private changeScrollWheelSpeed(): void {
-        this.helperService.changeScrollWheelSpeed(document.querySelector<HTMLElement>('.cdk-virtual-scroll-viewport'))
+    private calculateTableHeight(): void {
+        setTimeout(() => {
+            document.getElementById('table-wrapper').style.height = this.helperService.calculateTableWrapperHeight('top-bar', 'header', 'footer')
+        }, 500)
     }
 
     private cleanup(): void {
@@ -109,6 +95,7 @@ export class RegistrarListComponent {
             const listResolved: ListResolved = this.activatedRoute.snapshot.data[this.feature]
             if (listResolved.error == null) {
                 this.records = listResolved.list
+                this.recordsFiltered = listResolved.list
                 resolve(this.records)
             } else {
                 this.goBack()
@@ -116,6 +103,10 @@ export class RegistrarListComponent {
             }
         })
         return promise
+    }
+
+    private populateDropdownFilters() {
+        this.dropdownShips = this.helperService.getDistinctRecords(this.records, 'shipDescription')
     }
 
     //#endregion

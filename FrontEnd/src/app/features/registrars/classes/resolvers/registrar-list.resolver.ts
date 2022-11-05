@@ -7,16 +7,15 @@ import { RegistrarService } from '../services/registrar.service'
 
 @Injectable({ providedIn: 'root' })
 
-export class RegistrarListResolver  {
+export class RegistrarListResolver {
 
     constructor(private registrarService: RegistrarService) { }
 
     resolve(): Observable<ListResolved> {
-        return this.registrarService.getAll()
-            .pipe(
-                map((registrarList) => new ListResolved(registrarList)),
-                catchError((err: any) => of(new ListResolved(null, err)))
-            )
+        return this.registrarService.getAll().pipe(
+            map((registrarList) => new ListResolved(registrarList)),
+            catchError((err: any) => of(new ListResolved(null, err)))
+        )
     }
 
 }
