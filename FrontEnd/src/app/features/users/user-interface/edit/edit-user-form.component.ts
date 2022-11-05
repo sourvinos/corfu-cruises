@@ -34,6 +34,7 @@ export class EditUserFormComponent {
     private record: UserReadDto
     private unsubscribe = new Subject<void>()
     public feature = 'editUserForm'
+    public featureIcon = 'users'
     public form: FormGroup
     public icon = ''
     public input: InputTabStopDirective

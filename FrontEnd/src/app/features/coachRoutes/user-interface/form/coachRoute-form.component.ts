@@ -32,6 +32,7 @@ export class CoachRouteFormComponent {
     private record: CoachRouteReadDto
     private unsubscribe = new Subject<void>()
     public feature = 'coachRouteForm'
+    public featureIcon = 'coachRoutes'
     public form: FormGroup
     public icon = 'arrow_back'
     public input: InputTabStopDirective

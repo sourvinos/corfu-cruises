@@ -32,6 +32,7 @@ export class PickupPointFormComponent {
     private record: PickupPointReadDto
     private unsubscribe = new Subject<void>()
     public feature = 'pickupPointForm'
+    public featureIcon = 'pickupPoints'
     public form: FormGroup
     public icon = 'arrow_back'
     public input: InputTabStopDirective

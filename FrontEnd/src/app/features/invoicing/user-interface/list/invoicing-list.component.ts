@@ -28,6 +28,7 @@ export class InvoicingListComponent {
     private unlisten: Unlisten
     private unsubscribe = new Subject<void>()
     public feature = 'invoicingList'
+    public featureIcon = ''
     public icon = 'arrow_back'
     public parentUrl = '/invoicing'
 

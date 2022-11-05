@@ -31,6 +31,7 @@ export class NewUserFormComponent {
     private unlisten: Unlisten
     private unsubscribe = new Subject<void>()
     public feature = 'newUserForm'
+    public featureIcon = 'users'
     public form: FormGroup
     public icon = 'arrow_back'
     public input: InputTabStopDirective

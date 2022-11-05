@@ -28,6 +28,7 @@ export class GenderFormComponent {
     private record: GenderReadDto
     private unsubscribe = new Subject<void>()
     public feature = 'genderForm'
+    public featureIcon = 'genders'
     public form: FormGroup
     public icon = 'arrow_back'
     public input: InputTabStopDirective

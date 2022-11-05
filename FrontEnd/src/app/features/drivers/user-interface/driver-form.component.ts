@@ -28,6 +28,7 @@ export class DriverFormComponent {
     private record: DriverReadDto
     private unsubscribe = new Subject<void>()
     public feature = 'driverForm'
+    public featureIcon = 'drivers'
     public form: FormGroup
     public icon = 'arrow_back'
     public input: InputTabStopDirective

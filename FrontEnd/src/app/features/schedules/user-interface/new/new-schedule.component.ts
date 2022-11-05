@@ -41,6 +41,7 @@ export class NewScheduleComponent {
     private unlisten: Unlisten
     private unsubscribe = new Subject<void>()
     public feature = 'scheduleCreateForm'
+    public featureIcon = 'schedule'
     public form: FormGroup
     public icon = 'arrow_back'
     public input: InputTabStopDirective

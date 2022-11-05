@@ -23,6 +23,7 @@ export class AvailabilityComponent {
     private unlisten: Unlisten
     private unsubscribe = new Subject<void>()
     public feature = 'availability'
+    public featureIcon = 'availabilities'
     public icon = 'home'
     public parentUrl = '/'
 

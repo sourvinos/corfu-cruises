@@ -16,7 +16,7 @@ import { environment } from 'src/environments/environment'
 @Component({
     selector: 'login-form',
     templateUrl: './login-form.component.html',
-    styleUrls: ['../../../../assets/styles/forms.css', '../../../shared/styles/login-forgot-password-form.css', './login-form.component.css']
+    styleUrls: ['../../../../assets/styles/forms.css', '../../../shared/styles/login-forgot-reset-password.css', './login-form.component.css']
 })
 
 export class LoginFormComponent {

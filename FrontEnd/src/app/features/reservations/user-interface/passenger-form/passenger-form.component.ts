@@ -36,6 +36,7 @@ export class PassengerFormComponent {
     private unlisten: Unlisten
     private unsubscribe = new Subject<void>()
     public feature = 'passengerForm'
+    public featureIcon = ''
     public form: FormGroup
     public icon = 'arrow_back'
     public input: InputTabStopDirective

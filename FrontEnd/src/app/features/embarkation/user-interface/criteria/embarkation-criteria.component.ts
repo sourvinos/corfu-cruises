@@ -38,6 +38,7 @@ export class EmbarkationCriteriaComponent {
     private unlisten: Unlisten
     private unsubscribe = new Subject<void>()
     public feature = 'embarkationCriteria'
+    public featureIcon = 'embarkation'
     public form: FormGroup
     public icon = 'home'
     public input: InputTabStopDirective

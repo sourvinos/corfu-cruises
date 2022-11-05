@@ -28,6 +28,7 @@ export class ShipOwnerFormComponent {
     private record: ShipOwnerReadDto
     private unsubscribe = new Subject<void>()
     public feature = 'shipOwnerForm'
+    public featureIcon = 'shipOwners'
     public form: FormGroup
     public icon = 'arrow_back'
     public input: InputTabStopDirective

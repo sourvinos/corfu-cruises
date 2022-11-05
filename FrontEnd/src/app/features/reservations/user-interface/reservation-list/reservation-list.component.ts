@@ -46,6 +46,7 @@ export class ReservationListComponent {
     public icon = 'arrow_back'
     private url = ''
     public feature = 'reservationList'
+    public featureIcon = 'reservation'
     public overbookedDestinations: any
 
     public isAdmin: boolean

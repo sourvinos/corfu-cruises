@@ -37,6 +37,7 @@ export class InvoicingCriteriaComponent {
     private unlisten: Unlisten
     private unsubscribe = new Subject<void>()
     public feature = 'invoicingCriteria'
+    public featureIcon = ''
     public form: FormGroup
     public icon = 'home'
     public input: InputTabStopDirective

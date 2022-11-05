@@ -19,7 +19,7 @@ import { environment } from 'src/environments/environment'
 @Component({
     selector: 'forgot-password-form',
     templateUrl: './forgot-password-form.component.html',
-    styleUrls: ['../../../../../assets/styles/forms.css', '../../../../shared/styles/login-forgot-password-form.css']
+    styleUrls: ['../../../../../assets/styles/forms.css', '../../../../shared/styles/login-forgot-reset-password.css']
 })
 
 export class ForgotPasswordFormComponent {
@@ -29,6 +29,7 @@ export class ForgotPasswordFormComponent {
     private unlisten: Unlisten
     private unsubscribe = new Subject<void>()
     public feature = 'forgotPasswordForm'
+    public featureIcon = 'password'
     public form: FormGroup
     public icon = 'arrow_back'
     public input: InputTabStopDirective

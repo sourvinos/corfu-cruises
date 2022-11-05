@@ -19,7 +19,7 @@ import { SnackbarService } from 'src/app/shared/services/snackbar.service'
 @Component({
     selector: 'reset-password-form',
     templateUrl: './reset-password-form.component.html',
-    styleUrls: ['../../../../../assets/styles/forms.css', './reset-password-form.component.css']
+    styleUrls: ['../../../../../assets/styles/forms.css', '../../../../shared/styles/login-forgot-reset-password.css', '../../../../shared/styles/login-forgot-reset-password-logo.css']
 })
 
 export class ResetPasswordFormComponent {
@@ -29,6 +29,7 @@ export class ResetPasswordFormComponent {
     private unlisten: Unlisten
     private unsubscribe = new Subject<void>()
     public feature = 'resetPasswordForm'
+    public featureIcon = 'password'
     public form: FormGroup
     public icon = null
     public input: InputTabStopDirective

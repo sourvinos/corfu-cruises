@@ -24,6 +24,7 @@ export class CalendarComponent {
     private unlisten: Unlisten
     private unsubscribe = new Subject<void>()
     public feature = 'calendarReservations'
+    public featureIcon = ''
     public icon = 'home'
     public parentUrl = '/'
 

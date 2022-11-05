@@ -29,6 +29,7 @@ export class ShipRouteFormComponent {
     private record: ShipRouteReadDto
     private unsubscribe = new Subject<void>()
     public feature = 'shipRouteForm'
+    public featureIcon = 'shipRoutes'
     public form: FormGroup
     public icon = 'arrow_back'
     public input: InputTabStopDirective

@@ -37,6 +37,7 @@ export class EmbarkationListComponent {
     private unsubscribe = new Subject<void>()
     private url = 'embarkation'
     public feature = 'embarkationList'
+    public featureIcon = 'embarkation'
     public icon = 'arrow_back'
     public parentUrl = '/embarkation'
 

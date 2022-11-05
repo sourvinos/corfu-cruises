@@ -48,6 +48,7 @@ export class ReservationFormComponent {
     private reservation: ReservationReadDto
     private unsubscribe = new Subject<void>()
     public feature = 'reservationForm'
+    public featureIcon = 'reservation'
     public form: FormGroup
     public icon = 'arrow_back'
     public input: InputTabStopDirective
@@ -74,7 +75,7 @@ export class ReservationFormComponent {
 
     //#endregion
 
-    constructor( private activatedRoute: ActivatedRoute, private buttonClickService: ButtonClickService, private dateAdapter: DateAdapter<any>, private dialogService: DialogService, private emojiService: EmojiService, private formBuilder: FormBuilder, private helperService: HelperService, private interactionService: InteractionService, private keyboardShortcutsService: KeyboardShortcuts, private localStorageService: LocalStorageService, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private modalActionResultService: ModalActionResultService, private okIconService: OkIconService, private reservationService: ReservationService, private router: Router, private userService: UserService, private voucherService: VoucherService, private warningIconService: WarningIconService) {
+    constructor(private activatedRoute: ActivatedRoute, private buttonClickService: ButtonClickService, private dateAdapter: DateAdapter<any>, private dialogService: DialogService, private emojiService: EmojiService, private formBuilder: FormBuilder, private helperService: HelperService, private interactionService: InteractionService, private keyboardShortcutsService: KeyboardShortcuts, private localStorageService: LocalStorageService, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private modalActionResultService: ModalActionResultService, private okIconService: OkIconService, private reservationService: ReservationService, private router: Router, private userService: UserService, private voucherService: VoucherService, private warningIconService: WarningIconService) {
         this.activatedRoute.params.subscribe(x => {
             this.initForm()
             if (x.id) {

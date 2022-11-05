@@ -32,6 +32,7 @@ export class RegistrarFormComponent {
     private record: RegistrarReadDto
     private unsubscribe = new Subject<void>()
     public feature = 'registrarForm'
+    public featureIcon = 'registrars'
     public form: FormGroup
     public icon = 'arrow_back'
     public input: InputTabStopDirective

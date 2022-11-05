@@ -30,6 +30,7 @@ export class ManifestListComponent {
     private unsubscribe = new Subject<void>()
     private url = 'manifest'
     public feature = 'manifestList'
+    public featureIcon = ''
     public icon = 'arrow_back'
     public parentUrl = '/manifest'
 

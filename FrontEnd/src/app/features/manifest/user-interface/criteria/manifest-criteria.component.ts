@@ -40,6 +40,7 @@ export class ManifestCriteriaComponent {
     private unlisten: Unlisten
     private unsubscribe = new Subject<void>()
     public feature = 'manifestCriteria'
+    public featureIcon = ''
     public form: FormGroup
     public icon = 'home'
     public input: InputTabStopDirective

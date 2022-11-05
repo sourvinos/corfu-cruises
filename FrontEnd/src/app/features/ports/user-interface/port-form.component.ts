@@ -28,6 +28,7 @@ export class PortFormComponent {
     private record: PortReadDto
     private unsubscribe = new Subject<void>()
     public feature = 'portForm'
+    public featureIcon = 'ports'
     public form: FormGroup
     public icon = 'arrow_back'
     public input: InputTabStopDirective

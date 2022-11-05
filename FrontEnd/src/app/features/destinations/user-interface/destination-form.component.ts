@@ -28,6 +28,7 @@ export class DestinationFormComponent {
     private record: DestinationReadDto
     private unsubscribe = new Subject<void>()
     public feature = 'destinationForm'
+    public featureIcon = 'destinations'
     public form: FormGroup
     public icon = 'arrow_back'
     public input: InputTabStopDirective

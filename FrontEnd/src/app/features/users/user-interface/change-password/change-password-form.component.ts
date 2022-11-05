@@ -28,6 +28,7 @@ export class ChangePasswordFormComponent {
     private unlisten: Unlisten
     private unsubscribe = new Subject<void>()
     public feature = 'changePasswordForm'
+    public featureIcon = 'password'
     public form: FormGroup
     public icon = 'arrow_back'
     public input: InputTabStopDirective
