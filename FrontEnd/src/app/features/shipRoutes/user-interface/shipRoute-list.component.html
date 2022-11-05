@@ -1,11 +1,11 @@
 <div id="list">
 
     <div id="header">
-        <home-button-and-title [feature]="feature" [icon]="icon" [parentUrl]="parentUrl"></home-button-and-title>
+        <home-button-and-title [feature]="feature" [featureIcon]="featureIcon" [icon]="icon" [parentUrl]="parentUrl"></home-button-and-title>
     </div>
 
     <div id="table-wrapper">
-        <p-table #table [autoLayout]="false" [scrollable]="true" [value]="records" [virtualRowHeight]="33" [virtualScroll]="false" dataKey="id" selectionMode="single" scrollHeight="flex" sortMode="multiple">
+        <p-table #table (onFilter)="filterRecords($event)" [autoLayout]="false" [scrollable]="true" [value]="records" [virtualRowHeight]="33" [virtualScroll]="false" dataKey="id" selectionMode="single" scrollHeight="flex" sortMode="multiple">
             <ng-template pTemplate="header">
                 <tr>
                     <th data-cy="column" style="min-width: 10%; max-width: 10%;" pSortableColumn="isActive">{{ getLabel("headerIsActive") }}<p-sortIcon field="isActive"></p-sortIcon></th>
@@ -14,9 +14,7 @@
                     <th data-cy="column" style="min-width: 30%; max-width: 30%;" pSortableColumn="toPort">{{ getLabel("headerToPort") }}<p-sortIcon field="toPort"></p-sortIcon></th>
                 </tr>
                 <tr>
-                    <th style="min-width: 10%; max-width: 10%;">
-                        <p-columnFilter data-cy="filter-active" type="boolean" field="isActive"></p-columnFilter>
-                    </th>
+                    <th style="min-width: 10%; max-width: 10%;"><p-columnFilter data-cy="filter-active" type="boolean" field="isActive"></p-columnFilter></th>
                     <th style="min-width: 30%; max-width: 30%;"><input data-cy="filter-from-port" type="text" class="p-inputtext" (input)="table.filter($event.target.value, 'fromPort', 'contains')" [value]="$any(table).filters['fromPort']?.value"></th>
                     <th style="min-width: 30%; max-width: 30%;"><input data-cy="filter-via-port" type="text" class="p-inputtext" (input)="table.filter($event.target.value, 'viaPort', 'contains')" [value]="$any(table).filters['viaPort']?.value"></th>
                     <th style="min-width: 30%; max-width: 30%;"><input data-cy="filter-to-port" type="text" class="p-inputtext" (input)="table.filter($event.target.value, 'toPort', 'contains')" [value]="$any(table).filters['toPort']?.value"></th>
@@ -37,6 +35,16 @@
     </div>
 
     <div id="footer">
+        <div id="filters">
+            <div class="pill">
+                <img [src]="getIcon('total')">
+                <div class="number description">{{ records.length }}</div>
+            </div>
+            <div class="pill">
+                <img [src]="getIcon('filter')">
+                <div class="number description">{{ recordsFiltered.length }}</div>
+            </div>
+        </div>
         <div class="button-group">
             <button data-cy="new" mat-flat-button class="primary" id="new" (click)="newRecord()">{{ getLabel("newButton") }}</button>
         </div>
