@@ -10,13 +10,13 @@ import { environment } from 'src/environments/environment'
 export class AvailabilityService extends HttpDataService {
 
     constructor(httpClient: HttpClient) {
-        super(httpClient, environment.apiUrl + '/availability')
+        super(httpClient, environment.apiUrl + '/schedules')
     }
 
     //#region public methods
 
     public async getForCalendar(fromDate: string, toDate: string): Promise<any> {
-        return await firstValueFrom(this.http.get<any>(this.url + '/from/' + fromDate + '/to/' + toDate))
+        return await firstValueFrom(this.http.get<any>(this.url + '/fromDate/' + fromDate + '/toDate/' + toDate))
     }
 
     //#endregion

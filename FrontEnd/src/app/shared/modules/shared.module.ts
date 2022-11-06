@@ -4,7 +4,6 @@ import { NgModule } from '@angular/core'
 import { RouterModule } from '@angular/router'
 import { ZXingScannerModule } from '@zxing/ngx-scanner'
 // Custom
-import { AvailabilityComponent } from 'src/app/features/availability/user-interface/availability.component'
 import { DialogAlertComponent } from '../components/dialog-alert/dialog-alert.component'
 import { DisableToogleDirective } from '../directives/mat-slide-toggle.directive'
 import { HomeButtonAndTitleComponent } from '../components/home-button-and-title/home-button-and-title.component'
@@ -22,7 +21,6 @@ import { ThemeMenuComponent } from './../components/top-bar-wrapper/theme-menu/t
 
 @NgModule({
     declarations: [
-        AvailabilityComponent,
         DialogAlertComponent,
         DisableToogleDirective,
         HomeButtonAndTitleComponent,

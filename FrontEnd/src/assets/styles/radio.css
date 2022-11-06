@@ -15,5 +15,7 @@
 }
 
 .mat-radio-label-content {
+    display: flex !important;
+    flex-direction: row;
     width: 100%;
 }

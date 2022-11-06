@@ -28,6 +28,7 @@ namespace API.Features.Schedules {
                         Ports = x.GroupBy(x => new { x.PortId, x.Port.Description, x.Port.Abbreviation, x.MaxPax, x.Port.StopOrder }).OrderBy(x => x.Key.StopOrder).Select(x => new PortCalendarVM {
                             Id = x.Key.PortId,
                             Description = x.Key.Description,
+                            Abbreviation = x.Key.Abbreviation,
                             MaxPax = x.Key.MaxPax,
                         })
                     })
@@ -71,6 +72,17 @@ namespace API.Features.Schedules {
                         port.AccumulatedPax = accumulatedPax;
                     }
                     accumulatedPax = 0;
+                }
+            }
+            return schedules;
+        }
+
+        public IEnumerable<AvailabilityCalendarGroupVM> CalculateAccumulatedFreePaxPerPort(IEnumerable<AvailabilityCalendarGroupVM> schedules) {
+            foreach (var schedule in schedules) {
+                foreach (var destination in schedule.Destinations) {
+                    foreach (var port in destination.Ports) {
+                        port.AccumulatedFreePax = port.AccumulatedMaxPax - port.AccumulatedPax;
+                    }
                 }
             }
             return schedules;

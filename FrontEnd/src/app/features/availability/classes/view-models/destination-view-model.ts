@@ -4,6 +4,7 @@ export class DestinationViewModel {
 
     id: number
     description: string
+    abbreviation: string
     passengerCount: number
     availableSeats: number
 

@@ -150,10 +150,14 @@
     color: var(--color-c);
     display: flex;
     flex-direction: row;
+    padding: 0;
+}
+.port-description {
+    padding-right: 1rem;
 }
 
 .port-available-seats {
     color: var(--color-c);
     font-family: monospace;
-    padding-left: 0.5rem;
+    padding-right: 1rem;
 }

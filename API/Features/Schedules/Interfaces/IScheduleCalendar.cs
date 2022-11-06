@@ -9,6 +9,7 @@ namespace API.Features.Schedules {
         IEnumerable<AvailabilityCalendarGroupVM> CalculateAccumulatedMaxPaxPerPort(IEnumerable<AvailabilityCalendarGroupVM> schedules);
         IEnumerable<AvailabilityCalendarGroupVM> GetPaxPerPort(IEnumerable<AvailabilityCalendarGroupVM> schedule);
         IEnumerable<AvailabilityCalendarGroupVM> CalculateAccumulatedPaxPerPort(IEnumerable<AvailabilityCalendarGroupVM> schedules);
+        IEnumerable<AvailabilityCalendarGroupVM> CalculateAccumulatedFreePaxPerPort(IEnumerable<AvailabilityCalendarGroupVM> schedules);
 
     }
 

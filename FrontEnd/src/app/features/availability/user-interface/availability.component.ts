@@ -5,7 +5,6 @@ import { Subject } from 'rxjs'
 // Custom
 import { AvailabilityService } from '../classes/services/availability.service'
 import { DayViewModel } from '../classes/view-models/day-view-model'
-import { KeyboardShortcuts, Unlisten } from 'src/app/shared/services/keyboard-shortcuts.service'
 import { LocalStorageService } from 'src/app/shared/services/local-storage.service'
 import { MessageCalendarService } from 'src/app/shared/services/messages-calendar.service'
 import { MessageLabelService } from './../../../shared/services/messages-label.service'
@@ -20,10 +19,9 @@ export class AvailabilityComponent {
 
     // #region variables
 
-    private unlisten: Unlisten
     private unsubscribe = new Subject<void>()
     public feature = 'availability'
-    public featureIcon = 'availabilities'
+    public featureIcon = 'availability'
     public icon = 'home'
     public parentUrl = '/'
 
@@ -32,28 +30,26 @@ export class AvailabilityComponent {
     private startDate: any
     public days: DayViewModel[]
     public isLoading: boolean
-    public monthSelect: any[]
+    public selectedMonth: any[]
     public weekDays = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
 
     // #endregion 
 
-    constructor(private availabilityService: AvailabilityService, private keyboardShortcutsService: KeyboardShortcuts, private localStorageService: LocalStorageService, private messageCalendarService: MessageCalendarService, private messageLabelService: MessageLabelService, private router: Router) { }
+    constructor(private availabilityService: AvailabilityService, private localStorageService: LocalStorageService, private messageCalendarService: MessageCalendarService, private messageLabelService: MessageLabelService, private router: Router) { }
 
     //#region lifecycle hooks
 
     ngOnInit(): void {
-        this.getDaysFromDate(moment().month() + 1, moment().year())
+        this.getDaysForSelectedMonth(moment().month() + 1, moment().year())
         this.getAvailabilityForMonth().then(() => {
             this.updateCalendar()
             this.fixCalendarHeight()
         })
-        this.addShortcuts()
         this.clearStoredVariables()
     }
 
     ngOnDestroy(): void {
         this.cleanup()
-        this.unlisten()
     }
 
     //#endregion 
@@ -105,17 +101,6 @@ export class AvailabilityComponent {
 
     //#region private methods
 
-    private addShortcuts(): void {
-        this.unlisten = this.keyboardShortcutsService.listen({
-            'Escape': () => {
-                this.goBack()
-            }
-        }, {
-            priority: 0,
-            inputs: true
-        })
-    }
-
     private calculateWeekCount(year: number, month: number): number {
         const firstOfMonth = new Date(year, month - 1, 1)
         let day = firstOfMonth.getDay() || 6
@@ -163,7 +148,7 @@ export class AvailabilityComponent {
         return promise
     }
 
-    private getDaysFromDate(month: number, year: number): void {
+    private getDaysForSelectedMonth(month: number, year: number): void {
         this.startDate = utc(`${year}-${month}-01`, 'YYYY-MM-DD')
         this.days = []
         const endDate = this.startDate.clone().endOf('month')
@@ -182,7 +167,7 @@ export class AvailabilityComponent {
                 indexWeek: dayObject.isoWeekday()
             }
         })
-        this.monthSelect = arrayDays
+        this.selectedMonth = arrayDays
     }
 
     private goBack(): void {
@@ -192,10 +177,10 @@ export class AvailabilityComponent {
     private navigateToMonth(flag: number): void {
         if (flag < 0) {
             const prevDate = this.dateSelect.clone().subtract(1, 'month')
-            this.getDaysFromDate(prevDate.format('MM'), prevDate.format('YYYY'))
+            this.getDaysForSelectedMonth(prevDate.format('MM'), prevDate.format('YYYY'))
         } else {
             const nextDate = this.dateSelect.clone().add(1, 'month')
-            this.getDaysFromDate(nextDate.format('MM'), nextDate.format('YYYY'))
+            this.getDaysForSelectedMonth(nextDate.format('MM'), nextDate.format('YYYY'))
         }
     }
 

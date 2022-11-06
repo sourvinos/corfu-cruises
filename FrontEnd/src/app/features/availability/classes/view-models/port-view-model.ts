@@ -4,7 +4,7 @@ export class PortViewModel {
     abbreviation: string
     maxPassengers: number
     passengerCount: number
-    availableSeats: number
+    accumulatedFreePax: number
 
 }
 

@@ -11,6 +11,7 @@ namespace API.Features.Schedules {
         public int AccumulatedMaxPax { get; set; }
         public int Pax { get; set; }
         public int AccumulatedPax { get; set; }
+        public int AccumulatedFreePax { get; set; }
 
     }
 
