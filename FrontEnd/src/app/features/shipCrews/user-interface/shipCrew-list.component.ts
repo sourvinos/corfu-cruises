@@ -56,7 +56,7 @@ export class ShipCrewListComponent {
         this.router.navigate([this.url, id])
     }
 
-    public filterRecords(event: { filteredValue: any[] }) {
+    public filterRecords(event: { filteredValue: any[] }): void {
         this.recordsFiltered = event.filteredValue
     }
 

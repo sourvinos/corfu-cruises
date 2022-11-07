@@ -18,10 +18,12 @@
     ],
     "ignorePatterns": [
         "/cypress/**/*.*",
-        "/dist/**/*.*"
+        "/dist/**/*.*",
+        "/src/assets/fonts/*.*"
     ],
     "rules": {
         "@typescript-eslint/explicit-module-boundary-types": "off",
+        "@typescript-eslint/explicit-function-return-type": "warn",
         "@typescript-eslint/no-explicit-any": "off",
         "cypress/no-unnecessary-waiting": "off",
         "quotes": [

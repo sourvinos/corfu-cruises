@@ -40,10 +40,10 @@ export class HelperService {
     public changeScrollWheelSpeed(container: HTMLElement): any {
         if (container != null) {
             let scrollY = 0
-            const handleScrollReset = function () {
+            const handleScrollReset = function (): void {
                 scrollY = container.scrollTop
             }
-            const handleMouseWheel = function (e: any) {
+            const handleMouseWheel = function (e: any): void {
                 e.preventDefault()
                 scrollY += environment.scrollWheelSpeed * e.deltaY
                 if (scrollY < 0) {
@@ -104,7 +104,7 @@ export class HelperService {
         return (event.key == 'Enter' || event.key == 'ArrowUp' || event.key == 'ArrowDown' || event.key == 'ArrowRight' || event.key == 'ArrowLeft') ? true : false
     }
 
-    public formatISODateToLocale(date: string, showWeekday = false) {
+    public formatISODateToLocale(date: string, showWeekday = false): string {
         const parts = date.split('-')
         const rawDate = new Date(date)
         const dateWithLeadingZeros = this.addLeadingZerosToDateParts(new Intl.DateTimeFormat(this.localStorageService.getLanguage()).format(new Date(parseInt(parts[0]), parseInt(parts[1]) - 1, parseInt(parts[2]))))
@@ -185,7 +185,7 @@ export class HelperService {
         return parts[0] + seperator + parts[1] + seperator + parts[2]
     }
 
-    private getDateLocaleSeperator() {
+    private getDateLocaleSeperator(): string {
         switch (this.localStorageService.getLanguage()) {
             case 'cs-CZ': return '.'
             case 'de-DE': return '.'

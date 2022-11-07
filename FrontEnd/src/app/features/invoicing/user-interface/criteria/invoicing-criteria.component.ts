@@ -81,7 +81,7 @@ export class InvoicingCriteriaComponent {
         return subject ? subject.description : undefined
     }
 
-    public checkForEmptyAutoComplete(event: { target: { value: any } }) {
+    public checkForEmptyAutoComplete(event: { target: { value: any } }): void {
         if (event.target.value == '') this.isAutoCompleteDisabled = true
     }
 
@@ -91,7 +91,7 @@ export class InvoicingCriteriaComponent {
         this.navigateToList()
     }
 
-    public enableOrDisableAutoComplete(event: any) {
+    public enableOrDisableAutoComplete(event: any): void {
         this.isAutoCompleteDisabled = this.helperService.enableOrDisableAutoComplete(event)
     }
 
@@ -178,7 +178,7 @@ export class InvoicingCriteriaComponent {
             'shipId', this.form.value.ship.id], { relativeTo: this.activatedRoute })
     }
 
-    private populateDropdownFromLocalStorage(table: string, filteredTable: string, formField: string, modelProperty: string, includeWildCard: boolean) {
+    private populateDropdownFromLocalStorage(table: string, filteredTable: string, formField: string, modelProperty: string, includeWildCard: boolean): void {
         this[table] = JSON.parse(this.localStorageService.getItem(table))
         includeWildCard ? this[table].unshift({ 'id': 'all', 'description': '[⭐]' }) : null
         this[filteredTable] = this.form.get(formField).valueChanges.pipe(startWith(''), map(value => this.filterAutocomplete(table, modelProperty, value)))

@@ -87,11 +87,11 @@ export class EmbarkationCriteriaComponent {
         return subject ? subject.description : undefined
     }
 
-    public checkForEmptyAutoComplete(event: { target: { value: any } }) {
+    public checkForEmptyAutoComplete(event: { target: { value: any } }): void {
         if (event.target.value == '') this.isAutoCompleteDisabled = true
     }
 
-    public enableOrDisableAutoComplete(event: any) {
+    public enableOrDisableAutoComplete(event: any): void {
         this.isAutoCompleteDisabled = this.helperService.enableOrDisableAutoComplete(event)
     }
 

@@ -27,7 +27,7 @@ export class SearchByRefBoxComponent {
 
     //#region lifecycle hooks
 
-    ngOnInit() {
+    ngOnInit(): void {
         this.initForm()
     }
 
@@ -43,7 +43,7 @@ export class SearchByRefBoxComponent {
         return this.messageLabelService.getDescription(this.feature, id)
     }
 
-    public onSearchByRefNo() {
+    public onSearchByRefNo(): void {
         const refNo = this.form.value.searchByRefNo
         this.router.navigate(['reservations/byRefNo', refNo])
     }

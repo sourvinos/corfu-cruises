@@ -143,7 +143,7 @@ export class CalendarComponent {
         this.localStorageService.clearStoredPrimeTableFilters()
     }
 
-    private clearStoredVariables() {
+    private clearStoredVariables(): void {
         this.localStorageService.deleteItems([
             { 'item': 'date', 'when': 'always' },
             { 'item': 'refNo', 'when': 'always' },

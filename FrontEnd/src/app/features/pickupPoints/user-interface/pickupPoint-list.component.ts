@@ -60,7 +60,7 @@ export class PickupPointListComponent {
         this.pickupPointPdfService.createReport(this.recordsFiltered)
     }
 
-    public filterRecords(event: { filteredValue: any[] }) {
+    public filterRecords(event: { filteredValue: any[] }): void {
         this.recordsFiltered = event.filteredValue
     }
 
@@ -110,7 +110,7 @@ export class PickupPointListComponent {
         return promise
     }
 
-    private populateDropdownFilters() {
+    private populateDropdownFilters() : void {
         this.dropdownRoutes = this.helperService.getDistinctRecords(this.records, 'coachRouteAbbreviation')
     }
 

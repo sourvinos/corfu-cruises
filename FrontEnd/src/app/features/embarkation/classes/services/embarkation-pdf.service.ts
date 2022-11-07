@@ -54,7 +54,7 @@ export class EmbarkationPDFService {
             defaultStyle: {
                 font: 'PFHandbookPro',
             },
-            footer: (currentPage: { toString: () => string }, pageCount: string) => {
+            footer: (currentPage: { toString: () => string }, pageCount: string): void => {
                 return this.setFooter(currentPage, pageCount)
             }
         }

@@ -60,7 +60,7 @@ export class ScheduleListComponent {
         this.router.navigate([this.url, id])
     }
 
-    public filterRecords(event: { filteredValue: any[] }) {
+    public filterRecords(event: { filteredValue: any[] }): void {
         this.recordsFiltered = event.filteredValue
     }
 
@@ -120,7 +120,7 @@ export class ScheduleListComponent {
         return promise
     }
 
-    private populateDropdownFilters() {
+    private populateDropdownFilters() : void {
         this.dropdownDates = this.helperService.getDistinctRecords(this.records, 'formattedDate')
         this.dropdownDestinations = this.helperService.getDistinctRecords(this.records, 'destinationDescription')
         this.dropdownPorts = this.helperService.getDistinctRecords(this.records, 'portDescription')

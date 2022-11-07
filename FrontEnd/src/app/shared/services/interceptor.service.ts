@@ -88,7 +88,7 @@ export class InterceptorService {
         return localStorage.getItem('loginStatus') === '1'
     }
 
-    private trapError(err: number) {
+    private trapError(err: number): Observable<any> {
         switch (err) {
             case 400:
                 return throwError(() => new Error('400')) // invalid model

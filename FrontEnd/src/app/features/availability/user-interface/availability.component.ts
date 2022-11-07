@@ -184,7 +184,7 @@ export class AvailabilityComponent {
         }
     }
 
-    public navigateToNewReservation() {
+    public navigateToNewReservation(): void {
         setTimeout(() => { this.router.navigate(['/reservations/new']) }, 500)
     }
 

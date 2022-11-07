@@ -26,7 +26,7 @@ export class ModalActionResultComponent {
 
     //#region lifecycle hooks
 
-    ngOnInit() {
+    ngOnInit(): void {
         this.content = this.data.message
     }
 

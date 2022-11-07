@@ -55,7 +55,7 @@ export class RegistrarListComponent {
         this.router.navigate([this.url, id])
     }
 
-    public filterRecords(event: { filteredValue: any[] }) {
+    public filterRecords(event: { filteredValue: any[] }): void {
         this.recordsFiltered = event.filteredValue
     }
 
@@ -105,7 +105,7 @@ export class RegistrarListComponent {
         return promise
     }
 
-    private populateDropdownFilters() {
+    private populateDropdownFilters() : void {
         this.dropdownShips = this.helperService.getDistinctRecords(this.records, 'shipDescription')
     }
 

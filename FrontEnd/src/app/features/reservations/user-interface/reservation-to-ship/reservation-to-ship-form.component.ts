@@ -59,7 +59,7 @@ export class ReservationToShipComponent {
 
     //#region private methods
 
-    private populateListFromLocalStorage(table: string) {
+    private populateListFromLocalStorage(table: string): void {
         this[table] = JSON.parse(this.localStorageService.getItem(table))
     }
 

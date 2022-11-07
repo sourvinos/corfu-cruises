@@ -127,7 +127,7 @@ export class ReservationFormComponent {
         return subject ? subject.description : undefined
     }
 
-    public checkForEmptyAutoComplete(event: { target: { value: any } }) {
+    public checkForEmptyAutoComplete(event: { target: { value: any } }): void {
         if (event.target.value == '') this.isAutoCompleteDisabled = true
     }
 
@@ -164,7 +164,7 @@ export class ReservationFormComponent {
         this.modalActionResultService.open(this.messageSnackbarService.featureNotAvailable(), 'error', ['ok'])
     }
 
-    public enableOrDisableAutoComplete(event: any) {
+    public enableOrDisableAutoComplete(event: any): void {
         this.isAutoCompleteDisabled = this.helperService.enableOrDisableAutoComplete(event)
     }
 
@@ -203,7 +203,7 @@ export class ReservationFormComponent {
         this.saveRecord(this.flattenForm())
     }
 
-    public patchFormWithPassengers(passengers: any) {
+    public patchFormWithPassengers(passengers: any): void {
         this.form.patchValue({ passengers: passengers })
     }
 
@@ -280,7 +280,7 @@ export class ReservationFormComponent {
         return voucher
     }
 
-    private doPostInitJobs() {
+    private doPostInitJobs(): void {
         // this.getConnectedUserId().then(() => {
         //     this.getConnectedUserRole().then(() => {
         //         this.getLinkedCustomer().then(() => {
@@ -429,7 +429,7 @@ export class ReservationFormComponent {
         return passengers
     }
 
-    private populateDropdownFromLocalStorage(table: string, filteredTable: string, formField: string, modelProperty: string) {
+    private populateDropdownFromLocalStorage(table: string, filteredTable: string, formField: string, modelProperty: string): void {
         this[table] = JSON.parse(this.localStorageService.getItem(table))
         this[filteredTable] = this.form.get(formField).valueChanges.pipe(startWith(''), map(value => this.filterAutocomplete(table, modelProperty, value)))
     }
@@ -469,7 +469,7 @@ export class ReservationFormComponent {
         })
     }
 
-    private readStoredVariables() {
+    private readStoredVariables(): void {
         this.form.patchValue({
             date: this.localStorageService.getItem('date'),
             destination: {
@@ -498,7 +498,7 @@ export class ReservationFormComponent {
         this.isNewRecord = isNewRecord
     }
 
-    private setLocale() {
+    private setLocale(): void {
         this.dateAdapter.setLocale(this.localStorageService.getLanguage())
     }
 

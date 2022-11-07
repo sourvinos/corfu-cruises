@@ -90,11 +90,11 @@ export class ShipFormComponent {
         return subject ? subject.description : undefined
     }
 
-    public checkForEmptyAutoComplete(event: { target: { value: any } }) {
+    public checkForEmptyAutoComplete(event: { target: { value: any } }): void {
         if (event.target.value == '') this.isAutoCompleteDisabled = true
     }
 
-    public enableOrDisableAutoComplete(event: any) {
+    public enableOrDisableAutoComplete(event: any): void {
         this.isAutoCompleteDisabled = this.helperService.enableOrDisableAutoComplete(event)
     }
 
@@ -195,7 +195,7 @@ export class ShipFormComponent {
         })
     }
 
-    private populateDropdownFromStorage(table: string, filteredTable: string, formField: string, modelProperty: string) {
+    private populateDropdownFromStorage(table: string, filteredTable: string, formField: string, modelProperty: string): void {
         this[table] = JSON.parse(this.localStorageService.getItem(table))
         this[filteredTable] = this.form.get(formField).valueChanges.pipe(startWith(''), map(value => this.filterAutocomplete(table, modelProperty, value)))
     }

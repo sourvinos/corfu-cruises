@@ -91,11 +91,11 @@ export class EditUserFormComponent {
         return subject ? subject.description : undefined
     }
 
-    public checkForEmptyAutoComplete(event: { target: { value: any } }) {
+    public checkForEmptyAutoComplete(event: { target: { value: any } }): void {
         if (event.target.value == '') this.isAutoCompleteDisabled = true
     }
 
-    public enableOrDisableAutoComplete(event: any) {
+    public enableOrDisableAutoComplete(event: any): void {
         this.isAutoCompleteDisabled = this.helperService.enableOrDisableAutoComplete(event)
     }
 
@@ -149,13 +149,13 @@ export class EditUserFormComponent {
         this.unsubscribe.unsubscribe()
     }
 
-    private editUserFromList() {
+    private editUserFromList(): void {
         this.parentUrl = '/users'
         this.icon = 'arrow_back'
         this.header = 'header'
     }
 
-    private editUserFromTopMenu() {
+    private editUserFromTopMenu(): void {
         this.parentUrl = '/'
         this.icon = 'home'
         this.header = 'my-header'
@@ -216,7 +216,7 @@ export class EditUserFormComponent {
         })
     }
 
-    private populateDropdownFromLocalStorage(table: string, filteredTable: string, formField: string, modelProperty: string, includeWildCard: boolean) {
+    private populateDropdownFromLocalStorage(table: string, filteredTable: string, formField: string, modelProperty: string, includeWildCard: boolean): void {
         this[table] = JSON.parse(this.localStorageService.getItem(table))
         includeWildCard ? this[table].unshift({ 'id': '0', 'description': '[⭐]' }) : null
         this[filteredTable] = this.form.get(formField).valueChanges.pipe(startWith(''), map(value => this.filterAutocomplete(table, modelProperty, value)))

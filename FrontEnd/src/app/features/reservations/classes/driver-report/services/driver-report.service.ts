@@ -164,7 +164,7 @@ export class DriverReportService {
         ]
     }
 
-    private createPageHeader() {
+    private createPageHeader(): any {
         const date = this.helperService.formatISODateToLocale(this.driverReport.header.date)
         const driverInfo = this.driverReport.header.driverDescription + ', ' + this.driverReport.header.phones
         return function (): any {

@@ -46,7 +46,7 @@ export class InvoicingPDFService {
                 font: 'UbuntuCondensed',
                 fontSize: 8
             },
-            footer: (currentPage: { toString: () => string }, pageCount: string) => {
+            footer: (currentPage: { toString: () => string }, pageCount: string): void => {
                 return this.createFooter(currentPage, pageCount)
             }
         }

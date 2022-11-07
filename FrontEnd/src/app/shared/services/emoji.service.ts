@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core'
 
 export class EmojiService {
 
-    public getEmoji(emoji: string) {
+    public getEmoji(emoji: string): string {
         switch (emoji) {
             case 'error': return '❌ '
             case 'clock': return '⏱'
