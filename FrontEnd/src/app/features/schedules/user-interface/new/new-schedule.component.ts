@@ -1,32 +1,25 @@
-import moment from 'moment'
 import { Component } from '@angular/core'
 import { DateAdapter } from '@angular/material/core'
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms'
 import { Observable, Subject } from 'rxjs'
 import { Router } from '@angular/router'
-import { Title } from '@angular/platform-browser'
 import { map, startWith, takeUntil } from 'rxjs/operators'
 // Custom
-import { ButtonClickService } from 'src/app/shared/services/button-click.service'
 import { DestinationActiveVM } from 'src/app/features/destinations/classes/view-models/destination-active-vm'
-import { DestinationService } from 'src/app/features/destinations/classes/services/destination.service'
 import { DialogService } from 'src/app/shared/services/dialog.service'
 import { HelperService, indicate } from 'src/app/shared/services/helper.service'
 import { InputTabStopDirective } from 'src/app/shared/directives/input-tabstop.directive'
 import { InteractionService } from 'src/app/shared/services/interaction.service'
-import { KeyboardShortcuts, Unlisten } from 'src/app/shared/services/keyboard-shortcuts.service'
 import { LocalStorageService } from 'src/app/shared/services/local-storage.service'
 import { MessageCalendarService } from 'src/app/shared/services/messages-calendar.service'
 import { MessageHintService } from 'src/app/shared/services/messages-hint.service'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
-import { PortService } from 'src/app/features/ports/classes/services/port.service'
-import { ScheduleDeleteVM } from './../../classes/form/schedule-delete-vm'
+import { ModalActionResultService } from 'src/app/shared/services/modal-action-result.service'
+import { PortActiveVM } from 'src/app/features/ports/classes/view-models/port-active-vm'
 import { ScheduleService } from '../../classes/services/schedule.service'
 import { ScheduleWriteVM } from '../../classes/form/schedule-write-vm'
-import { SnackbarService } from 'src/app/shared/services/snackbar.service'
 import { ValidationService } from 'src/app/shared/services/validation.service'
-import { PortActiveVM } from 'src/app/features/ports/classes/view-models/port-active-vm'
 
 @Component({
     selector: 'new-schedule',
@@ -38,37 +31,33 @@ export class NewScheduleComponent {
 
     //#region variables
 
-    private unlisten: Unlisten
     private unsubscribe = new Subject<void>()
     public feature = 'scheduleCreateForm'
-    public featureIcon = 'schedule'
+    public featureIcon = 'schedules'
     public form: FormGroup
     public icon = 'arrow_back'
     public input: InputTabStopDirective
-    public parentUrl = '/schedules'
     public isLoading = new Subject<boolean>()
+    public parentUrl = '/schedules'
 
     public isAutoCompleteDisabled = true
-    public destinations: DestinationActiveVM[]
-    public filteredDestinations: Observable<DestinationActiveVM[]>
-    public ports: PortActiveVM[]
-    public filteredPorts: Observable<PortActiveVM[]>
+    public activeDestinations: Observable<DestinationActiveVM[]>
+    public activePorts: Observable<PortActiveVM[]>
 
-    private periodToDelete = []
-    private daysToInsert = []
-    public selectedWeekDays = []
+    public toggledClassName = 'active-selectable-day'
+    private daysToCreate = []
+    public selectedWeekdays = []
     public weekDays = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
 
     //#endregion
 
-    constructor(private buttonClickService: ButtonClickService, private dateAdapter: DateAdapter<any>, private destinationService: DestinationService, private dialogService: DialogService, private formBuilder: FormBuilder, private helperService: HelperService, private interactionService: InteractionService, private keyboardShortcutsService: KeyboardShortcuts, private localStorageService: LocalStorageService, private messageCalendarService: MessageCalendarService, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private portService: PortService, private router: Router, private scheduleService: ScheduleService, private snackbarService: SnackbarService, private titleService: Title) { }
+    constructor(private dateAdapter: DateAdapter<any>, private dialogService: DialogService, private formBuilder: FormBuilder, private helperService: HelperService, private interactionService: InteractionService, private localStorageService: LocalStorageService, private messageCalendarService: MessageCalendarService, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private modalActionResultService: ModalActionResultService, private router: Router, private scheduleService: ScheduleService) {
+        this.initForm()
+    }
 
     //#region lifecycle hooks
 
     ngOnInit(): void {
-        this.setWindowTitle()
-        this.initForm()
-        this.addShortcuts()
         this.populateDropdowns()
         this.subscribeToInteractionService()
         this.setLocale()
@@ -76,7 +65,6 @@ export class NewScheduleComponent {
 
     ngOnDestroy(): void {
         this.cleanup()
-        this.unlisten()
     }
 
     canDeactivate(): boolean {
@@ -88,6 +76,7 @@ export class NewScheduleComponent {
                     return true
                 }
             })
+            return false
         } else {
             return true
         }
@@ -121,41 +110,36 @@ export class NewScheduleComponent {
         return this.messageCalendarService.getDescription('weekdays', id)
     }
 
+    public onDoTasks(selectedWeekDay: string, selectedWeekdays: string[], toggledClassName: string): void {
+        this.buildSelectedWeekdays(selectedWeekDay, selectedWeekdays, toggledClassName)
+        this.createPeriod()
+        this.updateFormField()
+    }
+
     public onSave(): void {
         this.saveRecord()
     }
 
-    public onToggleItem(item: string, lookupArray: string[]): void {
-        this.toggleActiveItem(item, lookupArray)
-        this.createDaysToInsert()
+    public createPeriod(): void {
+        this.daysToCreate = []
+        if (this.fromDate.valid && this.toDate.valid) {
+            const period = this.buildPeriod(new Date(this.fromDate.value.format('YYYY-MM-DD')), new Date(this.toDate.value.format('YYYY-MM-DD')))
+            period.forEach((day: string) => {
+                if (this.selectedWeekdays.length != 0) {
+                    this.selectedWeekdays.forEach(weekday => {
+                        if (day.substring(0, 3) == weekday) {
+                            this.daysToCreate.push(day.substring(4))
+                        }
+                    })
+                }
+            })
+        }
     }
 
-    public onUpdateArrays(): void {
-        this.createPeriodToDelete()
-        this.createDaysToInsert()
-    }
 
     //#endregion
 
     //#region private methods
-
-    private addShortcuts(): void {
-        this.unlisten = this.keyboardShortcutsService.listen({
-            'Escape': (event: KeyboardEvent) => {
-                if (document.getElementsByClassName('cdk-overlay-pane').length === 0) {
-                    this.buttonClickService.clickOnButton(event, 'goBack')
-                }
-            },
-            'Alt.S': (event: KeyboardEvent) => {
-                if (document.getElementsByClassName('cdk-overlay-pane').length === 0) {
-                    this.buttonClickService.clickOnButton(event, 'save')
-                }
-            }
-        }, {
-            priority: 0,
-            inputs: true
-        })
-    }
 
     private buildScheduleToCreate(): ScheduleWriteVM[] {
         const formValue = this.form.value
@@ -175,60 +159,28 @@ export class NewScheduleComponent {
         return objects
     }
 
-    private buildObjectsToDelete(): ScheduleDeleteVM[] {
-        const formValue = this.form.value
-        const objects: ScheduleDeleteVM[] = []
-        this.periodToDelete.forEach((day: string) => {
-            const x = {
-                destinationId: formValue.destination.id,
-                portId: formValue.port.id,
-                date: day.substring(4)
-            }
-            objects.push(x)
-        })
-        return objects
-    }
-
     private cleanup(): void {
         this.unsubscribe.next()
         this.unsubscribe.unsubscribe()
     }
 
-    private createDaysToInsert(): void {
-        this.daysToInsert = []
-        this.selectedWeekDays.forEach(weekday => {
-            this.periodToDelete.forEach((day: string) => {
-                if (day.substring(0, 3) == weekday) {
-                    this.daysToInsert.push(day.substring(4))
-                }
-            })
-        })
-        this.form.patchValue({
-            daysToInsert: this.daysToInsert
-        })
+    private buildSelectedWeekdays(item: string, lookupArray: string[], className: string): void {
+        this.helperService.toggleActiveItem(item, lookupArray, className)
     }
 
-    private createPeriodToInsert(from: moment.MomentInput, to: moment.MomentInput): any {
+    private buildPeriod(from: Date, to: Date): any {
         const dateArray = []
-        let currentDate = moment(from)
-        const stopDate = moment(to)
-        while (currentDate <= stopDate) {
-            dateArray.push(moment(currentDate).format('ddd YYYY-MM-DD'))
-            currentDate = moment(currentDate).add(1, 'days')
+        console.log('From', from)
+        console.log('To', to)
+        const currentDate = from
+        while (currentDate <= to) {
+            dateArray.push(this.helperService.convertLongDateToISODate(currentDate))
+            currentDate.setDate(currentDate.getDate() + 1)
         }
         return dateArray
     }
 
-    private createPeriodToDelete(): void {
-        if (this.fromDate.value && this.toDate.value) {
-            this.periodToDelete = this.createPeriodToInsert(new Date(this.fromDate.value.format('YYYY-MM-DD')), new Date(this.toDate.value.format('YYYY-MM-DD')))
-            this.form.patchValue({
-                periodToDelete: this.periodToDelete
-            })
-        }
-    }
-
-    private filterArray(array: string, field: string, value: any): any[] {
+    private filterAutocomplete(array: string, field: string, value: any): any[] {
         if (typeof value !== 'object') {
             const filtervalue = value.toLowerCase()
             return this[array].filter((element: { [x: string]: string }) =>
@@ -247,31 +199,20 @@ export class NewScheduleComponent {
             port: ['', [Validators.required, ValidationService.RequireAutocomplete]],
             fromDate: ['', Validators.required],
             toDate: ['', Validators.required],
-            periodToDelete: [''],
             daysToInsert: ['', Validators.required],
             maxPax: [0, [Validators.required, Validators.min(0), Validators.max(999)]],
-            departureTime: ['', [Validators.required, ValidationService.isTime]],
-            isActive: true
+            departureTime: ['', [Validators.required, ValidationService.isTime]]
         })
     }
 
-    private populateDropDown(service: any, table: any, filteredTable: string, formField: string, modelProperty: string): Promise<any> {
-        const promise = new Promise((resolve) => {
-            service.getActive().toPromise().then(
-                (response: any) => {
-                    this[table] = response
-                    resolve(this[table])
-                    this[filteredTable] = this.form.get(formField).valueChanges.pipe(startWith(''), map(value => this.filterArray(table, modelProperty, value)))
-                }, (errorFromInterceptor: number) => {
-                    this.showSnackbar(this.messageSnackbarService.filterResponse(errorFromInterceptor), 'error')
-                })
-        })
-        return promise
+    private populateDropdownFromStorage(table: string, filteredTable: string, formField: string, modelProperty: string): void {
+        this[table] = JSON.parse(this.localStorageService.getItem(table))
+        this[filteredTable] = this.form.get(formField).valueChanges.pipe(startWith(''), map(value => this.filterAutocomplete(table, modelProperty, value)))
     }
 
     private populateDropdowns(): void {
-        this.populateDropDown(this.destinationService, 'destinations', 'filteredDestinations', 'destination', 'description')
-        this.populateDropDown(this.portService, 'ports', 'filteredPorts', 'port', 'description')
+        this.populateDropdownFromStorage('destinations', 'activeDestinations', 'destination', 'description')
+        this.populateDropdownFromStorage('ports', 'activePorts', 'port', 'description')
     }
 
     private resetForm(): void {
@@ -279,21 +220,12 @@ export class NewScheduleComponent {
     }
 
     private saveRecord(): void {
-        this.scheduleService.deleteRange(this.buildObjectsToDelete()).pipe(indicate(this.isLoading)).subscribe({
+        this.scheduleService.addRange(this.buildScheduleToCreate()).pipe(indicate(this.isLoading)).subscribe({
             complete: () => {
-                this.scheduleService.addRange(this.buildScheduleToCreate()).pipe(indicate(this.isLoading)).subscribe({
-                    complete: () => {
-                        this.resetForm()
-                        this.goBack()
-                        this.showSnackbar(this.messageSnackbarService.recordCreated(), 'info')
-                    },
-                    error: (errorFromInterceptor) => {
-                        this.showSnackbar(this.messageSnackbarService.filterResponse(errorFromInterceptor), 'error')
-                    }
-                })
+                this.helperService.doPostSaveFormTasks(this.messageSnackbarService.success(), 'success', this.parentUrl, this.form)
             },
             error: (errorFromInterceptor) => {
-                this.showSnackbar(this.messageSnackbarService.filterResponse(errorFromInterceptor), 'error')
+                this.modalActionResultService.open(this.messageSnackbarService.filterResponse(errorFromInterceptor), 'error', ['ok'])
             }
         })
     }
@@ -302,35 +234,17 @@ export class NewScheduleComponent {
         this.dateAdapter.setLocale(this.localStorageService.getLanguage())
     }
 
-    private setWindowTitle(): void {
-        this.titleService.setTitle(this.helperService.getApplicationTitle() + ' :: ' + this.getLabel('header'))
-    }
-
-    private showSnackbar(message: string, type: string): void {
-        this.snackbarService.open(message, type)
-    }
-
     private subscribeToInteractionService(): void {
         this.interactionService.refreshDateAdapter.pipe(takeUntil(this.unsubscribe)).subscribe(() => {
             this.setLocale()
         })
     }
 
-    private toggleActiveItem(item: string, lookupArray: string[]): void {
-        const element = document.getElementById(item)
-        if (element.classList.contains('active-selectable-day')) {
-            for (let i = 0; i < lookupArray.length; i++) {
-                if ((lookupArray)[i] === item) {
-                    lookupArray.splice(i, 1)
-                    i--
-                    element.classList.remove('active-selectable-day')
-                    break
-                }
-            }
-        } else {
-            element.classList.add('active-selectable-day')
-            lookupArray.push(item)
-        }
+    private updateFormField(): void {
+        this.form.patchValue({
+            daysToInsert: this.daysToCreate
+        })
+
     }
 
     //#endregion

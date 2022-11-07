@@ -44,13 +44,6 @@ namespace API.Features.Schedules {
                     .SingleOrDefaultAsync(x => x.Id == id);
         }
 
-        public async Task<IEnumerable<Schedule>> GetRangeByIdsAsync(IEnumerable<int> ids) {
-            return await context.Schedules
-                .AsNoTracking()
-                .Where(x => ids.Contains(x.Id))
-                .ToListAsync();
-        }
-
         public List<ScheduleWriteDto> AttachUserIdToDtos(List<ScheduleWriteDto> schedules) {
             schedules.ForEach(x => x = Identity.PatchEntityWithUserId(httpContext, x));
             return schedules;

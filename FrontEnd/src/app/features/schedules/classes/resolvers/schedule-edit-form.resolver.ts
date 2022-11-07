@@ -11,8 +11,8 @@ export class ScheduleEditFormResolver {
 
     constructor(private scheduleService: ScheduleService) { }
 
-    resolve(schedule: ActivatedRouteSnapshot): any {
-        return this.scheduleService.getSingle(schedule.params.id).pipe(
+    resolve(route: ActivatedRouteSnapshot): any {
+        return this.scheduleService.getSingle(route.params.id).pipe(
             map((scheduleEditForm) => new FormResolved(scheduleEditForm)),
             catchError((err: any) => of(new FormResolved(null, err)))
         )

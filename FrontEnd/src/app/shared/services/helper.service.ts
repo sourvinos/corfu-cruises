@@ -37,6 +37,17 @@ export class HelperService {
 
     //#region public methods
 
+    public convertLongDateToISODate(date: string | number | Date): string {
+        const x = new Date(date)
+        let month = (x.getMonth() + 1).toString()
+        let day = x.getDate().toString()
+        const year = x.getFullYear()
+        const weekday = x.toLocaleString('default', { weekday: 'short' })
+        if (month.length < 2) month = '0' + month
+        if (day.length < 2) day = '0' + day
+        return weekday + ' ' + [year, month, day].join('-')
+    }
+
     public changeScrollWheelSpeed(container: HTMLElement): any {
         if (container != null) {
             let scrollY = 0
@@ -171,6 +182,25 @@ export class HelperService {
             return new Date().toISOString().substring(0, 10)
         }
     }
+
+    public toggleActiveItem(item: string, lookupArray: string[], className: string): any {
+        const element = document.getElementById(item)
+        if (element.classList.contains(className)) {
+            for (let i = 0; i < lookupArray.length; i++) {
+                if ((lookupArray)[i] === item) {
+                    lookupArray.splice(i, 1)
+                    i--
+                    element.classList.remove(className)
+                    break
+                }
+            }
+        } else {
+            element.classList.add(className)
+            lookupArray.push(item)
+        }
+        return lookupArray
+    }
+
 
     //#endregion
 

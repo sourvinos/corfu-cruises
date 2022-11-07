@@ -63,4 +63,6 @@
     --color-input-selected-background: #65b3ef4d;
     /* Links */
     --color-link: #e57b7b;
+    /* New schedule weekdays */
+    --color-selected-weekday: #ff7a7a;
 }

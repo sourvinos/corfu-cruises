@@ -17,7 +17,7 @@ export class ScheduleService extends HttpDataService {
 
     //#region public methods
 
-    public getForList(): Observable<any> {
+    public getAll(): Observable<any> {
         return this.http.get<any>(this.url)
     }
 
