@@ -5,11 +5,11 @@ import { Subject } from 'rxjs'
 // Custom
 import { DayVM } from '../../classes/calendar/day-vm'
 import { HelperService } from 'src/app/shared/services/helper.service'
-import { KeyboardShortcuts, Unlisten } from 'src/app/shared/services/keyboard-shortcuts.service'
 import { LocalStorageService } from 'src/app/shared/services/local-storage.service'
 import { MessageCalendarService } from 'src/app/shared/services/messages-calendar.service'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { ScheduleService } from 'src/app/features/schedules/classes/services/schedule.service'
+import { ReservationService } from '../../classes/services/reservation.service'
 
 @Component({
     selector: 'calendar',
@@ -21,10 +21,9 @@ export class CalendarComponent {
 
     // #region variables
 
-    private unlisten: Unlisten
     private unsubscribe = new Subject<void>()
     public feature = 'calendarReservations'
-    public featureIcon = ''
+    public featureIcon = 'reservations'
     public icon = 'home'
     public parentUrl = '/'
 
@@ -39,12 +38,20 @@ export class CalendarComponent {
 
     // #endregion 
 
-    constructor(private activatedRoute: ActivatedRoute, private helperService: HelperService, private keyboardShortcutsService: KeyboardShortcuts, private localStorageService: LocalStorageService, private messageCalendarService: MessageCalendarService, private messageLabelService: MessageLabelService, private router: Router, private scheduleService: ScheduleService) { }
+    constructor(
+        private activatedRoute: ActivatedRoute,
+        private helperService: HelperService,
+        private localStorageService: LocalStorageService,
+        private messageCalendarService: MessageCalendarService,
+        private messageLabelService: MessageLabelService,
+        private router: Router,
+        private scheduleService: ScheduleService,
+        private reservationService: ReservationService
+    ) { }
 
     //#region lifecycle hooks
 
     ngOnInit(): void {
-        this.addShortcuts()
         this.clearStoredVariables()
         this.doCalendarTasks()
     }
@@ -52,7 +59,6 @@ export class CalendarComponent {
     ngOnDestroy(): void {
         this.unsubscribe.next()
         this.unsubscribe.unsubscribe()
-        this.unlisten()
     }
 
     //#endregion 
@@ -61,10 +67,9 @@ export class CalendarComponent {
 
     public changeMonth(flag: number): void {
         this.navigateToMonth(flag)
-        this.getScheduleForMonth().then(() => {
-            this.updateCalendar()
-            this.fixCalendarHeight()
-        })
+        this.getReservationsForMonth()
+        this.updateCalendar()
+        this.fixCalendarHeight()
     }
 
     public getLabel(id: string): string {
@@ -100,27 +105,16 @@ export class CalendarComponent {
     }
 
     public showReservationsForSelectedDay(date: any): void {
-        if (this.hasSchedule(date)) {
-            this.storeCriteria(date.date)
-            this.clearTableFilters()
-            this.navigateToList()
-        }
+        // if (this.hasSchedule(date)) {
+        //     this.storeCriteria(date.date)
+        //     this.clearTableFilters()
+        //     this.navigateToList()
+        // }
     }
 
     //#endregion
 
     //#region private methods
-
-    private addShortcuts(): void {
-        this.unlisten = this.keyboardShortcutsService.listen({
-            'Escape': () => {
-                this.goBack()
-            }
-        }, {
-            priority: 0,
-            inputs: true
-        })
-    }
 
     private calculateWeekCount(year: number, month: number): number {
         const firstOfMonth = new Date(year, month - 1, 1)
@@ -153,10 +147,13 @@ export class CalendarComponent {
 
     private doCalendarTasks(): void {
         this.getDaysFromDate(moment().month() + 1, moment().year())
-        this.getScheduleForMonth().then(() => {
-            this.updateCalendar()
-            this.fixCalendarHeight()
-        })
+        this.getReservationsForMonth()
+        this.updateCalendar()
+        this.fixCalendarHeight()
+        // .then(() => {
+        //     this.updateCalendar()
+        //     this.fixCalendarHeight()
+        // })
     }
 
     private fixCalendarHeight(): void {
@@ -188,24 +185,30 @@ export class CalendarComponent {
         this.monthSelect = arrayDays
     }
 
-    private getScheduleForMonth(): Promise<any> {
+    private getReservationsForMonth(): any {
         this.isLoading = true
-        const promise = new Promise((resolve) => {
-            this.scheduleService.getForCalendar(this.days[0].date, this.days[this.days.length - 1].date).then((response: any[]) => {
-                this.daysWithSchedule = response
-                resolve(this.daysWithSchedule)
-                this.isLoading = false
-            })
+        this.reservationService.getForCalendar(this.days[0].date, this.days[this.days.length - 1].date).subscribe(response => {
+            this.daysWithSchedule = response
+            console.log(response)
         })
-        return promise
+        this.isLoading = false
     }
 
-    private goBack(): void {
-        this.router.navigate([this.helperService.getHomePage()])
-    }
+    // private getReservationsForMonth(): Promise<any> {
+    //     this.isLoading = true
+    //     const promise = new Promise((resolve) => {
+    //         this.reservationService.getForCalendar(this.days[0].date, this.days[this.days.length - 1].date).then((response: any[]) => {
+    //             this.daysWithSchedule = response
+    //             resolve(this.daysWithSchedule)
+    //             this.isLoading = false
+    //             console.log(response)
+    //         })
+    //     })
+    //     return promise
+    // }
 
     private navigateToList(): void {
-        this.router.navigate(['byDate', this.localStorageService.getItem('date')], { relativeTo: this.activatedRoute })
+        this.router.navigate(['date', this.localStorageService.getItem('date')], { relativeTo: this.activatedRoute })
     }
 
     private navigateToMonth(flag: number): void {
@@ -223,10 +226,12 @@ export class CalendarComponent {
     }
 
     private updateCalendar(): void {
-        this.daysWithSchedule.forEach(day => {
-            const x = this.days.find(x => x.date == day.date)
-            this.days[this.days.indexOf(x)].destinations = day.destinations
-        })
+        setTimeout(() => {
+            this.daysWithSchedule.forEach(day => {
+                const x = this.days.find(x => x.date == day.date)
+                this.days[this.days.indexOf(x)].destinations = day.destinations
+            })
+        }, 2000)
     }
 
     //#endregion

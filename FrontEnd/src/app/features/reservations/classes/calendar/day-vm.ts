@@ -1,13 +1,9 @@
 import { DestinationVM } from './destination-vm'
 
-export class DayVM {
+export interface DayVM {
 
-    constructor(
-
-        public date: string,
-        public destinations: DestinationVM[]
-
-    ) { }
+    date: string,
+    destinations: DestinationVM[]
 
 }
 

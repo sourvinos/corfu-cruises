@@ -18,17 +18,18 @@ namespace API.Features.Reservations {
         public async Task<IEnumerable<ReservationCalendarGroupVM>> GetForCalendarAsync(string fromDate, string toDate) {
             return await context.Schedules
                 .AsNoTracking()
+                .Include(x => x.Reservations)
                 .Where(x => x.Date >= Convert.ToDateTime(fromDate) && x.Date <= Convert.ToDateTime(toDate))
-                .GroupBy(z => z.Date)
+                .GroupBy(z => new { z.Date })
                 .Select(x => new ReservationCalendarGroupVM {
                     Date = DateHelpers.DateToISOString(x.Key.Date),
-                    Destinations = x.GroupBy(x => new { x.Date, x.Destination.Id, x.Destination.Description, x.Destination.Abbreviation }).Select(x => new DestinationCalendarVM {
+                    Destinations = x.GroupBy(v => new { v.Date, v.Destination.Id, v.Destination.Abbreviation, v.Destination.Description }).Select(x => new DestinationCalendarVM {
                         Id = x.Key.Id,
-                        Description = x.Key.Description,
                         Abbreviation = x.Key.Abbreviation,
-                        Pax = context.Reservations.AsNoTracking().Where(z => z.Date == x.Key.Date && z.Destination.Id == x.Key.Id).Sum(x => x.TotalPersons)
+                        Description = x.Key.Description,
+                        Pax = 0
                     }),
-                    Pax = context.Reservations.AsNoTracking().Where(z => z.Date == x.Key.Date).Sum(x => x.TotalPersons)
+                    Pax = 0
                 }).ToListAsync();
         }
 

@@ -46,7 +46,7 @@ export class ReservationListComponent {
     public icon = 'arrow_back'
     private url = ''
     public feature = 'reservationList'
-    public featureIcon = 'reservation'
+    public featureIcon = 'reservations'
     public overbookedDestinations: any
 
     public isAdmin: boolean
@@ -83,6 +83,7 @@ export class ReservationListComponent {
         this.initPersonTotals()
         this.updateTotals()
         this.doDestinationForOverbookingTasks()
+        this.calculateTableHeight()        
     }
 
     ngOnDestroy(): void {
@@ -229,6 +230,12 @@ export class ReservationListComponent {
     //#endregion
 
     //#region private methods
+
+    private calculateTableHeight(): void {
+        setTimeout(() => {
+            document.getElementById('table-wrapper').style.height = this.helperService.calculateTableWrapperHeight('top-bar', 'header', 'footer')
+        }, 500)
+    }
 
     private clearSelectedRecords(): void {
         this.selectedRecords = []

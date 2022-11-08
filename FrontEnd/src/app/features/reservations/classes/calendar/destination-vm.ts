@@ -1,16 +1,8 @@
-import { PortVM } from './port-vm'
+export interface DestinationVM {
 
-export class DestinationVM {
-
-    constructor(
-
-        public id: number,
-        public description: string,
-        public passengerCount: number,
-        public availableSeats: number,
-        public ports: PortVM[]
-
-    ) { }
+    id: number,
+    description: string,
+    pax: number
 
 }
 

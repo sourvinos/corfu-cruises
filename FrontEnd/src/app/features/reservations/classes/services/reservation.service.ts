@@ -14,15 +14,19 @@ export class ReservationService extends HttpDataService {
         super(httpClient, environment.apiUrl + '/reservations')
     }
 
-    getByDate(date: string): Observable<ReservationGroupDto> {
-        return this.http.get<ReservationGroupDto>(this.url + '/byDate/' + date)
+    public getForCalendar(fromDate: string, toDate: string): Observable<any> {
+        return this.http.get<any>(this.url + '/fromDate/' + fromDate + '/toDate/' + toDate)
     }
 
-    getByDateAndDriver(date: string, driverId: number): Observable<any> {
-        return this.http.get<any>(this.url + '/byDate/' + date + '/byDriver/' + driverId)
+    public getByDate(date: string): Observable<ReservationGroupDto> {
+        return this.http.get<ReservationGroupDto>(this.url + '/date/' + date)
     }
 
-    getByRefNo(refNo: string): Observable<ReservationGroupDto> {
+    public getByDateAndDriver(date: string, driverId: number): Observable<any> {
+        return this.http.get<any>(this.url + '/date/' + date + '/byDriver/' + driverId)
+    }
+
+    public getByRefNo(refNo: string): Observable<ReservationGroupDto> {
         return this.http.get<ReservationGroupDto>(this.url + '/byRefNo/' + refNo)
     }
 
@@ -34,7 +38,7 @@ export class ReservationService extends HttpDataService {
         }
     }
 
-    assignToDriver(driverId: string, records: any[]): Observable<any> {
+    public assignToDriver(driverId: string, records: any[]): Observable<any> {
         let params = new HttpParams().set('driverId', driverId).set('id', records[0].reservationId)
         records.forEach((element, index) => {
             if (index > 0) {
@@ -44,7 +48,7 @@ export class ReservationService extends HttpDataService {
         return this.http.patch(this.url + '/assignToDriver?', null, { params: params })
     }
 
-    assignToShip(shipId: string, records: any[]): Observable<any> {
+    public assignToShip(shipId: string, records: any[]): Observable<any> {
         let params = new HttpParams().set('shipId', shipId).set('id', records[0].reservationId)
         records.forEach((element, index) => {
             if (index > 0) {
@@ -54,7 +58,7 @@ export class ReservationService extends HttpDataService {
         return this.http.patch(this.url + '/assignToShip?', null, { params: params })
     }
 
-    isDestinationOverbooked(date: string, destinationId: number): Observable<boolean> {
+    public isDestinationOverbooked(date: string, destinationId: number): Observable<boolean> {
         return this.http.get<boolean>(this.url + '/isOverbooked/date/' + date + '/destinationid/' + destinationId)
     }
 

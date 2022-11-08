@@ -170,8 +170,6 @@ export class NewScheduleComponent {
 
     private buildPeriod(from: Date, to: Date): any {
         const dateArray = []
-        console.log('From', from)
-        console.log('To', to)
         const currentDate = from
         while (currentDate <= to) {
             dateArray.push(this.helperService.convertLongDateToISODate(currentDate))

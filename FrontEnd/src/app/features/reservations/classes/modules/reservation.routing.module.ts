@@ -12,7 +12,7 @@ import { ReservationListResolverByRefNo } from '../resolvers/reservation-list.re
 
 const routes: Routes = [
     { path: '', component: CalendarComponent, canActivate: [AuthGuardService] },
-    { path: 'byDate/:date', component: ReservationListComponent, canActivate: [AuthGuardService], resolve: { reservationList: ReservationListResolverByDate }, runGuardsAndResolvers: 'always' },
+    { path: 'date/:date', component: ReservationListComponent, canActivate: [AuthGuardService], resolve: { reservationList: ReservationListResolverByDate }, runGuardsAndResolvers: 'always' },
     { path: 'byRefNo/:refNo', component: ReservationListComponent, canActivate: [AuthGuardService], resolve: { reservationList: ReservationListResolverByRefNo }, runGuardsAndResolvers: 'always' },
     { path: 'new', component: ReservationFormComponent, canActivate: [AuthGuardService], canDeactivate: [CanDeactivateGuard] },
     { path: ':id', component: ReservationFormComponent, canActivate: [AuthGuardService], canDeactivate: [CanDeactivateGuard], resolve: { reservationForm: ReservationFormResolver } }

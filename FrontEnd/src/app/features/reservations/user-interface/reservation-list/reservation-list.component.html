@@ -26,7 +26,7 @@
     </div>
 
     <div id="table-wrapper">
-        <p-table #table (onFilter)="filterRecords($event)" (onHeaderCheckboxToggle)="toggleVisibleRows()" (onRowSelect)="rowSelect($event)" (onRowUnselect)="rowUnselect($event)" [(selection)]="selectedRecords" [autoLayout]="false" [scrollable]="true" [value]="reservationGroupDto.reservations" [virtualScrollItemSize]="33" [virtualScroll]="true" dataKey="reservationId" scrollHeight="flex" selectionMode="multiple" sortMode="multiple" stateKey="reservation-list" stateStorage="session">
+        <p-table #table (onFilter)="filterRecords($event)" (onHeaderCheckboxToggle)="toggleVisibleRows()" (onRowSelect)="rowSelect($event)" (onRowUnselect)="rowUnselect($event)" [(selection)]="selectedRecords" [autoLayout]="false" [scrollable]="true" [value]="reservationGroupDto.reservations" [virtualRowHeight]="33" [virtualScroll]="false" dataKey="reservationId" scrollHeight="flex" selectionMode="multiple" sortMode="multiple" stateKey="reservation-list" stateStorage="session">
             <ng-template pTemplate="header">
                 <tr>
                     <th style="min-width: 2%; max-width: 2%;"></th>

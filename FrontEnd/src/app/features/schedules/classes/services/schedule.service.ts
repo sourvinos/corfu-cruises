@@ -22,7 +22,7 @@ export class ScheduleService extends HttpDataService {
     }
 
     public async getForCalendar(fromDate: string, toDate: string): Promise<any> {
-        return await firstValueFrom(this.http.get<any>(this.url + '/from/' + fromDate + '/to/' + toDate))
+        return await firstValueFrom(this.http.get<any>(this.url + '/fromDate/' + fromDate + '/toDate/' + toDate))
     }
 
     public addRange(scheduleObjects: ScheduleWriteVM[]): Observable<any[]> {
