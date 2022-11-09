@@ -44,7 +44,9 @@ namespace API.Features.Reservations {
                         }),
                         Pax = context.Reservations.Where(z => z.Date == x.Key.Date).Sum(x => x.TotalPersons)
                     }).FirstOrDefaultAsync();
-                schedules.Add(x);
+                if (x != null) {
+                    schedules.Add(x);
+                }
             }
             return schedules;
         }

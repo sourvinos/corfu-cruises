@@ -67,9 +67,10 @@ export class CalendarComponent {
 
     public changeMonth(flag: number): void {
         this.navigateToMonth(flag)
-        this.getReservationsForMonth()
-        this.updateCalendar()
-        this.fixCalendarHeight()
+        this.getScheduleForMonth().then(() => {
+            this.updateCalendar()
+            this.fixCalendarHeight()
+        })
     }
 
     public getLabel(id: string): string {
@@ -85,7 +86,10 @@ export class CalendarComponent {
     }
 
     public hasSchedule(day: any): boolean {
-        return this.daysWithSchedule.find(x => x.date == day.date)
+        // if (this.daysWithSchedule.length != 0) {
+        const x = this.daysWithSchedule.find(x => x.date == day.date)
+        return x != undefined ? true : false
+        // }
     }
 
     public isToday(day: any): boolean {
@@ -147,13 +151,10 @@ export class CalendarComponent {
 
     private doCalendarTasks(): void {
         this.getDaysFromDate(moment().month() + 1, moment().year())
-        this.getReservationsForMonth()
-        this.updateCalendar()
-        this.fixCalendarHeight()
-        // .then(() => {
-        //     this.updateCalendar()
-        //     this.fixCalendarHeight()
-        // })
+        this.getScheduleForMonth().then(() => {
+            this.updateCalendar()
+            this.fixCalendarHeight()
+        })
     }
 
     private fixCalendarHeight(): void {
@@ -185,13 +186,17 @@ export class CalendarComponent {
         this.monthSelect = arrayDays
     }
 
-    private getReservationsForMonth(): any {
+    private getScheduleForMonth(): Promise<any> {
         this.isLoading = true
-        this.reservationService.getForCalendar(this.days[0].date, this.days[this.days.length - 1].date).subscribe(response => {
-            this.daysWithSchedule = response
-            console.log(response)
+        const promise = new Promise((resolve) => {
+            this.reservationService.getForCalendar(this.days[0].date, this.days[this.days.length - 1].date).subscribe(response => {
+                this.daysWithSchedule = response
+                resolve(this.daysWithSchedule)
+                this.isLoading = false
+                console.log(this.daysWithSchedule)
+            })
         })
-        this.isLoading = false
+        return promise
     }
 
     // private getReservationsForMonth(): Promise<any> {
@@ -226,12 +231,10 @@ export class CalendarComponent {
     }
 
     private updateCalendar(): void {
-        setTimeout(() => {
-            this.daysWithSchedule.forEach(day => {
-                const x = this.days.find(x => x.date == day.date)
-                this.days[this.days.indexOf(x)].destinations = day.destinations
-            })
-        }, 2000)
+        this.daysWithSchedule.forEach(day => {
+            const x = this.days.find(x => x.date == day.date)
+            this.days[this.days.indexOf(x)].destinations = day.destinations
+        })
     }
 
     //#endregion
