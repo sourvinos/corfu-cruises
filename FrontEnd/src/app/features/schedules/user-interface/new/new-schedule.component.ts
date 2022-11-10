@@ -173,7 +173,7 @@ export class NewScheduleComponent {
         const dateArray = []
         const currentDate = from
         while (currentDate <= to) {
-            dateArray.push(this.dateHelperService.convertLongDateToISODate(currentDate, false))
+            dateArray.push(this.dateHelperService.formatDateToIso(currentDate, true))
             currentDate.setDate(currentDate.getDate() + 1)
         }
         return dateArray

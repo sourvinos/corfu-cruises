@@ -11,18 +11,6 @@ export class DateHelperService {
 
     //#region public methods
 
-    public convertLongDateToISODate(date: string | number | Date, includeWeekday: boolean): string {
-        const x = new Date(date)
-        let month = (x.getMonth() + 1).toString()
-        let day = x.getDate().toString()
-        const year = x.getFullYear()
-        const weekday = x.toLocaleString('default', { weekday: 'short' })
-        if (month.length < 2) month = '0' + month
-        if (day.length < 2) day = '0' + day
-        const formattedDate = [year, month, day].join('-')
-        return includeWeekday ? weekday + ' ' + formattedDate : formattedDate
-    }
-
     public formatISODateToLocale(date: string, showWeekday = false): string {
         const parts = date.split('-')
         const rawDate = new Date(date)
