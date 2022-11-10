@@ -37,7 +37,7 @@ export class HelperService {
 
     //#region public methods
 
-    public convertLongDateToISODate(date: string | number | Date): string {
+    public convertLongDateToISODate(date: string | number | Date, includeWeekday: boolean): string {
         const x = new Date(date)
         let month = (x.getMonth() + 1).toString()
         let day = x.getDate().toString()
@@ -45,7 +45,8 @@ export class HelperService {
         const weekday = x.toLocaleString('default', { weekday: 'short' })
         if (month.length < 2) month = '0' + month
         if (day.length < 2) day = '0' + day
-        return weekday + ' ' + [year, month, day].join('-')
+        const formattedDate = [year, month, day].join('-')
+        return includeWeekday ? weekday + ' ' + formattedDate : formattedDate
     }
 
     public changeScrollWheelSpeed(container: HTMLElement): any {
@@ -175,12 +176,17 @@ export class HelperService {
         }, 1000)
     }
 
-    public getISODate(date?: string): string {
-        if (date) {
-            return this.formatDate(date)
-        } else {
-            return new Date().toISOString().substring(0, 10)
-        }
+    
+    public formatDateToIso(date: string, includeWeekday: boolean): string {
+        const x = new Date(date)
+        let month = (x.getMonth() + 1).toString()
+        let day = x.getDate().toString()
+        const year = x.getFullYear()
+        const weekday = x.toLocaleString('default', { weekday: 'short' })
+        if (month.length < 2) month = '0' + month
+        if (day.length < 2) day = '0' + day
+        const formattedDate = [year, month, day].join('-')
+        return includeWeekday ? weekday + ' ' + formattedDate : formattedDate
     }
 
     public getCurrentMonth(): number {
@@ -242,19 +248,6 @@ export class HelperService {
             case 'en-GB': return '/'
             case 'fr-FR': return '/'
         }
-    }
-
-    private formatDate(date): string {
-        let d = new Date(date),
-            month = '' + (d.getMonth() + 1),
-            day = '' + d.getDate(),
-            year = d.getFullYear()
-
-        if (month.length < 2)
-            month = '0' + month
-        if (day.length < 2)
-            day = '0' + day
-        return [year, month, day].join('-')
     }
 
     //#endregion

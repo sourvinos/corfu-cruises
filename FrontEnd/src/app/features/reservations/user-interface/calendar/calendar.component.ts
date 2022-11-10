@@ -123,7 +123,7 @@ export class CalendarComponent {
             a = parseInt(a) + 1
             const dayObject = new Date(year, month, a)
             const day: DayVM = {
-                date: this.helperService.getISODate(dayObject.toDateString()),
+                date: this.helperService.formatDateToIso(dayObject.toDateString(), false),
                 destinations: []
             }
             this.days.push(day)
