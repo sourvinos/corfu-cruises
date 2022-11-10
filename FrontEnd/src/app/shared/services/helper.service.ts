@@ -177,10 +177,18 @@ export class HelperService {
 
     public getISODate(date?: string): string {
         if (date) {
-            return date
+            return this.formatDate(date)
         } else {
             return new Date().toISOString().substring(0, 10)
         }
+    }
+
+    public getCurrentMonth(): number {
+        return new Date().getMonth()
+    }
+
+    public getCurrentYear(): number {
+        return new Date().getFullYear()
     }
 
     public toggleActiveItem(item: string, lookupArray: string[], className: string): any {
@@ -199,6 +207,17 @@ export class HelperService {
             lookupArray.push(item)
         }
         return lookupArray
+    }
+
+    public convertUnixToISODate(unixdate: number): string {
+        const date = new Date(unixdate)
+        const day = date.getDate()
+        const month = date.getMonth()
+        const year = date.getFullYear()
+        const twoDigitDay = day.toString().length == 1 ? '0' + day : day
+        const twoDigitMonth = month.toString().length == 1 ? '0' + month : month
+        const formattedTime = year + '-' + twoDigitMonth + '-' + twoDigitDay
+        return formattedTime
     }
 
 
@@ -223,6 +242,19 @@ export class HelperService {
             case 'en-GB': return '/'
             case 'fr-FR': return '/'
         }
+    }
+
+    private formatDate(date): string {
+        let d = new Date(date),
+            month = '' + (d.getMonth() + 1),
+            day = '' + d.getDate(),
+            year = d.getFullYear()
+
+        if (month.length < 2)
+            month = '0' + month
+        if (day.length < 2)
+            day = '0' + day
+        return [year, month, day].join('-')
     }
 
     //#endregion

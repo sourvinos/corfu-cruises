@@ -1,6 +1,5 @@
-import moment, { utc } from 'moment'
-import { ActivatedRoute, Router } from '@angular/router'
 import { Component } from '@angular/core'
+import { Router } from '@angular/router'
 import { Subject } from 'rxjs'
 // Custom
 import { DayVM } from '../../classes/calendar/day-vm'
@@ -8,7 +7,6 @@ import { HelperService } from 'src/app/shared/services/helper.service'
 import { LocalStorageService } from 'src/app/shared/services/local-storage.service'
 import { MessageCalendarService } from 'src/app/shared/services/messages-calendar.service'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
-import { ScheduleService } from 'src/app/features/schedules/classes/services/schedule.service'
 import { ReservationService } from '../../classes/services/reservation.service'
 
 @Component({
@@ -22,38 +20,32 @@ export class CalendarComponent {
     // #region variables
 
     private unsubscribe = new Subject<void>()
+    private url = 'reservations'
     public feature = 'calendarReservations'
     public featureIcon = 'reservations'
     public icon = 'home'
     public parentUrl = '/'
 
-    private dateSelect: any
     private daysWithSchedule = []
     private startDate: any
-    public days: DayVM[]
-    public monthSelect: any[]
-    public selectedDate: any
+    public days: DayVM[] = []
+    public monthSelect: any[] = []
     public weekDays = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
     public isLoading: boolean
 
     // #endregion 
 
-    constructor(
-        private activatedRoute: ActivatedRoute,
-        private helperService: HelperService,
-        private localStorageService: LocalStorageService,
-        private messageCalendarService: MessageCalendarService,
-        private messageLabelService: MessageLabelService,
-        private router: Router,
-        private scheduleService: ScheduleService,
-        private reservationService: ReservationService
-    ) { }
+    constructor(private helperService: HelperService, private localStorageService: LocalStorageService, private messageCalendarService: MessageCalendarService, private messageLabelService: MessageLabelService, private reservationService: ReservationService, private router: Router) { }
 
     //#region lifecycle hooks
 
     ngOnInit(): void {
         this.clearStoredVariables()
-        this.doCalendarTasks()
+        this.buildMonth(this.helperService.getCurrentMonth(), this.helperService.getCurrentYear())
+        this.adjustCalendarHeight()
+        this.getScheduleWithReservations().then(() => {
+            this.updateCalendarWithReservations()
+        })
     }
 
     ngOnDestroy(): void {
@@ -65,11 +57,11 @@ export class CalendarComponent {
 
     //#region public methods
 
-    public changeMonth(flag: number): void {
-        this.navigateToMonth(flag)
-        this.getScheduleForMonth().then(() => {
-            this.updateCalendar()
-            this.fixCalendarHeight()
+    public changeMonth(direction: string): void {
+        this.navigateToMonth(direction)
+        this.adjustCalendarHeight()
+        this.getScheduleWithReservations().then(() => {
+            this.updateCalendarWithReservations()
         })
     }
 
@@ -78,7 +70,7 @@ export class CalendarComponent {
     }
 
     public getMonthAndYear(): string {
-        return this.messageCalendarService.getDescription('months', this.startDate.month() + 1) + ' ' + this.startDate.year()
+        return this.messageCalendarService.getDescription('months', (new Date(this.startDate).getMonth() + 1).toString()) + ' ' + new Date(this.startDate).getFullYear()
     }
 
     public getWeekday(id: string): string {
@@ -86,10 +78,7 @@ export class CalendarComponent {
     }
 
     public hasSchedule(day: any): boolean {
-        // if (this.daysWithSchedule.length != 0) {
-        const x = this.daysWithSchedule.find(x => x.date == day.date)
-        return x != undefined ? true : false
-        // }
+        return this.daysWithSchedule.find(x => x.date == day.date)
     }
 
     public isToday(day: any): boolean {
@@ -109,16 +98,43 @@ export class CalendarComponent {
     }
 
     public showReservationsForSelectedDay(date: any): void {
-        // if (this.hasSchedule(date)) {
-        //     this.storeCriteria(date.date)
-        //     this.clearTableFilters()
-        //     this.navigateToList()
-        // }
+        if (this.hasSchedule(date)) {
+            this.storeCriteria(date.date)
+            this.clearTableFilters()
+            this.navigateToList()
+        }
     }
 
     //#endregion
 
     //#region private methods
+
+    private adjustCalendarHeight(): void {
+        const calendar = document.getElementById('calendar')
+        calendar.style.gridTemplateRows = '30px repeat(' + this.calculateWeekCount(new Date(this.startDate).getFullYear(), new Date(this.startDate).getMonth() + 1) + ', 1fr)'
+    }
+
+    private buildMonth(month: number, year: number): void {
+        this.days = []
+        this.startDate = new Date().setFullYear(year, month, 1)
+        const endDate = new Date().setFullYear(year, month + 1, 0)
+        const diffDays = Math.round((endDate - this.startDate) / (1000 * 60 * 60 * 24) + 1)
+        const arrayDays = Object.keys([...Array(diffDays)]).map((a: any) => {
+            a = parseInt(a) + 1
+            const dayObject = new Date(year, month, a)
+            const day: DayVM = {
+                date: this.helperService.getISODate(dayObject.toDateString()),
+                destinations: []
+            }
+            this.days.push(day)
+            return {
+                name: dayObject.toLocaleString('default', { weekday: 'long' }),
+                value: a,
+                indexWeek: dayObject.getDay()
+            }
+        })
+        this.monthSelect = arrayDays
+    }
 
     private calculateWeekCount(year: number, month: number): number {
         const firstOfMonth = new Date(year, month - 1, 1)
@@ -149,88 +165,33 @@ export class CalendarComponent {
         ])
     }
 
-    private doCalendarTasks(): void {
-        this.getDaysFromDate(moment().month() + 1, moment().year())
-        this.getScheduleForMonth().then(() => {
-            this.updateCalendar()
-            this.fixCalendarHeight()
-        })
-    }
-
-    private fixCalendarHeight(): void {
-        const calendar = document.getElementById('calendar')
-        calendar.style.gridTemplateRows = '30px repeat(' + this.calculateWeekCount(this.dateSelect.format('YYYY'), this.dateSelect.format('MM')) + ', 1fr)'
-    }
-
-    private getDaysFromDate(month: number, year: number): void {
-        this.startDate = utc(`${year}-${month}-01`, 'YYYY-MM-DD')
-        this.days = []
-        const endDate = this.startDate.clone().endOf('month')
-        const diffDays = endDate.diff(this.startDate, 'days', true)
-        const numberDays = Math.round(diffDays)
-        this.dateSelect = this.startDate
-        const arrayDays = Object.keys([...Array(numberDays)]).map((a: any) => {
-            a = parseInt(a) + 1
-            const dayObject = moment(`${year}-${month}-${a}`, 'YYYY-MM-DD')
-            const day: DayVM = {
-                date: dayObject.format('YYYY-MM-DD'),
-                destinations: []
-            }
-            this.days.push(day)
-            return {
-                name: dayObject.format('dddd'),
-                value: a,
-                indexWeek: dayObject.isoWeekday()
-            }
-        })
-        this.monthSelect = arrayDays
-    }
-
-    private getScheduleForMonth(): Promise<any> {
+    private getScheduleWithReservations(): Promise<any> {
         this.isLoading = true
         const promise = new Promise((resolve) => {
             this.reservationService.getForCalendar(this.days[0].date, this.days[this.days.length - 1].date).subscribe(response => {
                 this.daysWithSchedule = response
                 resolve(this.daysWithSchedule)
                 this.isLoading = false
-                console.log(this.daysWithSchedule)
             })
         })
         return promise
     }
 
-    // private getReservationsForMonth(): Promise<any> {
-    //     this.isLoading = true
-    //     const promise = new Promise((resolve) => {
-    //         this.reservationService.getForCalendar(this.days[0].date, this.days[this.days.length - 1].date).then((response: any[]) => {
-    //             this.daysWithSchedule = response
-    //             resolve(this.daysWithSchedule)
-    //             this.isLoading = false
-    //             console.log(response)
-    //         })
-    //     })
-    //     return promise
-    // }
-
     private navigateToList(): void {
-        this.router.navigate(['date', this.localStorageService.getItem('date')], { relativeTo: this.activatedRoute })
+        this.router.navigate([this.url, 'date', this.localStorageService.getItem('date')])
     }
 
-    private navigateToMonth(flag: number): void {
-        if (flag < 0) {
-            const prevDate = this.dateSelect.clone().subtract(1, 'month')
-            this.getDaysFromDate(prevDate.format('MM'), prevDate.format('YYYY'))
-        } else {
-            const nextDate = this.dateSelect.clone().add(1, 'month')
-            this.getDaysFromDate(nextDate.format('MM'), nextDate.format('YYYY'))
-        }
+    private navigateToMonth(direction: string): void {
+        const date = new Date(this.startDate)
+        direction == 'previous' ? date.setMonth(date.getMonth() - 1) : date.setMonth(date.getMonth() + 1)
+        this.buildMonth(date.getMonth(), date.getFullYear())
     }
 
     private storeCriteria(date: string): void {
         this.localStorageService.saveItem('date', date)
     }
 
-    private updateCalendar(): void {
+    private updateCalendarWithReservations(): void {
         this.daysWithSchedule.forEach(day => {
             const x = this.days.find(x => x.date == day.date)
             this.days[this.days.indexOf(x)].destinations = day.destinations

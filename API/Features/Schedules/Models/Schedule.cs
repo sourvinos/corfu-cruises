@@ -1,11 +1,10 @@
 using System;
-using System.Collections.Generic;
 using API.Features.Destinations;
 using API.Features.Ports;
-using API.Features.Reservations;
 using API.Features.Users;
 
-namespace API.Features.Schedules {
+namespace API.Features.Schedules
+{
 
     public class Schedule {
 
@@ -26,7 +25,6 @@ namespace API.Features.Schedules {
         public Destination Destination { get; set; }
         public Port Port { get; set; }
         public UserExtended User { get; set; }
-        public IEnumerable<Reservation> Reservations { get; set; }
 
     }
 
