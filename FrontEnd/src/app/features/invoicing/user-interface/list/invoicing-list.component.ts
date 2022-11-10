@@ -3,8 +3,8 @@ import { ActivatedRoute, Router } from '@angular/router'
 import { Component } from '@angular/core'
 import { Subject } from 'rxjs'
 // Custom
+import { DateHelperService } from 'src/app/shared/services/date-helper.service'
 import { EmojiService } from 'src/app/shared/services/emoji.service'
-import { HelperService } from 'src/app/shared/services/helper.service'
 import { InvoicingCriteriaVM } from '../../classes/view-models/invoicing-criteria-vm'
 import { InvoicingPDFService } from '../../classes/services/invoicing-pdf.service'
 import { InvoicingVM } from '../../classes/view-models/invoicing-vm'
@@ -38,7 +38,7 @@ export class InvoicingListComponent {
 
     //#endregion
 
-    constructor(private activatedRoute: ActivatedRoute, private emojiService: EmojiService, private helperService: HelperService, private invoicingPdfService: InvoicingPDFService, private keyboardShortcutsService: KeyboardShortcuts, private localStorageService: LocalStorageService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private modalActionResultService: ModalActionResultService, private router: Router) { }
+    constructor(private activatedRoute: ActivatedRoute, private dateHelperService: DateHelperService, private emojiService: EmojiService, private invoicingPdfService: InvoicingPDFService, private keyboardShortcutsService: KeyboardShortcuts, private localStorageService: LocalStorageService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private modalActionResultService: ModalActionResultService, private router: Router) { }
 
     //#region lifecycle hooks
 
@@ -79,7 +79,7 @@ export class InvoicingListComponent {
     }
 
     public formatDateToLocale(date: string, showWeekday = false): string {
-        return this.helperService.formatISODateToLocale(date, showWeekday)
+        return this.dateHelperService.formatISODateToLocale(date, showWeekday)
     }
 
     public getIcon(filename: string): string {

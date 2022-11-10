@@ -5,6 +5,7 @@ import { Subject } from 'rxjs'
 // Custom
 import { ButtonClickService } from 'src/app/shared/services/button-click.service'
 import { CustomerActiveVM } from 'src/app/features/customers/classes/view-models/customer-active-vm'
+import { DateHelperService } from 'src/app/shared/services/date-helper.service'
 import { DestinationActiveVM } from 'src/app/features/destinations/classes/view-models/destination-active-vm'
 import { DialogService } from 'src/app/shared/services/dialog.service'
 import { DriverActiveVM } from 'src/app/features/drivers/classes/view-models/driver-active-vm'
@@ -18,10 +19,10 @@ import { KeyboardShortcuts, Unlisten } from 'src/app/shared/services/keyboard-sh
 import { LocalStorageService } from 'src/app/shared/services/local-storage.service'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { MessageSnackbarService } from '../../../../shared/services/messages-snackbar.service'
+import { PortActiveVM } from 'src/app/features/ports/classes/view-models/port-active-vm'
 import { ShipActiveVM } from 'src/app/features/ships/classes/view-models/ship-active-vm'
 import { SnackbarService } from 'src/app/shared/services/snackbar.service'
 import { environment } from 'src/environments/environment'
-import { PortActiveVM } from 'src/app/features/ports/classes/view-models/port-active-vm'
 
 @Component({
     selector: 'embarkation-list',
@@ -58,7 +59,7 @@ export class EmbarkationListComponent {
 
     //#endregion
 
-    constructor(private activatedRoute: ActivatedRoute, private buttonClickService: ButtonClickService, private dateAdapter: DateAdapter<any>, private dialogService: DialogService, private embarkationDisplayService: EmbarkationService, private embarkationPDFService: EmbarkationPDFService, private emojiService: EmojiService, private helperService: HelperService, private keyboardShortcutsService: KeyboardShortcuts, private localStorageService: LocalStorageService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private router: Router, private snackbarService: SnackbarService) {
+    constructor(private activatedRoute: ActivatedRoute, private buttonClickService: ButtonClickService, private dateAdapter: DateAdapter<any>, private dateHelperService: DateHelperService, private dialogService: DialogService, private embarkationDisplayService: EmbarkationService, private embarkationPDFService: EmbarkationPDFService, private emojiService: EmojiService, private helperService: HelperService, private keyboardShortcutsService: KeyboardShortcuts, private localStorageService: LocalStorageService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private router: Router, private snackbarService: SnackbarService) {
         this.router.events.subscribe((navigation) => {
             if (navigation instanceof NavigationEnd) {
                 this.init(navigation)
@@ -246,7 +247,7 @@ export class EmbarkationListComponent {
     }
 
     private formatDateToLocale(date: string, showWeekday = false): string {
-        return this.helperService.formatISODateToLocale(date, showWeekday)
+        return this.dateHelperService.formatISODateToLocale(date, showWeekday)
     }
 
     private getDistinctEmbarkationStatus(): void {

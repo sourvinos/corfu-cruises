@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core'
 // Custom
+import { DateHelperService } from 'src/app/shared/services/date-helper.service'
 import { EmbarkationVM } from '../view-models/embarkation-vm'
-import { HelperService } from 'src/app/shared/services/helper.service'
 import { LocalStorageService } from 'src/app/shared/services/local-storage.service'
 import { LogoService } from 'src/app/features/reservations/classes/services/logo.service'
 // Fonts
@@ -16,7 +16,7 @@ pdfMake.vfs = pdfFonts.pdfMake.vfs
 
 export class EmbarkationPDFService {
 
-    constructor(private helperService: HelperService, private localStorageService: LocalStorageService, private logoService: LogoService) { }
+    constructor(private dateHelperService: DateHelperService, private localStorageService: LocalStorageService, private logoService: LogoService) { }
 
     //#region public methods
 
@@ -201,7 +201,7 @@ export class EmbarkationPDFService {
         const criteria = {
             type: 'none',
             ul: [
-                { text: 'Date: ' + this.helperService.formatISODateToLocale(criteriaFromStorage.date, true), alignment: 'right', color: '#0a5f91', fontSize: 8 },
+                { text: 'Date: ' + this.dateHelperService.formatISODateToLocale(criteriaFromStorage.date, true), alignment: 'right', color: '#0a5f91', fontSize: 8 },
                 { text: 'Destination: ' + this.singleOrAllCriteria(criteriaFromStorage.destination), alignment: 'right', color: '#0a5f91', fontSize: 8 },
                 { text: 'Port: ' + this.singleOrAllCriteria(criteriaFromStorage.port), alignment: 'right', color: '#0a5f91', fontSize: 8 },
                 { text: 'Ship: ' + this.singleOrAllCriteria(criteriaFromStorage.ship), alignment: 'right', color: '#0a5f91', fontSize: 8 }

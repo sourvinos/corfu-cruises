@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core'
 // Custom
-import { HelperService } from 'src/app/shared/services/helper.service'
+import { DateHelperService } from 'src/app/shared/services/date-helper.service'
 import { ManifestPassengerVM } from '../view-models/manifest-passenger-vm'
 import { ManifestVM } from '../view-models/manifest-vm'
 // Fonts
@@ -21,7 +21,7 @@ export class ManifestPdfService {
 
     //#endregion
 
-    constructor(private helperService: HelperService) { }
+    constructor(private dateHelperService: DateHelperService) { }
 
     //#region public methods
 
@@ -151,9 +151,9 @@ export class ManifestPdfService {
 
     private createShipRoute(manifest: ManifestVM): string {
         return '' +
-            'ΛΙΜΕΝΑΣ ΑΠΟΠΛΟΥ ' + manifest.shipRoute.fromPort + ' ΗΜΕΡΟΜΗΝΙΑ ' + this.helperService.formatISODateToLocale(manifest.date) + ' ΩΡΑ ' + manifest.shipRoute.fromTime + '\n' +
-            'ΕΝΔΙΑΜΕΣΟΙ ΛΙΜΕΝΕΣ ΠΡΟΣΕΓΓΙΣΗΣ ' + manifest.shipRoute.viaPort + ' ΗΜΕΡΟΜΗΝΙΑ ' + this.helperService.formatISODateToLocale(manifest.date) + ' ΩΡΑ ' + manifest.shipRoute.viaTime + '\n' +
-            'ΛΙΜΕΝΑΣ ΚΑΤΑΠΛΟΥ ' + manifest.shipRoute.toPort + ' ΗΜΕΡΟΜΗΝΙΑ ' + this.helperService.formatISODateToLocale(manifest.date) + ' ΩΡΑ ' + manifest.shipRoute.toTime
+            'ΛΙΜΕΝΑΣ ΑΠΟΠΛΟΥ ' + manifest.shipRoute.fromPort + ' ΗΜΕΡΟΜΗΝΙΑ ' + this.dateHelperService.formatISODateToLocale(manifest.date) + ' ΩΡΑ ' + manifest.shipRoute.fromTime + '\n' +
+            'ΕΝΔΙΑΜΕΣΟΙ ΛΙΜΕΝΕΣ ΠΡΟΣΕΓΓΙΣΗΣ ' + manifest.shipRoute.viaPort + ' ΗΜΕΡΟΜΗΝΙΑ ' + this.dateHelperService.formatISODateToLocale(manifest.date) + ' ΩΡΑ ' + manifest.shipRoute.viaTime + '\n' +
+            'ΛΙΜΕΝΑΣ ΚΑΤΑΠΛΟΥ ' + manifest.shipRoute.toPort + ' ΗΜΕΡΟΜΗΝΙΑ ' + this.dateHelperService.formatISODateToLocale(manifest.date) + ' ΩΡΑ ' + manifest.shipRoute.toTime
     }
 
     private createTableHeaders(): any[] {

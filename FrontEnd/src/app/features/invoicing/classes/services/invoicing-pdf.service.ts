@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core'
 // Custom
-import { HelperService } from 'src/app/shared/services/helper.service'
+import { DateHelperService } from 'src/app/shared/services/date-helper.service'
 import { InvoicingPortVM } from '../view-models/invoicing-port-vm'
 import { InvoicingVM } from '../view-models/invoicing-vm'
 import { LogoService } from 'src/app/features/reservations/classes/services/logo.service'
@@ -17,7 +17,7 @@ pdfMake.vfs = pdfFonts.pdfMake.vfs
 
 export class InvoicingPDFService {
 
-    constructor(private helperService: HelperService, private logoService: LogoService) { }
+    constructor(private dateHelperService: DateHelperService, private logoService: LogoService) { }
 
     public createPDF(invoicing: InvoicingVM): void {
         this.setFonts()
@@ -92,8 +92,8 @@ export class InvoicingPDFService {
     }
 
     private setCriteria(record: InvoicingVM): any {
-        const fromDate = this.helperService.formatISODateToLocale(record.fromDate)
-        const toDate = this.helperService.formatISODateToLocale(record.toDate)
+        const fromDate = this.dateHelperService.formatISODateToLocale(record.fromDate)
+        const toDate = this.dateHelperService.formatISODateToLocale(record.toDate)
         const criteria = {
             type: 'none',
             ul: [
@@ -208,7 +208,7 @@ export class InvoicingPDFService {
         rows.push(this.createBodyHeader())
         invoicing.reservations.forEach(reservation => {
             rows.push([
-                { text: this.helperService.formatISODateToLocale(reservation.date), alignment: 'center' },
+                { text: this.dateHelperService.formatISODateToLocale(reservation.date), alignment: 'center' },
                 { text: reservation.refNo },
                 { text: reservation.ticketNo },
                 { text: reservation.destination },

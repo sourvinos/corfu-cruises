@@ -2,6 +2,7 @@ import { ActivatedRoute, Router } from '@angular/router'
 import { Component } from '@angular/core'
 import { Subject, takeUntil } from 'rxjs'
 // Custom
+import { DateHelperService } from 'src/app/shared/services/date-helper.service'
 import { HelperService } from 'src/app/shared/services/helper.service'
 import { InteractionService } from 'src/app/shared/services/interaction.service'
 import { ListResolved } from 'src/app/shared/classes/list-resolved'
@@ -36,7 +37,7 @@ export class ScheduleListComponent {
 
     //#endregion
 
-    constructor(private activatedRoute: ActivatedRoute, private helperService: HelperService, private interactionService: InteractionService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private modalActionResultService: ModalActionResultService, private router: Router) { }
+    constructor(private activatedRoute: ActivatedRoute, private dateHelperService: DateHelperService, private helperService: HelperService, private interactionService: InteractionService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private modalActionResultService: ModalActionResultService, private router: Router) { }
 
     //#region lifecycle hooks
 
@@ -65,7 +66,7 @@ export class ScheduleListComponent {
     }
 
     public formatDateToLocale(date: string): string {
-        return this.helperService.formatISODateToLocale(date)
+        return this.dateHelperService.formatISODateToLocale(date)
     }
 
     public getIcon(filename: string): string {
@@ -97,7 +98,7 @@ export class ScheduleListComponent {
 
     private formatTableDateColumnToLocale(): void {
         this.records.forEach(record => {
-            record.formattedDate = this.helperService.formatISODateToLocale(record.date)
+            record.formattedDate = this.dateHelperService.formatISODateToLocale(record.date)
         })
     }
 
@@ -120,7 +121,7 @@ export class ScheduleListComponent {
         return promise
     }
 
-    private populateDropdownFilters() : void {
+    private populateDropdownFilters(): void {
         this.dropdownDates = this.helperService.getDistinctRecords(this.records, 'formattedDate')
         this.dropdownDestinations = this.helperService.getDistinctRecords(this.records, 'destinationDescription')
         this.dropdownPorts = this.helperService.getDistinctRecords(this.records, 'portDescription')

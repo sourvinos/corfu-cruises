@@ -5,6 +5,7 @@ import { Observable, Subject } from 'rxjs'
 import { Router } from '@angular/router'
 import { map, startWith, takeUntil } from 'rxjs/operators'
 // Custom
+import { DateHelperService } from 'src/app/shared/services/date-helper.service'
 import { DestinationActiveVM } from 'src/app/features/destinations/classes/view-models/destination-active-vm'
 import { DialogService } from 'src/app/shared/services/dialog.service'
 import { HelperService, indicate } from 'src/app/shared/services/helper.service'
@@ -51,7 +52,7 @@ export class NewScheduleComponent {
 
     //#endregion
 
-    constructor(private dateAdapter: DateAdapter<any>, private dialogService: DialogService, private formBuilder: FormBuilder, private helperService: HelperService, private interactionService: InteractionService, private localStorageService: LocalStorageService, private messageCalendarService: MessageCalendarService, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private modalActionResultService: ModalActionResultService, private router: Router, private scheduleService: ScheduleService) {
+    constructor(private dateAdapter: DateAdapter<any>, private dateHelperService: DateHelperService, private dialogService: DialogService, private formBuilder: FormBuilder, private helperService: HelperService, private interactionService: InteractionService, private localStorageService: LocalStorageService, private messageCalendarService: MessageCalendarService, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private modalActionResultService: ModalActionResultService, private router: Router, private scheduleService: ScheduleService) {
         this.initForm()
     }
 
@@ -123,7 +124,7 @@ export class NewScheduleComponent {
     public createPeriod(): void {
         this.daysToCreate = []
         if (this.fromDate.valid && this.toDate.valid) {
-            const period = this.buildPeriod(new Date(this.fromDate.value.format('YYYY-MM-DD')), new Date(this.toDate.value.format('YYYY-MM-DD')))
+            const period = this.buildPeriod(new Date(this.fromDate.value), new Date(this.toDate.value))
             period.forEach((day: string) => {
                 if (this.selectedWeekdays.length != 0) {
                     this.selectedWeekdays.forEach(weekday => {
@@ -172,7 +173,7 @@ export class NewScheduleComponent {
         const dateArray = []
         const currentDate = from
         while (currentDate <= to) {
-            dateArray.push(this.helperService.convertLongDateToISODate(currentDate, false))
+            dateArray.push(this.dateHelperService.convertLongDateToISODate(currentDate, false))
             currentDate.setDate(currentDate.getDate() + 1)
         }
         return dateArray

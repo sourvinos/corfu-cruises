@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core'
 // Custom
+import { DateHelperService } from 'src/app/shared/services/date-helper.service'
 import { DriverReportDto } from '../dtos/driver-report-dto'
 import { DriverReportHeaderDto } from '../dtos/driver-report-header-dto'
 import { DriverReportReservationDto } from '../dtos/driver-report-reservation-dto'
-import { HelperService } from 'src/app/shared/services/helper.service'
 import { LocalStorageService } from 'src/app/shared/services/local-storage.service'
 import { ReservationService } from '../../services/reservation.service'
 // Fonts
@@ -23,7 +23,7 @@ export class DriverReportService {
 
     //#endregion
 
-    constructor(private helperService: HelperService, private localStorageService: LocalStorageService, private reservationService: ReservationService) { }
+    constructor(private dateHelperService: DateHelperService, private localStorageService: LocalStorageService, private reservationService: ReservationService) { }
 
     //#region public methods
 
@@ -165,7 +165,7 @@ export class DriverReportService {
     }
 
     private createPageHeader(): any {
-        const date = this.helperService.formatISODateToLocale(this.driverReport.header.date)
+        const date = this.dateHelperService.formatISODateToLocale(this.driverReport.header.date)
         const driverInfo = this.driverReport.header.driverDescription + ', ' + this.driverReport.header.phones
         return function (): any {
             return {

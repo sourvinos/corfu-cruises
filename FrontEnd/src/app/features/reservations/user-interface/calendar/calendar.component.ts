@@ -2,8 +2,8 @@ import { Component } from '@angular/core'
 import { Router } from '@angular/router'
 import { Subject } from 'rxjs'
 // Custom
+import { DateHelperService } from 'src/app/shared/services/date-helper.service'
 import { DayVM } from '../../classes/calendar/day-vm'
-import { HelperService } from 'src/app/shared/services/helper.service'
 import { LocalStorageService } from 'src/app/shared/services/local-storage.service'
 import { MessageCalendarService } from 'src/app/shared/services/messages-calendar.service'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
@@ -35,13 +35,13 @@ export class CalendarComponent {
 
     // #endregion 
 
-    constructor(private helperService: HelperService, private localStorageService: LocalStorageService, private messageCalendarService: MessageCalendarService, private messageLabelService: MessageLabelService, private reservationService: ReservationService, private router: Router) { }
+    constructor(private dateHelperService: DateHelperService, private localStorageService: LocalStorageService, private messageCalendarService: MessageCalendarService, private messageLabelService: MessageLabelService, private reservationService: ReservationService, private router: Router) { }
 
     //#region lifecycle hooks
 
     ngOnInit(): void {
         this.clearStoredVariables()
-        this.buildMonth(this.helperService.getCurrentMonth(), this.helperService.getCurrentYear())
+        this.buildMonth(this.dateHelperService.getCurrentMonth(), this.dateHelperService.getCurrentYear())
         this.adjustCalendarHeight()
         this.getScheduleWithReservations().then(() => {
             this.updateCalendarWithReservations()
@@ -123,7 +123,7 @@ export class CalendarComponent {
             a = parseInt(a) + 1
             const dayObject = new Date(year, month, a)
             const day: DayVM = {
-                date: this.helperService.formatDateToIso(dayObject.toDateString(), false),
+                date: this.dateHelperService.formatDateToIso(dayObject, false),
                 destinations: []
             }
             this.days.push(day)

@@ -7,6 +7,7 @@ import { Subject } from 'rxjs'
 import { AccountService } from 'src/app/shared/services/account.service'
 import { CoachRouteActiveVM } from 'src/app/features/coachRoutes/classes/view-models/coachRoute-active-vm'
 import { CustomerActiveVM } from '../../../customers/classes/view-models/customer-active-vm'
+import { DateHelperService } from 'src/app/shared/services/date-helper.service'
 import { DestinationActiveVM } from '../../../destinations/classes/view-models/destination-active-vm'
 import { DestinationService } from 'src/app/features/destinations/classes/services/destination.service'
 import { DriverActiveVM } from '../../../drivers/classes/view-models/driver-active-vm'
@@ -20,6 +21,7 @@ import { MessageLabelService } from 'src/app/shared/services/messages-label.serv
 import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
 import { ModalActionResultService } from 'src/app/shared/services/modal-action-result.service'
 import { PickupPointActiveVM } from 'src/app/features/pickupPoints/classes/view-models/pickupPoint-active-vm'
+import { PortActiveVM } from 'src/app/features/ports/classes/view-models/port-active-vm'
 import { ReservationGroupDto } from '../../classes/dtos/list/reservation-group-dto'
 import { ReservationService } from './../../classes/services/reservation.service'
 import { ReservationToDriverComponent } from '../reservation-to-driver/reservation-to-driver-form.component'
@@ -27,7 +29,6 @@ import { ReservationToShipComponent } from '../reservation-to-ship/reservation-t
 import { ShipRouteActiveVM } from '../../../shipRoutes/classes/view-models/shipRoute-active-vm'
 import { ShipService } from 'src/app/features/ships/classes/services/ship.service'
 import { environment } from 'src/environments/environment'
-import { PortActiveVM } from 'src/app/features/ports/classes/view-models/port-active-vm'
 
 @Component({
     selector: 'reservation-list',
@@ -66,7 +67,7 @@ export class ReservationListComponent {
 
     //#endregion
 
-    constructor(private accountService: AccountService, private activatedRoute: ActivatedRoute, private destinationService: DestinationService, private driverReportService: DriverReportService, private driverService: DriverService, private emojiService: EmojiService, private helperService: HelperService, private localStorageService: LocalStorageService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private modalActionResultService: ModalActionResultService, private reservationService: ReservationService, private router: Router, private shipService: ShipService, public dialog: MatDialog) {
+    constructor(private accountService: AccountService, private activatedRoute: ActivatedRoute, private dateHelperService: DateHelperService, private destinationService: DestinationService, private driverReportService: DriverReportService, private driverService: DriverService, private emojiService: EmojiService, private helperService: HelperService, private localStorageService: LocalStorageService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private modalActionResultService: ModalActionResultService, private reservationService: ReservationService, private router: Router, private shipService: ShipService, public dialog: MatDialog) {
         this.router.events.subscribe((navigation) => {
             if (navigation instanceof NavigationEnd) {
                 this.url = navigation.url
@@ -83,7 +84,7 @@ export class ReservationListComponent {
         this.initPersonTotals()
         this.updateTotals()
         this.doDestinationForOverbookingTasks()
-        this.calculateTableHeight()        
+        this.calculateTableHeight()
     }
 
     ngOnDestroy(): void {
@@ -184,7 +185,7 @@ export class ReservationListComponent {
 
     public formatDate(): string {
         if (this.localStorageService.getItem('date')) {
-            return this.helperService.formatISODateToLocale(this.localStorageService.getItem('date'), true)
+            return this.dateHelperService.formatISODateToLocale(this.localStorageService.getItem('date'), true)
         } else {
             return '-'
         }
