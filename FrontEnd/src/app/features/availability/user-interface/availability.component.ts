@@ -1,13 +1,13 @@
-import moment, { utc } from 'moment'
 import { Component } from '@angular/core'
 import { Router } from '@angular/router'
 import { Subject } from 'rxjs'
 // Custom
 import { AvailabilityService } from '../classes/services/availability.service'
-import { DayViewModel } from '../classes/view-models/day-view-model'
+import { DayVM } from '../classes/view-models/day-vm'
 import { LocalStorageService } from 'src/app/shared/services/local-storage.service'
 import { MessageCalendarService } from 'src/app/shared/services/messages-calendar.service'
 import { MessageLabelService } from './../../../shared/services/messages-label.service'
+import { DateHelperService } from 'src/app/shared/services/date-helper.service'
 
 @Component({
     selector: 'availability',
@@ -25,25 +25,24 @@ export class AvailabilityComponent {
     public icon = 'home'
     public parentUrl = '/'
 
-    private dateSelect: any
     private daysWithSchedule = []
     private startDate: any
-    public days: DayViewModel[]
+    public days: DayVM[]
     public isLoading: boolean
-    public selectedMonth: any[]
+    public monthSelect: any[] = []
     public weekDays = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
 
     // #endregion 
 
-    constructor(private availabilityService: AvailabilityService, private localStorageService: LocalStorageService, private messageCalendarService: MessageCalendarService, private messageLabelService: MessageLabelService, private router: Router) { }
+    constructor(private availabilityService: AvailabilityService, private dateHelperService: DateHelperService, private localStorageService: LocalStorageService, private messageCalendarService: MessageCalendarService, private messageLabelService: MessageLabelService, private router: Router) { }
 
     //#region lifecycle hooks
 
     ngOnInit(): void {
-        this.getDaysForSelectedMonth(moment().month() + 1, moment().year())
+        this.buildMonth(this.dateHelperService.getCurrentMonth(), this.dateHelperService.getCurrentYear())
+        this.adjustCalendarHeight()
         this.getAvailabilityForMonth().then(() => {
             this.updateCalendar()
-            this.fixCalendarHeight()
         })
         this.clearStoredVariables()
     }
@@ -56,11 +55,11 @@ export class AvailabilityComponent {
 
     //#region public methods
 
-    public changeMonth(month: number): void {
-        this.navigateToMonth(month)
+    public changeMonth(direction: string): void {
+        this.navigateToMonth(direction)
+        this.adjustCalendarHeight()
         this.getAvailabilityForMonth().then(() => {
             this.updateCalendar()
-            this.fixCalendarHeight()
         })
     }
 
@@ -74,7 +73,7 @@ export class AvailabilityComponent {
     }
 
     public getMonthAndYear(): string {
-        return this.messageCalendarService.getDescription('months', this.startDate.month() + 1) + ' ' + this.startDate.year()
+        return this.messageCalendarService.getDescription('months', (new Date(this.startDate).getMonth() + 1).toString()) + ' ' + new Date(this.startDate).getFullYear()
     }
 
     public getWeekday(id: string): string {
@@ -97,9 +96,40 @@ export class AvailabilityComponent {
         return day.date == new Date().toISOString().substring(0, 10)
     }
 
+    public navigateToNewReservation(): void {
+        setTimeout(() => { this.router.navigate(['/reservations/new']) }, 500)
+    }
+
     //#endregion
 
     //#region private methods
+
+    private adjustCalendarHeight(): void {
+        const calendar = document.getElementById('calendar')
+        calendar.style.gridTemplateRows = '30px repeat(' + this.calculateWeekCount(new Date(this.startDate).getFullYear(), new Date(this.startDate).getMonth() + 1) + ', 1fr)'
+    }
+
+    private buildMonth(month: number, year: number): void {
+        this.days = []
+        this.startDate = new Date().setFullYear(year, month, 1)
+        const endDate = new Date().setFullYear(year, month + 1, 0)
+        const diffDays = Math.round((endDate - this.startDate) / (1000 * 60 * 60 * 24) + 1)
+        const arrayDays = Object.keys([...Array(diffDays)]).map((a: any) => {
+            a = parseInt(a) + 1
+            const dayObject = new Date(year, month, a)
+            const day: DayVM = {
+                date: this.dateHelperService.formatDateToIso(dayObject, false),
+                destinations: []
+            }
+            this.days.push(day)
+            return {
+                name: dayObject.toLocaleString('default', { weekday: 'long' }),
+                value: a,
+                indexWeek: dayObject.getDay()
+            }
+        })
+        this.monthSelect = arrayDays
+    }
 
     private calculateWeekCount(year: number, month: number): number {
         const firstOfMonth = new Date(year, month - 1, 1)
@@ -131,11 +161,6 @@ export class AvailabilityComponent {
         this.unsubscribe.unsubscribe()
     }
 
-    private fixCalendarHeight(): void {
-        const calendar = document.getElementById('calendar')
-        calendar.style.gridTemplateRows = '30px repeat(' + this.calculateWeekCount(this.dateSelect.format('YYYY'), this.dateSelect.format('MM')) + ', 1fr)'
-    }
-
     private getAvailabilityForMonth(): Promise<any> {
         this.isLoading = true
         const promise = new Promise((resolve) => {
@@ -148,44 +173,10 @@ export class AvailabilityComponent {
         return promise
     }
 
-    private getDaysForSelectedMonth(month: number, year: number): void {
-        this.startDate = utc(`${year}-${month}-01`, 'YYYY-MM-DD')
-        this.days = []
-        const endDate = this.startDate.clone().endOf('month')
-        const diffDays = endDate.diff(this.startDate, 'days', true)
-        const numberDays = Math.round(diffDays)
-        this.dateSelect = this.startDate
-        const arrayDays = Object.keys([...Array(numberDays)]).map((a: any) => {
-            a = parseInt(a) + 1
-            const dayObject = moment(`${year}-${month}-${a}`, 'YYYY-MM-DD')
-            const day = new DayViewModel()
-            day.date = dayObject.format('YYYY-MM-DD')
-            this.days.push(day)
-            return {
-                name: dayObject.format('dddd'),
-                value: a,
-                indexWeek: dayObject.isoWeekday()
-            }
-        })
-        this.selectedMonth = arrayDays
-    }
-
-    private goBack(): void {
-        this.router.navigate([this.parentUrl])
-    }
-
-    private navigateToMonth(flag: number): void {
-        if (flag < 0) {
-            const prevDate = this.dateSelect.clone().subtract(1, 'month')
-            this.getDaysForSelectedMonth(prevDate.format('MM'), prevDate.format('YYYY'))
-        } else {
-            const nextDate = this.dateSelect.clone().add(1, 'month')
-            this.getDaysForSelectedMonth(nextDate.format('MM'), nextDate.format('YYYY'))
-        }
-    }
-
-    public navigateToNewReservation(): void {
-        setTimeout(() => { this.router.navigate(['/reservations/new']) }, 500)
+    private navigateToMonth(direction: string): void {
+        const date = new Date(this.startDate)
+        direction == 'previous' ? date.setMonth(date.getMonth() - 1) : date.setMonth(date.getMonth() + 1)
+        this.buildMonth(date.getMonth(), date.getFullYear())
     }
 
     private storeCriteria(date: string, destinationId: number, destinationDescription: string): void {

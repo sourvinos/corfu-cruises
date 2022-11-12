@@ -1,6 +1,6 @@
 import { DestinationViewModel } from './destination-view-model'
 
-export class DayViewModel {
+export class DayVM {
 
     date: string
     

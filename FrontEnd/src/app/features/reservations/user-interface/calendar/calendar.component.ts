@@ -29,9 +29,9 @@ export class CalendarComponent {
     private daysWithSchedule = []
     private startDate: any
     public days: DayVM[] = []
+    public isLoading: boolean
     public monthSelect: any[] = []
     public weekDays = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
-    public isLoading: boolean
 
     // #endregion 
 

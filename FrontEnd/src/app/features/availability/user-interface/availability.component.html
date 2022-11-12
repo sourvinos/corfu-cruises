@@ -3,16 +3,16 @@
     <div id="header">
         <home-button-and-title [feature]="feature" [featureIcon]="featureIcon" [icon]="icon" [parentUrl]="parentUrl"></home-button-and-title>
         <div id="month-selector">
-            <span class="material-icons month-arrows" (click)="changeMonth(-1)">chevron_left</span>
+            <span class="material-icons month-arrows" (click)="changeMonth('previous')">chevron_left</span>
             <h1 id="month-and-year">{{ getMonthAndYear() }}</h1>
-            <span class="material-icons month-arrows" (click)="changeMonth(1)">chevron_right</span>
+            <span class="material-icons month-arrows" (click)="changeMonth('next')">chevron_right</span>
         </div>
     </div>
 
     <div id="wrapper-calendar">
         <ol id="calendar">
             <div *ngFor="let weekDay of weekDays" class="weekday-name">{{ getWeekday(weekDay) }}</div>
-            <li data-cy="days" class="days" [id]="days[day.value - 1].date" *ngFor="let day of selectedMonth;let first = first" [style.gridColumnStart]="first ? day?.indexWeek : 'auto'">
+            <li data-cy="days" class="days" [id]="days[day.value - 1].date" *ngFor="let day of monthSelect; let first = first" [style.gridColumnStart]="first ? day?.indexWeek == 0 ? 7 : day?.indexWeek : 'auto'">
                 <div [ngClass]="{ 'saturday':isSaturday(days[day.value - 1]), 'sunday':isSunday(days[day.value - 1]), 'is-today':isToday(days[day.value - 1]), 'has-schedule':hasSchedule(days[day.value - 1]) }" class="date-card">
                     <div class="day">{{ day?.value }}</div>
                     <div class="destinations">
