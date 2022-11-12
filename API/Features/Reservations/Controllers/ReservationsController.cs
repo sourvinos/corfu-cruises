@@ -40,8 +40,8 @@ namespace API.Features.Reservations {
 
         [HttpGet("fromDate/{fromDate}/toDate/{toDate}")]
         [Authorize(Roles = "user, admin")]
-        public async Task<IEnumerable<ReservationCalendarGroupVM>> GetForCalendarAsync([FromRoute] string fromDate, string toDate) {
-            return await reservationCalendar.GetForCalendarAsync(fromDate, toDate);
+        public IEnumerable<ReservationCalendarGroupVM> GetForCalendar([FromRoute] string fromDate, string toDate) {
+            return reservationCalendar.GetForCalendar(fromDate, toDate);
         }
 
         [HttpGet("date/{date}")]
