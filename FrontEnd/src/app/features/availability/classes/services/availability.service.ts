@@ -10,7 +10,7 @@ import { environment } from 'src/environments/environment'
 export class AvailabilityService extends HttpDataService {
 
     constructor(httpClient: HttpClient) {
-        super(httpClient, environment.apiUrl + '/schedules')
+        super(httpClient, environment.apiUrl + '/availability')
     }
 
     //#region public methods

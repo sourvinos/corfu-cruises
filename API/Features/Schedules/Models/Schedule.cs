@@ -3,8 +3,7 @@ using API.Features.Destinations;
 using API.Features.Ports;
 using API.Features.Users;
 
-namespace API.Features.Schedules
-{
+namespace API.Features.Schedules {
 
     public class Schedule {
 

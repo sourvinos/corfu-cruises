@@ -1,3 +1,4 @@
+using API.Features.Availability;
 using API.Features.Billing;
 using API.Features.CoachRoutes;
 using API.Features.Customers;
@@ -60,9 +61,9 @@ namespace API.Infrastructure.Extensions {
             services.AddTransient<IShipValidation, ShipValidation>();
             services.AddTransient<IUserValidation<IUser>, UserValidation>();
             // ViewModels
+            services.AddTransient<IAvailabilityCalendar, AvailabilityCalendar>();
             services.AddTransient<IReservationAvailability, ReservationAvailability>();
             services.AddTransient<IReservationCalendar, ReservationCalendar>();
-            services.AddTransient<IScheduleCalendar, ScheduleCalendar>();
         }
 
     }
