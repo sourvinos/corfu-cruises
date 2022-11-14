@@ -13,6 +13,7 @@ using API.Features.Ports;
 using API.Features.Registrars;
 using API.Features.Reservations;
 using API.Features.Schedules;
+using API.Features.Seeker;
 using API.Features.ShipCrews;
 using API.Features.ShipOwners;
 using API.Features.ShipRoutes;
@@ -64,6 +65,7 @@ namespace API.Infrastructure.Extensions {
             services.AddTransient<IAvailabilityCalendar, AvailabilityCalendar>();
             services.AddTransient<IReservationAvailability, ReservationAvailability>();
             services.AddTransient<IReservationCalendar, ReservationCalendar>();
+            services.AddTransient<ISeekerCalendar, SeekerCalendar>();
         }
 
     }
