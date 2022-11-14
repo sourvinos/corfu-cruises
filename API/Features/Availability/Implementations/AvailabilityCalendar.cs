@@ -9,7 +9,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 
-namespace API.Features.Availability {
+namespace API.Features.Availability
+{
 
     public class AvailabilityCalendar : Repository<Schedule>, IAvailabilityCalendar {
 
@@ -17,7 +18,7 @@ namespace API.Features.Availability {
 
         /// <summary>
         ///     Step 1/5
-        ///     Creates the calendar (based on the schedules for the selected period) which will contain (after all the processing) the free seats per port, destination and day
+        ///     Creates the calendar (based on the schedules for the selected period) which will contain (after all the processing) the free seats per day, destination and port
         /// </summary>
         /// <param name="fromDate"></param>
         /// <param name="toDate"></param>
@@ -40,7 +41,7 @@ namespace API.Features.Availability {
                             Description = x.Key.Description,
                             Abbreviation = x.Key.Abbreviation,
                             MaxPax = x.Key.MaxPax,
-                        })
+                        }).ToList()
                     })
                 }).ToList();
         }
@@ -62,12 +63,12 @@ namespace API.Features.Availability {
                     }
                 }
             }
-            return schedules;
+            return schedules.ToList();
         }
 
         /// <summary>
         ///     Step 3/5
-        ///     Calculates the total passengers per port, including the passengers from the previous port (based on the stopOrder property)
+        ///     Calculates the total passengers per port, including the passengers from the previous port (based on the stopOrder property of the port)
         /// </summary>
         /// <param name="schedules"></param>
         /// <returns>
@@ -84,12 +85,12 @@ namespace API.Features.Availability {
                     accumulatedPax = 0;
                 }
             }
-            return schedules;
+            return schedules.ToList();
         }
 
         /// <summary>
         ///     Step 4/5
-        ///     Calculates the free seats per port, including the free seats from the previous port (according to the stopOrder field of the port)
+        ///     Calculates the free seats per port, including the free seats from the previous port (according to the stopOrder property of the port)
         /// </summary>
         /// <param name="schedules"></param>
         /// <returns></returns>
@@ -98,13 +99,13 @@ namespace API.Features.Availability {
             foreach (var schedule in schedules) {
                 foreach (var destination in schedule.Destinations) {
                     foreach (var port in destination.Ports) {
-                        accumulatedMaxPax += port.MaxPax;
+                        accumulatedMaxPax += AreMultipleShipsUsed(destination.Ports, port);
                         port.AccumulatedMaxPax = accumulatedMaxPax;
                     }
                     accumulatedMaxPax = 0;
                 }
             }
-            return schedules;
+            return schedules.ToList();
         }
 
         /// <summary>
@@ -123,7 +124,7 @@ namespace API.Features.Availability {
                     }
                 }
             }
-            return schedules;
+            return schedules.ToList();
         }
 
         /// <summary>
@@ -146,6 +147,25 @@ namespace API.Features.Availability {
                     TotalPersons = x.TotalPersons
                 }).ToList();
             return reservations;
+        }
+
+        /// <summary>
+        ///     Decides whether to accumulate the max number of passengers or not.
+        ///     If the current port has the same max persons as the previous, we don't add the current max persons to the accumulated max persons.
+        ///     Practically this means:
+        ///         a) If they are equal, the boat departing from the previous port, will also be used to carry the passengers from the current port.
+        ///         b) If they are different, there is another boat at the current port and they will be both used.
+        /// </summary>
+        /// <param name="ports"></param>
+        /// <param name="currentPort"></param>
+        /// <returns>
+        ///     Zero, for the above a) case
+        ///     The max passengers, for the above b) case 
+        /// </returns>
+        private static int AreMultipleShipsUsed(IEnumerable<PortCalendarVM> ports, PortCalendarVM currentPort) {
+            var previousPort = ports.TakeWhile(x => x.Abbreviation != currentPort.Abbreviation).Skip(-1).FirstOrDefault();
+            return previousPort == null || currentPort.MaxPax != previousPort.MaxPax
+                ? currentPort.MaxPax : 0;
         }
 
     }
