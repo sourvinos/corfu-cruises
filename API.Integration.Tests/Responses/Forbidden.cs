@@ -36,8 +36,6 @@ namespace Responses {
                     actionResponse = await httpClient.DeleteAsync(baseUrl + url);
                     break;
             }
-            // cleanup
-            await Helpers.Logout(httpClient, loginResponse.UserId);
             // assert
             Assert.Equal(HttpStatusCode.Forbidden, actionResponse.StatusCode);
         }

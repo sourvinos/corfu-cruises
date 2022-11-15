@@ -17,8 +17,6 @@ namespace Responses {
             var request = Helpers.CreateRequest(baseUrl, url);
             // act
             var actionResponse = await httpClient.SendAsync(request);
-            // cleanup
-            await Helpers.Logout(httpClient, loginResponse.UserId);
             // assert
             Assert.Equal((HttpStatusCode)490, actionResponse.StatusCode);
         }

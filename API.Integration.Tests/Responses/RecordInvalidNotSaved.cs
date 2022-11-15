@@ -27,8 +27,6 @@ namespace Responses {
                     actionResponse = await httpClient.PatchAsync(baseUrl + url, new StringContent(System.Text.Json.JsonSerializer.Serialize(record), Encoding.UTF8, MediaTypeNames.Application.Json));
                     break;
             }
-            // cleanup
-            await Helpers.Logout(httpClient, loginResponse.UserId);
             // return
             return actionResponse;
         }

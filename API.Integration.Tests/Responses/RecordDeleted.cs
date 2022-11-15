@@ -15,8 +15,6 @@ namespace Responses {
             httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, loginResponse.Token);
             // act
             var actionResponse = await httpClient.DeleteAsync(baseUrl + url);
-            // cleanup
-            await Helpers.Logout(httpClient, loginResponse.UserId);
             // assert
             Assert.Equal(HttpStatusCode.OK, actionResponse.StatusCode);
         }
