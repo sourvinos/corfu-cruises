@@ -1,9 +1,9 @@
-using Cases;
-using Infrastructure;
-using Responses;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
+using Cases;
+using Infrastructure;
+using Responses;
 using Xunit;
 
 namespace Ships {
@@ -31,7 +31,7 @@ namespace Ships {
         [Theory]
         [ClassData(typeof(CreateValidShip))]
         public async Task Unauthorized_Not_Logged_In(TestShip record) {
-            await InvalidCredentials.Action(_httpClient, _baseUrl, _url, _actionVerb, null, null, record);
+            await InvalidCredentials.Action(_httpClient, _baseUrl, _url, _actionVerb, "", "", record);
         }
 
         [Theory]

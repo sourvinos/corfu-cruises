@@ -9,8 +9,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-namespace API.Features.Reservations
-{
+namespace API.Features.Reservations {
 
     [Route("api/[controller]")]
     public class ReservationsController : ControllerBase {

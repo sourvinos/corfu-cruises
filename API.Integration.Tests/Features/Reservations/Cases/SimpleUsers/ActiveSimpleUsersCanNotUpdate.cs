@@ -35,7 +35,7 @@ namespace Reservations {
                     StatusCode = 431,
                     ReservationId = Guid.Parse("08da2694-67a3-416c-8f05-d8aa777c7c1a"),
                     Date = "2022-03-02",
-                    TestDateNow = new DateTime(2022, 3, 2, 11, 30, 00),
+                    Now = new DateTime(2022, 3, 2, 11, 30, 00),
                     CustomerId = 2,
                     DestinationId = 1,
                     PickupPointId = 248,

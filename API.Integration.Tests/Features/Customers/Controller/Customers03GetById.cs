@@ -30,7 +30,7 @@ namespace Customers {
 
         [Fact]
         public async Task Unauthorized_Not_Logged_In() {
-            await InvalidCredentials.Action(_httpClient, _baseUrl, _url, _actionVerb, null, null, null);
+            await InvalidCredentials.Action(_httpClient, _baseUrl, _url, _actionVerb, "", "", null);
         }
 
         [Fact]
@@ -45,8 +45,8 @@ namespace Customers {
         }
 
         [Fact]
-        public async Task Simple_Users_Can_Not_Get_By_Id() {
-            await Forbidden.Action(_httpClient, _baseUrl, _url, _actionVerb, "simpleuser", "1234567890", null);
+        public async Task Simple_Users_Can_Get_By_Id() {
+            await RecordFound.Action(_httpClient, _baseUrl, _url, "simpleuser", "1234567890");
         }
 
         [Fact]

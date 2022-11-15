@@ -28,7 +28,7 @@ namespace Embarkation {
 
         [Fact]
         public async Task Unauthorized_Not_Logged_In() {
-            await InvalidCredentials.Action(_httpClient, _baseUrl, _url, _actionVerb, null, null, null);
+            await InvalidCredentials.Action(_httpClient, _baseUrl, _url, _actionVerb, "", "", null);
         }
 
         [Fact]

@@ -22,7 +22,7 @@ namespace Reservations {
                     PickupPointId = 642,
                     ShipId = null,
                     Date = "2022-03-04",
-                    TestDateNow = new DateTime(2022, 3, 5, 12, 00, 00),
+                    Now = new DateTime(2022, 3, 5, 12, 00, 00),
                     TicketNo = "xxxx",
                     Adults = 2,
                     Passengers = new List<TestPassenger>() {
@@ -47,7 +47,7 @@ namespace Reservations {
                     PickupPointId = 642,
                     ShipId = 0,
                     Date = "2022-12-04",
-                    TestDateNow = new DateTime(2022, 3, 5, 12, 00, 00),
+                    Now = new DateTime(2022, 3, 5, 12, 00, 00),
                     TicketNo = "xxxx",
                     Adults = 2,
                     Kids = 1,

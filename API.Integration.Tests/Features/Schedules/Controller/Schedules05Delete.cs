@@ -17,7 +17,7 @@ namespace Schedules {
         private readonly TestHostFixture _testHostFixture = new();
         private readonly string _actionVerb = "delete";
         private readonly string _baseUrl;
-        private readonly string _url = "/schedules?id=199&id=272";
+        private readonly string _url = "/schedules/188";
 
         #endregion
 

@@ -5,8 +5,8 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using API.Features.Billing;
 using Infrastructure;
-using Xunit;
 using Responses;
+using Xunit;
 
 namespace Billing {
 
@@ -33,7 +33,7 @@ namespace Billing {
 
         [Fact]
         public async Task Unauthorized_Not_Logged_In() {
-            await InvalidCredentials.Action(_httpClient, _baseUrl, _adminUrl, _actionVerb, null, null, null);
+            await InvalidCredentials.Action(_httpClient, _baseUrl, _adminUrl, _actionVerb, "", "", null);
         }
 
         [Fact]

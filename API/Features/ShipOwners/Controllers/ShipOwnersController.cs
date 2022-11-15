@@ -31,7 +31,7 @@ namespace API.Features.ShipOwners {
         }
 
         [HttpGet("[action]")]
-        [Authorize(Roles = "user, admin")]
+        [Authorize(Roles = "admin")]
         public async Task<IEnumerable<ShipOwnerActiveVM>> GetActiveAsync() {
             return await shipOwnerRepo.GetActiveAsync();
         }

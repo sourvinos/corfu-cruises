@@ -79,7 +79,7 @@ namespace API.Features.Reservations {
                 var x when x == !IsCorrectPassengerCount(reservation) => 455,
                 var x when x == !PortHasDepartureForDateAndDestination(reservation) => 410,
                 var x when x == !SimpleUserHasGivenCorrectCustomerId(reservation) => 413,
-                var x when x == IsSimpleUserCausingOverbooking(reservation.Date, reservation.ReservationId, reservation.DestinationId, GetPortIdFromPickupPointId(reservation), reservation.Adults + reservation.Kids + reservation.Free) => 433,
+                var x when x == IsSimpleUserCausingOverbooking(reservation) => 433,
                 var x when x == SimpleUserHasNightRestrictions(reservation) => 459,
                 var x when x == SimpleUserCanNotAddReservationAfterDeparture(reservation) => 431,
                 _ => 200,
@@ -94,11 +94,12 @@ namespace API.Features.Reservations {
             return schedule.Count != 0;
         }
 
-        private bool IsSimpleUserCausingOverbooking(string date, Guid? reservationId, int destinationId, int portId, int reservationPersons) {
-            if (Identity.IsUserAdmin(httpContext) || reservationId != Guid.Empty) {
+        private bool IsSimpleUserCausingOverbooking(ReservationWriteDto reservation) {
+            if (Identity.IsUserAdmin(httpContext) || reservation.ReservationId != Guid.Empty) {
                 return false;
             } else {
-                return availabilityDay.CalculateAccumulatedFreePaxPerPort(availabilityDay.CalculateAccumulatedMaxPaxPerPort(availabilityDay.CalculateAccumulatedPaxPerPort(availabilityDay.GetPaxPerPort(availabilityDay.GetForDay(date, destinationId, portId), availabilityDay.GetReservations(date))))).LastOrDefault().Destinations.LastOrDefault().Ports.LastOrDefault().AccumulatedFreePax >= reservationPersons;
+                var freePax = availabilityDay.CalculateAccumulatedFreePaxPerPort(availabilityDay.CalculateAccumulatedMaxPaxPerPort(availabilityDay.CalculateAccumulatedPaxPerPort(availabilityDay.GetPaxPerPort(availabilityDay.GetForDay(reservation.Date, reservation.DestinationId, GetPortIdFromPickupPointId(reservation)), availabilityDay.GetReservations(reservation.Date))))).LastOrDefault().Destinations.LastOrDefault().Ports.LastOrDefault().AccumulatedFreePax;
+                return freePax < reservation.Adults + reservation.Kids + reservation.Free;
             }
         }
 
@@ -265,30 +266,30 @@ namespace API.Features.Reservations {
         }
 
         private bool IsForTomorrow(ReservationWriteDto reservation) {
-            var tomorrow = testingEnvironment.IsTesting ? reservation.TestDateNow.AddDays(1) : DateHelpers.GetLocalDateTime().AddDays(1);
+            var tomorrow = testingEnvironment.IsTesting ? reservation.Now.AddDays(1) : DateHelpers.GetLocalDateTime().AddDays(1);
             var tomorrowDate = DateHelpers.DateToISOString(tomorrow);
             return reservation.Date == tomorrowDate;
         }
 
         private bool IsForToday(ReservationWriteDto reservation) {
-            var today = testingEnvironment.IsTesting ? reservation.TestDateNow : DateHelpers.GetLocalDateTime();
+            var today = testingEnvironment.IsTesting ? reservation.Now : DateHelpers.GetLocalDateTime();
             var todayDate = DateHelpers.DateToISOString(today);
             return reservation.Date == todayDate;
         }
 
         private bool IsBetweenClosingTimeAndMidnight(ReservationWriteDto reservation) {
-            var timeNow = testingEnvironment.IsTesting ? reservation.TestDateNow.TimeOfDay : DateHelpers.GetLocalDateTime().TimeOfDay;
+            var timeNow = testingEnvironment.IsTesting ? reservation.Now.TimeOfDay : DateHelpers.GetLocalDateTime().TimeOfDay;
             return timeNow.Hours >= 22;
         }
 
         private bool IsBetweenMidnightAndDeparture(ReservationWriteDto reservation) {
-            var timeNow = testingEnvironment.IsTesting ? reservation.TestDateNow : DateHelpers.GetLocalDateTime();
+            var timeNow = testingEnvironment.IsTesting ? reservation.Now : DateHelpers.GetLocalDateTime();
             var departureTime = GetScheduleDepartureTime(reservation);
             return DateTime.Compare(timeNow, departureTime) < 0;
         }
 
         private bool IsAfterDeparture(ReservationWriteDto reservation) {
-            var timeNow = testingEnvironment.IsTesting ? reservation.TestDateNow : DateHelpers.GetLocalDateTime();
+            var timeNow = testingEnvironment.IsTesting ? reservation.Now : DateHelpers.GetLocalDateTime();
             var departureTime = GetScheduleDepartureTime(reservation);
             return DateTime.Compare(timeNow, departureTime) > 0;
         }

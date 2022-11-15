@@ -89,7 +89,7 @@ namespace API.Features.Availability {
 
         /// <summary>
         ///     Step 4/5
-        ///     Calculates the free seats per port, including the free seats from the previous port (according to the stopOrder property of the port)
+        ///     Calculates the maximum pax per port, including the free seats from the previous port (according to the stopOrder property of the port)
         /// </summary>
         /// <param name="schedules"></param>
         /// <returns></returns>

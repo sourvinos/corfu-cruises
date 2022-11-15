@@ -31,7 +31,7 @@ namespace Reservations {
                 new TestNewReservation {
                     StatusCode = 410,
                     Date = "2022-03-01",
-                    TestDateNow = new DateTime(2022, 4, 30, 12, 00, 00),
+                    Now = new DateTime(2022, 4, 30, 12, 00, 00),
                     CustomerId = 1,
                     DestinationId = 1,
                     PickupPointId = 133,
@@ -50,7 +50,7 @@ namespace Reservations {
                 new TestNewReservation {
                     StatusCode = 410,
                     Date = "2022-03-04",
-                    TestDateNow = new DateTime(2022, 4, 30, 12, 00, 00),
+                    Now = new DateTime(2022, 4, 30, 12, 00, 00),
                     CustomerId = 1,
                     DestinationId = 3,
                     PickupPointId = 133,
@@ -69,7 +69,7 @@ namespace Reservations {
                 new TestNewReservation {
                     StatusCode = 410,
                     Date = "2022-03-04",
-                    TestDateNow = new DateTime(2022, 3, 2, 12, 00, 00),
+                    Now = new DateTime(2022, 3, 2, 12, 00, 00),
                     CustomerId = 1,
                     DestinationId = 1,
                     PickupPointId = 266,
@@ -91,7 +91,7 @@ namespace Reservations {
                 new TestNewReservation {
                     StatusCode = 409,
                     Date = "2022-03-02",
-                    TestDateNow = new DateTime(2022, 4, 30, 12, 00, 00),
+                    Now = new DateTime(2022, 4, 30, 12, 00, 00),
                     CustomerId = 1,
                     DestinationId = 1,
                     PickupPointId = 125,
@@ -106,7 +106,7 @@ namespace Reservations {
                 new TestNewReservation{
                     StatusCode = 455,
                     Date = "2022-03-04",
-                    TestDateNow = new DateTime(2022, 3, 5, 12, 00, 00),
+                    Now = new DateTime(2022, 3, 5, 12, 00, 00),
                     CustomerId = 1,
                     DestinationId = 1,
                     PickupPointId = 642,
@@ -126,7 +126,7 @@ namespace Reservations {
                 new TestNewReservation {
                     StatusCode = 450,
                     Date = "2022-03-04",
-                    TestDateNow = new DateTime(2022, 4, 30, 12, 00, 00),
+                    Now = new DateTime(2022, 4, 30, 12, 00, 00),
                     CustomerId = 999,
                     DestinationId = 1,
                     PickupPointId = 285,
@@ -140,7 +140,7 @@ namespace Reservations {
                 new TestNewReservation {
                     StatusCode = 450,
                     Date = "2022-03-04",
-                    TestDateNow = new DateTime(2022, 4, 30, 12, 00, 00),
+                    Now = new DateTime(2022, 4, 30, 12, 00, 00),
                     CustomerId = 63,
                     DestinationId = 1,
                     PickupPointId = 642,
@@ -154,7 +154,7 @@ namespace Reservations {
                 new TestNewReservation {
                     StatusCode = 451,
                     Date = "2022-03-04",
-                    TestDateNow = new DateTime(2022, 4, 30, 12, 00, 00),
+                    Now = new DateTime(2022, 4, 30, 12, 00, 00),
                     CustomerId = 1,
                     DestinationId = 999,
                     PickupPointId = 266,
@@ -169,7 +169,7 @@ namespace Reservations {
                 new TestNewReservation {
                     StatusCode = 451,
                     Date = "2022-03-04",
-                    TestDateNow = new DateTime(2022, 4, 30, 12, 00, 00),
+                    Now = new DateTime(2022, 4, 30, 12, 00, 00),
                     CustomerId = 1,
                     DestinationId = 6,
                     PickupPointId = 285,
@@ -184,7 +184,7 @@ namespace Reservations {
                 new TestNewReservation{
                     StatusCode = 457,
                     Date = "2022-03-04",
-                    TestDateNow = new DateTime(2022, 4, 30, 12, 00, 00),
+                    Now = new DateTime(2022, 4, 30, 12, 00, 00),
                     CustomerId = 1,
                     DestinationId = 1,
                     PickupPointId = 12,
@@ -202,7 +202,7 @@ namespace Reservations {
                 new TestNewReservation{
                     StatusCode = 457,
                     Date = "2022-03-04",
-                    TestDateNow = new DateTime(2022, 4, 30, 12, 00, 00),
+                    Now = new DateTime(2022, 4, 30, 12, 00, 00),
                     CustomerId = 1,
                     DestinationId = 1,
                     PickupPointId = 12,
@@ -220,7 +220,7 @@ namespace Reservations {
                 new TestNewReservation{
                     StatusCode = 456,
                     Date = "2022-03-04",
-                    TestDateNow = new DateTime(2022, 4, 30, 12, 00, 00),
+                    Now = new DateTime(2022, 4, 30, 12, 00, 00),
                     CustomerId = 1,
                     DestinationId = 1,
                     PickupPointId = 12,
@@ -238,7 +238,7 @@ namespace Reservations {
                 new TestNewReservation{
                     StatusCode = 456,
                     Date = "2022-03-04",
-                    TestDateNow = new DateTime(2022, 4, 30, 12, 00, 00),
+                    Now = new DateTime(2022, 4, 30, 12, 00, 00),
                     CustomerId = 1,
                     DestinationId = 1,
                     PickupPointId = 12,
@@ -256,7 +256,7 @@ namespace Reservations {
                 new TestNewReservation {
                     StatusCode = 452,
                     Date = "2022-03-04",
-                    TestDateNow = new DateTime(2022, 4, 30, 12, 00, 00),
+                    Now = new DateTime(2022, 4, 30, 12, 00, 00),
                     CustomerId = 1,
                     DestinationId = 1,
                     PickupPointId = 23,
@@ -271,7 +271,7 @@ namespace Reservations {
                 new TestNewReservation {
                     StatusCode = 452,
                     Date = "2022-03-04",
-                    TestDateNow = new DateTime(2022, 4, 30, 12, 00, 00),
+                    Now = new DateTime(2022, 4, 30, 12, 00, 00),
                     CustomerId = 1,
                     DestinationId = 1,
                     PickupPointId = 999,

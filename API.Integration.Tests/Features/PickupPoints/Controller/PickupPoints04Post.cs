@@ -32,7 +32,7 @@ namespace PickupPoints {
         [Theory]
         [ClassData(typeof(CreateValidPickupPoint))]
         public async Task Unauthorized_Not_Logged_In(TestPickupPoint record) {
-            await InvalidCredentials.Action(_httpClient, _baseUrl, _url, _actionVerb, null, null, record);
+            await InvalidCredentials.Action(_httpClient, _baseUrl, _url, _actionVerb, "", "", record);
         }
 
         [Theory]
