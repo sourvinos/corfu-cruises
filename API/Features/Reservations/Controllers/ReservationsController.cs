@@ -9,7 +9,8 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-namespace API.Features.Reservations {
+namespace API.Features.Reservations
+{
 
     [Route("api/[controller]")]
     public class ReservationsController : ControllerBase {
@@ -18,7 +19,6 @@ namespace API.Features.Reservations {
 
         private readonly IHttpContextAccessor httpContext;
         private readonly IMapper mapper;
-        private readonly IReservationAvailability reservationAvailability;
         private readonly IReservationCalendar reservationCalendar;
         private readonly IReservationReadRepository reservationReadRepo;
         private readonly IReservationUpdateRepository reservationUpdateRepo;
@@ -27,10 +27,9 @@ namespace API.Features.Reservations {
 
         #endregion
 
-        public ReservationsController(IHttpContextAccessor httpContext, IMapper mapper, IReservationAvailability reservationAvailability, IReservationCalendar reservationCalendar, IReservationReadRepository reservationReadRepo, IReservationUpdateRepository reservationUpdateRepo, IReservationValidation validReservation, IScheduleRepository scheduleRepo) {
+        public ReservationsController(IHttpContextAccessor httpContext, IMapper mapper, IReservationCalendar reservationCalendar, IReservationReadRepository reservationReadRepo, IReservationUpdateRepository reservationUpdateRepo, IReservationValidation validReservation, IScheduleRepository scheduleRepo) {
             this.httpContext = httpContext;
             this.mapper = mapper;
-            this.reservationAvailability = reservationAvailability;
             this.reservationCalendar = reservationCalendar;
             this.reservationReadRepo = reservationReadRepo;
             this.reservationUpdateRepo = reservationUpdateRepo;
@@ -188,12 +187,6 @@ namespace API.Features.Reservations {
         [Authorize(Roles = "user, admin")]
         public bool IsOverbooked([FromRoute] string date, int destinationId) {
             return validReservation.IsOverbooked(date, destinationId);
-        }
-
-        [HttpGet("date/{date}/destinationId/{destinationId}/portId/{portId}")]
-        [Authorize(Roles = "user, admin")]
-        public IList<ReservationAvailabilityVM> CalculateAvailability(string date, int destinationId, int portId) {
-            return reservationAvailability.CalculateAvailability(date, destinationId, portId);
         }
 
         private ReservationWriteDto AttachPortIdToDto(ReservationWriteDto reservation) {

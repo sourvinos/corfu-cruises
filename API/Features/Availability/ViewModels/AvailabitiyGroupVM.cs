@@ -1,8 +1,8 @@
 using System.Collections.Generic;
 
-namespace API.Features.Seeker {
+namespace API.Features.Availability {
 
-    public class SeekerCalendarGroupVM {
+    public class AvailabilityGroupVM {
 
         public string Date { get; set; }
         public IEnumerable<DestinationCalendarVM> Destinations { get; set; }

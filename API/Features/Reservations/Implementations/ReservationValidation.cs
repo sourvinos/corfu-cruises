@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using API.Features.Availability;
 using API.Features.PickupPoints;
 using API.Features.Schedules;
 using API.Features.Users;
@@ -17,13 +18,13 @@ namespace API.Features.Reservations {
     public class ReservationValidation : Repository<Reservation>, IReservationValidation {
 
         private readonly IHttpContextAccessor httpContext;
-        private readonly IReservationAvailability reservationAvailability;
+        private readonly IAvailabilityDay availabilityDay;
         private readonly TestingEnvironment testingEnvironment;
         private readonly UserManager<UserExtended> userManager;
 
-        public ReservationValidation(AppDbContext context, IHttpContextAccessor httpContext,  IOptions<TestingEnvironment> testingEnvironment, IReservationAvailability reservationAvailability, UserManager<UserExtended> userManager) : base(context, httpContext, testingEnvironment) {
+        public ReservationValidation(AppDbContext context, IHttpContextAccessor httpContext, IOptions<TestingEnvironment> testingEnvironment, IAvailabilityDay availabilityDay, UserManager<UserExtended> userManager) : base(context, httpContext, testingEnvironment) {
             this.httpContext = httpContext;
-            this.reservationAvailability = reservationAvailability;
+            this.availabilityDay = availabilityDay;
             this.testingEnvironment = testingEnvironment.Value;
             this.userManager = userManager;
         }
@@ -78,7 +79,7 @@ namespace API.Features.Reservations {
                 var x when x == !IsCorrectPassengerCount(reservation) => 455,
                 var x when x == !PortHasDepartureForDateAndDestination(reservation) => 410,
                 var x when x == !SimpleUserHasGivenCorrectCustomerId(reservation) => 413,
-                var x when x == SimpleUserCausesOverbooking(reservation.Date, reservation.ReservationId, reservation.DestinationId, GetPortIdFromPickupPointId(reservation), reservation.Adults + reservation.Kids + reservation.Free) => 433,
+                var x when x == IsSimpleUserCausingOverbooking(reservation.Date, reservation.ReservationId, reservation.DestinationId, GetPortIdFromPickupPointId(reservation), reservation.Adults + reservation.Kids + reservation.Free) => 433,
                 var x when x == SimpleUserHasNightRestrictions(reservation) => 459,
                 var x when x == SimpleUserCanNotAddReservationAfterDeparture(reservation) => 431,
                 _ => 200,
@@ -93,11 +94,11 @@ namespace API.Features.Reservations {
             return schedule.Count != 0;
         }
 
-        private bool SimpleUserCausesOverbooking(string date, Guid? reservationId, int destinationId, int portId, int reservationPersons) {
+        private bool IsSimpleUserCausingOverbooking(string date, Guid? reservationId, int destinationId, int portId, int reservationPersons) {
             if (Identity.IsUserAdmin(httpContext) || reservationId != Guid.Empty) {
                 return false;
             } else {
-                return reservationAvailability.CalculateAvailability(date, destinationId, portId).Last().FreeSeats < reservationPersons;
+                return availabilityDay.CalculateAccumulatedFreePaxPerPort(availabilityDay.CalculateAccumulatedMaxPaxPerPort(availabilityDay.CalculateAccumulatedPaxPerPort(availabilityDay.GetPaxPerPort(availabilityDay.GetForDay(date, destinationId, portId), availabilityDay.GetReservations(date))))).LastOrDefault().Destinations.LastOrDefault().Ports.LastOrDefault().AccumulatedFreePax >= reservationPersons;
             }
         }
 

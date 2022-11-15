@@ -25,12 +25,12 @@ namespace API.Features.Availability
         /// <returns>
         ///     A list of AvailabilityCalendarGroupVM, one object for each day
         /// </returns>
-        public IEnumerable<AvailabilityCalendarGroupVM> GetForCalendar(string fromDate, string toDate) {
+        public IEnumerable<AvailabilityGroupVM> GetForCalendar(string fromDate, string toDate) {
             return context.Schedules
                 .AsNoTracking()
                 .Where(x => x.Date >= Convert.ToDateTime(fromDate) && x.Date <= Convert.ToDateTime(toDate))
                 .GroupBy(x => x.Date)
-                .Select(x => new AvailabilityCalendarGroupVM {
+                .Select(x => new AvailabilityGroupVM {
                     Date = DateHelpers.DateToISOString(x.Key.Date),
                     Destinations = x.GroupBy(x => new { x.Date, x.Destination.Id, x.Destination.Description, x.Destination.Abbreviation }).Select(x => new DestinationCalendarVM {
                         Id = x.Key.Id,
@@ -55,7 +55,7 @@ namespace API.Features.Availability
         /// <returns>
         ///     The updated AvailabilityCalendarGroupVM object, one for each day
         /// </returns>
-        public IEnumerable<AvailabilityCalendarGroupVM> GetPaxPerPort(IEnumerable<AvailabilityCalendarGroupVM> schedules, IEnumerable<ReservationVM> reservations) {
+        public IEnumerable<AvailabilityGroupVM> GetPaxPerPort(IEnumerable<AvailabilityGroupVM> schedules, IEnumerable<ReservationVM> reservations) {
             foreach (var schedule in schedules) {
                 foreach (var destination in schedule.Destinations) {
                     foreach (var port in destination.Ports) {
@@ -74,7 +74,7 @@ namespace API.Features.Availability
         /// <returns>
         ///     The updated AvailabilityCalendarGroupVM object, one for each day
         /// </returns>
-        public IEnumerable<AvailabilityCalendarGroupVM> CalculateAccumulatedPaxPerPort(IEnumerable<AvailabilityCalendarGroupVM> schedules) {
+        public IEnumerable<AvailabilityGroupVM> CalculateAccumulatedPaxPerPort(IEnumerable<AvailabilityGroupVM> schedules) {
             var accumulatedPax = 0;
             foreach (var schedule in schedules) {
                 foreach (var destination in schedule.Destinations) {
@@ -94,7 +94,7 @@ namespace API.Features.Availability
         /// </summary>
         /// <param name="schedules"></param>
         /// <returns></returns>
-        public IEnumerable<AvailabilityCalendarGroupVM> CalculateAccumulatedMaxPaxPerPort(IEnumerable<AvailabilityCalendarGroupVM> schedules) {
+        public IEnumerable<AvailabilityGroupVM> CalculateAccumulatedMaxPaxPerPort(IEnumerable<AvailabilityGroupVM> schedules) {
             var accumulatedMaxPax = 0;
             foreach (var schedule in schedules) {
                 foreach (var destination in schedule.Destinations) {
@@ -116,7 +116,7 @@ namespace API.Features.Availability
         /// <returns>
         ///     The updated AvailabilityCalendarGroupVM object, one for each day
         /// </returns>
-        public IEnumerable<AvailabilityCalendarGroupVM> CalculateAccumulatedFreePaxPerPort(IEnumerable<AvailabilityCalendarGroupVM> schedules) {
+        public IEnumerable<AvailabilityGroupVM> CalculateAccumulatedFreePaxPerPort(IEnumerable<AvailabilityGroupVM> schedules) {
             foreach (var schedule in schedules) {
                 foreach (var destination in schedule.Destinations) {
                     foreach (var port in destination.Ports) {

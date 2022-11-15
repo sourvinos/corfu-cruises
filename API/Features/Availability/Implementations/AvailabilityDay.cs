@@ -9,11 +9,11 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 
-namespace API.Features.Seeker {
+namespace API.Features.Availability {
 
-    public class SeekerCalendar : Repository<Schedule>, ISeekerCalendar {
+    public class AvailabilityDay : Repository<Schedule>, IAvailabilityDay {
 
-        public SeekerCalendar(AppDbContext context, IHttpContextAccessor httpContext, IOptions<TestingEnvironment> settings) : base(context, httpContext, settings) { }
+        public AvailabilityDay(AppDbContext context, IHttpContextAccessor httpContext, IOptions<TestingEnvironment> settings) : base(context, httpContext, settings) { }
 
         /// <summary>
         ///     Step 1/5
@@ -24,12 +24,12 @@ namespace API.Features.Seeker {
         /// <returns>
         ///     A list of AvailabilityCalendarGroupVM, one object for each day
         /// </returns>
-        public IEnumerable<SeekerCalendarGroupVM> GetForCalendar(string date, int destinationId, int portId) {
+        public IEnumerable<AvailabilityGroupVM> GetForDay(string date, int destinationId, int portId) {
             return context.Schedules
                 .AsNoTracking()
                 .Where(x => x.Date == Convert.ToDateTime(date) && x.DestinationId == destinationId && x.Port.StopOrder <= GetPortStopOrder(portId))
                 .GroupBy(x => x.Date)
-                .Select(x => new SeekerCalendarGroupVM {
+                .Select(x => new AvailabilityGroupVM {
                     Date = DateHelpers.DateToISOString(x.Key.Date),
                     Destinations = x.GroupBy(x => new { x.Date, x.Destination.Id, x.Destination.Description, x.Destination.Abbreviation }).Select(x => new DestinationCalendarVM {
                         Id = x.Key.Id,
@@ -54,7 +54,7 @@ namespace API.Features.Seeker {
         /// <returns>
         ///     The updated AvailabilityCalendarGroupVM object, one for each day
         /// </returns>
-        public IEnumerable<SeekerCalendarGroupVM> GetPaxPerPort(IEnumerable<SeekerCalendarGroupVM> schedules, IEnumerable<ReservationVM> reservations) {
+        public IEnumerable<AvailabilityGroupVM> GetPaxPerPort(IEnumerable<AvailabilityGroupVM> schedules, IEnumerable<ReservationVM> reservations) {
             foreach (var schedule in schedules) {
                 foreach (var destination in schedule.Destinations) {
                     foreach (var port in destination.Ports) {
@@ -73,7 +73,7 @@ namespace API.Features.Seeker {
         /// <returns>
         ///     The updated AvailabilityCalendarGroupVM object, one for each day
         /// </returns>
-        public IEnumerable<SeekerCalendarGroupVM> CalculateAccumulatedPaxPerPort(IEnumerable<SeekerCalendarGroupVM> schedules) {
+        public IEnumerable<AvailabilityGroupVM> CalculateAccumulatedPaxPerPort(IEnumerable<AvailabilityGroupVM> schedules) {
             var accumulatedPax = 0;
             foreach (var schedule in schedules) {
                 foreach (var destination in schedule.Destinations) {
@@ -93,7 +93,7 @@ namespace API.Features.Seeker {
         /// </summary>
         /// <param name="schedules"></param>
         /// <returns></returns>
-        public IEnumerable<SeekerCalendarGroupVM> CalculateAccumulatedMaxPaxPerPort(IEnumerable<SeekerCalendarGroupVM> schedules) {
+        public IEnumerable<AvailabilityGroupVM> CalculateAccumulatedMaxPaxPerPort(IEnumerable<AvailabilityGroupVM> schedules) {
             var accumulatedMaxPax = 0;
             foreach (var schedule in schedules) {
                 foreach (var destination in schedule.Destinations) {
@@ -115,7 +115,7 @@ namespace API.Features.Seeker {
         /// <returns>
         ///     The updated AvailabilityCalendarGroupVM object, one for each day
         /// </returns>
-        public IEnumerable<SeekerCalendarGroupVM> CalculateAccumulatedFreePaxPerPort(IEnumerable<SeekerCalendarGroupVM> schedules) {
+        public IEnumerable<AvailabilityGroupVM> CalculateAccumulatedFreePaxPerPort(IEnumerable<AvailabilityGroupVM> schedules) {
             foreach (var schedule in schedules) {
                 foreach (var destination in schedule.Destinations) {
                     foreach (var port in destination.Ports) {
@@ -173,7 +173,6 @@ namespace API.Features.Seeker {
                 .Where(x => x.Id == portId)
                 .Single().StopOrder;
         }
-
 
     }
 
