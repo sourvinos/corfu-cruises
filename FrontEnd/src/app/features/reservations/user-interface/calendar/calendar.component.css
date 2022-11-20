@@ -7,139 +7,109 @@
     width: 100%;
 }
 
-#list {
+#year-selector {
     display: flex;
-    flex-direction: column;
-    height: 100%;
-    width: 100%;
+    margin: 0 auto;
+    width: 10rem;
 }
 
-#header {
-    justify-content: space-between;
-}
-
-#month-selector {
-    align-content: center;
+#day-wrapper {
     align-items: center;
     display: flex;
-    justify-content: center;
+    margin: 0 auto;
+    position: relative;
+    width: max-content;
 }
 
-#month-and-year {
-    margin-bottom: 4px;
-    padding: 0;
-}
-
-.month-arrows {
-    color: var(--color-c);
+#day-wrapper #days {
     cursor: pointer;
-    padding: 0 1rem;
-}
-
-.month-arrows:last-child {
-    padding: 0;
-}
-
-#wrapper-calendar {
     display: flex;
-    flex-direction: column;
+    gap: 2px;
     height: 100%;
-    margin: 0 2.8rem 0 3rem;
-    overflow-y: auto;
-}
-
-#calendar {
-    display: grid;
-    gap: 0.125rem;
-    grid-template-columns: repeat(7, 1fr);
-    height: 100%;
-    list-style: none;
-    margin: 0;
-    padding: 0;
-}
-
-.weekday-name {
-    align-items: center;
-    background: var(--color-b);
-    color: var(--color-c);
-    display: flex;
-    font-family: var(--font-family-ubuntu);
-    justify-content: center;
-    margin-bottom: 0.0625rem;
-    padding: 0.3rem;
-}
-
-.date-card {
-    background-color: var(--color-b);
-    border: 1px solid var(--color-a);
-    display: flex;
-    flex-direction: row;
-    height: 100%;
-    justify-content: left;
-    width: 100%;
-    transition: background-color var(--delay) ease-in, border var(--delay) ease-in, transform 0.1s ease-in;
-}
-
-.date-card.has-schedule {
-    cursor: pointer;
-}
-
-.date-card.has-schedule:hover {
-    border: 1px solid var(--color-c);
-    filter: brightness(1.2);
-    transition: all 0.1s ease-in;
+    overflow: hidden;
+    scroll-behavior: auto;
+    width: 1118px;
 }
 
 .day {
-    align-items: center;
-    color: var(--color-c);
+    background-color: #efefef;
+    border-radius: 0.625rem;
+    border: 1px solid red;
     display: flex;
-    font-family: var(--font-family-montserrat), sans-serif;
-    font-size: var(--font-size-calendar-day);
+    flex-direction: column;
+    height: 17.5rem;
+    max-width: 110px;
+    min-width: 110px;
+    padding: 0.8rem;
+}
+
+.day-data {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+}
+
+.day-data .weekday, .day-data .month {
+    font-family: 'Manrope';
+    font-size: 14px;
+}
+
+.day-data .date {
+    font-family: 'Montserrat';
+    font-size: 1.8rem;
+}
+
+.reservation {
+    display: flex;
+    flex-direction: column;
     height: 100%;
-    justify-content: center;
-    max-width: var(--font-size-calendar-day-min-max-width);
-    min-width: var(--font-size-calendar-day-min-max-width);
-}
-
-.saturday {
-    background-color: var(--color-background-saturday);
-}
-
-.sunday {
-    background-color: var(--color-background-sunday);
-}
-
-.is-today {
-    background-color: var(--color-background-today) !important;
+    margin-top: 2rem;
 }
 
 .destinations {
     display: flex;
-    flex-direction: column;
-    padding: 1rem 1rem 1rem 0;
-    width: 100%;
-}
-
-.destinations * {
-    font-family: var(--font-family-ubuntu);
-    font-size: var(--font-size-calendar-content);
-}
-
-.destination {
-    display: flex;
-    flex-direction: row;
+    font-family: 'Ubuntu Condensed';
+    font-size: 1rem;
     justify-content: space-between;
-    padding-bottom: 0.5rem;
-    width: 100%;
 }
 
-.destination-description {
-    color: var(--color-c);
+.pax {
+    font-family: 'Manrope';
+    margin-top: auto;
+    text-align: center;
 }
 
-.destination-passenger-count {
-    color: var(--color-c);
-    font-family: monospace;
-    padding-left: 0.5rem;
+#month-selector {
+    display: flex;
+    justify-content: center;
+    margin-top: 2rem;
+}
+
+.month-selector {
+    font-family: "Montserrat";
+}
+
+.arrow {
+    background-color: transparent;
+    border: none;
+    margin: 2rem;
+    padding: 0;
+}
+
+.arrow:hover {
+    cursor: no-drop;
+}
+
+.arrow:hover:not([disabled]) {
+    cursor: pointer;
+}
+
+.arrow img {
+    height: 8rem;
+}
+
+#today-selector {
+    display: flex;
+    justify-content: center;
+    margin-top: 1rem;
 }

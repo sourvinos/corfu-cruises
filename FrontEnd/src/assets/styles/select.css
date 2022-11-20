@@ -1,0 +1,26 @@
+#year-selector .mat-form-field {
+    background-color: transparent !important;
+    border: none !important;
+}
+
+.mat-form-field-wrapper {
+    padding: 0;
+}
+
+.mat-form-field-appearance-outline .mat-form-field-infix {
+    margin: 0rem 0 0.7rem 0;
+}
+
+.mat-form-field-appearance-outline .mat-form-field-outline {
+    color: var(--color-e) !important;
+    transition: all var(--delay) ease-in;
+}
+
+.mat-form-field-appearance-outline .mat-select-arrow-wrapper {
+    margin-top: 0.4rem;
+}
+
+.mat-select-trigger * {
+    color: var(--color-c) !important;
+    transition: all var(--delay) ease-in;
+}

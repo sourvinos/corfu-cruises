@@ -3,52 +3,52 @@
         "feature": "months",
         "labels": [
             {
-                "id": 1,
-                "description": "Ιανουάριος"
+                "id": "January",
+                "description": "Ιαν"
             },
             {
-                "id": 2,
-                "description": "Φεβρουάριος"
+                "id": "February",
+                "description": "Φεβ"
             },
             {
-                "id": 3,
-                "description": "Μάρτιος"
+                "id": "March",
+                "description": "Μαρ"
             },
             {
-                "id": 4,
-                "description": "Απρίλιος"
+                "id": "April",
+                "description": "Απρ"
             },
             {
-                "id": 5,
-                "description": "Μάιος"
+                "id": "May",
+                "description": "Μαι"
             },
             {
-                "id": 6,
-                "description": "Ιούνιος"
+                "id": "June",
+                "description": "Ιουν"
             },
             {
-                "id": 7,
-                "description": "Ιούλιος"
+                "id": "July",
+                "description": "Ιουλ"
             },
             {
-                "id": 8,
-                "description": "Αύγουστος"
+                "id": "August",
+                "description": "Αυγ"
             },
             {
-                "id": 9,
-                "description": "Σεπτέμβριος"
+                "id": "September",
+                "description": "Σεπ"
             },
             {
-                "id": 10,
-                "description": "Οκτώβριος"
+                "id": "October",
+                "description": "Οκτ"
             },
             {
-                "id": 11,
-                "description": "Νοέμβριος"
+                "id": "November",
+                "description": "Νοε"
             },
             {
-                "id": 12,
-                "description": "Δεκέμβριος"
+                "id": "December",
+                "description": "Δεκ"
             }
         ]
     },

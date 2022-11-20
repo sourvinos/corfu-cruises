@@ -3,7 +3,7 @@
     "version": 1,
     "newProjectRoot": "projects",
     "projects": {
-        "ClientApp": {
+        "FrontEnd": {
             "projectType": "application",
             "schematics": {
                 "@schematics/angular:class": {
@@ -168,17 +168,17 @@
                 "serve": {
                     "builder": "@angular-devkit/build-angular:dev-server",
                     "options": {
-                        "browserTarget": "ClientApp:build"
+                        "browserTarget": "FrontEnd:build"
                     },
                     "configurations": {
                         "development": {
-                            "browserTarget": "ClientApp:build:development"
+                            "browserTarget": "FrontEnd:build:development"
                         },
                         "production-local": {
-                            "browserTarget": "ClientApp:build:production-local"
+                            "browserTarget": "FrontEnd:build:production-local"
                         },
                         "production": {
-                            "browserTarget": "ClientApp:build:production"
+                            "browserTarget": "FrontEnd:build:production"
                         }
                     },
                     "defaultConfiguration": "development"
@@ -196,6 +196,6 @@
         }
     },
     "cli": {
-      "analytics": false
+        "analytics": false
     }
 }

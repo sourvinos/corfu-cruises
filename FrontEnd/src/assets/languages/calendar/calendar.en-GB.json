@@ -3,52 +3,52 @@
         "feature": "months",
         "labels": [
             {
-                "id": 1,
-                "description": "January"
+                "id": "January",
+                "description": "Jan"
             },
             {
-                "id": 2,
-                "description": "February"
+                "id": "February",
+                "description": "Feb"
             },
             {
-                "id": 3,
-                "description": "March"
+                "id": "March",
+                "description": "Mar"
             },
             {
-                "id": 4,
-                "description": "April"
+                "id": "April",
+                "description": "Apr"
             },
             {
-                "id": 5,
+                "id": "May",
                 "description": "May"
             },
             {
-                "id": 6,
-                "description": "June"
+                "id": "June",
+                "description": "Jun"
             },
             {
-                "id": 7,
-                "description": "July"
+                "id": "July",
+                "description": "Jul"
             },
             {
-                "id": 8,
-                "description": "August"
+                "id": "August",
+                "description": "Aug"
             },
             {
-                "id": 9,
-                "description": "September"
+                "id": "September",
+                "description": "Sep"
             },
             {
-                "id": 10,
-                "description": "October"
+                "id": "October",
+                "description": "Oct"
             },
             {
-                "id": 11,
-                "description": "November"
+                "id": "November",
+                "description": "Nov"
             },
             {
-                "id": 12,
-                "description": "December"
+                "id": "December",
+                "description": "Dec"
             }
         ]
     },

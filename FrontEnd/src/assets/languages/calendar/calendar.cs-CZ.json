@@ -3,52 +3,52 @@
         "feature": "months",
         "labels": [
             {
-                "id": 1,
-                "description": "Leden"
+                "id": "January",
+                "description": "Led"
             },
             {
-                "id": 2,
-                "description": "Únor"
+                "id": "February",
+                "description": "Ún"
             },
             {
-                "id": 3,
-                "description": "Březen"
+                "id": "March",
+                "description": "Břez"
             },
             {
-                "id": 4,
-                "description": "Duben"
+                "id": "April",
+                "description": "Dub"
             },
             {
-                "id": 5,
-                "description": "Smět"
+                "id": "May",
+                "description": "Kvet"
             },
             {
-                "id": 6,
+                "id": "June",
                 "description": "Červen"
             },
             {
-                "id": 7,
-                "description": "Červenec"
+                "id": "July",
+                "description": "Červen"
             },
             {
-                "id": 8,
-                "description": "Srpen"
+                "id": "August",
+                "description": "Srp"
             },
             {
-                "id": 9,
-                "description": "Září"
+                "id": "September",
+                "description": "Zár"
             },
             {
-                "id": 10,
-                "description": "Říjen"
+                "id": "October",
+                "description": "Říj"
             },
             {
-                "id": 11,
-                "description": "Listopad"
+                "id": "November",
+                "description": "List"
             },
             {
-                "id": 12,
-                "description": "Prosinec"
+                "id": "December",
+                "description": "Pros"
             }
         ]
     },
@@ -57,31 +57,31 @@
         "labels": [
             {
                 "id": "Mon",
-                "description": "Pon"
+                "description": "Po"
             },
             {
                 "id": "Tue",
-                "description": "Úte"
+                "description": "Út"
             },
             {
                 "id": "Wed",
-                "description": "Stř"
+                "description": "St"
             },
             {
                 "id": "Thu",
-                "description": "Čtv"
+                "description": "Čt"
             },
             {
                 "id": "Fri",
-                "description": "Pát"
+                "description": "Pá"
             },
             {
                 "id": "Sat",
-                "description": "Sob"
+                "description": "So"
             },
             {
                 "id": "Sun",
-                "description": "Ned"
+                "description": "Ne"
             }
         ]
     }

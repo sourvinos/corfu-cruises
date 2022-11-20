@@ -3,52 +3,52 @@
         "feature": "months",
         "labels": [
             {
-                "id": 1,
-                "description":"Janvier"
+                "id": "January",
+                "description":"Janv"
             },
             {
-                "id": 2,
-                "description": "Février"
+                "id": "February",
+                "description": "Févr"
             },
             {
-                "id": 3,
+                "id": "March",
                 "description": "Mars"
             },
             {
-                "id": 4,
+                "id": "April",
                 "description": "Avril"
             },
             {
-                "id": 5,
+                "id": "May",
                 "description": "Mai"
             },
             {
-                "id": 6,
+                "id": "June",
                 "description": "Juin"
             },
             {
-                "id": 7,
-                "description": "Juillet"
+                "id": "July",
+                "description": "Juil"
             },
             {
-                "id": 8,
+                "id": "August",
                 "description": "Août"
             },
             {
-                "id": 9,
-                "description": "Septembre"
+                "id": "September",
+                "description": "Sept"
             },
             {
-                "id": 10,
-                "description": "Octobre"
+                "id": "October",
+                "description": "Oct"
             },
             {
-                "id": 11,
-                "description": "Novembre"
+                "id": "November",
+                "description": "Nov"
             },
             {
-                "id": 12,
-                "description": "Décembre"
+                "id": "December",
+                "description": "Déc"
             }
         ]
     },
@@ -57,31 +57,31 @@
         "labels": [
             {
                 "id": "Mon",
-                "description": "Lun"
+                "description": "Lu"
             },
             {
                 "id": "Tue",
-                "description": "Mar"
+                "description": "Ma"
             },
             {
                 "id": "Wed",
-                "description": "Mer"
+                "description": "Me"
             },
             {
                 "id": "Thu",
-                "description": "Jeu"
+                "description": "Je"
             },
             {
                 "id": "Fri",
-                "description": "Ven"
+                "description": "Ve"
             },
             {
                 "id": "Sat",
-                "description": "Sam"
+                "description": "Sa"
             },
             {
                 "id": "Sun",
-                "description": "Dim"
+                "description": "Di"
             }
         ]
     }

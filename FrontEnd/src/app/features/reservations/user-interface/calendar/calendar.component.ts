@@ -3,10 +3,10 @@ import { Router } from '@angular/router'
 import { Subject } from 'rxjs'
 // Custom
 import { DateHelperService } from 'src/app/shared/services/date-helper.service'
-import { DayVM } from '../../classes/calendar/day-vm'
 import { LocalStorageService } from 'src/app/shared/services/local-storage.service'
 import { MessageCalendarService } from 'src/app/shared/services/messages-calendar.service'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
+import { DayVM } from '../../classes/calendar/day-vm'
 import { ReservationService } from '../../classes/services/reservation.service'
 
 @Component({
@@ -26,12 +26,19 @@ export class CalendarComponent {
     public icon = 'home'
     public parentUrl = '/'
 
+    public isLeftScrollAllowed: boolean
+    public isRightScrollAllowed: boolean
+    public year: DayVM[]
+    public years: any[]
     private daysWithSchedule = []
-    private startDate: any
-    public days: DayVM[] = []
     public isLoading: boolean
     public monthSelect: any[] = []
-    public weekDays = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+    public dayWidth: number
+    private days: any
+    public todayScrollPosition: number
+    public currentYear: string
+    public selectedYear: string
+    public months = []
 
     // #endregion 
 
@@ -40,12 +47,20 @@ export class CalendarComponent {
     //#region lifecycle hooks
 
     ngOnInit(): void {
-        this.clearStoredVariables()
-        this.buildMonth(this.dateHelperService.getCurrentMonth(), this.dateHelperService.getCurrentYear())
-        this.adjustCalendarHeight()
-        this.getScheduleWithReservations().then(() => {
-            this.updateCalendarWithReservations()
-        })
+        this.populateYears()
+        this.populateMonths()
+        this.getCurrentYear()
+        this.setSelectedYear()
+        this.buildCalendar()
+        this.updateCalendar()
+    }
+
+    ngAfterViewInit(): void {
+        this.updateDaysVariables()
+        this.scrollToToday()
+        this.scrollToStoredDate()
+        this.enableDisableArrows()
+        this.updateStorage()
     }
 
     ngOnDestroy(): void {
@@ -53,122 +68,143 @@ export class CalendarComponent {
         this.unsubscribe.unsubscribe()
     }
 
-    //#endregion 
-
-    //#region public methods
-
-    public changeMonth(direction: string): void {
-        this.navigateToMonth(direction)
-        this.adjustCalendarHeight()
-        this.getScheduleWithReservations().then(() => {
-            this.updateCalendarWithReservations()
-        })
+    private populateYears(): void {
+        this.years = [
+            { value: '2022', viewValue: '2022' },
+            { value: '2023', viewValue: '2023' },
+            { value: '2024', viewValue: '2024' }
+        ]
     }
 
-    public getLabel(id: string): string {
-        return this.messageLabelService.getDescription(this.feature, id)
+    public changeYear(): void {
+        this.buildCalendar()
+        this.updateStorage()
+        this.enableDisableArrows()
+        this.updateCalendar()
     }
 
-    public getMonthAndYear(): string {
-        return this.messageCalendarService.getDescription('months', (new Date(this.startDate).getMonth() + 1).toString()) + ' ' + new Date(this.startDate).getFullYear()
+    private buildCalendar(): void {
+        this.year = []
+        this.isLoading = true
+        for (let index = 0; index < 12; index++) {
+            const startDate = new Date().setFullYear(parseInt(this.selectedYear), index, 1)
+            const endDate = new Date().setFullYear(parseInt(this.selectedYear), index + 1, 0)
+            const diffDays = Math.round((endDate - startDate) / (1000 * 60 * 60 * 24) + 1)
+            Object.keys([...Array(diffDays)]).map((a: any) => {
+                a = parseInt(a) + 1
+                const dayObject = new Date(parseInt(this.selectedYear), index, a)
+                this.year.push({
+                    date: this.dateHelperService.formatDateToIso(dayObject, false),
+                    weekdayName: dayObject.toLocaleString('default', { weekday: 'short' }),
+                    value: a,
+                    // monthName: this.monthNames[index],
+                    monthName: dayObject.toLocaleString('default', { month: 'long' }),
+                    year: this.selectedYear
+                })
+            })
+        }
+        this.isLoading = false
     }
 
-    public getWeekday(id: string): string {
-        return this.messageCalendarService.getDescription('weekdays', id)
+    private updateStorage(): void {
+        localStorage.setItem('scrollLeft', this.days.scrollLeft)
+        localStorage.setItem('year', this.selectedYear)
     }
 
-    public hasSchedule(day: any): boolean {
-        return this.daysWithSchedule.find(x => x.date == day.date)
+    private enableDisableArrows(): void {
+        this.isLeftScrollAllowed = this.days.scrollLeft == 0 ? true : false
+        this.isRightScrollAllowed = this.days.scrollLeft == this.days.scrollWidth - this.days.clientWidth ? true : false
     }
 
-    public isToday(day: any): boolean {
-        return day.date == new Date().toISOString().substring(0, 10)
+    private getCurrentYear(): void {
+        this.currentYear = isNaN(parseInt(localStorage.getItem('year')))
+            ? new Date().getFullYear().toString()
+            : localStorage.getItem('year')
     }
 
-    public isSaturday(day: any): boolean {
-        const isSaturday = new Date(day.date).getDay()
-        if (isSaturday == 6)
+    private setSelectedYear(): void {
+        this.selectedYear = this.currentYear
+    }
+
+    private scrollToToday(): void {
+        this.todayScrollPosition = this.getTodayScrollPosition() - 2
+        this.days.scrollLeft = this.todayScrollPosition * this.dayWidth
+    }
+
+    private getTodayScrollPosition(): number {
+        const date = new Date()
+        const fromDate = Date.UTC(date.getFullYear(), date.getMonth(), date.getDate())
+        const toDate = Date.UTC(date.getFullYear(), 0, 0)
+        const differenceInMilliseconds = fromDate - toDate
+        const differenceInDays = differenceInMilliseconds / 1000 / 60 / 60 / 24
+        return differenceInDays
+    }
+
+    private isLeapYear(year: number): boolean {
+        if ((0 == year % 4) && (0 != year % 100) || (0 == year % 400)) {
             return true
-    }
-
-    public isSunday(day: any): boolean {
-        const isSunday = new Date(day.date).getDay()
-        if (isSunday == 0)
-            return true
-    }
-
-    public showReservationsForSelectedDay(date: any): void {
-        if (this.hasSchedule(date)) {
-            this.storeCriteria(date.date)
-            this.clearTableFilters()
-            this.navigateToList()
+        } else {
+            return false
         }
     }
 
-    //#endregion
-
-    //#region private methods
-
-    private adjustCalendarHeight(): void {
-        const calendar = document.getElementById('calendar')
-        calendar.style.gridTemplateRows = '30px repeat(' + this.calculateWeekCount(new Date(this.startDate).getFullYear(), new Date(this.startDate).getMonth() + 1) + ', 1fr)'
+    public scrollToDay(direction: string): void {
+        this.scrollLeftOrRight(direction)
+        this.enableDisableArrows()
+        this.updateStorage()
     }
 
-    private buildMonth(month: number, year: number): void {
-        this.days = []
-        this.startDate = new Date().setFullYear(year, month, 1)
-        const endDate = new Date().setFullYear(year, month + 1, 0)
-        const diffDays = Math.round((endDate - this.startDate) / (1000 * 60 * 60 * 24) + 1)
-        const arrayDays = Object.keys([...Array(diffDays)]).map((a: any) => {
-            a = parseInt(a) + 1
-            const dayObject = new Date(year, month, a)
-            const day: DayVM = {
-                date: this.dateHelperService.formatDateToIso(dayObject, false),
-                destinations: []
-            }
-            this.days.push(day)
-            return {
-                name: dayObject.toLocaleString('default', { weekday: 'long' }),
-                value: a,
-                indexWeek: dayObject.getDay()
-            }
-        })
-        this.monthSelect = arrayDays
+    private scrollLeftOrRight(direction: string): void {
+        this.days.scrollLeft += direction == 'previous' ? -this.dayWidth : this.dayWidth
     }
 
-    private calculateWeekCount(year: number, month: number): number {
-        const firstOfMonth = new Date(year, month - 1, 1)
-        let day = firstOfMonth.getDay() || 6
-        day = day === 1 ? 0 : day
-        if (day) {
-            day--
+    public gotoToday(): void {
+        this.currentYear = new Date().getFullYear().toString()
+        this.selectedYear = this.currentYear
+        this.getCurrentYear()
+        this.buildCalendar()
+        this.scrollToToday()
+        this.updateStorage()
+        this.enableDisableArrows()
+    }
+
+    public gotoMonth(month: number): void {
+        this.days.scrollLeft = this.getMonthOffset(month) * this.dayWidth
+        this.enableDisableArrows()
+        this.updateStorage()
+    }
+
+    private getMonthOffset(month: number): number {
+        switch (month) {
+            case 1: return 0
+            case 2: return 31
+            case 3: return this.isLeapYear(parseInt(this.selectedYear)) ? 60 : 59
+            case 4: return this.isLeapYear(parseInt(this.selectedYear)) ? 91 : 90
+            case 5: return this.isLeapYear(parseInt(this.selectedYear)) ? 121 : 120
+            case 6: return this.isLeapYear(parseInt(this.selectedYear)) ? 152 : 151
+            case 7: return this.isLeapYear(parseInt(this.selectedYear)) ? 182 : 181
+            case 8: return this.isLeapYear(parseInt(this.selectedYear)) ? 213 : 212
+            case 9: return this.isLeapYear(parseInt(this.selectedYear)) ? 244 : 243
+            case 10: return this.isLeapYear(parseInt(this.selectedYear)) ? 274 : 273
+            case 11: return this.isLeapYear(parseInt(this.selectedYear)) ? 305 : 304
+            case 12: return this.isLeapYear(parseInt(this.selectedYear)) ? 335 : 334
         }
-        let diff = 7 - day
-        const lastOfMonth = new Date(year, month, 0)
-        const lastDate = lastOfMonth.getDate()
-        if (lastOfMonth.getDay() === 1) {
-            diff--
+    }
+    private updateDaysVariables(): void {
+        this.days = document.querySelector('#days')
+        this.dayWidth = document.querySelectorAll('.day')[0].getBoundingClientRect().width + 2
+    }
+
+    private scrollToStoredDate(): void {
+        if (localStorage.getItem('scrollLeft') != undefined && localStorage.getItem('year') != undefined) {
+            this.days.scrollLeft = localStorage.getItem('scrollLeft')
         }
-        const result = Math.ceil((lastDate - diff) / 7)
-        return result + 1
     }
 
-    private clearTableFilters(): void {
-        this.localStorageService.clearStoredPrimeTableFilters()
-    }
-
-    private clearStoredVariables(): void {
-        this.localStorageService.deleteItems([
-            { 'item': 'date', 'when': 'always' },
-            { 'item': 'refNo', 'when': 'always' },
-            { 'item': 'returnUrl', 'when': 'always' }
-        ])
-    }
-
-    private getScheduleWithReservations(): Promise<any> {
+    private getReservations(): Promise<any> {
         this.isLoading = true
         const promise = new Promise((resolve) => {
-            this.reservationService.getForCalendar(this.days[0].date, this.days[this.days.length - 1].date).subscribe(response => {
+            this.reservationService.getForCalendar(this.selectedYear + '-01-01', this.selectedYear + '-12-31').subscribe(response => {
                 this.daysWithSchedule = response
                 resolve(this.daysWithSchedule)
                 this.isLoading = false
@@ -177,27 +213,32 @@ export class CalendarComponent {
         return promise
     }
 
-    private navigateToList(): void {
-        this.router.navigate([this.url, 'date', this.localStorageService.getItem('date')])
-    }
-
-    private navigateToMonth(direction: string): void {
-        const date = new Date(this.startDate)
-        direction == 'previous' ? date.setMonth(date.getMonth() - 1) : date.setMonth(date.getMonth() + 1)
-        this.buildMonth(date.getMonth(), date.getFullYear())
-    }
-
-    private storeCriteria(date: string): void {
-        this.localStorageService.saveItem('date', date)
-    }
-
     private updateCalendarWithReservations(): void {
+        this.isLoading = true
         this.daysWithSchedule.forEach(day => {
-            const x = this.days.find(x => x.date == day.date)
-            this.days[this.days.indexOf(x)].destinations = day.destinations
+            const x = this.year.find(x => x.date == day.date)
+            this.year[this.year.indexOf(x)].destinations = day.destinations
+            this.year[this.year.indexOf(x)].pax = day.pax
+            this.isLoading = false
         })
     }
 
-    //#endregion
+    public getLocaleWeekdayName(weekdayName: string): string {
+        return this.messageCalendarService.getDescription('weekdays', weekdayName)
+    }
+
+    public getLocaleMonthName(monthName: string): string {
+        return this.messageCalendarService.getDescription('months', monthName)
+    }
+
+    private populateMonths(): void {
+        this.months = [...Array(12).keys()].map(x => ++x)
+    }
+
+    private updateCalendar(): void {
+        this.getReservations().then(() => {
+            this.updateCalendarWithReservations()
+        })
+    }
 
 }
