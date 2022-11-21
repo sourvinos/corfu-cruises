@@ -5,21 +5,23 @@
     </div>
 
     <div id="year-selector">
-        <mat-form-field appearance="outline">
-            <mat-select [(value)]="selectedYear" (selectionChange)="changeYear()">
-                <mat-option [value]="year.value" *ngFor="let year of years">
-                    {{ year.viewValue }}
-                </mat-option>
-            </mat-select>
-        </mat-form-field>
+        <button mat-mini-fab (click)="changeYear('previous')">
+            <mat-icon>chevron_left</mat-icon>
+        </button>
+        <div id="selected-year">
+            {{ selectedYear }}
+        </div>
+        <button mat-mini-fab (click)="changeYear('next')">
+            <mat-icon>chevron_right</mat-icon>
+        </button>
     </div>
 
     <div id="day-wrapper">
-        <button (click)="scrollToDay('previous')" class="arrow">
+        <button (click)="scrollDays('previous')" class="arrow">
             <img src="assets/images/calendars/left-arrow.svg">
         </button>
         <div id="days">
-            <div class="day" *ngFor="let day of year">
+            <div (click)="showReservationsForSelectedDay(day)" class="day" *ngFor="let day of year" [ngClass]="{ 'saturday':isSaturday(day), 'sunday':isSunday(day), 'is-today':isToday(day), 'has-schedule':dayHasSchedule(day) }">
                 <div class="day-data">
                     <div class="weekday">{{ getLocaleWeekdayName(day.weekdayName) }}</div>
                     <div class="date">{{ day.value }}</div>
@@ -34,7 +36,7 @@
                 </div>
             </div>
         </div>
-        <button (click)="scrollToDay('next')" class="arrow">
+        <button (click)="scrollDays('next')" class="arrow">
             <img src="assets/images/calendars/right-arrow.svg">
         </button>
     </div>
@@ -48,7 +50,7 @@
     </div>
 
     <div id="today-selector">
-        <button mat-stroked-button color="primary" (click)="gotoToday()">Today</button>
+        <button mat-flat-button class="primary" (click)="gotoToday()" [disabled]="currentYearIsNotSelectedYear()">{{ getLabel("gotoTodayButton") }}</button>
     </div>
 
     <div *ngIf="isLoading">

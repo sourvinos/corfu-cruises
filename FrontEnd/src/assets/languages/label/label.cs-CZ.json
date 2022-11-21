@@ -2087,15 +2087,15 @@
         ]
     },
     {
-        "feature": "calendarReservations",
+        "feature": "reservationsCalendar",
         "labels": [
             {
                 "id": "header",
-                "description": "Měsíční kalendář rezervací"
+                "description": "Kalendář rezervací"
             },
             {
-                "id": "persons",
-                "description": "Gesamtpersonen"
+                "id": "gotoTodayButton",
+                "description": "DENNĚ"
             }
         ]
     },

@@ -44,6 +44,30 @@ export class DateHelperService {
         return new Date().getFullYear()
     }
 
+    public getMonthFirstDayOffset(month: number, year: string): number {
+        const isLeapYear = this.isLeapYear(parseInt(year))
+        if (month == 1) return 0
+        if (month == 2) return 31
+        if (month == 3) return isLeapYear ? 60 : 59
+        if (month == 4) return isLeapYear ? 91 : 90
+        if (month == 5) return isLeapYear ? 121 : 120
+        if (month == 6) return isLeapYear ? 152 : 151
+        if (month == 7) return isLeapYear ? 182 : 181
+        if (month == 8) return isLeapYear ? 213 : 212
+        if (month == 9) return isLeapYear ? 244 : 243
+        if (month == 10) return isLeapYear ? 274 : 273
+        if (month == 11) return isLeapYear ? 305 : 304
+        if (month == 12) return isLeapYear ? 335 : 334
+    }
+
+    public isLeapYear(year: number): boolean {
+        if ((0 == year % 4) && (0 != year % 100) || (0 == year % 400)) {
+            return true
+        } else {
+            return false
+        }
+    }
+
     //#endregion
 
     //#region private methods

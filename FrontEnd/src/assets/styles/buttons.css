@@ -87,6 +87,7 @@ button:not(:disabled) {
 .mat-mini-fab .mat-button-wrapper {
     color: var(--color-c);
     line-height: 23px !important;
+    padding-top: 0 !important;
     transition: color 0.2s ease-in;
 }
 

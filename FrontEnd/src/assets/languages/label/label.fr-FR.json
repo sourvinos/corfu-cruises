@@ -2087,15 +2087,15 @@
         ]
     },
     {
-        "feature": "calendarReservations",
+        "feature": "reservationsCalendar",
         "labels": [
             {
                 "id": "header",
-                "description": "Calendrier mensuel des réservations"
+                "description": "Calendrier des réservations"
             },
             {
-                "id": "persons",
-                "description": "Personnes"
+                "id": "gotoTodayButton",
+                "description": "AUJOURD'HUI"
             }
         ]
     },

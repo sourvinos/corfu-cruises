@@ -1,4 +1,8 @@
-#year-selector .mat-form-field {
+.mat-select-panel {
+    background-color: var(--color-e);
+}
+
+.mat-form-field {
     background-color: transparent !important;
     border: none !important;
 }
@@ -8,7 +12,7 @@
 }
 
 .mat-form-field-appearance-outline .mat-form-field-infix {
-    margin: 0rem 0 0.7rem 0;
+    margin: 0rem 0 0.85rem 0;
 }
 
 .mat-form-field-appearance-outline .mat-form-field-outline {

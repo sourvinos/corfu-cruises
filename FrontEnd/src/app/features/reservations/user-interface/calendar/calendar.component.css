@@ -8,9 +8,30 @@
 }
 
 #year-selector {
+    align-items: center;
+    color: var(--color-c);
     display: flex;
-    margin: 0 auto;
-    width: 10rem;
+    font-family: "Montserrat";
+    font-size: 1.5rem;
+    justify-content: center;
+    margin: 0 auto 1.4rem auto;
+    position: relative;
+    width: max-content;
+}
+
+#year-selector #years {
+    cursor: pointer;
+    display: flex;
+    gap: 2px;
+    height: 100%;
+    margin-top: -0.3125rem;
+    overflow: hidden;
+    scroll-behavior: auto;
+    width: 52px;
+}
+
+#selected-year {
+    margin: 0 1rem;
 }
 
 #day-wrapper {
@@ -32,15 +53,20 @@
 }
 
 .day {
-    background-color: #efefef;
+    background-color: var(--color-b);
     border-radius: 0.625rem;
-    border: 1px solid red;
+    border: 1px solid var(--color-a);
     display: flex;
     flex-direction: column;
     height: 17.5rem;
     max-width: 110px;
     min-width: 110px;
     padding: 0.8rem;
+    transition: background-color var(--delay) ease-in, border var(--delay) ease-in, transform 0.1s ease-in;
+}
+
+.day:hover {
+    cursor: no-drop;
 }
 
 .day-data {
@@ -50,11 +76,13 @@
 }
 
 .day-data .weekday, .day-data .month {
+    color: var(--color-c);
     font-family: 'Manrope';
     font-size: 14px;
 }
 
 .day-data .date {
+    color: var(--color-c);
     font-family: 'Montserrat';
     font-size: 1.8rem;
 }
@@ -67,13 +95,15 @@
 }
 
 .destinations {
+    color: var(--color-c);
     display: flex;
-    font-family: 'Ubuntu Condensed';
-    font-size: 1rem;
+    font-family: 'Montserrat';
+    font-size: 0.8rem;
     justify-content: space-between;
 }
 
 .pax {
+    color: var(--color-c);
     font-family: 'Manrope';
     margin-top: auto;
     text-align: center;
@@ -85,8 +115,14 @@
     margin-top: 2rem;
 }
 
-.month-selector {
+.month-selector, .month-selector.mat-button-toggle-checked {
+    background-color: var(--color-background-month-selector);
     font-family: "Montserrat";
+    font-weight: 600;
+}
+
+.mat-button-toggle-standalone, .mat-button-toggle-group {
+    border-radius: 0;
 }
 
 .arrow {
@@ -108,8 +144,30 @@
     height: 8rem;
 }
 
+.saturday {
+    background-color: var(--color-background-saturday);
+}
+
+.sunday {
+    background-color: var(--color-background-sunday);
+}
+
+.is-today {
+    background-color: var(--color-background-today) !important;
+}
+
 #today-selector {
     display: flex;
     justify-content: center;
     margin-top: 1rem;
+}
+
+.day.has-schedule {
+    cursor: pointer;
+}
+
+.day.has-schedule:hover {
+    border: 1px solid var(--color-c);
+    filter: brightness(1.2);
+    transition: all 0.1s ease-in;
 }
