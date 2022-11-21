@@ -8,15 +8,15 @@
         <p-table #table (onFilter)="filterRecords($event)" [autoLayout]="false" [scrollable]="true" [value]="records" [virtualRowHeight]="33" [virtualScroll]="false" dataKey="id" scrollHeight="flex" selectionMode="single" sortMode="multiple" stateKey="registrar-list" stateStorage="local">
             <ng-template pTemplate="header">
                 <tr>
-                    <th data-cy="column" style="min-width: 10%; max-width: 10%;" pSortableColumn="isActive">{{ getLabel("headerIsActive") }}<p-sortIcon field="isActive"></p-sortIcon></th>
-                    <th data-cy="column" style="min-width: 10%; max-width: 10%;" pSortableColumn="isPrimary">{{ getLabel("headerIsPrimary") }}<p-sortIcon field="isPrimary"></p-sortIcon></th>
-                    <th data-cy="column" style="min-width: 35%; max-width: 35%;" pSortableColumn="fullname">{{ getLabel("headerShipDescription") }}<p-sortIcon field="shipDescription"></p-sortIcon></th>
-                    <th data-cy="column" style="min-width: 45%; max-width: 45%;" pSortableColumn="fullname">{{ getLabel("headerFullname") }}<p-sortIcon field="fullname"></p-sortIcon></th>
+                    <th data-cy="column" style="width: 10%;" pSortableColumn="isActive">{{ getLabel("headerIsActive") }}<p-sortIcon field="isActive"></p-sortIcon></th>
+                    <th data-cy="column" style="width: 10%;" pSortableColumn="isPrimary">{{ getLabel("headerIsPrimary") }}<p-sortIcon field="isPrimary"></p-sortIcon></th>
+                    <th data-cy="column" style="width: 35%;" pSortableColumn="fullname">{{ getLabel("headerShipDescription") }}<p-sortIcon field="shipDescription"></p-sortIcon></th>
+                    <th data-cy="column" style="width: 45%;" pSortableColumn="fullname">{{ getLabel("headerFullname") }}<p-sortIcon field="fullname"></p-sortIcon></th>
                 </tr>
                 <tr>
-                    <th style="min-width: 10%; max-width: 10%;"><p-columnFilter data-cy="filter-active" type="boolean" field="isActive"></p-columnFilter></th>
-                    <th style="min-width: 10%; max-width: 10%;"><p-columnFilter data-cy="filter-isPrimary" type="boolean" field="isPrimary"></p-columnFilter></th>
-                    <th style="min-width: 35%; max-width: 35%;">
+                    <th style="width: 10%;"><p-columnFilter data-cy="filter-active" type="boolean" field="isActive"></p-columnFilter></th>
+                    <th style="width: 10%;"><p-columnFilter data-cy="filter-isPrimary" type="boolean" field="isPrimary"></p-columnFilter></th>
+                    <th style="width: 35%;">
                         <p-columnFilter style="width: 100%;" field="shipDescription" matchMode="equals" [showMenu]="false">
                             <ng-template pTemplate="filter" let-value let-filter="filterCallback">
                                 <p-dropdown data-cy="filter-route" [ngModel]="value" [options]="dropdownShips" (onChange)="filter($event.value)" placeholder="⭐" [showClear]="true">
@@ -27,21 +27,21 @@
                             </ng-template>
                         </p-columnFilter>
                     </th>
-                    <th style="min-width: 45%; max-width: 45%;"><input data-cy="filter-fullname" type="text" class="p-inputtext" (input)="table.filter($event.target.value, 'fullname', 'contains')" [value]="$any(table).filters['fullname']?.value"></th>
+                    <th style="width: 45%;"><input data-cy="filter-fullname" type="text" class="p-inputtext" (input)="table.filter($event.target.value, 'fullname', 'contains')" [value]="$any(table).filters['fullname']?.value"></th>
                 </tr>
             </ng-template>
             <ng-template pTemplate="body" let-rowData>
                 <tr data-cy="row" [pSelectableRow]="rowData" (dblclick)="editRecord(rowData.id)">
-                    <td [ngClass]="rowData.isActive ? 'is-active': 'is-not-active'" style="min-width: 10%; max-width: 10%; justify-content: center;">
+                    <td [ngClass]="rowData.isActive ? 'is-active': 'is-not-active'" style="width: 10%; text-align: center;">
                         <span *ngIf="rowData.isActive" class="is-active material-icons-outlined">check_circle</span>
                         <span *ngIf="!rowData.isActive" class="is-not-active material-icons-outlined">highlight_off</span>
                     </td>
-                    <td [ngClass]="rowData.isPrimary ? 'is-active': 'is-not-active'" style="min-width: 10%; max-width: 10%; justify-content: center;">
+                    <td [ngClass]="rowData.isPrimary ? 'is-active': 'is-not-active'" style="width: 10%; text-align: center;">
                         <span *ngIf="rowData.isPrimary" class="is-active material-icons-outlined">check_circle</span>
                         <span *ngIf="!rowData.isPrimary" class="is-not-active material-icons-outlined">highlight_off</span>
                     </td>
-                    <td style="min-width: 35%; max-width: 35%;">{{ rowData.shipDescription }}</td>
-                    <td style="min-width: 45%; max-width: 45%;">{{ rowData.fullname }}</td>
+                    <td style="width: 35%;">{{ rowData.shipDescription }}</td>
+                    <td style="width: 45%;">{{ rowData.fullname }}</td>
                 </tr>
             </ng-template>
         </p-table>

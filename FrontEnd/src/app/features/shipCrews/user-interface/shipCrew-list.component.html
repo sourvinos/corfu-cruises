@@ -8,15 +8,15 @@
         <p-table #table (onFilter)="filterRecords($event)" [autoLayout]="false" [scrollable]="true" [value]="records" [virtualRowHeight]="33" [virtualScroll]="false" dataKey="id" scrollHeight="flex" selectionMode="single" sortMode="multiple" stateKey="shipCrew-list" stateStorage="local">
             <ng-template pTemplate="header">
                 <tr>
-                    <th data-cy="column" style="min-width: 10%; max-width: 10%;" pSortableColumn="isActive">{{ getLabel("headerIsActive") }}<p-sortIcon field="isActive"></p-sortIcon></th>
-                    <th data-cy="column" style="min-width: 25%; max-width: 25%;" pSortableColumn="shipDescription">{{ getLabel("headerShipDescription") }}<p-sortIcon field="shipDescription"></p-sortIcon></th>
-                    <th data-cy="column" style="min-width: 25%; max-width: 25%;" pSortableColumn="lastname">{{ getLabel("headerLastname") }}<p-sortIcon field="lastname"></p-sortIcon></th>
-                    <th data-cy="column" style="min-width: 20%; max-width: 20%;" pSortableColumn="firstname">{{ getLabel("headerFirstname") }}<p-sortIcon field="firstname"></p-sortIcon></th>
-                    <th data-cy="column" style="min-width: 20%; max-width: 20%;" pSortableColumn="birthdate">{{ getLabel("headerBirthdate") }}<p-sortIcon field="birthdate"></p-sortIcon></th>
+                    <th data-cy="column" style="width: 10%;" pSortableColumn="isActive">{{ getLabel("headerIsActive") }}<p-sortIcon field="isActive"></p-sortIcon></th>
+                    <th data-cy="column" style="width: 25%;" pSortableColumn="shipDescription">{{ getLabel("headerShipDescription") }}<p-sortIcon field="shipDescription"></p-sortIcon></th>
+                    <th data-cy="column" style="width: 25%;" pSortableColumn="lastname">{{ getLabel("headerLastname") }}<p-sortIcon field="lastname"></p-sortIcon></th>
+                    <th data-cy="column" style="width: 20%;" pSortableColumn="firstname">{{ getLabel("headerFirstname") }}<p-sortIcon field="firstname"></p-sortIcon></th>
+                    <th data-cy="column" style="width: 20%;" pSortableColumn="birthdate">{{ getLabel("headerBirthdate") }}<p-sortIcon field="birthdate"></p-sortIcon></th>
                 </tr>
                 <tr>
-                    <th style="min-width: 10%; max-width: 10%;"><p-columnFilter data-cy="filter-active" type="boolean" field="isActive"></p-columnFilter></th>
-                    <th style="min-width: 25%; max-width: 25%;">
+                    <th style="width: 10%;"><p-columnFilter data-cy="filter-active" type="boolean" field="isActive"></p-columnFilter></th>
+                    <th style="width: 25%;">
                         <p-columnFilter style="width: 100%;" field="shipDescription" matchMode="equals" [showMenu]="false">
                             <ng-template pTemplate="filter" let-value let-filter="filterCallback">
                                 <p-dropdown data-cy="filter-ship" [ngModel]="value" [options]="activeShips" (onChange)="filter($event.value)" placeholder="⭐" [showClear]="true">
@@ -27,21 +27,21 @@
                             </ng-template>
                         </p-columnFilter>
                     </th>
-                    <th style="min-width: 25%; max-width: 25%;"><input data-cy="filter-lastname" type="text" class="p-inputtext" (input)="table.filter($event.target.value, 'lastname', 'contains')" [value]="$any(table).filters['lastname']?.value"></th>
-                    <th style="min-width: 20%; max-width: 20%;"><input data-cy="filter-firstname" type="text" class="p-inputtext" (input)="table.filter($event.target.value, 'firstname', 'contains')" [value]="$any(table).filters['firstname']?.value"></th>
-                    <th style="min-width: 20%; max-width: 20%;"><input data-cy="filter-birthdate" type="text" class="p-inputtext center" (input)="table.filter($event.target.value, 'birthdate', 'contains')" [value]="$any(table).filters['birthdate']?.value"></th>
+                    <th style="width: 25%;"><input data-cy="filter-lastname" type="text" class="p-inputtext" (input)="table.filter($event.target.value, 'lastname', 'contains')" [value]="$any(table).filters['lastname']?.value"></th>
+                    <th style="width: 20%;"><input data-cy="filter-firstname" type="text" class="p-inputtext" (input)="table.filter($event.target.value, 'firstname', 'contains')" [value]="$any(table).filters['firstname']?.value"></th>
+                    <th style="width: 20%;"><input data-cy="filter-birthdate" type="text" class="p-inputtext center" (input)="table.filter($event.target.value, 'birthdate', 'contains')" [value]="$any(table).filters['birthdate']?.value"></th>
                 </tr>
             </ng-template>
             <ng-template pTemplate="body" let-rowData>
                 <tr data-cy="row" [pSelectableRow]="rowData" (dblclick)="editRecord(rowData.id)">
-                    <td [ngClass]="rowData.isActive ? 'is-active': 'is-not-active'" style="min-width: 10%; max-width: 10%; justify-content: center;">
+                    <td [ngClass]="rowData.isActive ? 'is-active': 'is-not-active'" style="width: 10%; text-align: center;">
                         <span *ngIf="rowData.isActive" class="is-active material-icons-outlined">check_circle</span>
                         <span *ngIf="!rowData.isActive" class="is-not-active material-icons-outlined">highlight_off</span>
                     </td>
-                    <td style="min-width: 25%; max-width: 25%;">{{ rowData.shipDescription }}</td>
-                    <td style="min-width: 25%; max-width: 25%;">{{ rowData.lastname }}</td>
-                    <td style="min-width: 20%; max-width: 20%;">{{ rowData.firstname }}</td>
-                    <td style="min-width: 20%; max-width: 20%; justify-content: center;">{{ formatDateToLocale(rowData.birthdate) }}</td>
+                    <td style="width: 25%;">{{ rowData.shipDescription }}</td>
+                    <td style="width: 25%;">{{ rowData.lastname }}</td>
+                    <td style="width: 20%;">{{ rowData.firstname }}</td>
+                    <td style="width: 20%; text-align: center;">{{ formatDateToLocale(rowData.birthdate) }}</td>
                 </tr>
             </ng-template>
         </p-table>

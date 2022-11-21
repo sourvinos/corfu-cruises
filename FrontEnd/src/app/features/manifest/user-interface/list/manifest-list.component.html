@@ -23,15 +23,15 @@
             <p-table #table [autoLayout]="false" [scrollable]="true" [value]="records.passengers" scrollHeight="flex" scrollHeight="flex" selectionMode="single" sortMode="multiple">
                 <ng-template pTemplate="header">
                     <tr>
-                        <th style="min-width: 10%; max-width: 10%;;">{{ getLabel("headerOccupantDescription") }}</th>
-                        <th style="min-width: 20%; max-width: 20%;">{{ getLabel("headerLastname") }}</th>
-                        <th style="min-width: 20%; max-width: 20%;">{{ getLabel("headerFirstname") }}</th>
-                        <th style="min-width: 20%; max-width: 20%;">{{ getLabel("headerNationality") }}</th>
-                        <th style="min-width: 15%; max-width: 15%;">{{ getLabel("headerGender") }}</th>
-                        <th style="min-width: 15%; max-width: 15%;">{{ getLabel("headerBirthdate") }}</th>
+                        <th style="width: 10%;;">{{ getLabel("headerOccupantDescription") }}</th>
+                        <th style="width: 20%;">{{ getLabel("headerLastname") }}</th>
+                        <th style="width: 20%;">{{ getLabel("headerFirstname") }}</th>
+                        <th style="width: 20%;">{{ getLabel("headerNationality") }}</th>
+                        <th style="width: 15%;">{{ getLabel("headerGender") }}</th>
+                        <th style="width: 15%;">{{ getLabel("headerBirthdate") }}</th>
                     </tr>
                     <tr>
-                        <th style="min-width: 10%; max-width: 10%;">
+                        <th style="width: 10%;">
                             <p-columnFilter style="width: 100%;" field="occupantDescription" matchMode="equals" [showMenu]="false">
                                 <ng-template pTemplate="filter" let-value let-filter="filterCallback">
                                     <p-dropdown [ngModel]="value" [options]="occupants" (onChange)="filter($event.value)" placeholder="⭐" [showClear]="true">
@@ -42,9 +42,9 @@
                                 </ng-template>
                             </p-columnFilter>
                         </th>
-                        <th style="min-width: 20%; max-width: 20%;"><input type="text" class="p-inputtext" (input)="table.filter($event.target.value, 'lastname', 'contains')" [value]="$any(table).filters['lastname']?.value"></th>
-                        <th style="min-width: 20%; max-width: 20%;"><input type="text" class="p-inputtext" (input)="table.filter($event.target.value, 'firstname', 'contains')" [value]="$any(table).filters['firstname']?.value"></th>
-                        <th style="min-width: 20%; max-width: 20%;">
+                        <th style="width: 20%;"><input type="text" class="p-inputtext" (input)="table.filter($event.target.value, 'lastname', 'contains')" [value]="$any(table).filters['lastname']?.value"></th>
+                        <th style="width: 20%;"><input type="text" class="p-inputtext" (input)="table.filter($event.target.value, 'firstname', 'contains')" [value]="$any(table).filters['firstname']?.value"></th>
+                        <th style="width: 20%;">
                             <p-columnFilter style="width: 100%;" field="nationalityDescription" matchMode="equals" [showMenu]="false">
                                 <ng-template pTemplate="filter" let-value let-filter="filterCallback">
                                     <p-dropdown [ngModel]="value" [options]="nationalities" (onChange)="filter($event.value)" placeholder="⭐" [showClear]="true">
@@ -55,7 +55,7 @@
                                 </ng-template>
                             </p-columnFilter>
                         </th>
-                        <th style="min-width: 15%; max-width: 15%;">
+                        <th style="width: 15%;">
                             <p-columnFilter style="width: 100%;" field="genderDescription" matchMode="equals" [showMenu]="false">
                                 <ng-template pTemplate="filter" let-value let-filter="filterCallback">
                                     <p-dropdown [ngModel]="value" [options]="genders" (onChange)="filter($event.value)" placeholder="⭐" [showClear]="true">
@@ -66,17 +66,17 @@
                                 </ng-template>
                             </p-columnFilter>
                         </th>
-                        <th style="min-width: 15%; max-width: 15%;"><input type="text" class="p-inputtext" (input)="table.filter($event.target.value, 'birthdate', 'contains')" [value]="$any(table).filters['birthdate']?.value"></th>
+                        <th style="width: 15%;"><input type="text" class="p-inputtext" (input)="table.filter($event.target.value, 'birthdate', 'contains')" [value]="$any(table).filters['birthdate']?.value"></th>
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="body" let-rowData>
                     <tr [pSelectableRow]="rowData">
-                        <td style="min-width: 10%; max-width: 10%; justify-content: center;">{{ rowData.occupantDescription }}</td>
-                        <td style="min-width: 20%; max-width: 20%;">{{ rowData.lastname }}</td>
-                        <td style="min-width: 20%; max-width: 20%;">{{ rowData.firstname }}</td>
-                        <td style="min-width: 20%; max-width: 20%;">{{ rowData.nationalityDescription }}</td>
-                        <td style="min-width: 15%; max-width: 15%;">{{ rowData.genderDescription }}</td>
-                        <td style="min-width: 15%; max-width: 15%; justify-content: center;">{{ formatDate(rowData.birthdate) }}</td>
+                        <td style="width: 10%; text-align: center;">{{ rowData.occupantDescription }}</td>
+                        <td style="width: 20%;">{{ rowData.lastname }}</td>
+                        <td style="width: 20%;">{{ rowData.firstname }}</td>
+                        <td style="width: 20%;">{{ rowData.nationalityDescription }}</td>
+                        <td style="width: 15%;">{{ rowData.genderDescription }}</td>
+                        <td style="width: 15%; text-align: center;">{{ formatDate(rowData.birthdate) }}</td>
                     </tr>
                 </ng-template>
             </p-table>

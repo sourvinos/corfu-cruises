@@ -1,9 +1,9 @@
-.p-datatable table {
+/* .p-datatable table {
     border-spacing: 0;
     display: flex;
     flex-direction: column;
     flex: 1;
-}
+} */
 
 .p-datatable.p-datatable-scrollable > .p-datatable-wrapper > .p-datatable-table > .p-datatable-thead {
     background-color: transparent;

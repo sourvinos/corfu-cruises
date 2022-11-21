@@ -65,6 +65,7 @@ button.tab:first-child {
 
 button.mat-mini-fab {
     background-color: transparent !important;
+    box-shadow: none !important;
     color: var(--color-a) !important;
     margin: 0 !important;
     outline: 0 !important;
@@ -84,14 +85,14 @@ button:not(:disabled) {
     cursor: pointer !important;
 }
 
-.mat-mini-fab .mat-button-wrapper {
+button.mat-mini-fab .mat-button-wrapper {
     color: var(--color-c);
     line-height: 23px !important;
     padding-top: 0 !important;
     transition: color 0.2s ease-in;
 }
 
-.mat-button-toggle-label-content {
+button.mat-button-toggle-label-content {
     line-height: 2.5rem !important;
 }
 
