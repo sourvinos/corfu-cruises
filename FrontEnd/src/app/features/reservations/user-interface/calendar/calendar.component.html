@@ -53,6 +53,23 @@
         <button mat-flat-button class="primary" (click)="gotoToday()" [disabled]="currentYearIsNotSelectedYear()">{{ getLabel("gotoTodayButton") }}</button>
     </div>
 
+    <div id="summaries">
+        <div id="ytd">
+            <h5>YTD</h5>
+            <h1>16.412</h1>
+        </div>
+        <div id="top10">
+            <h5>TOP 10</h5>
+            <h1>Countries</h1>
+        </div>
+    </div>
+
+    <div id="footer">
+        <div class="button-group">
+            <button mat-flat-button class="primary" id="new">{{ getLabel("newButton") }}</button>
+        </div>
+    </div>
+
     <div *ngIf="isLoading">
         <loading-spinner></loading-spinner>
     </div>

@@ -2096,6 +2096,10 @@
             {
                 "id": "gotoTodayButton",
                 "description": "DENNĚ"
+            },
+            {
+                "id": "newButton",
+                "description": "NOVÁ REZERVACE"
             }
         ]
     },
