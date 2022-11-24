@@ -26,6 +26,11 @@ export class ValidationService {
         return control.value == 0 ? { isGreaterThanZero: false } : null
     }
 
+    static isNumber(control: AbstractControl): { [key: string]: any } {
+        const pattern = /^[0-9]+$/
+        return pattern.test(control.value) ? null : { isNumber: true }
+    }
+
     static isTime(control: AbstractControl): { [key: string]: any } {
         if (control.value) {
             const pattern = /\b([01][0-9]|2[0-3]):([0-5][0-9])\b/g

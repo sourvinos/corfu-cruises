@@ -57,6 +57,9 @@ export class AccountService extends HttpDataService {
             { 'item': 'returnUrl', 'when': 'always' },
             // Reservations
             { 'item': 'date', 'when': 'always' },
+            // Reservations calendar
+            { 'item': 'year', 'when': 'always' },
+            { 'item': 'scrollLeft', 'when': 'always' },
             // Criteria
             { 'item': 'embarkation-criteria', 'when': 'production' },
             { 'item': 'invoicing-criteria', 'when': 'production' },
@@ -123,6 +126,7 @@ export class AccountService extends HttpDataService {
 
     public logout(): void {
         this.setLoginStatus(false)
+        this.clearStoredVariables()
         this.refreshMenus()
         this.navigateToLogin()
     }

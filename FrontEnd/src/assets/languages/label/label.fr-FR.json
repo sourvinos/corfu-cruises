@@ -2091,7 +2091,7 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Calendrier des réservations"
+                "description": "Réservations pour"
             },
             {
                 "id": "gotoTodayButton",
@@ -2100,6 +2100,10 @@
             {
                 "id": "newButton",
                 "description": "NOUVELLE RÉSERVATION"
+            },
+            {
+                "id": "setActiveYearButton",
+                "description": "Définir l'année active"
             }
         ]
     },
@@ -2266,6 +2270,27 @@
             {
                 "id": "headerExpiryDate",
                 "description": "Déconnexion auto"
+            }
+        ]
+    },
+    {
+        "feature": "activeYear",
+        "labels": [
+            {
+                "id": "header",
+                "description": "Année en cours"
+            },
+            {
+                "id": "sub-header",
+                "description": "Indiquez l'année sur laquelle vous souhaitez travailler"
+            },
+            {
+                "id": "activeYear",
+                "description": "Année"
+            },
+            {
+                "id": "saveButton",
+                "description": "ENREGISTRER"
             }
         ]
     }

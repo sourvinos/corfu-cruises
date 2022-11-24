@@ -46,6 +46,7 @@ import { InterceptorService } from '../shared/services/interceptor.service'
         ReactiveFormsModule,
         ScrollingModule,
         SharedModule,
+
     ],
     providers: [
         {

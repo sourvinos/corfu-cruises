@@ -2091,7 +2091,7 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Reservations calendar"
+                "description": "Reservations for"
             },
             {
                 "id": "gotoTodayButton",
@@ -2100,6 +2100,10 @@
             {
                 "id": "newButton",
                 "description": "NEW RESERVATION"
+            },
+            {
+                "id": "setActiveYearButton",
+                "description": "Set active year"
             }
         ]
     },
@@ -2266,6 +2270,27 @@
             {
                 "id": "headerExpiryDate",
                 "description": "Auto logout"
+            }
+        ]
+    },
+    {
+        "feature": "activeYear",
+        "labels": [
+            {
+                "id": "header",
+                "description": "Current year"
+            },
+            {
+                "id": "sub-header",
+                "description": "Enter the year in which you want to work on"
+            },
+            {
+                "id": "activeYear",
+                "description": "Year"
+            },
+            {
+                "id": "saveButton",
+                "description": "SAVE"
             }
         ]
     }

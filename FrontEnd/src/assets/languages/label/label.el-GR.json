@@ -2091,7 +2091,7 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Ημερολόγιο κρατήσεων"
+                "description": "Κρατήσεις έτους"
             },
             {
                 "id": "gotoTodayButton",
@@ -2100,6 +2100,10 @@
             {
                 "id": "newButton",
                 "description": "ΝΕΑ ΚΡΑΤΗΣΗ"
+            },
+            {
+                "id": "setActiveYearButton",
+                "description": "Ορισμός ενεργού έτους"
             }
         ]
     },
@@ -2266,6 +2270,27 @@
             {
                 "id": "headerExpiryDate",
                 "description": "Αυτόματη αποσύνδεση"
+            }
+        ]
+    },
+    {
+        "feature": "activeYear",
+        "labels": [
+            {
+                "id": "header",
+                "description": "Ενεργό έτος"
+            },
+            {
+                "id": "sub-header",
+                "description": "Δώστε το έτος στο οποίο επιθυμείτε να εργαστείτε"
+            },
+            {
+                "id": "activeYear",
+                "description": "Ετος"
+            },
+            {
+                "id": "saveButton",
+                "description": "ΑΠΟΘΗΚΕΥΣΗ"
             }
         ]
     }

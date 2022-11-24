@@ -1,0 +1,7 @@
+.p-button.rounded {
+    border: 0 none !important;
+}
+
+.p-button:focus {
+    box-shadow: none !important;
+}

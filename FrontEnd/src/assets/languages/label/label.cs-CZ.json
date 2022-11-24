@@ -2091,7 +2091,7 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Kalendář rezervací"
+                "description": "Rezervace na rok"
             },
             {
                 "id": "gotoTodayButton",
@@ -2100,6 +2100,10 @@
             {
                 "id": "newButton",
                 "description": "NOVÁ REZERVACE"
+            },
+            {
+                "id": "setActiveYearButton",
+                "description": "Nastavení aktivního roku"
             }
         ]
     },
@@ -2266,6 +2270,27 @@
             {
                 "id": "headerExpiryDate",
                 "description": "Auto odhlášení"
+            }
+        ]
+    },
+    {
+        "feature": "activeYear",
+        "labels": [
+            {
+                "id": "header",
+                "description": "Aktuální rok"
+            },
+            {
+                "id": "sub-header",
+                "description": "Uveďte rok, ve kterém chcete pracovat."
+            },
+            {
+                "id": "activeYear",
+                "description": "Rok"
+            },
+            {
+                "id": "saveButton",
+                "description": "ULOŽIT"
             }
         ]
     }

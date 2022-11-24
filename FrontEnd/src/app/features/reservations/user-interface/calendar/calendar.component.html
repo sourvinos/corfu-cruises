@@ -1,70 +1,54 @@
 <div id="list">
 
-    <div id="header">
-        <home-button-and-title [feature]="feature" [featureIcon]="featureIcon" [icon]="icon" [parentUrl]="parentUrl"></home-button-and-title>
-    </div>
+    <div id="calendar">
 
-    <div id="year-selector">
-        <button mat-mini-fab (click)="changeYear('previous')">
-            <mat-icon>chevron_left</mat-icon>
-        </button>
-        <div id="selected-year">
-            {{ selectedYear }}
+        <div id="header">
+            <home-button-and-title [feature]="feature" [featureIcon]="featureIcon" [icon]="icon" [parentUrl]="parentUrl"></home-button-and-title>
+            <h1>{{ activeYear }}</h1>
         </div>
-        <button mat-mini-fab (click)="changeYear('next')">
-            <mat-icon>chevron_right</mat-icon>
-        </button>
-    </div>
 
-    <div id="day-wrapper">
-        <button (click)="scrollDays('previous')" class="arrow">
-            <img src="assets/images/calendars/left-arrow.svg">
-        </button>
-        <div id="days">
-            <div (click)="showReservationsForSelectedDay(day)" class="day" *ngFor="let day of year" [ngClass]="{ 'saturday':isSaturday(day), 'sunday':isSunday(day), 'is-today':isToday(day), 'has-schedule':dayHasSchedule(day) }">
-                <div class="day-data">
-                    <div class="weekday">{{ getLocaleWeekdayName(day.weekdayName) }}</div>
-                    <div class="date">{{ day.value }}</div>
-                    <div class="month">{{ getLocaleMonthName(day.monthName) }}</div>
-                </div>
-                <div class="reservation">
-                    <div class="destinations" *ngFor="let destination of day.destinations">
-                        <div class="destination-description">{{ destination.abbreviation }}</div>
-                        <div class="destination-pax">{{ destination.pax }}</div>
+        <div id="days-wrapper">
+            <button (click)="scrollDays('previous')" [disabled]="!isLeftScrollAllowed" class="arrow">
+                <img src="assets/images/calendars/left-arrow.svg">
+            </button>
+            <div id="days">
+                <div (click)="gotoReservationsList(day)" class="day" *ngFor="let day of year" [ngClass]="{ 'saturday':isSaturday(day), 'sunday':isSunday(day), 'is-today':isToday(day), 'has-schedule':dayHasSchedule(day) }">
+                    <div class="day-data">
+                        <div class="weekday">{{ getLocaleWeekdayName(day.weekdayName) }}</div>
+                        <div class="date">{{ day.value }}</div>
+                        <div class="month">{{ getLocaleMonthName(day.monthName) }}</div>
                     </div>
-                    <div class="pax">{{ day.pax }}</div>
+                    <div class="reservation">
+                        <div class="destinations" *ngFor="let destination of day.destinations">
+                            <div class="destination-description">{{ destination.abbreviation }}</div>
+                            <div class="destination-pax">{{ destination.pax }}</div>
+                        </div>
+                        <div class="pax">{{ day.pax }}</div>
+                    </div>
                 </div>
             </div>
+            <button (click)="scrollDays('next')" [disabled]="!isRightScrollAllowed" class="arrow">
+                <img src="assets/images/calendars/right-arrow.svg">
+            </button>
         </div>
-        <button (click)="scrollDays('next')" class="arrow">
-            <img src="assets/images/calendars/right-arrow.svg">
-        </button>
-    </div>
 
-    <div id="month-selector">
-        <mat-button-toggle-group #group="matButtonToggleGroup">
-            <mat-button-toggle class="month-selector" *ngFor="let month of months" (click)="gotoMonth(month)">
-                {{ month }}
-            </mat-button-toggle>
-        </mat-button-toggle-group>
-    </div>
-
-    <div id="today-selector">
-        <button mat-flat-button class="primary" (click)="gotoToday()" [disabled]="currentYearIsNotSelectedYear()">{{ getLabel("gotoTodayButton") }}</button>
-    </div>
-
-    <div id="summaries">
-        <div id="ytd">
-            <h5>YTD</h5>
-            <h1>16.412</h1>
+        <div id="month-selector">
+            <button mat-mini-fab class="month-selector" *ngFor="let month of months" (click)="gotoMonth(month)">
+                <img width="40px" src="../../../../../assets/images/calendars/{{ month }}.svg">
+            </button>
         </div>
-        <div id="top10">
-            <h5>TOP 10</h5>
-            <h1>Countries</h1>
+
+        <div id="today-selector">
+            <button mat-flat-button class="primary" (click)="gotoToday()">{{ getLabel("gotoTodayButton") }}</button>
         </div>
+
     </div>
 
     <div id="footer">
+        <button [matMenuTriggerFor]="menu" pButton pRipple type="button" icon="pi pi-ellipsis-v" class="p-button-rounded p-button-text secondary"></button>
+        <mat-menu #menu="matMenu" class="primary">
+            <ng-container *ngTemplateOutlet="contextMenu"></ng-container>
+        </mat-menu>
         <div class="button-group">
             <button mat-flat-button class="primary" id="new">{{ getLabel("newButton") }}</button>
         </div>
@@ -75,3 +59,7 @@
     </div>
 
 </div>
+
+<ng-template #contextMenu>
+    <button mat-menu-item class="reverse" (click)="setActiveYear()"><span>{{ getLabel('setActiveYearButton') }}</span></button>
+</ng-template>

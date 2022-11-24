@@ -43,23 +43,23 @@
     <g
        id="g2784"
        transform="translate(-50.929113,-89.435005)"
-       style="fill:none;stroke:#fd7e14;stroke-width:0.3;stroke-dasharray:none;stroke-opacity:1">
+       style="fill:none;stroke:#cf6755;stroke-width:0.3;stroke-dasharray:none;stroke-opacity:1">
       <circle
-         style="opacity:1;fill:none;fill-opacity:1;stroke:#fd7e14;stroke-width:0.3;stroke-linejoin:bevel;stroke-dasharray:none;stroke-opacity:1"
+         style="opacity:1;fill:none;fill-opacity:1;stroke:#cf6755;stroke-width:0.3;stroke-linejoin:bevel;stroke-dasharray:none;stroke-opacity:1"
          id="circle2651"
          cx="130.26935"
          cy="118.35125"
          r="5.9880152" />
       <text
          xml:space="preserve"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:7.57564px;font-family:Montserrat;-inkscape-font-specification:'Montserrat, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;opacity:0.7;fill:none;stroke:#fd7e14;stroke-width:0.3;stroke-linejoin:bevel;stroke-dasharray:none;stroke-opacity:1"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:7.57564px;font-family:Montserrat;-inkscape-font-specification:'Montserrat, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;opacity:1;fill:#cf6755;stroke:none;stroke-width:0.3;stroke-linejoin:bevel;stroke-dasharray:none;stroke-opacity:1;fill-opacity:1"
          x="118.70528"
          y="129.74615"
          id="text487"
          transform="scale(1.073877,0.93120535)"><tspan
            sodipodi:role="line"
            id="tspan485"
-           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:7.57564px;font-family:Montserrat;-inkscape-font-specification:'Montserrat, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:none;stroke:#fd7e14;stroke-width:0.3;stroke-dasharray:none;stroke-opacity:1"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:7.57564px;font-family:Montserrat;-inkscape-font-specification:'Montserrat, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#cf6755;stroke:none;stroke-width:0.3;stroke-dasharray:none;stroke-opacity:1;fill-opacity:1"
            x="118.70528"
            y="129.74615">4</tspan></text>
     </g>

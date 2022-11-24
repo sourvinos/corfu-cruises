@@ -19,6 +19,7 @@
 @import "input.css";
 @import "loader.css";
 @import "menu.css";
+@import "prime-button.css";
 @import "prime-checkbox.css";
 @import "prime-dropdown.css";
 @import "prime-input.css";
@@ -26,7 +27,6 @@
 @import "prime-table.css";
 @import "radio.css";
 @import "scrollable.css";
-@import "select.css";
 @import "slider.css";
 @import "snackbar.css";
 @import "table-wrapper.css";

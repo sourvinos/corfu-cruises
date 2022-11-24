@@ -88,7 +88,7 @@ button:not(:disabled) {
 button.mat-mini-fab .mat-button-wrapper {
     color: var(--color-c);
     line-height: 23px !important;
-    padding-top: 0 !important;
+    padding: 0 !important;
     transition: color 0.2s ease-in;
 }
 
@@ -96,6 +96,6 @@ button.mat-button-toggle-label-content {
     line-height: 2.5rem !important;
 }
 
-.mat-icon {
-    color: var(--color-c);
+button.mat-mini-fab .mat-button-wrapper .material-icons {
+    margin-top: -4px !important;
 }

@@ -83,6 +83,10 @@
     white-space: nowrap !important;
 }
 
+.p-datatable .p-datatable-tbody > tr > td > img {
+    width: 1.5rem;
+}
+
 .p-datatable .p-datatable-tfoot {
     background-color: var(--color-b) !important;
     display: flex !important;
@@ -118,7 +122,6 @@
 
 .p-button.p-button-icon-only.p-button-rounded {
     color: var(--color-c);
-    height: 1.4375rem;
     padding: 0;
 }
 

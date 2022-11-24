@@ -13,7 +13,7 @@
 .mat-menu-item {
     color: var(--color-button-text) !important;
     display: flex !important;
-    font-family: var(--font-family-ubuntu) !important;
+    font-family: var(--font-family-manrope) !important;
     justify-content: flex-start !important;
     line-height: 0 !important;
     margin-left: 0 !important;

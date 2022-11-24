@@ -17,6 +17,7 @@ export const environment = {
     criteriaIconDirectory: 'assets/images/criteria/',
     stopOrdersIconDirectory: 'assets/images/stopOrders/',
     isWideScreen: 1920,
+    year: 2022,
     login: {
         username: '',
         email: '',

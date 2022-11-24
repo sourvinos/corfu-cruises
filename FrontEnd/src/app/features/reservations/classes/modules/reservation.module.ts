@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core'
 // Custom
+import { ActiveYearDialogComponent } from 'src/app/shared/components/active-year-dialog/active-year-dialog.component'
 import { CalendarComponent } from '../../user-interface/calendar/calendar.component'
 import { PassengerFormComponent } from '../../user-interface/passenger-form/passenger-form.component'
 import { PassengerListComponent } from '../../user-interface/passenger-list/passenger-list.component'
@@ -12,13 +13,14 @@ import { SharedModule } from '../../../../shared/modules/shared.module'
 
 @NgModule({
     declarations: [
+        ActiveYearDialogComponent,
         CalendarComponent,
         PassengerFormComponent,
         PassengerListComponent,
         ReservationFormComponent,
         ReservationListComponent,
         ReservationToDriverComponent,
-        ReservationToShipComponent
+        ReservationToShipComponent,
     ],
     imports: [
         SharedModule,
