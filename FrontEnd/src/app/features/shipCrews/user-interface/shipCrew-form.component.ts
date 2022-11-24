@@ -1,4 +1,3 @@
-import moment from 'moment'
 import { ActivatedRoute, Router } from '@angular/router'
 import { Component } from '@angular/core'
 import { DateAdapter } from '@angular/material/core'
@@ -23,6 +22,7 @@ import { ShipCrewWriteDto } from '../classes/dtos/shipCrew-write-dto'
 import { ShipActiveVM } from '../../ships/classes/view-models/ship-active-vm'
 import { ValidationService } from 'src/app/shared/services/validation.service'
 import { FormResolved } from 'src/app/shared/classes/form-resolved'
+import { DateHelperService } from 'src/app/shared/services/date-helper.service'
 
 @Component({
     selector: 'ship-crew-form',
@@ -54,7 +54,7 @@ export class ShipCrewFormComponent {
 
     //#endregion
 
-    constructor(private activatedRoute: ActivatedRoute, private crewService: ShipCrewService, private dateAdapter: DateAdapter<any>, private dialogService: DialogService, private formBuilder: FormBuilder, private helperService: HelperService, private interactionService: InteractionService, private localStorageService: LocalStorageService, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private modalActionResultService: ModalActionResultService, private router: Router, private shipCrewService: ShipCrewService,) {
+    constructor(private activatedRoute: ActivatedRoute, private crewService: ShipCrewService, private dateAdapter: DateAdapter<any>, private dateHelperService: DateHelperService, private dialogService: DialogService, private formBuilder: FormBuilder, private helperService: HelperService, private interactionService: InteractionService, private localStorageService: LocalStorageService, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private modalActionResultService: ModalActionResultService, private router: Router, private shipCrewService: ShipCrewService,) {
         this.activatedRoute.params.subscribe(x => {
             if (x.id) {
                 this.initForm()
@@ -162,7 +162,7 @@ export class ShipCrewFormComponent {
             nationalityId: this.form.value.nationality.id,
             lastname: this.form.value.lastname,
             firstname: this.form.value.firstname,
-            birthdate: moment(this.form.value.birthdate).format('YYYY-MM-DD'),
+            birthdate: this.form.value.birthdate,
             isActive: this.form.value.isActive
         }
         return crew

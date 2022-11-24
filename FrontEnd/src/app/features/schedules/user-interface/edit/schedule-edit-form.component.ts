@@ -1,4 +1,3 @@
-import moment from 'moment'
 import { ActivatedRoute, Router } from '@angular/router'
 import { Component } from '@angular/core'
 import { DateAdapter } from '@angular/material/core'
@@ -148,7 +147,7 @@ export class ScheduleEditFormComponent {
     private flattenForm(): ScheduleWriteVM {
         const schedule = {
             id: this.form.value.id,
-            date: moment(this.form.value.date).format('YYYY-MM-DD'),
+            date: this.form.value.date,
             destinationId: this.form.value.destination.id,
             portId: this.form.value.port.id,
             maxPax: this.form.value.maxPax,
@@ -205,7 +204,7 @@ export class ScheduleEditFormComponent {
     private populateFields(): void {
         this.form.setValue({
             id: this.record.id,
-            date: moment(this.record.date).format('YYYY-MM-DD'),
+            date: this.record.date,
             destination: { 'id': this.record.destination.id, 'description': this.record.destination.description },
             port: { 'id': this.record.port.id, 'description': this.record.port.description },
             maxPax: this.record.maxPax,
