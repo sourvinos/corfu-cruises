@@ -2,7 +2,7 @@ import { ActivatedRoute, NavigationEnd, Router } from '@angular/router'
 import { Component, ViewChild } from '@angular/core'
 import { MatDialog } from '@angular/material/dialog'
 import { Table } from 'primeng/table'
-import { Subject } from 'rxjs'
+import { firstValueFrom, Subject } from 'rxjs'
 // Custom
 import { AccountService } from 'src/app/shared/services/account.service'
 import { CoachRouteActiveVM } from 'src/app/features/coachRoutes/classes/view-models/coachRoute-active-vm'
@@ -83,6 +83,7 @@ export class ReservationListComponent {
     ngOnInit(): void {
         this.initPersonTotals()
         this.updateTotals()
+        this.getConnectedUserRole()
         this.doDestinationForOverbookingTasks()
         this.calculateTableHeight()
     }
@@ -277,6 +278,16 @@ export class ReservationListComponent {
         return promise
     }
 
+    private getConnectedUserRole(): Promise<any> {
+        const promise = new Promise((resolve) => {
+            firstValueFrom(this.accountService.isConnectedUserAdmin()).then((response) => {
+                this.isAdmin = response
+                resolve(this.isAdmin)
+            })
+        })
+        return promise
+    }
+
     private getDistinctDestinations(reservations: any[], field: any): any {
         const promise = new Promise((resolve) => {
             let activeDestinations = []
@@ -314,10 +325,10 @@ export class ReservationListComponent {
     private populateDropdowns(): void {
         this.dropdownCoachRoutes = this.helperService.populateTableFiltersDropdowns(this.reservationGroupDto.reservations, 'coachRouteAbbreviation')
         this.dropdownCustomers = this.helperService.populateTableFiltersDropdowns(this.reservationGroupDto.reservations, 'customerDescription')
-        this.dropdownDestinations = this.helperService.populateTableFiltersDropdowns(this.reservationGroupDto.reservations, 'destinationDescription')
+        this.dropdownDestinations = this.helperService.populateTableFiltersDropdowns(this.reservationGroupDto.reservations, 'destinationAbbreviation')
         this.dropdownDrivers = this.helperService.populateTableFiltersDropdowns(this.reservationGroupDto.reservations, 'driverDescription')
         this.dropdownPickupPoints = this.helperService.populateTableFiltersDropdowns(this.reservationGroupDto.reservations, 'pickupPointDescription')
-        this.dropdownPorts = this.helperService.populateTableFiltersDropdowns(this.reservationGroupDto.reservations, 'portDescription')
+        this.dropdownPorts = this.helperService.populateTableFiltersDropdowns(this.reservationGroupDto.reservations, 'portAbbreviation')
         this.dropdownShips = this.helperService.populateTableFiltersDropdowns(this.reservationGroupDto.reservations, 'shipDescription')
     }
 

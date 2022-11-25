@@ -60,22 +60,22 @@
    inkscape:deskcolor="#d1d1d1"
    showgrid="false"
    inkscape:zoom="32.603667"
-   inkscape:cx="12.498594"
+   inkscape:cx="12.099866"
    inkscape:cy="12.483258"
    inkscape:window-width="1920"
    inkscape:window-height="1017"
-   inkscape:window-x="-8"
+   inkscape:window-x="1352"
    inkscape:window-y="-8"
    inkscape:window-maximized="1"
    inkscape:current-layer="svg7" />
 <g
    id="Layer_1"
-   transform="matrix(0.50235124,0,0,0.4972197,-0.05825962,-0.05837657)"
-   style="fill:#fcfcfc;fill-opacity:1;stroke:#fcfcfc;stroke-width:1.76577;stroke-dasharray:none;stroke-opacity:1">
+   transform="matrix(0.49835095,0,0,0.49174872,0.04122625,0.04043876)"
+   style="fill:#fcfcfc;fill-opacity:1;stroke:#fcfcfc;stroke-width:2.16496;stroke-dasharray:none;stroke-opacity:1">
 	<path
    d="m 1,10.399 19,20 v 18.405 l 10,-6.25 V 30.399 l 19,-20 V 1 H 1 Z M 3,3 h 44 v 6.601 l -19,20 v 11.845 l -6,3.75 V 29.601 l -19,-20 z"
    id="path2"
-   style="fill:#fcfcfc;fill-opacity:1;stroke:#fcfcfc;stroke-width:1.76577;stroke-dasharray:none;stroke-opacity:1" />
+   style="fill:#fcfcfc;fill-opacity:1;stroke:#fcfcfc;stroke-width:2.16496;stroke-dasharray:none;stroke-opacity:1" />
 </g>
 <g
    id="g5"

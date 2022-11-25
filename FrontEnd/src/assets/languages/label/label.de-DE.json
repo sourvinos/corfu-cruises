@@ -247,7 +247,7 @@
             },
             {
                 "id": "headerTime",
-                "description": "Zeit"
+                "description": "Uhr"
             },
             {
                 "id": "newButton",
@@ -725,7 +725,7 @@
             },
             {
                 "id": "headerTime",
-                "description": "Zeit"
+                "description": "Uhr"
             }
         ]
     },
@@ -774,7 +774,7 @@
             },
             {
                 "id": "time",
-                "description": "Zeit"
+                "description": "Uhr"
             },
             {
                 "id": "ticketNo",
@@ -1008,7 +1008,7 @@
             },
             {
                 "id": "time",
-                "description": "Zeit"
+                "description": "Uhr"
             },
             {
                 "id": "selectButton",

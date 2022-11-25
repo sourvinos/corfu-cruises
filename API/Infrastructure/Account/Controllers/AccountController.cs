@@ -5,6 +5,7 @@ using API.Infrastructure.Extensions;
 using API.Infrastructure.Helpers;
 using API.Infrastructure.Responses;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.WebUtilities;
@@ -15,13 +16,15 @@ namespace API.Infrastructure.Account {
     public class AccountController : Controller {
 
         private readonly IEmailSender emailSender;
+        private readonly IHttpContextAccessor httpContextAccessor;
         private readonly SignInManager<UserExtended> signInManager;
         private readonly UserManager<UserExtended> userManager;
 
-        public AccountController(UserManager<UserExtended> userManager, SignInManager<UserExtended> signInManager, IEmailSender emailSender) {
-            this.userManager = userManager;
-            this.signInManager = signInManager;
+        public AccountController(IEmailSender emailSender, IHttpContextAccessor httpContextAccessor, SignInManager<UserExtended> signInManager, UserManager<UserExtended> userManager) {
             this.emailSender = emailSender;
+            this.httpContextAccessor = httpContextAccessor;
+            this.signInManager = signInManager;
+            this.userManager = userManager;
         }
 
         [AllowAnonymous]
@@ -102,6 +105,18 @@ namespace API.Infrastructure.Account {
                     Message = ApiMessages.EmailNotSent()
                 };
             }
+        }
+
+        [HttpGet("[action]")]
+        [Authorize]
+        public string GetConnectedUserId() {
+            return Identity.GetConnectedUserId(httpContextAccessor);
+        }
+
+        [Authorize]
+        [HttpGet("[action]")]
+        public bool IsConnectedUserAdmin() {
+            return Identity.IsUserAdmin(httpContextAccessor);
         }
 
         private async Task<Response> SendEmail(ForgotPasswordVM model) {

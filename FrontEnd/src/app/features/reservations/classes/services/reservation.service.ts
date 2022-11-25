@@ -31,11 +31,9 @@ export class ReservationService extends HttpDataService {
     }
 
     public save(formData: any): Observable<any> {
-        if (formData.reservationId == '') {
-            return this.http.post<any>(this.url, formData)
-        } else {
-            return this.http.put<any>(this.url + '/' + formData.reservationId, formData)
-        }
+        return formData.reservationId == ''
+            ? this.http.post<any>(this.url, formData)
+            : this.http.put<any>(this.url, formData)
     }
 
     public assignToDriver(driverId: string, records: any[]): Observable<any> {

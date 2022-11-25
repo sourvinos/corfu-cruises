@@ -17,7 +17,7 @@ namespace API.Features.Reservations {
                 .ForMember(x => x.Date, x => x.MapFrom(x => DateHelpers.DateToISOString(x.Date)))
                 .ForMember(x => x.CoachRouteAbbreviation, x => x.MapFrom(x => x.PickupPoint.CoachRoute.Abbreviation))
                 .ForMember(x => x.DriverDescription, x => x.NullSubstitute("(EMPTY)"))
-                .ForMember(x => x.PortDescription, x => x.MapFrom(x => x.PickupPoint.CoachRoute.Port.Description))
+                .ForMember(x => x.PortAbbreviation, x => x.MapFrom(x => x.PickupPoint.CoachRoute.Port.Abbreviation))
                 .ForMember(x => x.ShipDescription, x => x.NullSubstitute("(EMPTY)"))
                 .ForMember(x => x.Time, x => x.MapFrom(x => x.PickupPoint.Time))
                 .ForMember(x => x.PassengerCount, x => x.MapFrom(x => x.Passengers.Count))

@@ -26,51 +26,29 @@
     </div>
 
     <div id="table-wrapper">
-        <p-table #table (onFilter)="filterRecords($event)" (onHeaderCheckboxToggle)="toggleVisibleRows()" (onRowSelect)="rowSelect($event)" (onRowUnselect)="rowUnselect($event)" [(selection)]="selectedRecords" [autoLayout]="false" [scrollable]="true" [value]="reservationGroupDto.reservations" [virtualRowHeight]="33" [virtualScroll]="false" dataKey="reservationId" scrollHeight="flex" selectionMode="multiple" sortMode="multiple" stateKey="reservation-list" stateStorage="session">
+        <p-table #table (onFilter)="filterRecords($event)" (onHeaderCheckboxToggle)="toggleVisibleRows()" (onRowSelect)="rowSelect($event)" (onRowUnselect)="rowUnselect($event)" [(selection)]="selectedRecords" [autoLayout]="false" [scrollable]="true" [value]="reservationGroupDto.reservations" dataKey="reservationId" scrollHeight="flex" selectionMode="multiple" sortMode="multiple" stateKey="reservation-list" stateStorage="session" width="100%">
             <ng-template pTemplate="header">
                 <tr>
-                    <th style="width: 2%;"></th>
-                    <th style="width: 5%;">{{ getLabel('headerRefNo') }}</th>
-                    <th style="width: 8%;">{{ getLabel('headerTicketNo') }}</th>
-                    <th style="width: 10%;" pSortableColumn="destinationDescription">{{ getLabel('headerDestination') }}<p-sortIcon field="destinationDescription"></p-sortIcon></th>
-                    <th style="width: 10%;" pSortableColumn="coachRouteAbbreviation">{{ getLabel('headerRoute') }}<p-sortIcon field="coachRouteAbbreviation"></p-sortIcon></th>
-                    <th style="width: 10%;" pSortableColumn="customerDescription">{{ getLabel('headerCustomer') }}<p-sortIcon field="customerDescription"></p-sortIcon></th>
-                    <th style="width: 13%;" pSortableColumn="pickupPointDescription">{{ getLabel('headerPickupPoint') }}<p-sortIcon field="pickupPointDescription"></p-sortIcon></th>
-                    <th style="width: 6%;" pSortableColumn="time">{{ getLabel('headerTime') }}<p-sortIcon field="time"></p-sortIcon></th>
-                    <th style="width: 3%;">Σ</th>
-                    <th style="width: 3%;">Σ1</th>
-                    <th style="width: 3%;">{{ getLabel('headerPlusMinus') }}</th>
-                    <th style="width: 10%;" pSortableColumn="driverDescription">{{ getLabel('headerDriver') }}<p-sortIcon field="driverDescription"></p-sortIcon></th>
-                    <th style="width: 10%;" pSortableColumn="portDescription">{{ getLabel('headerPort') }}<p-sortIcon field="portDescription"></p-sortIcon></th>
-                    <th style="width: 7%;" pSortableColumn="shipDescription">{{ getLabel('headerShip') }}<p-sortIcon field="shipDescription"></p-sortIcon></th>
+                    <th style="width: 3rem;"></th>
+                    <th style="width: 6rem;">{{ getLabel('headerRefNo') }}</th>
+                    <th>{{ getLabel('headerTicketNo') }}</th>
+                    <th style="width: 10rem;" pSortableColumn="customerDescription">{{ getLabel('headerCustomer') }}<p-sortIcon field="customerDescription"></p-sortIcon></th>
+                    <th style="width: 10rem;" pSortableColumn="destinationDescription">{{ getLabel('headerDestination') }}<p-sortIcon field="destinationDescription"></p-sortIcon></th>
+                    <th style="width: 10rem;" pSortableColumn="coachRouteAbbreviation">{{ getLabel('headerRoute') }}<p-sortIcon field="coachRouteAbbreviation"></p-sortIcon></th>
+                    <th style="width: 13rem;" pSortableColumn="pickupPointDescription">{{ getLabel('headerPickupPoint') }}<p-sortIcon field="pickupPointDescription"></p-sortIcon></th>
+                    <th style="width: 7rem;" pSortableColumn="time">{{ getLabel('headerTime') }}<p-sortIcon field="time"></p-sortIcon></th>
+                    <th style="width: 3rem;">Σ</th>
+                    <th style="width: 3rem;">Σ1</th>
+                    <th style="width: 3rem;">{{ getLabel('headerPlusMinus') }}</th>
+                    <th style="width: 10rem;" pSortableColumn="driverDescription">{{ getLabel('headerDriver') }}<p-sortIcon field="driverDescription"></p-sortIcon></th>
+                    <th style="width: 10rem;" pSortableColumn="portDescription">{{ getLabel('headerPort') }}<p-sortIcon field="portDescription"></p-sortIcon></th>
+                    <th style="width: 10rem;" pSortableColumn="shipDescription">{{ getLabel('headerShip') }}<p-sortIcon field="shipDescription"></p-sortIcon></th>
                 </tr>
                 <tr>
-                    <th style="width: 2%;"><p-tableHeaderCheckbox></p-tableHeaderCheckbox></th>
-                    <th style="width: 5%;"><input type="text" class="p-inputtext" (input)="table.filter($event.target.value, 'refNo', 'contains')" [value]="$any(table).filters['refNo']?.value"></th>
-                    <th style="width: 8%;"><input type="text" class="p-inputtext" (input)="table.filter($event.target.value, 'ticketNo', 'contains')" [value]="$any(table).filters['ticketNo']?.value"></th>
-                    <th style="width: 10%;">
-                        <p-columnFilter style="width: 100%;" field="destinationDescription" matchMode="equals" [showMenu]="false">
-                            <ng-template pTemplate="filter" let-value let-filter="filterCallback">
-                                <p-dropdown [ngModel]="value" [options]="dropdownDestinations" (onChange)="filter($event.value)" [placeholder]="getEmoji('wildcard')" [showClear]="true">
-                                    <ng-template let-option pTemplate="item">
-                                        <span>{{ option.label }}</span>
-                                    </ng-template>
-                                </p-dropdown>
-                            </ng-template>
-                        </p-columnFilter>
-                    </th>
-                    <th style="width: 10%;">
-                        <p-columnFilter style="width: 100%;" field="coachRouteAbbreviation" matchMode="equals" [showMenu]="false">
-                            <ng-template pTemplate="filter" let-value let-filter="filterCallback">
-                                <p-dropdown [ngModel]="value" [options]="dropdownCoachRoutes" (onChange)="filter($event.value)" [placeholder]="getEmoji('wildcard')" [showClear]="true">
-                                    <ng-template let-option pTemplate="item">
-                                        <span>{{ option.label }}</span>
-                                    </ng-template>
-                                </p-dropdown>
-                            </ng-template>
-                        </p-columnFilter>
-                    </th>
-                    <th style="width: 10%;">
+                    <th style="width: 3rem;"><p-tableHeaderCheckbox></p-tableHeaderCheckbox></th>
+                    <th style="width: 6rem;"><input type="text" class="p-inputtext" (input)="table.filter($event.target.value, 'refNo', 'contains')" [value]="$any(table).filters['refNo']?.value"></th>
+                    <th><input type="text" class="p-inputtext" (input)="table.filter($event.target.value, 'ticketNo', 'contains')" [value]="$any(table).filters['ticketNo']?.value"></th>
+                    <th style="width: 10rem">
                         <p-columnFilter style="width: 100%;" field="customerDescription" matchMode="equals" [showMenu]="false">
                             <ng-template pTemplate="filter" let-value let-filter="filterCallback">
                                 <p-dropdown [ngModel]="value" [options]="dropdownCustomers" (onChange)="filter($event.value)" [placeholder]="getEmoji('wildcard')" [showClear]="true">
@@ -81,7 +59,29 @@
                             </ng-template>
                         </p-columnFilter>
                     </th>
-                    <th style="width: 13%;">
+                    <th style="width: 10rem;">
+                        <p-columnFilter style="width: 100%;" field="destinationDescription" matchMode="equals" [showMenu]="false">
+                            <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+                                <p-dropdown [ngModel]="value" [options]="dropdownDestinations" (onChange)="filter($event.value)" [placeholder]="getEmoji('wildcard')" [showClear]="true">
+                                    <ng-template let-option pTemplate="item">
+                                        <span>{{ option.label }}</span>
+                                    </ng-template>
+                                </p-dropdown>
+                            </ng-template>
+                        </p-columnFilter>
+                    </th>
+                    <th style="width: 10rem;">
+                        <p-columnFilter style="width: 100%;" field="coachRouteAbbreviation" matchMode="equals" [showMenu]="false">
+                            <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+                                <p-dropdown [ngModel]="value" [options]="dropdownCoachRoutes" (onChange)="filter($event.value)" [placeholder]="getEmoji('wildcard')" [showClear]="true">
+                                    <ng-template let-option pTemplate="item">
+                                        <span>{{ option.label }}</span>
+                                    </ng-template>
+                                </p-dropdown>
+                            </ng-template>
+                        </p-columnFilter>
+                    </th>
+                    <th style="width: 13rem;">
                         <p-columnFilter style="width: 100%;" field="pickupPointDescription" matchMode="equals" [showMenu]="false">
                             <ng-template pTemplate="filter" let-value let-filter="filterCallback">
                                 <p-dropdown [ngModel]="value" [options]="dropdownPickupPoints" (onChange)="filter($event.value)" [placeholder]="getEmoji('wildcard')" [showClear]="true">
@@ -92,11 +92,11 @@
                             </ng-template>
                         </p-columnFilter>
                     </th>
-                    <th style="width: 6%;"></th>
-                    <th style="width: 3%;"></th>
-                    <th style="width: 3%;"></th>
-                    <th style="width: 3%;"></th>
-                    <th style="width: 10%;">
+                    <th style="width: 7rem;"></th>
+                    <th style="width: 3rem;"></th>
+                    <th style="width: 3rem;"></th>
+                    <th style="width: 3rem;"></th>
+                    <th style="width: 10rem;">
                         <p-columnFilter style="width: 100%;" field="driverDescription" matchMode="equals" [showMenu]="false">
                             <ng-template pTemplate="filter" let-value let-filter="filterCallback">
                                 <p-dropdown [ngModel]="value" [options]="dropdownDrivers" (onChange)="filter($event.value)" [placeholder]="getEmoji('wildcard')" [showClear]="true">
@@ -107,7 +107,7 @@
                             </ng-template>
                         </p-columnFilter>
                     </th>
-                    <th style="width: 10%;">
+                    <th style="width: 10rem;">
                         <p-columnFilter style="width: 100%;" field="portDescription" matchMode="equals" [showMenu]="false">
                             <ng-template pTemplate="filter" let-value let-filter="filterCallback">
                                 <p-dropdown [ngModel]="value" [options]="dropdownPorts" (onChange)="filter($event.value)" [placeholder]="getEmoji('wildcard')" [showClear]="true">
@@ -118,7 +118,7 @@
                             </ng-template>
                         </p-columnFilter>
                     </th>
-                    <th style="width: 7%;">
+                    <th style="width: 10rem;">
                         <p-columnFilter style="width: 100%;" field="shipDescription" matchMode="equals" [showMenu]="false">
                             <ng-template pTemplate="filter" let-value let-filter="filterCallback">
                                 <p-dropdown [ngModel]="value" [options]="dropdownShips" (onChange)="filter($event.value)" [placeholder]="getEmoji('wildcard')" [showClear]="true">
@@ -133,22 +133,20 @@
             </ng-template>
             <ng-template pTemplate="body" let-rowData>
                 <tr [class.ui-state-highlight]="rowData == highlighted" (click)="highlighted = rowData" (dblclick)="editRecord(rowData.reservationId)">
-                    <td style="width: 2%; text-align: center;">
-                        <p-tableCheckbox [value]="rowData"></p-tableCheckbox>
-                    </td>
-                    <td style="width: 5%;">{{ formatRefNo(rowData.refNo) }}</td>
-                    <td style="width: 8%;">{{ rowData.ticketNo }}</td>
-                    <td style="width: 10%;">{{ rowData.destinationDescription }}</td>
-                    <td style="width: 10%;">{{ rowData.coachRouteAbbreviation }}</td>
-                    <td style="width: 10%;">{{ rowData.customerDescription }}</td>
-                    <td style="width: 13%;">{{ rowData.pickupPointDescription }}</td>
-                    <td style="width: 6%; text-align: center;">{{ rowData.time }}</td>
-                    <td style="width: 3%; justify-content: flex-end;">{{ rowData.totalPersons }}</td>
-                    <td style="width: 3%; justify-content: flex-end;">{{ rowData.passengerCount }} ({{ rowData.passengerDifference * -1 }})</td>
-                    <td style="width: 3%; text-align: center;">{{ showEmoji(rowData.passengerDifference) }}</td>
-                    <td style="width: 10%;">{{ rowData.driverDescription == "(EMPTY)" ? getEmoji('null'): rowData.driverDescription }}</td>
-                    <td style="width: 10%;">{{ rowData.portDescription }}</td>
-                    <td style="width: 7%;">{{ rowData.shipDescription == "(EMPTY)" ? getEmoji('null'): rowData.shipDescription }}</td>
+                    <td style="width: 3rem; text-align: center;"><p-tableCheckbox [value]="rowData"></p-tableCheckbox></td>
+                    <td style="width: 6rem;">{{ formatRefNo(rowData.refNo) }}</td>
+                    <td>{{ rowData.ticketNo }}</td>
+                    <td class="fit-width" style="width: 10rem;">{{ rowData.customerDescription }}</td>
+                    <td style="width: 10rem;">{{ rowData.destinationDescription }}</td>
+                    <td style="width: 10rem;">{{ rowData.coachRouteAbbreviation }}</td>
+                    <td class="fit-width" style="width: 13rem;">{{ rowData.pickupPointDescription }}</td>
+                    <td style="width: 7rem; text-align: center;">{{ rowData.time }}</td>
+                    <td style="width: 3rem; text-align: right;">{{ rowData.totalPersons }}</td>
+                    <td style="width: 3rem; text-align: right;">{{ rowData.passengerCount }} ({{ rowData.passengerDifference * -1 }})</td>
+                    <td style="width: 3rem; text-align: center;">{{ showEmoji(rowData.passengerDifference) }}</td>
+                    <td class="fit-width" style="width: 10rem;">{{ rowData.driverDescription == "(EMPTY)" ? getEmoji('null'): rowData.driverDescription }}</td>
+                    <td style="width: 10rem;">{{ rowData.portAbbreviation }}</td>
+                    <td style="width: 10rem;">{{ rowData.shipDescription == "(EMPTY)" ? getEmoji('null'): rowData.shipDescription }}</td>
                 </tr>
             </ng-template>
         </p-table>

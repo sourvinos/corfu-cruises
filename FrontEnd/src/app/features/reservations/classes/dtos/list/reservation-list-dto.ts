@@ -10,11 +10,10 @@ export interface ReservationListDto {
     time: string
     customerDescription: string
     destinationAbbreviation: string
-    destinationDescription: string
     driverDescription: string
     pickupPointDescription: string
     routeAbbreviation: string
-    portDescription: string
+    portAbbreviation: string
     shipDescription: string
     User: string
 

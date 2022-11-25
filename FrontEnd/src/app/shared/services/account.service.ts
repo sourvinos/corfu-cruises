@@ -33,6 +33,8 @@ export class AccountService extends HttpDataService {
     private urlForgotPassword = this.apiUrl + '/account/forgotPassword'
     private urlRegister = this.apiUrl + '/account'
     private urlResetPassword = this.apiUrl + '/account/resetPassword'
+    private urlGetConnectedUserId = this.apiUrl + '/account/getConnectedUserId'
+    private urlIsAdmin = this.apiUrl + '/account/isConnectedUserAdmin'
     private urlToken = this.apiUrl + '/auth/auth'
 
     //#endregion
@@ -97,6 +99,14 @@ export class AccountService extends HttpDataService {
         return this.http.post<any>(this.urlForgotPassword, formData)
     }
 
+    public getConnectedUserId(): Observable<any> {
+        return this.http.get(this.urlGetConnectedUserId, { responseType: 'text' }).pipe(
+            map(response => {
+                return <any>response
+            })
+        )
+    }
+
     public getNewRefreshToken(): Observable<any> {
         const userId = localStorage.getItem('userId')
         const refreshToken = localStorage.getItem('refreshToken')
@@ -107,6 +117,14 @@ export class AccountService extends HttpDataService {
                     this.setLoginStatus(true)
                     this.setAuthSettings(response.response)
                 }
+                return <any>response
+            })
+        )
+    }
+
+    public isConnectedUserAdmin(): Observable<any> {
+        return this.http.get(this.urlIsAdmin, { responseType: 'text' }).pipe(
+            map(response => {
                 return <any>response
             })
         )
