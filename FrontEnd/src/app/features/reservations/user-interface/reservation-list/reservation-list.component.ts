@@ -186,7 +186,7 @@ export class ReservationListComponent {
 
     public formatDate(): string {
         if (this.localStorageService.getItem('date')) {
-            return this.dateHelperService.formatISODateToLocale(this.localStorageService.getItem('date'), true)
+            return this.dateHelperService.formatISODateToLocale(this.localStorageService.getItem('date'), true, false)
         } else {
             return '-'
         }
@@ -269,6 +269,7 @@ export class ReservationListComponent {
             const listResolved: ListResolved = this.activatedRoute.snapshot.data[this.feature]
             if (listResolved.error === null) {
                 this.reservationGroupDto = listResolved.list
+                console.info(this.reservationGroupDto.reservations)
                 resolve(this.reservationGroupDto)
             } else {
                 this.router.navigate([this.parentUrl])
@@ -325,10 +326,10 @@ export class ReservationListComponent {
     private populateDropdowns(): void {
         this.dropdownCoachRoutes = this.helperService.populateTableFiltersDropdowns(this.reservationGroupDto.reservations, 'coachRouteAbbreviation')
         this.dropdownCustomers = this.helperService.populateTableFiltersDropdowns(this.reservationGroupDto.reservations, 'customerDescription')
-        this.dropdownDestinations = this.helperService.populateTableFiltersDropdowns(this.reservationGroupDto.reservations, 'destinationAbbreviation')
+        this.dropdownDestinations = this.helperService.populateTableFiltersDropdowns(this.reservationGroupDto.reservations, 'destinationDescription')
         this.dropdownDrivers = this.helperService.populateTableFiltersDropdowns(this.reservationGroupDto.reservations, 'driverDescription')
         this.dropdownPickupPoints = this.helperService.populateTableFiltersDropdowns(this.reservationGroupDto.reservations, 'pickupPointDescription')
-        this.dropdownPorts = this.helperService.populateTableFiltersDropdowns(this.reservationGroupDto.reservations, 'portAbbreviation')
+        this.dropdownPorts = this.helperService.populateTableFiltersDropdowns(this.reservationGroupDto.reservations, 'portDescription')
         this.dropdownShips = this.helperService.populateTableFiltersDropdowns(this.reservationGroupDto.reservations, 'shipDescription')
     }
 

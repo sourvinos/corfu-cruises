@@ -11,10 +11,10 @@ export class DateHelperService {
 
     //#region public methods
 
-    public formatISODateToLocale(date: string, showWeekday = false): string {
+    public formatISODateToLocale(date: string, showWeekday = false, showYear = true): string {
         const parts = date.split('-')
         const rawDate = new Date(date)
-        const dateWithLeadingZeros = this.addLeadingZerosToDateParts(new Intl.DateTimeFormat(this.localStorageService.getLanguage()).format(new Date(parseInt(parts[0]), parseInt(parts[1]) - 1, parseInt(parts[2]))))
+        const dateWithLeadingZeros = this.addLeadingZerosToDateParts(new Intl.DateTimeFormat(this.localStorageService.getLanguage()).format(new Date(parseInt(parts[0]), parseInt(parts[1]) - 1, parseInt(parts[2]))), showYear)
         const weekday = this.messageCalendarService.getDescription('weekdays', rawDate.toDateString().substring(0, 3))
         return showWeekday ? weekday + ' ' + dateWithLeadingZeros : dateWithLeadingZeros
     }
@@ -72,13 +72,17 @@ export class DateHelperService {
 
     //#region private methods
 
-    private addLeadingZerosToDateParts(date: string): string {
+    private addLeadingZerosToDateParts(date: string, showYear: boolean): string {
         const seperator = this.getDateLocaleSeperator()
         const parts = date.split(seperator)
         parts[0].replace(' ', '').length == 1 ? parts[0] = '0' + parts[0].replace(' ', '') : parts[0]
         parts[1].replace(' ', '').length == 1 ? parts[1] = '0' + parts[1].replace(' ', '') : parts[1]
         parts[2] = parts[2].replace(' ', '')
-        return parts[0] + seperator + parts[1] + seperator + parts[2]
+        if (showYear) {
+            return parts[0] + seperator + parts[1] + seperator + parts[2]
+        } else {
+            return parts[0] + seperator + parts[1]
+        }
     }
 
     private getDateLocaleSeperator(): string {

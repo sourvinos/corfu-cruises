@@ -13,7 +13,7 @@ export interface ReservationListDto {
     driverDescription: string
     pickupPointDescription: string
     routeAbbreviation: string
-    portAbbreviation: string
+    portDescription: string
     shipDescription: string
     User: string
 
