@@ -13,7 +13,6 @@ export class HomeComponent {
 
     //#region variables
 
-    private windowTitle = 'Home'
     public companyLogo: any
     public ngVersion: any
 
@@ -42,7 +41,7 @@ export class HomeComponent {
     }
 
     private setWindowTitle(): void {
-        this.titleService.setTitle(this.helperService.getApplicationTitle() + ' :: ' + this.windowTitle)
+        this.titleService.setTitle(this.helperService.getApplicationTitle())
     }
 
     //#endregion

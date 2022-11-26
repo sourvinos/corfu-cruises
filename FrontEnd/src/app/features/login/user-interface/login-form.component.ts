@@ -2,6 +2,7 @@ import { Component } from '@angular/core'
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms'
 import { Router } from '@angular/router'
 import { Subject } from 'rxjs'
+import { Title } from '@angular/platform-browser'
 // Custom
 import { AccountService } from '../../../shared/services/account.service'
 import { DialogService } from 'src/app/shared/services/dialog.service'
@@ -36,7 +37,7 @@ export class LoginFormComponent {
 
     //#endregion
 
-    constructor(private accountService: AccountService, private dialogService: DialogService, private formBuilder: FormBuilder, private helperService: HelperService, private localStorageService: LocalStorageService, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private router: Router) { }
+    constructor(private accountService: AccountService, private dialogService: DialogService, private formBuilder: FormBuilder, private helperService: HelperService, private localStorageService: LocalStorageService, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private router: Router, private titleService: Title) { }
 
     //#region lifecycle hooks
 
@@ -44,6 +45,7 @@ export class LoginFormComponent {
         this.initForm()
         this.clearStoredVariables()
         this.focusOnField('username')
+        this.setWindowTitle()
     }
 
     ngOnDestroy(): void {
@@ -104,6 +106,10 @@ export class LoginFormComponent {
             password: [environment.login.password, Validators.required],
             noRobot: [environment.login.noRobot, Validators.requiredTrue]
         })
+    }
+
+    private setWindowTitle(): void {
+        this.titleService.setTitle(this.helperService.getApplicationTitle())
     }
 
     private showError(error: any): void {
