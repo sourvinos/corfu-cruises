@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using System.Collections.Generic;
+using System.Linq;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Features.Manifest {
@@ -16,10 +18,9 @@ namespace API.Features.Manifest {
             this.repo = repo;
         }
 
-        [HttpGet("date/{date}/destinationId/{destinationId}/portId/{portId}/shipId/{shipId}/shipRouteId/{shipRouteId}")]
         [Authorize(Roles = "admin")]
-        public ManifestFinalVM Get(string date, int destinationId, string portId, int shipId, int shipRouteId) {
-            return repo.Get(date, destinationId, portId, shipId, shipRouteId);
+        public IEnumerable<Boo> Get([FromQuery(Name = "date")] string date, [FromQuery(Name = "destinationId")] int destinationId, [FromQuery(Name = "shipId")] int shipId, [FromQuery(Name = "portId")] int[] portIds) {
+            return repo.Get(date, destinationId, shipId, portIds);
         }
 
     }

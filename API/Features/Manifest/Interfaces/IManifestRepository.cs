@@ -1,8 +1,11 @@
+using System.Collections.Generic;
+using System.Linq;
+
 namespace API.Features.Manifest {
 
     public interface IManifestRepository {
 
-        ManifestFinalVM Get(string date, int destinationId, string portId, int shipId, int shipRouteId);
+        IEnumerable<Boo> Get(string date, int destinationId, int shipId, int[] portIds);
 
     }
 
