@@ -1614,6 +1614,10 @@
                 "description": "Κατάσταση πλοίου"
             },
             {
+                "id": "date",
+                "description": "Ημερομηνία"
+            },
+            {
                 "id": "destination",
                 "description": "Προορισμός"
             },

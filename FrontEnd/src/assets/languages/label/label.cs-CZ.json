@@ -1614,6 +1614,10 @@
                 "description": "Manifest plavidla"
             },
             {
+                "id": "date",
+                "description": "Datum"
+            },
+            {
                 "id": "destination",
                 "description": "Destinace"
             },

@@ -9,7 +9,7 @@ import { ManifestListResolver } from '../resolvers/manifest-list.resolver'
 const routes: Routes = [
     { path: '', component: ManifestCriteriaComponent, canActivate: [AuthGuardService] },
     {
-        path: 'date/:date/destinationId/:destinationId/portId/:portId/shipId/:shipId/shipRouteId/:shipRouteId',
+        path: 'list',
         component: ManifestListComponent,
         canActivate: [AuthGuardService],
         resolve: {

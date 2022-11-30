@@ -1614,6 +1614,10 @@
                 "description": "Manifeste du navire"
             },
             {
+                "id": "date",
+                "description": "Date"
+            },
+            {
                 "id": "destination",
                 "description": "Destination"
             },

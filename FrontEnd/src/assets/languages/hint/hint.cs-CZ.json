@@ -39,6 +39,10 @@
         {
             "id": "beginsOrEndsWithSpace",
             "description": "Toto pole nesmí začínat ani končit jednou nebo více mezerami."
+        },
+        {
+            "id": "emptyOrInvalidDate",
+            "description": "Toto pole musí být platné datum"
         }
     ]
 }

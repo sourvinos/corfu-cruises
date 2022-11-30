@@ -39,6 +39,10 @@
         {
             "id": "beginsOrEndsWithSpace",
             "description": "Dieses Feld darf nicht mit einem oder mehreren Leerzeichen beginnen oder enden."
+        },
+        {
+            "id": "emptyOrInvalidDate",
+            "description": "Dieses Feld muss ein gültiges Datum sein"
         }
     ]
 }

@@ -39,6 +39,10 @@
         {
             "id": "beginsOrEndsWithSpace",
             "description": "Το πεδίο δεν μπορεί να αρχίζει ή να τελειώνει με ένα ή περισσότερα κενά."
+        },
+        {
+            "id": "emptyOrInvalidDate",
+            "description": "Το πεδίο πρέπει να είναι έγκυρη ημερομηνία"
         }
     ]
 }

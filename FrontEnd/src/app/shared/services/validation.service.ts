@@ -53,6 +53,14 @@ export class ValidationService {
         return null
     }
 
+    static RequireDate(control: AbstractControl): any {
+        const selection: any = control.value
+        if (selection === null) {
+            return { incorrect: true }
+        }
+        return null
+    }
+
 }
 
 export class ConfirmValidParentMatcher {

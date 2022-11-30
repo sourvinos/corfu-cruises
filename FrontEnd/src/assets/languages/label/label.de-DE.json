@@ -1614,6 +1614,10 @@
                 "description": "Schiffsmanifest"
             },
             {
+                "id": "date",
+                "description": "Datum"
+            },
+            {
                 "id": "destination",
                 "description": "Reiseziel"
             },

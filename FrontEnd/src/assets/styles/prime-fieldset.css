@@ -1,0 +1,25 @@
+.p-fieldset {
+    background-color: #cddc3905 !important;
+    border-radius: 10px;
+    border: 1px solid var(--color-b) !important;
+}
+
+.p-fieldset .p-fieldset-content {
+    display: flex;
+    gap: 1rem;
+    padding: 0 1rem;
+}
+
+.p-fieldset .p-fieldset-legend {
+    background: transparent !important;
+    border: 0 !important;
+    color: var(--color-c) !important;
+    font-family: var(--font-family-manrope);
+    font-weight: normal;
+    padding: 0 1rem 0 1rem;
+}
+
+.p-fieldset-legend-text {
+    font-family: var(--font-family-handbook);
+    font-size: 0.95rem;
+}

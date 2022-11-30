@@ -39,6 +39,10 @@
         {
             "id": "beginsOrEndsWithSpace",
             "description": "Ce champ ne peut pas commencer ou se terminer par un ou plusieurs espaces."
+        },
+        {
+            "id": "emptyOrInvalidDate",
+            "description": "Ce champ doit être une date valide"
         }
     ]
 }

@@ -6,39 +6,50 @@
 
     <div id="content">
         <form id="form" [formGroup]="form" autocomplete="off">
-            <div id="calendar-wrapper">
-                <mat-card id="calendar-card">
-                    <mat-calendar [(selected)]="selected"></mat-calendar>
-                </mat-card>
+            <!-- Date -->
+            <mat-form-field>
+                <input (dateChange)="updateField('change', $event)" [inputTabStop]="input" [matDatepicker]="picker" [placeholder]="getLabel('date')" data-tabindex="1" formControlName="date" id="date" matInput>
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+                <mat-error *ngIf="date.hasError('required') || date.hasError('incorrect')">{{ getHint("emptyOrInvalidDate") }}</mat-error>
+            </mat-form-field>
+            <!-- Destination -->
+            <div class="field-wrapper">
+                <p-fieldset [legend]="getLabel('destination')">
+                    <div *ngFor="let destination of destinations; let i=index">
+                        <div class="styled-input-single">
+                            <input formControlName="destinationId" type="radio" [value]="destination.id" [attr.id]="'destination' + destination.id">
+                            <label [attr.for]="'destination' + destination.id">{{ destination.description }}</label>
+                        </div>
+                    </div>
+                </p-fieldset>
             </div>
-            <div id="field-wrapper">
-                <!-- Destination -->
-                <mat-form-field>
-                    <input (keydown)="enableOrDisableAutoComplete($event)" (keyup)="checkForEmptyAutoComplete($event)" [inputTabStop]="input" [matAutocompleteDisabled]="isAutoCompleteDisabled" [matAutocomplete]="destinations" [placeholder]="getLabel('destination')" data-cy="destination-description" data-tabindex="1" formControlName="destination" id="destination" matInput>
-                    <mat-error *ngIf="destination.hasError('required')">{{ getHint("required") }}</mat-error>
-                    <mat-error *ngIf="!destination.hasError('required') && destination.hasError('incorrect')">{{ getHint("invalid") }}</mat-error>
-                </mat-form-field>
-                <!-- Port -->
-                <mat-form-field>
-                    <input (keydown)="enableOrDisableAutoComplete($event)" (keyup)="checkForEmptyAutoComplete($event)" [inputTabStop]="input" [matAutocompleteDisabled]="isAutoCompleteDisabled" [matAutocomplete]="ports" [placeholder]="getLabel('port')" data-cy="port-description" data-tabindex="2" formControlName="port" id="port" matInput>
-                    <mat-error *ngIf="port.hasError('required')">{{ getHint("required") }}</mat-error>
-                    <mat-error *ngIf="!port.hasError('required') && port.hasError('incorrect')">{{ getHint("invalid") }}</mat-error>
-                </mat-form-field>
-                <!-- Ship -->
-                <mat-form-field>
-                    <input (keydown)="enableOrDisableAutoComplete($event)" (keyup)="checkForEmptyAutoComplete($event)" [inputTabStop]="input" [matAutocompleteDisabled]="isAutoCompleteDisabled" [matAutocomplete]="ships" [placeholder]="getLabel('ship')" data-cy="ship-description" data-tabindex="3" formControlName="ship" id="ship" matInput>
-                    <mat-error *ngIf="ship.hasError('required')">{{ getHint("required") }}</mat-error>
-                    <mat-error *ngIf="!ship.hasError('required') && ship.hasError('incorrect')">{{ getHint("invalid") }}</mat-error>
-                </mat-form-field>
-                <!-- Route-->
-                <mat-form-field>
-                    <input (keydown)="enableOrDisableAutoComplete($event)" (keyup)="checkForEmptyAutoComplete($event)" [inputTabStop]="input" [matAutocompleteDisabled]="isAutoCompleteDisabled" [matAutocomplete]="shipRoutes" [placeholder]="getLabel('shipRoute')" data-cy="shipRoute-description" data-tabindex="4" formControlName="shipRoute" id="shipRoute" matInput>
-                    <mat-error *ngIf="shipRoute.hasError('required')">{{ getHint("required") }}</mat-error>
-                    <mat-error *ngIf="!shipRoute.hasError('required') && shipRoute.hasError('incorrect')">{{ getHint("invalid") }}</mat-error>
-                </mat-form-field>
+            <!-- Ports -->
+            <div class="field-wrapper">
+                <p-fieldset [legend]="getLabel('port')">
+                    <div *ngFor="let port of ports; let i=index">
+                        <div class="styled-input-square">
+                            <div class="styled-input-single" (change)="onCheckboxChange($event, 'portIds')">
+                                <input formArrayName="portIds" type="checkbox" [value]="port.id" [attr.id]="'port' + port.id">
+                                <label [attr.for]="'port' + port.id">{{ port.description }}</label>
+                            </div>
+                        </div>
+                    </div>
+                </p-fieldset>
+            </div>
+            <!-- Ship -->
+            <div class="field-wrapper">
+                <p-fieldset [legend]="getLabel('ship')">
+                    <div *ngFor="let ship of ships; let i=index">
+                        <div class="styled-input-single">
+                            <input formControlName="shipId" type="radio" [value]="ship.id" [attr.id]="'ship' + ship.id">
+                            <label [attr.for]="'ship' + ship.id">{{ ship.description }}</label>
+                        </div>
+                    </div>
+                </p-fieldset>
             </div>
         </form>
-        <p class="instructions" [class.hidden]=true>{{ form.value | json }} {{ form.valid }}</p>
+        <p class="instructions" [class.hidden]=false>{{ form.value | json }} {{ form.valid }}</p>
     </div>
 
     <div id="footer">
@@ -48,27 +59,3 @@
     </div>
 
 </div>
-
-<mat-autocomplete #destinations="matAutocomplete" [displayWith]="autocompleteFields" autoActiveFirstOption>
-    <mat-option *ngFor="let option of filteredDestinations | async" [value]="option">
-        {{ option.description }}
-    </mat-option>
-</mat-autocomplete>
-
-<mat-autocomplete #ports="matAutocomplete" [displayWith]="autocompleteFields" autoActiveFirstOption>
-    <mat-option *ngFor="let option of filteredPorts | async" [value]="option">
-        {{ option.description }}
-    </mat-option>
-</mat-autocomplete>
-
-<mat-autocomplete #ships="matAutocomplete" [displayWith]="autocompleteFields" autoActiveFirstOption>
-    <mat-option *ngFor="let option of filteredShips | async" [value]="option">
-        {{ option.description }}
-    </mat-option>
-</mat-autocomplete>
-
-<mat-autocomplete #shipRoutes="matAutocomplete" [displayWith]="autocompleteFields" autoActiveFirstOption>
-    <mat-option *ngFor="let option of filteredShipRoutes | async" [value]="option">
-        {{ option.description }}
-    </mat-option>
-</mat-autocomplete>
