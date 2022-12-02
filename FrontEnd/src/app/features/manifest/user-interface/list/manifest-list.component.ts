@@ -52,19 +52,18 @@ export class ManifestListComponent {
 
     ngOnInit(): void {
         this.loadRecords()
-        this.calculateTotals()
-        this.addCrewToPassengers()
-        this.populateCriteriaFromStoredVariables()
-        this.getDistinctGenders()
-        this.getDistinctNationalities()
-        this.getDistinctOccupants()
-        this.addShortcuts()
+        // this.calculateTotals()
+        // this.addCrewToPassengers()
+        // this.populateCriteriaFromStoredVariables()
+        // this.getDistinctGenders()
+        // this.getDistinctNationalities()
+        // this.getDistinctOccupants()
+        // this.addShortcuts()
     }
 
     ngOnDestroy(): void {
         this.unsubscribe.next()
         this.unsubscribe.unsubscribe()
-        this.unlisten()
     }
 
     //#endregion
@@ -154,6 +153,7 @@ export class ManifestListComponent {
         const listResolved = this.activatedRoute.snapshot.data[this.feature]
         if (listResolved.error === null) {
             this.records = listResolved.result
+            console.log(this.records)
         } else {
             this.goBack()
             this.showSnackbar(this.messageSnackbarService.filterResponse(listResolved.error), 'error')

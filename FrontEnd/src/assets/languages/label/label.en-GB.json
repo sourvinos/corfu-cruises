@@ -1636,6 +1636,10 @@
             {
                 "id": "searchButton",
                 "description": "SEARCH"
+            },
+            {
+                "id": "todayButton",
+                "description": "TODAY"
             }
         ]
     },

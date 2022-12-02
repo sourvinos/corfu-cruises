@@ -1,12 +1,13 @@
-#form {
-    align-items: center;
-    flex-direction: column !important;
-    height: 100%;
+:host {
+    display: flex;
+    flex-direction: column;
+    height: inherit;
 }
 
-.field-wrapper {
-    display: flex;
-    gap: 2rem;
-    padding: 1rem 0;
-    width: 100% !important;
+#form {
+    flex-direction: row !important;
+}
+
+.p-fieldset .p-fieldset-content {
+    flex-direction: column;
 }

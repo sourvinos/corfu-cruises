@@ -88,11 +88,6 @@ export class ReservationListComponent {
         this.calculateTableHeight()
     }
 
-    ngOnDestroy(): void {
-        this.unsubscribe.next()
-        this.unsubscribe.unsubscribe()
-    }
-
     //#endregion
 
     //#region public methods

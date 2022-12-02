@@ -1,14 +1,13 @@
-import { ActivatedRoute, Router } from '@angular/router'
-import { Component } from '@angular/core'
+import { ChangeDetectorRef, Component } from '@angular/core'
 import { DateAdapter } from '@angular/material/core'
 import { FormGroup, FormBuilder, Validators, AbstractControl, FormArray, FormControl } from '@angular/forms'
 import { MatDatepickerInputEvent } from '@angular/material/datepicker'
+import { Router } from '@angular/router'
 import { Subject } from 'rxjs'
 import { takeUntil } from 'rxjs/operators'
 // Custom
 import { DateHelperService } from 'src/app/shared/services/date-helper.service'
 import { DestinationActiveVM } from '../../../destinations/classes/view-models/destination-active-vm'
-import { HelperService } from 'src/app/shared/services/helper.service'
 import { InputTabStopDirective } from 'src/app/shared/directives/input-tabstop.directive'
 import { InteractionService } from 'src/app/shared/services/interaction.service'
 import { LocalStorageService } from 'src/app/shared/services/local-storage.service'
@@ -16,9 +15,7 @@ import { MessageHintService } from 'src/app/shared/services/messages-hint.servic
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { PortActiveVM } from 'src/app/features/ports/classes/view-models/port-active-vm'
 import { ShipActiveVM } from '../../../ships/classes/view-models/ship-active-vm'
-import { Unlisten } from 'src/app/shared/services/keyboard-shortcuts.service'
 import { ValidationService } from 'src/app/shared/services/validation.service'
-import { HttpClient } from '@angular/common/http'
 
 @Component({
     selector: 'manifest-criteria',
@@ -30,55 +27,41 @@ export class ManifestCriteriaComponent {
 
     //#region variables
 
-    private unlisten: Unlisten
     private unsubscribe = new Subject<void>()
     public feature = 'manifestCriteria'
-    public featureIcon = ''
+    public featureIcon = 'manifest'
     public form: FormGroup
     public icon = 'home'
     public input: InputTabStopDirective
-    public parentUrl = '/'
+    public parentUrl = null
 
-    public isAutoCompleteDisabled = true
+    private criteria: any
     public destinations: DestinationActiveVM[] = []
     public ports: PortActiveVM[] = []
     public ships: ShipActiveVM[] = []
+    public selectedDate = new Date()
 
     //#endregion
 
-    constructor(private httpClient: HttpClient, private activatedRoute: ActivatedRoute, private dateAdapter: DateAdapter<any>, private dateHelperService: DateHelperService, private formBuilder: FormBuilder, private helperService: HelperService, private interactionService: InteractionService, private localStorageService: LocalStorageService, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private router: Router) { }
+    constructor(private changeDetectorRef: ChangeDetectorRef, private dateAdapter: DateAdapter<any>, private dateHelperService: DateHelperService, private formBuilder: FormBuilder, private interactionService: InteractionService, private localStorageService: LocalStorageService, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private router: Router) { }
 
     //#region lifecycle hooks
 
     ngOnInit(): void {
         this.initForm()
         this.populateDropdowns()
-        // this.populateFieldsFromStoredVariables()
+        this.populateFieldsFromStoredVariables()
         this.setLocale()
         this.subscribeToInteractionService()
-        this.focusOnField()
     }
 
-    // ngOnDestroy(): void {
-    //     this.cleanup()
-    //     this.unlisten()
-    // }
+    ngOnDestroy(): void {
+        this.cleanup()
+    }
 
     //#endregion
 
     //#region public methods
-
-    public autocompleteFields(subject: { description: any }): any {
-        return subject ? subject.description : undefined
-    }
-
-    public checkForEmptyAutoComplete(event: { target: { value: any } }): void {
-        if (event.target.value == '') this.isAutoCompleteDisabled = true
-    }
-
-    public enableOrDisableAutoComplete(event: any): void {
-        this.isAutoCompleteDisabled = this.helperService.enableOrDisableAutoComplete(event)
-    }
 
     public getHint(id: string, minmax = 0): string {
         return this.messageHintService.getDescription(id, minmax)
@@ -86,6 +69,24 @@ export class ManifestCriteriaComponent {
 
     public getLabel(id: string): string {
         return this.messageLabelService.getDescription(this.feature, id)
+    }
+
+    public gotoDate(selected?: Date): void {
+        if (selected != undefined) {
+            this.form.patchValue({
+                date: selected.toISOString().substring(0, 10)
+            })
+        } else {
+            this.form.patchValue({
+                date: new Date().toISOString().substring(0, 10)
+            })
+            this.dateAdapter.today()
+            this.selectedDate = new Date()
+        }
+    }
+
+    public lookupPort(id: any): boolean {
+        return this.criteria ? this.criteria.portIds.findIndex((book: any) => book == id) > -1 : false
     }
 
     public onCheckboxChange(event: any, controlName: string): void {
@@ -100,7 +101,7 @@ export class ManifestCriteriaComponent {
 
     public onDoTasks(): void {
         this.storeCriteria()
-        // this.navigateToList()
+        this.navigateToList()
     }
 
     public updateField(type: string, event: MatDatepickerInputEvent<Date>): void {
@@ -111,17 +112,16 @@ export class ManifestCriteriaComponent {
 
     //#region private methods
 
-    // private cleanup(): void {
-    //     this.unsubscribe.next()
-    //     this.unsubscribe.unsubscribe()
-    // }
-
-    private focusOnField(): void {
-        this.helperService.focusOnField('date')
+    private addPorts(): void {
+        const selectedPorts = this.form.controls['portIds'] as FormArray
+        this.criteria.portIds.forEach((portId: any) => {
+            selectedPorts.push(new FormControl(portId))
+        })
     }
 
-    private goBack(): void {
-        this.router.navigate([this.parentUrl])
+    private cleanup(): void {
+        this.unsubscribe.next()
+        this.unsubscribe.unsubscribe()
     }
 
     private initForm(): void {
@@ -133,25 +133,30 @@ export class ManifestCriteriaComponent {
         })
     }
 
-    private populateDropdownFromLocalStorage(table: string): void {
-        this[table] = JSON.parse(this.localStorageService.getItem(table))
+    private navigateToList(): void {
+        this.router.navigate(['manifest/list'])
     }
 
     private populateDropdowns(): void {
         this.populateDropdownFromLocalStorage('destinations')
-        this.populateDropdownFromLocalStorage('ports')
         this.populateDropdownFromLocalStorage('ships')
+        this.populateDropdownFromLocalStorage('ports')
+    }
+
+    private populateDropdownFromLocalStorage(table: string): void {
+        this[table] = JSON.parse(this.localStorageService.getItem(table))
     }
 
     private populateFieldsFromStoredVariables(): void {
         if (this.localStorageService.getItem('manifest-criteria')) {
-            const criteria = JSON.parse(this.localStorageService.getItem('manifest-criteria'))
-            this.form.setValue({
-                date: criteria.date,
-                destinationId: criteria.destinationId,
-                port: criteria.port,
-                ship: criteria.ship
+            this.criteria = JSON.parse(this.localStorageService.getItem('manifest-criteria'))
+            this.form.patchValue({
+                date: this.criteria.date,
+                destinationId: this.criteria.destinationId,
+                portIds: this.addPorts(),
+                shipId: this.criteria.shipId
             })
+            this.selectedDate = new Date(this.criteria.date)
         }
     }
 
@@ -181,8 +186,8 @@ export class ManifestCriteriaComponent {
         return this.form.get('destinationId')
     }
 
-    get port(): AbstractControl {
-        return this.form.get('port')
+    get portIds(): AbstractControl {
+        return this.form.get('portIds') as FormArray
     }
 
     get shipId(): AbstractControl {

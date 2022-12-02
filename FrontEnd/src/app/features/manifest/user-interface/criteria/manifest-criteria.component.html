@@ -7,55 +7,52 @@
     <div id="content">
         <form id="form" [formGroup]="form" autocomplete="off">
             <!-- Date -->
-            <mat-form-field>
-                <input (dateChange)="updateField('change', $event)" [inputTabStop]="input" [matDatepicker]="picker" [placeholder]="getLabel('date')" data-tabindex="1" formControlName="date" id="date" matInput>
-                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                <mat-datepicker #picker></mat-datepicker>
-                <mat-error *ngIf="date.hasError('required') || date.hasError('incorrect')">{{ getHint("emptyOrInvalidDate") }}</mat-error>
-            </mat-form-field>
+            <p-fieldset [legend]="getLabel('date')">
+                <div id="calendar-wrapper">
+                    <mat-card id="calendar-card">
+                        <mat-calendar (click)="gotoDate(selectedDate)" [(selected)]="selectedDate" [startAt]="selectedDate"></mat-calendar>
+                    </mat-card>
+                    <button (click)="gotoDate()" class="primary" mat-flat-button>{{ getLabel("todayButton") }}</button>
+                </div>
+            </p-fieldset>
             <!-- Destination -->
-            <div class="field-wrapper">
-                <p-fieldset [legend]="getLabel('destination')">
-                    <div *ngFor="let destination of destinations; let i=index">
-                        <div class="styled-input-single">
-                            <input formControlName="destinationId" type="radio" [value]="destination.id" [attr.id]="'destination' + destination.id">
-                            <label [attr.for]="'destination' + destination.id">{{ destination.description }}</label>
-                        </div>
+            <p-fieldset [legend]="getLabel('destination')">
+                <div *ngFor="let destination of destinations">
+                    <div class="styled-input-single">
+                        <input formControlName="destinationId" type="radio" [value]="destination.id" [attr.id]="'destination' + destination.id">
+                        <label [attr.for]="'destination' + destination.id">{{ destination.description }}</label>
                     </div>
-                </p-fieldset>
-            </div>
+                </div>
+            </p-fieldset>
             <!-- Ports -->
-            <div class="field-wrapper">
-                <p-fieldset [legend]="getLabel('port')">
-                    <div *ngFor="let port of ports; let i=index">
-                        <div class="styled-input-square">
-                            <div class="styled-input-single" (change)="onCheckboxChange($event, 'portIds')">
-                                <input formArrayName="portIds" type="checkbox" [value]="port.id" [attr.id]="'port' + port.id">
-                                <label [attr.for]="'port' + port.id">{{ port.description }}</label>
-                            </div>
+            <p-fieldset [legend]="getLabel('port')">
+                <div *ngFor="let port of ports">
+                    <div class="styled-input-square">
+                        <div class="styled-input-single" (change)="onCheckboxChange($event, 'portIds')">
+                            <input formArrayName="portIds" type="checkbox" [value]="port.id" [attr.id]="'port' + port.id" [checked]="lookupPort(port.id)">
+                            <label [attr.for]="'port' + port.id">{{ port.description }}</label>
                         </div>
                     </div>
-                </p-fieldset>
-            </div>
+                </div>
+            </p-fieldset>
             <!-- Ship -->
-            <div class="field-wrapper">
-                <p-fieldset [legend]="getLabel('ship')">
-                    <div *ngFor="let ship of ships; let i=index">
-                        <div class="styled-input-single">
-                            <input formControlName="shipId" type="radio" [value]="ship.id" [attr.id]="'ship' + ship.id">
-                            <label [attr.for]="'ship' + ship.id">{{ ship.description }}</label>
-                        </div>
+            <p-fieldset [legend]="getLabel('ship')">
+                <div *ngFor="let ship of ships">
+                    <div class="styled-input-single">
+                        <input formControlName="shipId" type="radio" [value]="ship.id" [attr.id]="'ship' + ship.id">
+                        <label [attr.for]="'ship' + ship.id">{{ ship.description }}</label>
                     </div>
-                </p-fieldset>
-            </div>
+                </div>
+            </p-fieldset>
         </form>
         <p class="instructions" [class.hidden]=false>{{ form.value | json }} {{ form.valid }}</p>
+        <p class="instructions">{{ selectedDate }}</p>
     </div>
 
-    <div id="footer">
-        <div class="button-group">
-            <button (click)="onDoTasks()" [disabled]="!form.valid" class="primary" id="search" mat-flat-button>{{ getLabel("searchButton") }}</button>
-        </div>
-    </div>
+</div>
 
+<div id="footer">
+    <div class="button-group">
+        <button (click)="onDoTasks()" [disabled]="!form.valid" class="primary" id="search" mat-flat-button>{{ getLabel("searchButton") }}</button>
+    </div>
 </div>

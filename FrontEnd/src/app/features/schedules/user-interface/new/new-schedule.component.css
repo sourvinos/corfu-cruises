@@ -21,5 +21,5 @@
 }
 
 .active-selectable-day {
-    border-bottom: 5px solid var(--color-selected-weekday) !important;
+    border-bottom: 5px solid var(--color-day-selected-weekday) !important;
 }

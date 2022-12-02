@@ -1636,6 +1636,10 @@
             {
                 "id": "searchButton",
                 "description": "ΑΝΑΖΗΤΗΣΗ"
+            },
+            {
+                "id": "todayButton",
+                "description": "ΣΗΜΕΡΑ"
             }
         ]
     },

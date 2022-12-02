@@ -21,10 +21,10 @@
 .styled-input-single label:before {
     background: #f7f7f7;
     box-shadow: 0 0 1px grey;
-    height: 30px;
+    height: 24px;
     left: 0;
-    margin: -15px 0 0;
-    width: 30px;
+    margin: -12px 0 1px 3px;
+    width: 24px;
 }
 
 .styled-input-single label:after {

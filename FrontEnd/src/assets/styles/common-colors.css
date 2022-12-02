@@ -39,8 +39,9 @@
     --color-criteria-d: #e52b74;
     --color-criteria-d-border: #e52b74;
     /* Date picker calendar */
-    --color-border: #ca874c;
+    --color-day-border: #3baca3;
     --color-range-between: rgb(201 135 77 / 60%);
+    --color-day-selected:#3baca3;
     /* Custom calendar */
     --color-background-saturday: #f29c6b;
     --color-background-sunday: #f26513;
@@ -65,5 +66,5 @@
     /* Links */
     --color-link: #e57b7b;
     /* New schedule weekdays */
-    --color-selected-weekday: #ff7a7a;
+    --color-day-selected-weekday: #ff7a7a;
 }

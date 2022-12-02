@@ -1,4 +1,7 @@
 #calendar-wrapper {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
     height: 400px;
     max-height: 400px;
     max-width: 350px;
@@ -8,19 +11,18 @@
 }
 
 #calendar-card {
-    align-items: center;
-    background-color: var(--color-b);
+    align-items: flex-start;
     box-shadow: none;
     display: flex;
     height: 100%;
     justify-content: center;
+    padding: 0;
     width: 100%;
 }
 
 .mat-calendar-controls {
     color: var(--color-text);
-    margin-top: 0 !important;
-    margin-left: 10% calc(33% / 7 - 16px) !important;
+    margin: 0 0 1.5rem 0 !important;
 }
 
 .mat-calendar-body-label {
@@ -40,6 +42,10 @@
 .mat-calendar {
     height: max-content;
     width: 90%;
+}
+
+.mat-calendar-header {
+    padding: 0 !important;
 }
 
 .mat-calendar-table-header {
@@ -85,19 +91,20 @@
 }
 
 .mat-calendar-body-today {
-    border: 1px solid var(--color-border) !important;
+    border: 1px solid var(--color-day-border) !important;
     font-weight: bold !important;
 }
 
 .mat-calendar-body-selected {
-    background-color: var(--color-a) !important;
+    background-color: var(--color-day-selected) !important;
+    color: #ffffff;
     font-weight: bold !important;
 }
 
 .mat-calendar-body-in-range {
     background-color: var(--color-range-between) !important;
     border-radius: 50% !important;
-    border: 1px solid var(--color-border) !important;
+    border: 1px solid var(--color-day-border) !important;
 }
 
 .mat-calendar-body-in-range > div {

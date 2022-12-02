@@ -8,15 +8,7 @@ import { ManifestListResolver } from '../resolvers/manifest-list.resolver'
 
 const routes: Routes = [
     { path: '', component: ManifestCriteriaComponent, canActivate: [AuthGuardService] },
-    {
-        path: 'list',
-        component: ManifestListComponent,
-        canActivate: [AuthGuardService],
-        resolve: {
-            manifestList: ManifestListResolver
-        },
-        runGuardsAndResolvers: 'always'
-    }
+    { path: 'list', component: ManifestListComponent, canActivate: [AuthGuardService], resolve: { manifestList: ManifestListResolver }, runGuardsAndResolvers: 'always' }
 ]
 
 @NgModule({
