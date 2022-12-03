@@ -1,7 +1,7 @@
-import { ChangeDetectorRef, Component } from '@angular/core'
+import { Component, ViewChild } from '@angular/core'
 import { DateAdapter } from '@angular/material/core'
 import { FormGroup, FormBuilder, Validators, AbstractControl, FormArray, FormControl } from '@angular/forms'
-import { MatDatepickerInputEvent } from '@angular/material/datepicker'
+import { MatCalendar, MatDatepickerInputEvent } from '@angular/material/datepicker'
 import { Router } from '@angular/router'
 import { Subject } from 'rxjs'
 import { takeUntil } from 'rxjs/operators'
@@ -25,6 +25,8 @@ import { ValidationService } from 'src/app/shared/services/validation.service'
 
 export class ManifestCriteriaComponent {
 
+    @ViewChild('calendar', { static: false }) calendar: MatCalendar<Date>
+
     //#region variables
 
     private unsubscribe = new Subject<void>()
@@ -43,7 +45,7 @@ export class ManifestCriteriaComponent {
 
     //#endregion
 
-    constructor(private changeDetectorRef: ChangeDetectorRef, private dateAdapter: DateAdapter<any>, private dateHelperService: DateHelperService, private formBuilder: FormBuilder, private interactionService: InteractionService, private localStorageService: LocalStorageService, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private router: Router) { }
+    constructor(private dateAdapter: DateAdapter<any>, private dateHelperService: DateHelperService, private formBuilder: FormBuilder, private interactionService: InteractionService, private localStorageService: LocalStorageService, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private router: Router) { }
 
     //#region lifecycle hooks
 
@@ -51,6 +53,7 @@ export class ManifestCriteriaComponent {
         this.initForm()
         this.populateDropdowns()
         this.populateFieldsFromStoredVariables()
+        this.setSelectedDate()
         this.setLocale()
         this.subscribeToInteractionService()
     }
@@ -71,18 +74,16 @@ export class ManifestCriteriaComponent {
         return this.messageLabelService.getDescription(this.feature, id)
     }
 
-    public gotoDate(selected?: Date): void {
-        if (selected != undefined) {
-            this.form.patchValue({
-                date: selected.toISOString().substring(0, 10)
-            })
-        } else {
-            this.form.patchValue({
-                date: new Date().toISOString().substring(0, 10)
-            })
-            this.dateAdapter.today()
-            this.selectedDate = new Date()
-        }
+    public gotoDate(selected: Date): void {
+        this.form.patchValue({
+            date: this.dateHelperService.formatDateToIso(selected, false)
+        })
+    }
+
+    public gotoToday(): void {
+        this.form.patchValue({ date: new Date().toISOString().substring(0, 10) })
+        this.selectedDate = new Date()
+        this.calendar._goToDateInView(this.selectedDate, 'month')
     }
 
     public lookupPort(id: any): boolean {
@@ -156,7 +157,17 @@ export class ManifestCriteriaComponent {
                 portIds: this.addPorts(),
                 shipId: this.criteria.shipId
             })
+        }
+    }
+
+    private setSelectedDate(): void {
+        if (this.criteria != undefined) {
             this.selectedDate = new Date(this.criteria.date)
+        } else {
+            this.selectedDate = new Date()
+            this.form.patchValue({
+                date: this.selectedDate
+            })
         }
     }
 

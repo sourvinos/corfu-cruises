@@ -2,12 +2,14 @@
     background-color: #cddc3905 !important;
     border-radius: 10px;
     border: 1px solid var(--color-b) !important;
+    height: 100%;
     margin: 0;
-    padding: 0;
+    padding: 1rem 1.5rem;
 }
 
+
 .p-fieldset .p-fieldset-content {
-    padding: 1rem 1.5rem !important;
+    padding: 0 !important;
 }
 
 .p-fieldset .p-fieldset-legend {

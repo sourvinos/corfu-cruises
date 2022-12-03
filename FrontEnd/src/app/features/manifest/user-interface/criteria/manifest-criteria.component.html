@@ -10,9 +10,9 @@
             <p-fieldset [legend]="getLabel('date')">
                 <div id="calendar-wrapper">
                     <mat-card id="calendar-card">
-                        <mat-calendar (click)="gotoDate(selectedDate)" [(selected)]="selectedDate" [startAt]="selectedDate"></mat-calendar>
+                        <mat-calendar #calendar (click)="gotoDate(selectedDate)" [(selected)]="selectedDate" [startAt]="selectedDate"></mat-calendar>
                     </mat-card>
-                    <button (click)="gotoDate()" class="primary" mat-flat-button>{{ getLabel("todayButton") }}</button>
+                    <button (click)="gotoToday()" class="primary" mat-flat-button>{{ getLabel("todayButton") }}</button>
                 </div>
             </p-fieldset>
             <!-- Destination -->
@@ -45,8 +45,7 @@
                 </div>
             </p-fieldset>
         </form>
-        <p class="instructions" [class.hidden]=false>{{ form.value | json }} {{ form.valid }}</p>
-        <p class="instructions">{{ selectedDate }}</p>
+        <p class="instructions" [class.hidden]=true>{{ form.value | json }} {{ form.valid }}</p>
     </div>
 
 </div>

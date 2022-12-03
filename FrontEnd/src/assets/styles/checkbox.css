@@ -11,6 +11,10 @@
     font-size: var(--font-size-checkbox);
 }
 
+.styled-input-single label:hover {
+    font-weight: bold;
+}
+
 .styled-input-single label:before, .styled-input-single label:after {
     border-radius: 50%;
     content: "";
