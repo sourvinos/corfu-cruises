@@ -56,7 +56,7 @@ button.transparent:hover {
 }
 
 button.tab {
-    padding-bottom: 5px;
+    padding-bottom: 0.3125rem;
 }
 
 button.tab:first-child {
@@ -87,7 +87,7 @@ button:not(:disabled) {
 
 button.mat-mini-fab .mat-button-wrapper {
     color: var(--color-c);
-    line-height: 23px !important;
+    line-height: 1.4375rem !important;
     padding: 0 !important;
     transition: color 0.2s ease-in;
 }
@@ -97,5 +97,10 @@ button.mat-button-toggle-label-content {
 }
 
 button.mat-mini-fab .mat-button-wrapper .material-icons {
-    margin-top: -4px !important;
+    margin-top: -0.25rem !important;
+}
+
+.button-icon {
+    font-size: 1.3125rem !important;
+    margin-top: 0.0625rem;
 }

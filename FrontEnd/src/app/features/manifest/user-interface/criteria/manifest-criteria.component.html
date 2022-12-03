@@ -52,6 +52,9 @@
 
 <div id="footer">
     <div class="button-group">
-        <button (click)="onDoTasks()" [disabled]="!form.valid" class="primary" id="search" mat-flat-button>{{ getLabel("searchButton") }}</button>
+        <button (click)="onDoTasks()" [disabled]="!form.valid" class="primary" id="search" mat-flat-button>
+            <mat-icon *ngIf="!form.valid" class="button-icon">lock</mat-icon>
+            <span>{{ getLabel("searchButton") }}</span>
+        </button>
     </div>
 </div>
