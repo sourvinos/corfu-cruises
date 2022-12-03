@@ -38,7 +38,10 @@
     </div>
 
     <div id="footer">
-        <button (click)="onLogin()" [disabled]="!form.valid" class="primary" data-cy="login" id="login" mat-flat-button>{{ getLabel("loginButton") }}</button>
+        <button (click)="onLogin()" [disabled]="!form.valid" class="primary" data-cy="login" id="login" mat-flat-button>
+            <mat-icon *ngIf="!form.valid" class="button-icon">lock</mat-icon>
+            <span>{{ getLabel("loginButton") }}</span>
+        </button>
     </div>
 
     <div *ngIf="isLoading | async">

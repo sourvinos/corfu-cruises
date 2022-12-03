@@ -102,5 +102,6 @@ button.mat-mini-fab .mat-button-wrapper .material-icons {
 
 .button-icon {
     font-size: 1.3125rem !important;
-    margin-top: 0.0625rem;
+    font-size: 1rem !important;
+    height: 1.0625rem !important;
 }
