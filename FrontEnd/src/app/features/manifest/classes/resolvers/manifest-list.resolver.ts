@@ -12,11 +12,10 @@ export class ManifestListResolver {
 
     private criteria: any
 
-    constructor(private localStorageService: LocalStorageService, private manifestService: ManifestService) {
-        this.criteria = JSON.parse(this.localStorageService.getItem('manifest-criteria'))
-    }
+    constructor(private localStorageService: LocalStorageService, private manifestService: ManifestService) { }
 
     resolve(): Observable<ManifestListResolved> {
+        this.criteria = JSON.parse(this.localStorageService.getItem('manifest-criteria'))
         return this.manifestService.get(this.criteria.date, this.criteria.destinationId, this.criteria.shipId, this.criteria.portIds).pipe(
             map((manifestList) => new ManifestListResolved(manifestList)),
             catchError((err: any) => of(new ManifestListResolved(null, err)))

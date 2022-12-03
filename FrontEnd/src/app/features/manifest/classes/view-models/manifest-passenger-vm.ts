@@ -1,17 +1,13 @@
-export class ManifestPassengerVM {
+export interface ManifestPassengerVM {
 
-    constructor(
-
-        public lastname: string,
-        public firstname: string,
-        public birthdate: string,
-        public remarks: string,
-        public specialCare: string,
-        public genderDescription: string,
-        public nationalityCode: string,
-        public nationalityDescription: string,
-        public occupantDescription: string
-
-    ) { }
+    lastname: string
+    firstname: string
+    birthdate: string
+    remarks: string
+    specialCare: string
+    genderDescription: string
+    nationalityCode: string
+    nationalityDescription: string
+    occupantDescription: string
 
 }

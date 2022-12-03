@@ -1611,7 +1611,7 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Κατάσταση πλοίου"
+                "description": "Δημιουργία λίστας επιβατών"
             },
             {
                 "id": "date",
@@ -1648,7 +1648,7 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Κατάσταση πλοίου"
+                "description": "Λίστα επιβατών"
             },
             {
                 "id": "criteriaDate",
@@ -1711,7 +1711,7 @@
                 "description": "Δεν βρήκαμε τίποτα!"
             },
             {
-                "id": "exportToPdfButton",
+                "id": "createPdfButton",
                 "description": "ΔΗΜΙΟΥΡΓΙΑ PDF"
             }
         ]

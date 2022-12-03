@@ -1611,7 +1611,7 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Manifest plavidla"
+                "description": "Vytvořit manifest cestujících"
             },
             {
                 "id": "date",
@@ -1648,7 +1648,7 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Manifest plavidla"
+                "description": "Seznam cestujících"
             },
             {
                 "id": "criteriaDate",
@@ -1711,7 +1711,7 @@
                 "description": "Nic jsme nenašli!"
             },
             {
-                "id": "exportToPdfButton",
+                "id": "createPdfButton",
                 "description": "EXPORT DO PDF"
             }
         ]

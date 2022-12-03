@@ -2,17 +2,13 @@ import { ManifestPassengerVM } from './manifest-passenger-vm'
 import { ManifestShipVM } from './manifest-ship-vm'
 import { ManifestShipRouteVM } from './manifest-shipRoute-vm'
 
-export class ManifestVM {
+export interface ManifestVM {
 
-    constructor(
-
-        public date: string,
-        public destination: string,
-        public port: string,
-        public ship: ManifestShipVM,
-        public shipRoute: ManifestShipRouteVM,
-        public passengers: ManifestPassengerVM[] = []
-
-    ) { }
+    date: string
+    destination: string
+    port: string
+    ship: ManifestShipVM
+    shipRoute: ManifestShipRouteVM
+    passengers: ManifestPassengerVM[]
 
 }

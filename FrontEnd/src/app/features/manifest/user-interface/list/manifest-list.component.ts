@@ -1,4 +1,4 @@
-import { ActivatedRoute, Router } from '@angular/router'
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router'
 import { Component } from '@angular/core'
 import { Subject } from 'rxjs'
 // Custom
@@ -15,6 +15,7 @@ import { MessageLabelService } from 'src/app/shared/services/messages-label.serv
 import { MessageSnackbarService } from '../../../../shared/services/messages-snackbar.service'
 import { SnackbarService } from 'src/app/shared/services/snackbar.service'
 import { environment } from 'src/environments/environment'
+import { OccupantActiveVM } from 'src/app/features/occupants/classes/view-models/occupant-active-vm'
 
 @Component({
     selector: 'manifest-list',
@@ -36,9 +37,11 @@ export class ManifestListComponent {
 
     public manifestCriteria: ManifestCriteriaVM
 
+    public dropdownOccupants: OccupantActiveVM[] = []
     public crewCount = 0
     public passengerCount = 0
-    public records: ManifestVM
+    public record: ManifestVM
+    public filteredRecords: ManifestVM
 
     public occupants = []
     public genders = []
@@ -46,7 +49,15 @@ export class ManifestListComponent {
 
     //#endregion
 
-    constructor(private activatedRoute: ActivatedRoute, private buttonClickService: ButtonClickService, private dateHelperService: DateHelperService, private emojiService: EmojiService, private helperService: HelperService, private keyboardShortcutsService: KeyboardShortcuts, private localStorageService: LocalStorageService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private pdfService: ManifestPdfService, private router: Router, private snackbarService: SnackbarService) { }
+    constructor(private activatedRoute: ActivatedRoute, private buttonClickService: ButtonClickService, private dateHelperService: DateHelperService, private emojiService: EmojiService, private helperService: HelperService, private keyboardShortcutsService: KeyboardShortcuts, private localStorageService: LocalStorageService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private pdfService: ManifestPdfService, private router: Router, private snackbarService: SnackbarService) {
+        this.router.events.subscribe((navigation) => {
+            if (navigation instanceof NavigationEnd) {
+                this.url = navigation.url
+                this.loadRecords()
+                this.populateDropdowns()
+            }
+        })
+    }
 
     //#region lifecycle hooks
 
@@ -57,7 +68,7 @@ export class ManifestListComponent {
         // this.populateCriteriaFromStoredVariables()
         // this.getDistinctGenders()
         // this.getDistinctNationalities()
-        // this.getDistinctOccupants()
+        this.getDistinctOccupants()
         // this.addShortcuts()
     }
 
@@ -70,8 +81,12 @@ export class ManifestListComponent {
 
     //#region public methods
 
-    public onCreatePdf(): void {
-        this.pdfService.createReport(this.records)
+    public createPdf(): void {
+        this.pdfService.createReport(this.record)
+    }
+
+    public filterRecords(event: { filteredValue: any[] }): void {
+        this.filteredRecords.passengers = event.filteredValue
     }
 
     public formatDate(date: string, showWeekday = false): string {
@@ -99,9 +114,9 @@ export class ManifestListComponent {
     //#region private methods
 
     private addCrewToPassengers(): void {
-        if (this.records.passengers.length > 0) {
-            this.records.ship.crew.forEach(crew => {
-                this.records.passengers.push(crew)
+        if (this.record.passengers.length > 0) {
+            this.record.ship.crew.forEach(crew => {
+                this.record.passengers.push(crew)
             })
         }
     }
@@ -121,13 +136,13 @@ export class ManifestListComponent {
     }
 
     private calculateTotals(): void {
-        this.passengerCount = this.records.passengers.length
-        this.crewCount = this.records.ship ? this.records.ship.crew.length : 0
+        this.passengerCount = this.record.passengers.length
+        this.crewCount = this.record.ship ? this.record.ship.crew.length : 0
     }
 
     private getDistinctGenders(): void {
         let array = []
-        array = [... new Set(this.records.passengers.map(x => x.genderDescription))]
+        array = [... new Set(this.record.passengers.map(x => x.genderDescription))]
         array.forEach(element => {
             this.genders.push({ label: element, value: element })
         })
@@ -135,7 +150,7 @@ export class ManifestListComponent {
 
     private getDistinctNationalities(): void {
         let array = []
-        array = [... new Set(this.records.passengers.map(x => x.nationalityDescription))]
+        array = [... new Set(this.record.passengers.map(x => x.nationalityDescription))]
         array.forEach(element => {
             this.nationalities.push({ label: element, value: element })
         })
@@ -143,7 +158,7 @@ export class ManifestListComponent {
 
     private getDistinctOccupants(): void {
         let array = []
-        array = [... new Set(this.records.passengers.map(x => x.occupantDescription))]
+        array = [... new Set(this.record.passengers.map(x => x.occupantDescription))]
         array.forEach(element => {
             this.occupants.push({ label: element, value: element })
         })
@@ -152,8 +167,8 @@ export class ManifestListComponent {
     private loadRecords(): void {
         const listResolved = this.activatedRoute.snapshot.data[this.feature]
         if (listResolved.error === null) {
-            this.records = listResolved.result
-            console.log(this.records)
+            this.record = listResolved.result[0]
+            console.log(this.record.passengers)
         } else {
             this.goBack()
             this.showSnackbar(this.messageSnackbarService.filterResponse(listResolved.error), 'error')
@@ -171,6 +186,11 @@ export class ManifestListComponent {
             }
         }
     }
+
+    private populateDropdowns(): void {
+        this.dropdownOccupants = this.helperService.populateTableFiltersDropdowns(this.record.passengers, 'occupant')
+    }
+
 
     private showSnackbar(message: string, type: string): void {
         this.snackbarService.open(message, type)

@@ -1611,7 +1611,7 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Schiffsmanifest"
+                "description": "Passagiermanifest erstellen"
             },
             {
                 "id": "date",
@@ -1648,7 +1648,7 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Schiffsmanifest"
+                "description": "Passagiermanifest"
             },
             {
                 "id": "criteriaDate",
@@ -1711,7 +1711,7 @@
                 "description": "Wir haben nichts gefunden!"
             },
             {
-                "id": "exportToPdfButton",
+                "id": "createPdfButton",
                 "description": "ALS PDF EXPORTIEREN"
             }
         ]

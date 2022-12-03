@@ -1,5 +1,54 @@
 <div id="list">
 
-    <h1>Manifest List</h1>
+    <div id="header">
+        <home-button-and-title [feature]="feature" [featureIcon]="featureIcon" [icon]="icon" [parentUrl]="parentUrl"></home-button-and-title>
+    </div>
+
+    <div id="table-wrapper">
+        <p-table #table (onFilter)="filterRecords($event)" [autoLayout]="false" [scrollable]="true" [value]="record.passengers" [virtualScrollItemSize]="33" [virtualScroll]="false" dataKey="id" selectionMode="single" scrollHeight="flex" sortMode="multiple" stateKey="manifest-list" stateStorage="local">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th style="width: 10rem;" pSortableColumn="occupantDescription">{{ getLabel('headerOccupant') }}<p-sortIcon field="occupantDescription"></p-sortIcon></th>
+                    <th style="width: 10rem;" pSortableColumn="lastname">{{ getLabel('headerLastname') }}<p-sortIcon field="lastname"></p-sortIcon></th>
+                </tr>
+                <tr>
+                    <th style="width: 10rem">
+                        <p-columnFilter style="width: 100%;" field="customerDescription" matchMode="equals" [showMenu]="false">
+                            <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+                                <p-dropdown [ngModel]="value" [options]="dropdownOccupants" (onChange)="filter($event.value)" [placeholder]="getEmoji('wildcard')" [showClear]="true">
+                                    <ng-template let-option pTemplate="item">
+                                        <span>{{ option.label }}</span>
+                                    </ng-template>
+                                </p-dropdown>
+                            </ng-template>
+                        </p-columnFilter>
+                    </th>
+                    <th><input type="text" class="p-inputtext" (input)="table.filter($event.target.value, 'lastname', 'contains')" [value]="$any(table).filters['lastname']?.value"></th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-rowData>
+                <tr data-cy="row" [pSelectableRow]="rowData">
+                    <td style="width: 10rem;">{{ rowData.occupant }}</td>
+                    <td style="width: 10rem;">{{ rowData.lastname }}</td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+
+    <div id="footer">
+        <div id="filters">
+            <div class="pill">
+                <img [src]="getIcon('total')">
+                <!-- <div class="number description">{{ records.passengers.length }}</div> -->
+            </div>
+            <div class="pill">
+                <img [src]="getIcon('filter')">
+                <!-- <div class="number description">{{ filteredRecords.passengers.length }}</div> -->
+            </div>
+        </div>
+        <div class="button-group">
+            <button data-cy="new" mat-flat-button class="primary" id="new" (click)="createPdf()">{{ getLabel("createPdfButton") }}</button>
+        </div>
+    </div>
 
 </div>

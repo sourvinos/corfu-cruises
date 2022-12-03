@@ -1611,7 +1611,7 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Manifeste du navire"
+                "description": "Créer un manifeste des passagers"
             },
             {
                 "id": "date",
@@ -1648,7 +1648,7 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Manifeste du navire"
+                "description": "Manifeste des passagers"
             },
             {
                 "id": "criteriaDate",
@@ -1711,7 +1711,7 @@
                 "description": "Nous n'avons rien trouvé!"
             },
             {
-                "id": "exportToPdfButton",
+                "id": "createPdfButton",
                 "description": "CRÉER UN PDF"
             }
         ]

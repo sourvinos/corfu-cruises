@@ -1611,7 +1611,7 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Ship manifest"
+                "description": "Create passenger manifest"
             },
             {
                 "id": "date",
@@ -1648,7 +1648,7 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Ship manifest"
+                "description": "Passenger manifest"
             },
             {
                 "id": "criteriaDate",
@@ -1711,7 +1711,7 @@
                 "description": "We found nothing!"
             },
             {
-                "id": "exportToPdfButton",
+                "id": "createPdfButton",
                 "description": "Export to PDF"
             }
         ]
