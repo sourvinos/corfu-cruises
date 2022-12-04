@@ -81,8 +81,8 @@ export class ManifestCriteriaComponent {
     }
 
     public gotoToday(): void {
-        this.form.patchValue({ date: new Date().toISOString().substring(0, 10) })
         this.selectedDate = new Date()
+        this.form.patchValue({ date: this.selectedDate.toISOString().substring(0, 10) })
         this.calendar._goToDateInView(this.selectedDate, 'month')
     }
 
