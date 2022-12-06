@@ -1695,6 +1695,10 @@
                 "description": "Ημερ/νία γέννησης"
             },
             {
+                "id": "headerRemarks",
+                "description": "Σχόλια"
+            },
+            {
                 "id": "countLabel",
                 "description": "Σύνολο ατόμων"
             },

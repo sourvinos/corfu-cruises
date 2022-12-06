@@ -1695,6 +1695,10 @@
                 "description": "Geburtsdatum"
             },
             {
+                "id": "headerRemarks",
+                "description": "Kommentare"
+            },
+            {
                 "id": "countLabel",
                 "description": "Gesamtpersonen"
             },

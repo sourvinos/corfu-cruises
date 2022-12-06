@@ -1695,6 +1695,10 @@
                 "description": "Birthdate"
             },
             {
+                "id": "headerRemarks",
+                "description": "Remarks"
+            },
+            {
                 "id": "countLabel",
                 "description": "Total persons"
             },

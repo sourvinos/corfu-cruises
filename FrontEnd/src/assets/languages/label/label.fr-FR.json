@@ -1695,6 +1695,10 @@
                 "description": "Date de naissance"
             },
             {
+                "id": "headerRemarks",
+                "description": "Remarques"
+            },
+            {
                 "id": "countLabel",
                 "description": "Personnes"
             },

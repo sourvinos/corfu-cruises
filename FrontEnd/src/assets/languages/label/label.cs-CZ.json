@@ -1695,6 +1695,10 @@
                 "description": "Datum narození"
             },
             {
+                "id": "headerRemarks",
+                "description": "Komentáře"
+            },
+            {
                 "id": "countLabel",
                 "description": "Celkem osob"
             },

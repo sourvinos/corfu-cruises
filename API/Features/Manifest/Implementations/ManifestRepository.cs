@@ -18,7 +18,6 @@ namespace API.Features.Manifest {
             return context.Reservations
                 .AsNoTracking()
                 .Include(x => x.Destination)
-                .Include(x => x.Port)
                 .Include(x => x.Passengers).ThenInclude(x => x.Nationality)
                 .Include(x => x.Passengers).ThenInclude(x => x.Gender)
                 .Include(x => x.Passengers).ThenInclude(x => x.Occupant)

@@ -39,7 +39,7 @@
 }
 
 .p-datatable .p-datatable-thead > tr > th:last-child {
-    border-right: 0 !important;
+    border-right: 11px !important;
 }
 
 .p-datatable .p-datatable-tbody > tr {
