@@ -264,7 +264,6 @@ export class ReservationListComponent {
             const listResolved: ListResolved = this.activatedRoute.snapshot.data[this.feature]
             if (listResolved.error === null) {
                 this.reservationGroupDto = listResolved.list
-                console.info(this.reservationGroupDto.reservations)
                 resolve(this.reservationGroupDto)
             } else {
                 this.router.navigate([this.parentUrl])

@@ -130,6 +130,20 @@ export class HelperService {
         return lookupArray
     }
 
+    public disableTableDropdownFilters(): void {
+        const dropdownFilters = document.querySelectorAll('.p-dropdown')
+        dropdownFilters.forEach(x => {
+            x.classList.add('p-disabled')
+        })
+    }
+
+    public disableTableTextFilters(): void {
+        const textFilters = document.querySelectorAll('.p-inputtext')
+        textFilters.forEach(x => {
+            x.classList.add('p-disabled')
+        })
+    }
+
     //#endregion
 
 }

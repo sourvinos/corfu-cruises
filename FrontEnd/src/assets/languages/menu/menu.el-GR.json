@@ -6,7 +6,7 @@
     
     { "id": "tasks-embarkation", "description": "Επιβίβαση" },
     { "id": "tasks-billing", "description": "Τιμολόγηση πελατών" },
-    { "id": "tasks-manifest", "description": "Κατάσταση πλοίου" },
+    { "id": "tasks-manifest", "description": "Κατάσταση επιβατών" },
 
     { "id": "tables-coachRoutes", "description": "Διαδρομές λεωφορείων" },
     { "id": "tables-customers", "description": "Πελάτες" },

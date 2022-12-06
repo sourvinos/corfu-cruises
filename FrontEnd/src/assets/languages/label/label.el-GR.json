@@ -1611,7 +1611,7 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Δημιουργία λίστας επιβατών"
+                "description": "Δημιουργία κατάστασης επιβατών"
             },
             {
                 "id": "date",
@@ -1648,7 +1648,7 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Λίστα επιβατών"
+                "description": "Κατάσταση επιβατών"
             },
             {
                 "id": "criteriaDate",

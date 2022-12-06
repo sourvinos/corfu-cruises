@@ -28,8 +28,8 @@ namespace API.Features.Manifest {
                     Date = DateHelpers.DateToISOString(x.Key.Date),
                     Destination = x.Key.Destination,
                     Passengers = x.SelectMany(x => x.Passengers).Select(x => new PassengerVM {
-                        Lastname = x.Lastname,
-                        Firstname = x.Firstname,
+                        Lastname = x.Lastname.ToUpper(),
+                        Firstname = x.Firstname.ToUpper(),
                         Birthdate = DateHelpers.DateToISOString(x.Birthdate),
                         Remarks = x.Remarks,
                         SpecialCare = x.SpecialCare,

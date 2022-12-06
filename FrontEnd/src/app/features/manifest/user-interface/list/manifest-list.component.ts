@@ -1,16 +1,17 @@
 import { ActivatedRoute, Router } from '@angular/router'
-import { Component } from '@angular/core'
+import { Component, ViewChild } from '@angular/core'
 import { Subject } from 'rxjs'
 // Custom
 import { DateHelperService } from 'src/app/shared/services/date-helper.service'
 import { EmojiService } from 'src/app/shared/services/emoji.service'
 import { HelperService } from 'src/app/shared/services/helper.service'
+import { ListResolved } from 'src/app/shared/classes/list-resolved'
 import { ManifestVM } from '../../classes/view-models/manifest-vm'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { MessageSnackbarService } from '../../../../shared/services/messages-snackbar.service'
 import { ModalActionResultService } from 'src/app/shared/services/modal-action-result.service'
+import { Table } from 'primeng/table'
 import { environment } from 'src/environments/environment'
-import { ListResolved } from 'src/app/shared/classes/list-resolved'
 
 @Component({
     selector: 'manifest-list',
@@ -22,15 +23,16 @@ export class ManifestListComponent {
 
     //#region variables
 
+    @ViewChild('table') table: Table | undefined
+    
     private unsubscribe = new Subject<void>()
     public feature = 'manifestList'
     public featureIcon = 'manifest'
     public icon = 'arrow_back'
     public parentUrl = '/manifest'
 
-    public passengerCount = 0
-    public record: ManifestVM
-    public filteredRecord: ManifestVM
+    public manifest = {} as ManifestVM
+    public totals: number[] = [0, 0]
 
     public dropdownGenders = []
     public dropdownNationalities = []
@@ -43,12 +45,14 @@ export class ManifestListComponent {
 
     ngOnInit(): void {
         this.loadRecords()
-        if (this.record != null && this.record.passengers.length > 0) {
-            this.calculateTableHeight()
-            this.populateDropdownFilters()
-        }
-        // this.calculateTotals()
+        this.calculateTableHeight()
+        this.populateDropdownFilters()
+        this.updateTotals()
         // this.populateCriteriaFromStoredVariables()
+    }
+
+    ngAfterViewInit(): void {
+        this.enableDisableFilters()
     }
 
     ngOnDestroy(): void {
@@ -64,9 +68,9 @@ export class ManifestListComponent {
         // TODO
     }
 
-    public filterRecords(event: { filteredValue: ManifestVM }): void {
-        this.filteredRecord = event.filteredValue
-
+    public filterManifest(event: { filteredValue: any[] }): void {
+        this.totals[0] = this.manifest.passengers.length
+        this.totals[1] = event.filteredValue.reduce((sum: number) => sum + 1, 0)
     }
 
     public formatDateToLocale(date: string): string {
@@ -93,6 +97,11 @@ export class ManifestListComponent {
         this.router.navigate([this.parentUrl])
     }
 
+    public resetTableFilters(table: any): void {
+        this.clearTableFilters(table)
+        this.updateTotals()
+    }
+
     //#endregion
 
     //#region private methods
@@ -103,17 +112,30 @@ export class ManifestListComponent {
         }, 500)
     }
 
-    private calculateTotals(): void {
-        this.passengerCount = this.record.passengers.length
+    private clearTableFilters(table: { clear: () => void }): void {
+        table.clear()
+        this.table.filter('', 'lastname', 'contains')
+        this.table.filter('', 'firstname', 'contains')
+        this.table.filter('', 'birthdate', 'contains')
+        const inputs = document.querySelectorAll<HTMLInputElement>('.p-inputtext[type="text"]')
+        inputs.forEach(box => {
+            box.value = ''
+        })
+    }
+
+    private enableDisableFilters(): void {
+        if (this.manifest == null) {
+            this.helperService.disableTableDropdownFilters()
+            this.helperService.disableTableTextFilters()
+        }
     }
 
     private loadRecords(): Promise<any> {
         const promise = new Promise((resolve) => {
             const listResolved: ListResolved = this.activatedRoute.snapshot.data[this.feature]
             if (listResolved.error === null) {
-                this.record = listResolved.list
-                this.filteredRecord = listResolved.list
-                resolve(this.record)
+                this.manifest = listResolved.list
+                resolve(this.manifest)
             } else {
                 this.goBack()
                 this.modalActionResultService.open(this.messageSnackbarService.filterResponse(new Error('500')), 'error', ['ok'])
@@ -123,10 +145,15 @@ export class ManifestListComponent {
     }
 
     private populateDropdownFilters(): void {
-        if (this.record != null) {
-            this.dropdownGenders = this.helperService.getDistinctRecords(this.record.passengers, 'gender')
-            this.dropdownNationalities = this.helperService.getDistinctRecords(this.record.passengers, 'nationalityDescription')
+        if (this.manifest != null) {
+            this.dropdownGenders = this.helperService.getDistinctRecords(this.manifest.passengers, 'gender')
+            this.dropdownNationalities = this.helperService.getDistinctRecords(this.manifest.passengers, 'nationalityDescription')
         }
+    }
+
+    private updateTotals(): void {
+        this.totals[0] = this.manifest?.passengers.length
+        this.totals[1] = this.manifest?.passengers.reduce((sum: number) => sum + 1, 0)
     }
 
     //#endregion
