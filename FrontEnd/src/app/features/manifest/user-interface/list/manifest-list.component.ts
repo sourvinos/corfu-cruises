@@ -3,9 +3,9 @@ import { Component, ViewChild } from '@angular/core'
 import { Subject } from 'rxjs'
 // Custom
 import { DateHelperService } from 'src/app/shared/services/date-helper.service'
-import { EmojiService } from 'src/app/shared/services/emoji.service'
 import { HelperService } from 'src/app/shared/services/helper.service'
 import { ListResolved } from 'src/app/shared/classes/list-resolved'
+import { LocalStorageService } from './../../../../shared/services/local-storage.service'
 import { ManifestVM } from '../../classes/view-models/manifest-vm'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { MessageSnackbarService } from '../../../../shared/services/messages-snackbar.service'
@@ -24,14 +24,15 @@ export class ManifestListComponent {
     //#region variables
 
     @ViewChild('table') table: Table | undefined
-    
+
     private unsubscribe = new Subject<void>()
     public feature = 'manifestList'
     public featureIcon = 'manifest'
     public icon = 'arrow_back'
     public parentUrl = '/manifest'
 
-    public manifest = {} as ManifestVM
+    public criteria: any
+    public manifest: ManifestVM
     public totals: number[] = [0, 0]
 
     public dropdownGenders = []
@@ -39,7 +40,7 @@ export class ManifestListComponent {
 
     //#endregion
 
-    constructor(private activatedRoute: ActivatedRoute, private dateHelperService: DateHelperService, private emojiService: EmojiService, private helperService: HelperService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private modalActionResultService: ModalActionResultService, private router: Router) { }
+    constructor(private activatedRoute: ActivatedRoute, private dateHelperService: DateHelperService, private helperService: HelperService, private localStorageService: LocalStorageService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private modalActionResultService: ModalActionResultService, private router: Router) { }
 
     //#region lifecycle hooks
 
@@ -47,8 +48,8 @@ export class ManifestListComponent {
         this.loadRecords()
         this.calculateTableHeight()
         this.populateDropdownFilters()
+        this.populateCriteriaFromStorage()
         this.updateTotals()
-        // this.populateCriteriaFromStoredVariables()
     }
 
     ngAfterViewInit(): void {
@@ -73,12 +74,8 @@ export class ManifestListComponent {
         this.totals[1] = event.filteredValue.reduce((sum: number) => sum + 1, 0)
     }
 
-    public formatDateToLocale(date: string): string {
-        return this.dateHelperService.formatISODateToLocale(date, false)
-    }
-
-    public getEmoji(emoji: string): string {
-        return this.emojiService.getEmoji(emoji)
+    public formatDateToLocale(date: string, showWeekday: boolean): string {
+        return this.dateHelperService.formatISODateToLocale(date, showWeekday, true)
     }
 
     public getIcon(filename: string): string {
@@ -91,6 +88,10 @@ export class ManifestListComponent {
 
     public getNationalityIcon(nationalityCode: string): any {
         return environment.nationalitiesIconDirectory + nationalityCode.toLowerCase() + '.png'
+    }
+
+    public getPortDescriptions(): string {
+        return this.criteria.ports.map((port: { description: any }) => port.description).join(' ▪️ ')
     }
 
     public goBack(): void {
@@ -142,6 +143,12 @@ export class ManifestListComponent {
             }
         })
         return promise
+    }
+
+    private populateCriteriaFromStorage(): void {
+        if (this.localStorageService.getItem('manifest-criteria')) {
+            this.criteria = JSON.parse(this.localStorageService.getItem('manifest-criteria'))
+        }
     }
 
     private populateDropdownFilters(): void {

@@ -3,6 +3,18 @@
     <div id="header">
         <home-button-and-title [feature]="feature" [featureIcon]="featureIcon" [icon]="icon" [parentUrl]="parentUrl"></home-button-and-title>
         <div id="criteria">
+            <div class="pill date">
+                <div class="description">{{ formatDateToLocale(criteria.date,true) }}</div>
+            </div>
+            <div class="pill">
+                <div class="description">{{ criteria.destination.description }}</div>
+            </div>
+            <div class="pill">
+                <div class="description">{{ getPortDescriptions() }}</div>
+            </div>
+            <div class="pill">
+                <div class="description">{{ criteria.ship.description }}</div>
+            </div>
             <button mat-flat-button class="primary" (click)="resetTableFilters(table)">
                 <i class="pi pi-filter-slash"></i>
             </button>
@@ -56,7 +68,7 @@
                         <span style="overflow: hidden;">&nbsp;&nbsp;{{ rowData.nationalityDescription }}</span>
                     </td>
                     <td style="width: 15rem;">{{ rowData.gender }}</td>
-                    <td style="width: 15rem; text-align: center;">{{ formatDateToLocale(rowData.birthdate) }}</td>
+                    <td style="width: 15rem; text-align: center;">{{ formatDateToLocale(rowData.birthdate,false) }}</td>
                 </tr>
             </ng-template>
         </p-table>
