@@ -3,11 +3,11 @@ export interface ManifestPassengerVM {
     lastname: string
     firstname: string
     birthdate: string
-    remarks: string
-    specialCare: string
-    genderDescription: string
+    gender: string
     nationalityCode: string
     nationalityDescription: string
-    occupantDescription: string
+    occupant: string
+    remarks: string
+    specialCare: string
 
 }

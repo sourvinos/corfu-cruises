@@ -1,20 +1,19 @@
 import { Component, ViewChild } from '@angular/core'
 import { DateAdapter } from '@angular/material/core'
-import { FormGroup, FormBuilder, Validators, AbstractControl, FormArray, FormControl } from '@angular/forms'
-import { MatCalendar, MatDatepickerInputEvent } from '@angular/material/datepicker'
+import { FormGroup, FormBuilder, Validators, FormArray, FormControl } from '@angular/forms'
+import { MatCalendar } from '@angular/material/datepicker'
 import { Router } from '@angular/router'
 import { Subject } from 'rxjs'
 import { takeUntil } from 'rxjs/operators'
 // Custom
 import { DateHelperService } from 'src/app/shared/services/date-helper.service'
 import { DestinationActiveVM } from '../../../destinations/classes/view-models/destination-active-vm'
-import { InputTabStopDirective } from 'src/app/shared/directives/input-tabstop.directive'
 import { InteractionService } from 'src/app/shared/services/interaction.service'
 import { LocalStorageService } from 'src/app/shared/services/local-storage.service'
 import { MessageHintService } from 'src/app/shared/services/messages-hint.service'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
-import { PortActiveVM } from 'src/app/features/ports/classes/view-models/port-active-vm'
-import { ShipActiveVM } from '../../../ships/classes/view-models/ship-active-vm'
+import { PortActiveVM } from './../../../ports/classes/view-models/port-active-vm'
+import { ShipActiveVM } from 'src/app/features/ships/classes/view-models/ship-active-vm'
 import { ValidationService } from 'src/app/shared/services/validation.service'
 
 @Component({
@@ -25,23 +24,22 @@ import { ValidationService } from 'src/app/shared/services/validation.service'
 
 export class ManifestCriteriaComponent {
 
-    @ViewChild('calendar', { static: false }) calendar: MatCalendar<Date>
-
     //#region variables
+
+    @ViewChild('calendar', { static: false }) calendar: MatCalendar<Date>
 
     private unsubscribe = new Subject<void>()
     public feature = 'manifestCriteria'
     public featureIcon = 'manifest'
     public form: FormGroup
     public icon = 'home'
-    public input: InputTabStopDirective
     public parentUrl = null
 
     private criteria: any
     public destinations: DestinationActiveVM[] = []
     public ports: PortActiveVM[] = []
-    public ships: ShipActiveVM[] = []
     public selectedDate = new Date()
+    public ships: ShipActiveVM[] = []
 
     //#endregion
 
@@ -66,18 +64,8 @@ export class ManifestCriteriaComponent {
 
     //#region public methods
 
-    public getHint(id: string, minmax = 0): string {
-        return this.messageHintService.getDescription(id, minmax)
-    }
-
     public getLabel(id: string): string {
         return this.messageLabelService.getDescription(this.feature, id)
-    }
-
-    public gotoDate(selected: Date): void {
-        this.form.patchValue({
-            date: this.dateHelperService.formatDateToIso(selected, false)
-        })
     }
 
     public gotoToday(): void {
@@ -86,17 +74,31 @@ export class ManifestCriteriaComponent {
         this.calendar._goToDateInView(this.selectedDate, 'month')
     }
 
-    public lookupPort(id: any): boolean {
-        return this.criteria ? this.criteria.portIds.findIndex((book: any) => book == id) > -1 : false
+    /**
+     * @param portId 
+     * @returns True or false so that the checkbox can be checked or left empty
+     */
+    public lookupPort(portId: number): boolean {
+        if (this.criteria) {
+            return this.criteria.ports.filter((port: any) => port.id == portId).length != 0 ? true : false
+        }
     }
 
-    public onCheckboxChange(event: any, controlName: string): void {
-        const selectedItems = (this.form.controls[controlName] as FormArray)
+    /**
+     * Adds/removes controls to/from the formArray
+     * @param event 
+     * @param description 
+     */
+    public onCheckboxChange(event: any, description: string): void {
+        const selectedPorts = this.form.controls['ports'] as FormArray
         if (event.target.checked) {
-            selectedItems.push(new FormControl(event.target.value))
+            selectedPorts.push(this.formBuilder.group({
+                id: [parseInt(event.target.value), Validators.required],
+                description: [description]
+            }))
         } else {
-            const index = selectedItems.controls.findIndex(x => x.value === event.target.value)
-            selectedItems.removeAt(index)
+            const index = selectedPorts.controls.findIndex(x => x.value.id == parseInt(event.target.value))
+            selectedPorts.removeAt(index)
         }
     }
 
@@ -105,18 +107,47 @@ export class ManifestCriteriaComponent {
         this.navigateToList()
     }
 
-    public updateField(type: string, event: MatDatepickerInputEvent<Date>): void {
-        this.form.patchValue({ date: this.dateHelperService.formatDateToIso(new Date(event.value != null ? event.value : ''), false) })
+    public selectDate(selected: Date): void {
+        this.form.patchValue({
+            date: this.dateHelperService.formatDateToIso(selected, false)
+        })
+    }
+
+    /**
+     * Clears all radio buttons for the selected group and checks only the selected
+     * @param classname The radio group
+     * @param id The selected item id
+     * @param description The selected description
+     */
+    public updateRadioButtons(classname: any, id: any, description: any): void {
+        const radios = document.getElementsByClassName(classname) as HTMLCollectionOf<HTMLInputElement>
+        for (let i = 0; i < radios.length; i++) {
+            radios[i].checked = false
+        }
+        const radio = document.getElementById(classname + id) as HTMLInputElement
+        radio.checked = true
+        this.form.patchValue({
+            [classname]: {
+                'description': description
+            }
+        })
     }
 
     //#endregion
 
     //#region private methods
 
-    private addPorts(): void {
-        const selectedPorts = this.form.controls['portIds'] as FormArray
-        this.criteria.portIds.forEach((portId: any) => {
-            selectedPorts.push(new FormControl(portId))
+    /**
+     * Adds all the stored ports from the localstorage to the form.
+     * Called on every page load (when called from the menu or when returning from the manifest list)
+     */
+    private addPortsFromStorage(): void {
+        const selectedPorts = this.form.controls['ports'] as FormArray
+        this.criteria.ports.forEach((port: any) => {
+            selectedPorts.push(new FormControl({
+                'id': port.id,
+                'description': port.description
+            }))
         })
     }
 
@@ -128,9 +159,15 @@ export class ManifestCriteriaComponent {
     private initForm(): void {
         this.form = this.formBuilder.group({
             date: ['', [Validators.required, ValidationService.RequireDate]],
-            destinationId: ['', [Validators.required]],
-            portIds: this.formBuilder.array([], [Validators.required]),
-            shipId: ['', [Validators.required]]
+            destination: this.formBuilder.group({
+                id: ['', [Validators.required]],
+                description: []
+            }),
+            ports: this.formBuilder.array([], Validators.required),
+            ship: this.formBuilder.group({
+                id: ['', [Validators.required]],
+                description: []
+            })
         })
     }
 
@@ -153,26 +190,35 @@ export class ManifestCriteriaComponent {
             this.criteria = JSON.parse(this.localStorageService.getItem('manifest-criteria'))
             this.form.patchValue({
                 date: this.criteria.date,
-                destinationId: this.criteria.destinationId,
-                portIds: this.addPorts(),
-                shipId: this.criteria.shipId
-            })
-        }
-    }
-
-    private setSelectedDate(): void {
-        if (this.criteria != undefined) {
-            this.selectedDate = new Date(this.criteria.date)
-        } else {
-            this.selectedDate = new Date()
-            this.form.patchValue({
-                date: this.selectedDate
+                destination: {
+                    'id': this.criteria.destination.id,
+                    'description': this.criteria.destination.description
+                },
+                ports: this.addPortsFromStorage(),
+                ship: {
+                    'id': this.criteria.ship.id,
+                    'description': this.criteria.ship.description
+                }
             })
         }
     }
 
     private setLocale(): void {
         this.dateAdapter.setLocale(this.localStorageService.getLanguage())
+    }
+
+    /**
+     * Sets the selected date either today or whatever is stored
+     */
+    private setSelectedDate(): void {
+        if (this.criteria != undefined) {
+            this.selectedDate = new Date(this.criteria.date)
+        } else {
+            this.selectedDate = new Date()
+            this.form.patchValue({
+                date: this.dateHelperService.formatDateToIso(this.selectedDate, false)
+            })
+        }
     }
 
     private storeCriteria(): void {
@@ -183,26 +229,6 @@ export class ManifestCriteriaComponent {
         this.interactionService.refreshDateAdapter.pipe(takeUntil(this.unsubscribe)).subscribe(() => {
             this.setLocale()
         })
-    }
-
-    //#endregion
-
-    //#region getters
-
-    get date(): AbstractControl {
-        return this.form.get('date')
-    }
-
-    get destinationId(): AbstractControl {
-        return this.form.get('destinationId')
-    }
-
-    get portIds(): AbstractControl {
-        return this.form.get('portIds') as FormArray
-    }
-
-    get shipId(): AbstractControl {
-        return this.form.get('shipId')
     }
 
     //#endregion

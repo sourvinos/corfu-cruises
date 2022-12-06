@@ -1,21 +1,16 @@
-import { ActivatedRoute, NavigationEnd, Router } from '@angular/router'
+import { ActivatedRoute, Router } from '@angular/router'
 import { Component } from '@angular/core'
 import { Subject } from 'rxjs'
 // Custom
-import { ButtonClickService } from 'src/app/shared/services/button-click.service'
 import { DateHelperService } from 'src/app/shared/services/date-helper.service'
 import { EmojiService } from 'src/app/shared/services/emoji.service'
 import { HelperService } from 'src/app/shared/services/helper.service'
-import { KeyboardShortcuts, Unlisten } from 'src/app/shared/services/keyboard-shortcuts.service'
-import { LocalStorageService } from 'src/app/shared/services/local-storage.service'
-import { ManifestCriteriaVM } from '../../classes/view-models/manifest-criteria-vm'
-import { ManifestPdfService } from '../../classes/services/manifest-pdf.service'
 import { ManifestVM } from '../../classes/view-models/manifest-vm'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { MessageSnackbarService } from '../../../../shared/services/messages-snackbar.service'
-import { SnackbarService } from 'src/app/shared/services/snackbar.service'
+import { ModalActionResultService } from 'src/app/shared/services/modal-action-result.service'
 import { environment } from 'src/environments/environment'
-import { OccupantActiveVM } from 'src/app/features/occupants/classes/view-models/occupant-active-vm'
+import { ListResolved } from 'src/app/shared/classes/list-resolved'
 
 @Component({
     selector: 'manifest-list',
@@ -27,49 +22,33 @@ export class ManifestListComponent {
 
     //#region variables
 
-    private unlisten: Unlisten
     private unsubscribe = new Subject<void>()
-    private url = 'manifest'
     public feature = 'manifestList'
-    public featureIcon = ''
+    public featureIcon = 'manifest'
     public icon = 'arrow_back'
     public parentUrl = '/manifest'
 
-    public manifestCriteria: ManifestCriteriaVM
-
-    public dropdownOccupants: OccupantActiveVM[] = []
-    public crewCount = 0
     public passengerCount = 0
     public record: ManifestVM
-    public filteredRecords: ManifestVM
+    public filteredRecord: ManifestVM
 
-    public occupants = []
-    public genders = []
-    public nationalities = []
+    public dropdownGenders = []
+    public dropdownNationalities = []
 
     //#endregion
 
-    constructor(private activatedRoute: ActivatedRoute, private buttonClickService: ButtonClickService, private dateHelperService: DateHelperService, private emojiService: EmojiService, private helperService: HelperService, private keyboardShortcutsService: KeyboardShortcuts, private localStorageService: LocalStorageService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private pdfService: ManifestPdfService, private router: Router, private snackbarService: SnackbarService) {
-        this.router.events.subscribe((navigation) => {
-            if (navigation instanceof NavigationEnd) {
-                this.url = navigation.url
-                this.loadRecords()
-                this.populateDropdowns()
-            }
-        })
-    }
+    constructor(private activatedRoute: ActivatedRoute, private dateHelperService: DateHelperService, private emojiService: EmojiService, private helperService: HelperService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private modalActionResultService: ModalActionResultService, private router: Router) { }
 
     //#region lifecycle hooks
 
     ngOnInit(): void {
         this.loadRecords()
+        if (this.record != null && this.record.passengers.length > 0) {
+            this.calculateTableHeight()
+            this.populateDropdownFilters()
+        }
         // this.calculateTotals()
-        // this.addCrewToPassengers()
         // this.populateCriteriaFromStoredVariables()
-        // this.getDistinctGenders()
-        // this.getDistinctNationalities()
-        this.getDistinctOccupants()
-        // this.addShortcuts()
     }
 
     ngOnDestroy(): void {
@@ -82,15 +61,16 @@ export class ManifestListComponent {
     //#region public methods
 
     public createPdf(): void {
-        this.pdfService.createReport(this.record)
+        // TODO
     }
 
-    public filterRecords(event: { filteredValue: any[] }): void {
-        this.filteredRecords.passengers = event.filteredValue
+    public filterRecords(event: { filteredValue: ManifestVM }): void {
+        this.filteredRecord = event.filteredValue
+
     }
 
-    public formatDate(date: string, showWeekday = false): string {
-        return this.dateHelperService.formatISODateToLocale(date, showWeekday)
+    public formatDateToLocale(date: string): string {
+        return this.dateHelperService.formatISODateToLocale(date, false)
     }
 
     public getEmoji(emoji: string): string {
@@ -105,6 +85,10 @@ export class ManifestListComponent {
         return this.messageLabelService.getDescription(this.feature, id)
     }
 
+    public getNationalityIcon(nationalityCode: string): any {
+        return environment.nationalitiesIconDirectory + nationalityCode.toLowerCase() + '.png'
+    }
+
     public goBack(): void {
         this.router.navigate([this.parentUrl])
     }
@@ -113,87 +97,36 @@ export class ManifestListComponent {
 
     //#region private methods
 
-    private addCrewToPassengers(): void {
-        if (this.record.passengers.length > 0) {
-            this.record.ship.crew.forEach(crew => {
-                this.record.passengers.push(crew)
-            })
-        }
-    }
-
-    private addShortcuts(): void {
-        this.unlisten = this.keyboardShortcutsService.listen({
-            'Escape': () => {
-                this.goBack()
-            },
-            'Alt.E': (event: KeyboardEvent) => {
-                this.buttonClickService.clickOnButton(event, 'exportToPDF')
-            }
-        }, {
-            priority: 0,
-            inputs: true
-        })
+    private calculateTableHeight(): void {
+        setTimeout(() => {
+            document.getElementById('table-wrapper').style.height = this.helperService.calculateTableWrapperHeight('top-bar', 'header', 'footer')
+        }, 500)
     }
 
     private calculateTotals(): void {
         this.passengerCount = this.record.passengers.length
-        this.crewCount = this.record.ship ? this.record.ship.crew.length : 0
     }
 
-    private getDistinctGenders(): void {
-        let array = []
-        array = [... new Set(this.record.passengers.map(x => x.genderDescription))]
-        array.forEach(element => {
-            this.genders.push({ label: element, value: element })
-        })
-    }
-
-    private getDistinctNationalities(): void {
-        let array = []
-        array = [... new Set(this.record.passengers.map(x => x.nationalityDescription))]
-        array.forEach(element => {
-            this.nationalities.push({ label: element, value: element })
-        })
-    }
-
-    private getDistinctOccupants(): void {
-        let array = []
-        array = [... new Set(this.record.passengers.map(x => x.occupantDescription))]
-        array.forEach(element => {
-            this.occupants.push({ label: element, value: element })
-        })
-    }
-
-    private loadRecords(): void {
-        const listResolved = this.activatedRoute.snapshot.data[this.feature]
-        if (listResolved.error === null) {
-            this.record = listResolved.result[0]
-            console.log(this.record.passengers)
-        } else {
-            this.goBack()
-            this.showSnackbar(this.messageSnackbarService.filterResponse(listResolved.error), 'error')
-        }
-    }
-
-    private populateCriteriaFromStoredVariables(): void {
-        if (this.localStorageService.getItem('manifest-criteria')) {
-            const criteria = JSON.parse(this.localStorageService.getItem('manifest-criteria'))
-            this.manifestCriteria = {
-                date: criteria.date,
-                destination: criteria.destination.description,
-                port: criteria.port.description,
-                ship: criteria.ship.description
+    private loadRecords(): Promise<any> {
+        const promise = new Promise((resolve) => {
+            const listResolved: ListResolved = this.activatedRoute.snapshot.data[this.feature]
+            if (listResolved.error === null) {
+                this.record = listResolved.list
+                this.filteredRecord = listResolved.list
+                resolve(this.record)
+            } else {
+                this.goBack()
+                this.modalActionResultService.open(this.messageSnackbarService.filterResponse(new Error('500')), 'error', ['ok'])
             }
+        })
+        return promise
+    }
+
+    private populateDropdownFilters(): void {
+        if (this.record != null) {
+            this.dropdownGenders = this.helperService.getDistinctRecords(this.record.passengers, 'gender')
+            this.dropdownNationalities = this.helperService.getDistinctRecords(this.record.passengers, 'nationalityDescription')
         }
-    }
-
-    private populateDropdowns(): void {
-        this.dropdownOccupants = this.helperService.populateTableFiltersDropdowns(this.record.passengers, 'occupant')
-    }
-
-
-    private showSnackbar(message: string, type: string): void {
-        this.snackbarService.open(message, type)
     }
 
     //#endregion

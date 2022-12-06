@@ -15,8 +15,12 @@ export class ManifestListResolver {
     constructor(private localStorageService: LocalStorageService, private manifestService: ManifestService) { }
 
     resolve(): Observable<ManifestListResolved> {
-        this.criteria = JSON.parse(this.localStorageService.getItem('manifest-criteria'))
-        return this.manifestService.get(this.criteria.date, this.criteria.destinationId, this.criteria.shipId, this.criteria.portIds).pipe(
+        const criteria = JSON.parse(this.localStorageService.getItem('manifest-criteria'))
+        const portIds = []
+        criteria.ports.forEach((port: { id: any }) => {
+            portIds.push(port.id)
+        })
+        return this.manifestService.get(criteria.date, criteria.destination.id, criteria.ship.id, portIds).pipe(
             map((manifestList) => new ManifestListResolved(manifestList)),
             catchError((err: any) => of(new ManifestListResolved(null, err)))
         )

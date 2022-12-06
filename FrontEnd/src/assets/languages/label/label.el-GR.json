@@ -1168,7 +1168,7 @@
                 "description": "Όνομα"
             },
             {
-                "id": "headerNationality",
+                "id": "headerCountry",
                 "description": "Εθνικότητα"
             },
             {
@@ -1683,7 +1683,7 @@
                 "description": "Όνομα"
             },
             {
-                "id": "headerNationality",
+                "id": "headerCountry",
                 "description": "Χώρα"
             },
             {

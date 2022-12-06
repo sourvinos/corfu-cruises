@@ -1168,7 +1168,7 @@
                 "description": "Nom "
             },
             {
-                "id": "headerNationality",
+                "id": "headerCountry",
                 "description": "Nationalite"
             },
             {
@@ -1683,8 +1683,8 @@
                 "description": "Nom"
             },
             {
-                "id": "headerNationality",
-                "description": "Patrie"
+                "id": "headerCountry",
+                "description": "Pays"
             },
             {
                 "id": "headerGender",

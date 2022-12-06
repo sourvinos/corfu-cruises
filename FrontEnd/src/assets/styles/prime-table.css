@@ -44,7 +44,6 @@
 
 .p-datatable .p-datatable-tbody > tr {
     background-color: transparent !important;
-    border-bottom: 0.0625rem dotted var(--color-row-seperator) !important;
 }
 
 .p-datatable .p-datatable-tbody > tr.ui-state-highlight {
@@ -66,12 +65,12 @@
 }
 
 .p-datatable .p-datatable-tbody > tr > td {
-    border: none !important;
+    border-bottom: 1px solid var(--color-d) !important;
     color: var(--color-c);
     font-family: var(--font-family-ubuntu);
     font-size: var(--font-size-table-row);
     overflow: hidden !important;
-    padding: 0.3125rem !important;
+    padding: 0.5rem !important;
     text-overflow: ellipsis !important;
     white-space: nowrap !important;
 }

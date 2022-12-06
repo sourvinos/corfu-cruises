@@ -76,6 +76,15 @@ export class HelperService {
         unique.forEach(element => {
             array.push({ label: element, value: element })
         })
+        array.sort((a, b) => {
+            if (a.value < b.value) {
+                return -1
+            }
+            if (a.value > b.value) {
+                return 1
+            }
+            return 0
+        })
         return array
     }
 

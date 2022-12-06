@@ -1168,7 +1168,7 @@
                 "description": "Vorname"
             },
             {
-                "id": "headerNationality",
+                "id": "headerCountry",
                 "description": "Nationalität"
             },
             {
@@ -1683,8 +1683,8 @@
                 "description": "Vorname"
             },
             {
-                "id": "headerNationality",
-                "description": "Nationalität"
+                "id": "headerCountry",
+                "description": "Land"
             },
             {
                 "id": "headerGender",

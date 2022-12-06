@@ -10,7 +10,7 @@
             <p-fieldset [legend]="getLabel('date')">
                 <div id="calendar-wrapper">
                     <mat-card id="calendar-card">
-                        <mat-calendar #calendar (click)="gotoDate(selectedDate)" [(selected)]="selectedDate" [startAt]="selectedDate"></mat-calendar>
+                        <mat-calendar #calendar (click)="selectDate(selectedDate)" [(selected)]="selectedDate" [startAt]="selectedDate"></mat-calendar>
                     </mat-card>
                     <button (click)="gotoToday()" class="primary" mat-flat-button>{{ getLabel("todayButton") }}</button>
                 </div>
@@ -18,9 +18,11 @@
             <!-- Destination -->
             <p-fieldset [legend]="getLabel('destination')">
                 <div *ngFor="let destination of destinations">
-                    <div class="styled-input-single">
-                        <input formControlName="destinationId" type="radio" [value]="destination.id" [attr.id]="'destination' + destination.id">
-                        <label [attr.for]="'destination' + destination.id">{{ destination.description }}</label>
+                    <div formGroupName="destination">
+                        <div class="styled-input-single">
+                            <input class="destination" formControlName="id" type="radio" [value]="destination.id" [attr.id]="'destination' + destination.id" (click)="updateRadioButtons('destination', destination.id, destination.description)">
+                            <label [attr.for]="'destination' + destination.id">{{ destination.description }}</label>
+                        </div>
                     </div>
                 </div>
             </p-fieldset>
@@ -28,8 +30,8 @@
             <p-fieldset [legend]="getLabel('port')">
                 <div *ngFor="let port of ports">
                     <div class="styled-input-square">
-                        <div class="styled-input-single" (change)="onCheckboxChange($event, 'portIds')">
-                            <input formArrayName="portIds" type="checkbox" [value]="port.id" [attr.id]="'port' + port.id" [checked]="lookupPort(port.id)">
+                        <div class="styled-input-single" (change)="onCheckboxChange($event, port.description)">
+                            <input class="port" formArrayName="ports" type="checkbox" [value]="port.id" [attr.id]="'port' + port.id" [checked]="lookupPort(port.id)">
                             <label [attr.for]="'port' + port.id">{{ port.description }}</label>
                         </div>
                     </div>
@@ -38,14 +40,16 @@
             <!-- Ship -->
             <p-fieldset [legend]="getLabel('ship')">
                 <div *ngFor="let ship of ships">
-                    <div class="styled-input-single">
-                        <input formControlName="shipId" type="radio" [value]="ship.id" [attr.id]="'ship' + ship.id">
-                        <label [attr.for]="'ship' + ship.id">{{ ship.description }}</label>
+                    <div formGroupName="ship">
+                        <div class="styled-input-single">
+                            <input class="ship" formControlName="id" type="radio" [value]="ship.id" [attr.id]="'ship' + ship.id" (click)="updateRadioButtons('ship', ship.id, ship.description)">
+                            <label [attr.for]="'ship' + ship.id">{{ ship.description }}</label>
+                        </div>
                     </div>
                 </div>
             </p-fieldset>
         </form>
-        <p class="instructions" [class.hidden]=false>{{ form.value | json }} {{ form.valid }}</p>
+        <p class="instructions" [class.hidden]=true>{{ form.value | json }} {{ form.valid }}</p>
     </div>
 
 </div>

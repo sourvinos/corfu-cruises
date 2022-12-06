@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Features.Manifest {
@@ -18,7 +17,7 @@ namespace API.Features.Manifest {
         }
 
         [Authorize(Roles = "admin")]
-        public IEnumerable<ManifestVM> Get([FromQuery(Name = "date")] string date, [FromQuery(Name = "destinationId")] int destinationId, [FromQuery(Name = "shipId")] int shipId, [FromQuery(Name = "portId")] int[] portIds) {
+        public ManifestVM Get([FromQuery(Name = "date")] string date, [FromQuery(Name = "destinationId")] int destinationId, [FromQuery(Name = "shipId")] int shipId, [FromQuery(Name = "portId")] int[] portIds) {
             return repo.Get(date, destinationId, shipId, portIds);
         }
 

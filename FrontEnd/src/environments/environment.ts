@@ -16,6 +16,7 @@ export const environment = {
     featuresIconDirectory: 'assets/images/features/',
     criteriaIconDirectory: 'assets/images/criteria/',
     stopOrdersIconDirectory: 'assets/images/stopOrders/',
+    nationalitiesIconDirectory: 'assets/images/nationalities/',
     isWideScreen: 1920,
     year: 2022,
     login: {

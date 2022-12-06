@@ -65,7 +65,7 @@ export class AccountService extends HttpDataService {
             // Criteria
             { 'item': 'embarkation-criteria', 'when': 'production' },
             { 'item': 'invoicing-criteria', 'when': 'production' },
-            { 'item': 'manifest-criteria', 'when': 'production' },
+            { 'item': 'manifest-criteria', 'when': 'always' },
             // Table filters
             { 'item': 'coachRoute-list', 'when': 'always' },
             { 'item': 'customer-list', 'when': 'always' },

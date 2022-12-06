@@ -1168,7 +1168,7 @@
                 "description": "Jméno"
             },
             {
-                "id": "headerNationality",
+                "id": "headerCountry",
                 "description": "Národnost"
             },
             {
@@ -1683,8 +1683,8 @@
                 "description": "Jméno"
             },
             {
-                "id": "headerNationality",
-                "description": "Státní příslušnost"
+                "id": "headerCountry",
+                "description": "Země"
             },
             {
                 "id": "headerGender",
