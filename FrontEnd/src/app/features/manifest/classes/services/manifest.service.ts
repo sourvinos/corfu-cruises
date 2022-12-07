@@ -13,8 +13,8 @@ export class ManifestService extends HttpDataService {
         super(httpClient, environment.apiUrl + '/manifest')
     }
 
-    public get(date: string, destinationId: number, shipId: number, portIds: number[]): Observable<any> {
-        return this.http.get<any>(this.url + '?date=' + date + '&destinationId=' + destinationId + '&shipId=' + shipId + this.buildPortsQuery(portIds))
+    public get(date: string, destinationId: number, shipId: number, shipRouteId: number, portIds: number[]): Observable<any> {
+        return this.http.get<any>(this.url + '?date=' + date + '&destinationId=' + destinationId + '&shipId=' + shipId + '&shipRouteId=' + shipRouteId + this.buildPortsQuery(portIds))
     }
 
     private buildPortsQuery(portIds: number[]): string {

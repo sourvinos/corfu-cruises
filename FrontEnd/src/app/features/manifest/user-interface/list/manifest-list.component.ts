@@ -33,7 +33,7 @@ export class ManifestListComponent {
 
     public criteria: any
     public manifest: ManifestVM
-    public totals: number[] = [0, 0]
+    public totals: number[] = [0, 0, 0, 0]
 
     public dropdownGenders = []
     public dropdownNationalities = []
@@ -46,10 +46,11 @@ export class ManifestListComponent {
 
     ngOnInit(): void {
         this.loadRecords()
-        this.calculateTableHeight()
+        this.addCrewToPassengers()
         this.populateDropdownFilters()
         this.populateCriteriaFromStorage()
         this.updateTotals()
+        this.calculateTableHeight()
     }
 
     ngAfterViewInit(): void {
@@ -70,8 +71,7 @@ export class ManifestListComponent {
     }
 
     public filterManifest(event: { filteredValue: any[] }): void {
-        this.totals[0] = this.manifest.passengers.length
-        this.totals[1] = event.filteredValue.reduce((sum: number) => sum + 1, 0)
+        this.totals[3] = event.filteredValue.reduce((sum: number) => sum + 1, 0)
     }
 
     public formatDateToLocale(date: string, showWeekday: boolean): string {
@@ -107,6 +107,13 @@ export class ManifestListComponent {
 
     //#region private methods
 
+    private addCrewToPassengers(): void {
+        if (this.manifest.passengers.length > 0) {
+            this.manifest.ship.crew.forEach(crew => {
+                this.manifest.passengers.push(crew)
+            })
+        }
+    }
     private calculateTableHeight(): void {
         setTimeout(() => {
             document.getElementById('table-wrapper').style.height = this.helperService.calculateTableWrapperHeight('top-bar', 'header', 'footer')
@@ -160,7 +167,9 @@ export class ManifestListComponent {
 
     private updateTotals(): void {
         this.totals[0] = this.manifest?.passengers.length
-        this.totals[1] = this.manifest?.passengers.reduce((sum: number) => sum + 1, 0)
+        this.totals[1] = this.manifest?.passengers.filter(x => x.occupant == 'PASSENGER').length
+        this.totals[2] = this.manifest?.passengers.filter(x => x.occupant == 'CREW').length
+        this.totals[3] = this.manifest?.passengers.reduce((sum: number) => sum + 1, 0)
     }
 
     //#endregion

@@ -1699,20 +1699,12 @@
                 "description": "Σχόλια"
             },
             {
-                "id": "countLabel",
-                "description": "Σύνολο ατόμων"
+                "id": "countPassengers",
+                "description": "ε"
             },
             {
-                "id": "passengerCountLabel",
-                "description": "Επιβάτες"
-            },
-            {
-                "id": "crewCountLabel",
-                "description": "Πλήρωμα"
-            },
-            {
-                "id": "no-results",
-                "description": "Δεν βρήκαμε τίποτα!"
+                "id": "countCrew",
+                "description": "π"
             },
             {
                 "id": "createPdfButton",

@@ -1699,20 +1699,12 @@
                 "description": "Komentáře"
             },
             {
-                "id": "countLabel",
-                "description": "Celkem osob"
+                "id": "countPassengers",
+                "description": "c"
             },
             {
-                "id": "passengerCountLabel",
-                "description": "Cestující"
-            },
-            {
-                "id": "crewCountLabel",
-                "description": "Posádka"
-            },
-            {
-                "id": "no-results",
-                "description": "Nic jsme nenašli!"
+                "id": "countCrew",
+                "description": "p"
             },
             {
                 "id": "createPdfButton",

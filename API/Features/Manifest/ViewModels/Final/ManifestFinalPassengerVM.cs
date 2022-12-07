@@ -1,6 +1,6 @@
 namespace API.Features.Manifest {
 
-    public class PassengerVM {
+    public class ManifestFinalPassengerVM {
 
         public string Lastname { get; set; }
         public string Firstname { get; set; }

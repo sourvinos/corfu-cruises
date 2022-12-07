@@ -22,7 +22,7 @@
     </div>
 
     <div id="table-wrapper">
-        <p-table #table (onFilter)="filterManifest($event)" [autoLayout]="false" [scrollable]="true" [value]="manifest?.passengers" dataKey="id" selectionMode="single" scrollHeight="flex" sortMode="multiple">
+        <p-table #table (onFilter)="filterManifest($event)" [autoLayout]="false" [scrollable]="true" [value]="manifest?.passengers" [virtualScroll]="false" [virtualScrollItemSize]="33" dataKey="id" selectionMode="single" scrollHeight="flex" sortMode="multiple">
             <ng-template pTemplate="header">
                 <tr>
                     <th style="width: 20rem; border-radius: 0.75rem 0 0 0;" pSortableColumn="lastname">{{ getLabel('headerLastname') }}<p-sortIcon field="lastname"></p-sortIcon></th>
@@ -81,11 +81,11 @@
         <div id="filters">
             <div class="pill">
                 <img [src]="getIcon('total')">
-                <div class="number description">{{ totals[0] || 0 }}</div>
+                <div class="number description">{{ totals[0] || 0 }} ( {{ getLabel('countPassengers') }} {{ totals[1] || 0}} / {{ getLabel('countCrew') }} {{ totals[2] || 0}} ) </div>
             </div>
             <div class="pill">
                 <img [src]="getIcon('filter')">
-                <div class="number description">{{ totals[1] || 0}}</div>
+                <div class="number description">{{ totals[3] || 0}}</div>
             </div>
         </div>
         <div class="button-group">

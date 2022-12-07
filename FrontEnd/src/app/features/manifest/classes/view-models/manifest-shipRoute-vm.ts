@@ -1,15 +1,11 @@
-export class ManifestShipRouteVM {
+export interface ManifestShipRouteVM {
 
-    constructor(
-
-        public description: string,
-        public fromPort: string,
-        public fromTime: string,
-        public viaPort: string,
-        public viaTime: string,
-        public toPort: string,
-        public toTime: string
-
-    ) { }
+    description: string
+    fromPort: string
+    fromTime: string
+    viaPort: string
+    viaTime: string
+    toPort: string
+    toTime: string
 
 }

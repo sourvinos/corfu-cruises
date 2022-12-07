@@ -1,17 +1,13 @@
-export class ManifestShipOwnerVM {
+export interface ManifestShipOwnerVM {
 
-    constructor(
-
-        public id: number,
-        public description: string,
-        public profession: string,
-        public address: string,
-        public taxNo: string,
-        public city: string,
-        public phones: string,
-        public email: string,
-        public isActive: boolean
-
-    ) { }
+    id: number
+    description: string
+    profession: string
+    address: string
+    taxNo: string
+    city: string
+    phones: string
+    email: string
+    isActive: boolean
 
 }

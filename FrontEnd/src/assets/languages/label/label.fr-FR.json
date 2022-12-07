@@ -1699,20 +1699,12 @@
                 "description": "Remarques"
             },
             {
-                "id": "countLabel",
-                "description": "Personnes"
+                "id": "countPassengers",
+                "description": "p"
             },
             {
-                "id": "passengerCountLabel",
-                "description": "Passagers"
-            },
-            {
-                "id": "crewCountLabel",
-                "description": "Equipage"
-            },
-            {
-                "id": "no-results",
-                "description": "Nous n'avons rien trouvé!"
+                "id": "countCrew",
+                "description": "é"
             },
             {
                 "id": "createPdfButton",

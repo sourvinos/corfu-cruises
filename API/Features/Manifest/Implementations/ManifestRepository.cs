@@ -1,9 +1,8 @@
-using System;
 using System.Linq;
 using API.Features.Reservations;
 using API.Infrastructure.Classes;
-using API.Infrastructure.Helpers;
 using API.Infrastructure.Implementations;
+using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
@@ -12,46 +11,39 @@ namespace API.Features.Manifest {
 
     public class ManifestRepository : Repository<Reservation>, IManifestRepository {
 
-        public ManifestRepository(AppDbContext appDbContext, IHttpContextAccessor httpContext, IOptions<TestingEnvironment> settings) : base(appDbContext, httpContext, settings) { }
+        private readonly IMapper mapper;
 
-        public ManifestVM Get(string date, int destinationId, int shipId, int[] portIds) {
-            return context.Reservations
-                .AsNoTracking()
-                .Include(x => x.Destination)
-                .Include(x => x.Passengers).ThenInclude(x => x.Nationality)
-                .Include(x => x.Passengers).ThenInclude(x => x.Gender)
-                .Include(x => x.Passengers).ThenInclude(x => x.Occupant)
-                .Where(x => x.Date == Convert.ToDateTime(date) && x.DestinationId == destinationId && portIds.Contains(x.PortId) && x.ShipId == shipId && x.Passengers.All(x => x.IsCheckedIn))
-                .AsEnumerable()
-                .GroupBy(x => new { x.Date, Destination = x.Destination.Description }).Select(x => new ManifestVM {
-                    Date = DateHelpers.DateToISOString(x.Key.Date),
-                    Destination = x.Key.Destination,
-                    Passengers = x.SelectMany(x => x.Passengers).Select(x => new PassengerVM {
-                        Lastname = x.Lastname.ToUpper(),
-                        Firstname = x.Firstname.ToUpper(),
-                        Birthdate = DateHelpers.DateToISOString(x.Birthdate),
-                        Remarks = x.Remarks,
-                        SpecialCare = x.SpecialCare,
-                        Gender = x.Gender.Description,
-                        NationalityDescription = x.Nationality.Description,
-                        NationalityCode = x.Nationality.Code.ToUpper(),
-                        Occupant = x.Occupant.Description
-                    }).OrderBy(x => x.Lastname),
-                    Crew = context.ShipCrews
-                        .AsNoTracking()
-                        .Where(x => x.ShipId == shipId)
-                        .OrderBy(x => x.Lastname).ThenBy(x => x.Firstname).ThenByDescending(x => x.Birthdate)
-                        .Select(x => new PassengerVM {
-                            Lastname = x.Lastname,
-                            Firstname = x.Firstname,
-                            Birthdate = DateHelpers.DateToISOString(x.Birthdate),
-                            Gender = x.Gender.Description,
-                            NationalityCode = x.Nationality.Code.ToUpper(),
-                            NationalityDescription = x.Nationality.Description,
-                            Occupant = x.Occupant.Description
-                        }).OrderBy(x => x.Lastname)
-                })
-                .SingleOrDefault();
+        public ManifestRepository(AppDbContext appDbContext, IMapper mapper, IHttpContextAccessor httpContext, IOptions<TestingEnvironment> settings) : base(appDbContext, httpContext, settings) {
+            this.mapper = mapper;
+        }
+
+        public ManifestFinalVM Get(string date, int destinationId, int shipId, int shipRouteId, int[] portIds) {
+            var manifest = new ManifestInitialVM {
+                Date = date,
+                Destination = context.Destinations
+                    .FirstOrDefault(x => x.Id == destinationId),
+                Ship = context.Ships
+                    .Include(x => x.ShipOwner)
+                    .Include(x => x.Registrars.Where(x => x.IsActive))
+                    .Include(x => x.ShipCrews.Where(x => x.IsActive))
+                    .Include(x => x.ShipCrews.Where(x => x.IsActive)).ThenInclude(x => x.Gender)
+                    .Include(x => x.ShipCrews.Where(x => x.IsActive)).ThenInclude(x => x.Nationality)
+                    .Include(x => x.ShipCrews.Where(x => x.IsActive)).ThenInclude(x => x.Occupant)
+                    .FirstOrDefault(x => x.Id == shipId),
+                ShipRoute = context.ShipRoutes
+                    .FirstOrDefault(x => x.Id == shipRouteId),
+                Passengers = context.Passengers
+                    .Include(x => x.Nationality)
+                    .Include(x => x.Occupant)
+                    .Include(x => x.Gender)
+                    .Where(x => x.Reservation.Date.ToString() == date
+                        && x.Reservation.DestinationId == destinationId
+                        && x.Reservation.ShipId == shipId
+                        && portIds.Contains(x.Reservation.PickupPoint.CoachRoute.PortId)
+                        && x.IsCheckedIn)
+                    .ToList()
+            };
+            return mapper.Map<ManifestInitialVM, ManifestFinalVM>(manifest);
         }
 
     }

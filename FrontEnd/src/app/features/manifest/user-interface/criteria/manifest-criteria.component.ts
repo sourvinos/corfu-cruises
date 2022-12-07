@@ -10,10 +10,10 @@ import { DateHelperService } from 'src/app/shared/services/date-helper.service'
 import { DestinationActiveVM } from '../../../destinations/classes/view-models/destination-active-vm'
 import { InteractionService } from 'src/app/shared/services/interaction.service'
 import { LocalStorageService } from 'src/app/shared/services/local-storage.service'
-import { MessageHintService } from 'src/app/shared/services/messages-hint.service'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { PortActiveVM } from './../../../ports/classes/view-models/port-active-vm'
 import { ShipActiveVM } from 'src/app/features/ships/classes/view-models/ship-active-vm'
+import { ShipRouteActiveVM } from 'src/app/features/shipRoutes/classes/view-models/shipRoute-active-vm'
 import { ValidationService } from 'src/app/shared/services/validation.service'
 
 @Component({
@@ -35,15 +35,16 @@ export class ManifestCriteriaComponent {
     public icon = 'home'
     public parentUrl = null
 
+    public selectedDate = new Date()
     private criteria: any
     public destinations: DestinationActiveVM[] = []
     public ports: PortActiveVM[] = []
-    public selectedDate = new Date()
     public ships: ShipActiveVM[] = []
+    public shipRoutes: ShipRouteActiveVM[] = []
 
     //#endregion
 
-    constructor(private dateAdapter: DateAdapter<any>, private dateHelperService: DateHelperService, private formBuilder: FormBuilder, private interactionService: InteractionService, private localStorageService: LocalStorageService, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private router: Router) { }
+    constructor(private dateAdapter: DateAdapter<any>, private dateHelperService: DateHelperService, private formBuilder: FormBuilder, private interactionService: InteractionService, private localStorageService: LocalStorageService, private messageLabelService: MessageLabelService, private router: Router) { }
 
     //#region lifecycle hooks
 
@@ -115,9 +116,9 @@ export class ManifestCriteriaComponent {
 
     /**
      * Clears all radio buttons for the selected group and checks only the selected
-     * @param classname The radio group
-     * @param id The selected item id
-     * @param description The selected description
+     * @param classname: The radio group
+     * @param id: The selected item id
+     * @param description: The selected description
      */
     public updateRadioButtons(classname: any, id: any, description: any): void {
         const radios = document.getElementsByClassName(classname) as HTMLCollectionOf<HTMLInputElement>
@@ -167,6 +168,10 @@ export class ManifestCriteriaComponent {
             ship: this.formBuilder.group({
                 id: ['', [Validators.required]],
                 description: []
+            }),
+            shipRoute: this.formBuilder.group({
+                id: ['', [Validators.required]],
+                description: []
             })
         })
     }
@@ -179,6 +184,7 @@ export class ManifestCriteriaComponent {
         this.populateDropdownFromLocalStorage('destinations')
         this.populateDropdownFromLocalStorage('ships')
         this.populateDropdownFromLocalStorage('ports')
+        this.populateDropdownFromLocalStorage('shipRoutes')
     }
 
     private populateDropdownFromLocalStorage(table: string): void {
@@ -198,6 +204,10 @@ export class ManifestCriteriaComponent {
                 ship: {
                     'id': this.criteria.ship.id,
                     'description': this.criteria.ship.description
+                },
+                shipRoute: {
+                    'id': this.criteria.shipRoute.id,
+                    'description': this.criteria.shipRoute.description
                 }
             })
         }
@@ -208,7 +218,7 @@ export class ManifestCriteriaComponent {
     }
 
     /**
-     * Sets the selected date either today or whatever is stored
+     * Sets the selected date to today or whatever is stored
      */
     private setSelectedDate(): void {
         if (this.criteria != undefined) {

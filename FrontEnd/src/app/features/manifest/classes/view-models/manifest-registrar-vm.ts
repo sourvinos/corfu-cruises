@@ -1,4 +1,4 @@
-export class ManifestRegistrarVM {
+export interface ManifestRegistrarVM {
 
     fullname: string
     phones: string

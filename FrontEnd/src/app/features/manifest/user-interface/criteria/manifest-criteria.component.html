@@ -7,7 +7,7 @@
     <div id="content">
         <form id="form" [formGroup]="form" autocomplete="off">
             <!-- Date -->
-            <p-fieldset [legend]="getLabel('date')">
+            <p-fieldset [legend]="getLabel('date')" class="calendar">
                 <div id="calendar-wrapper">
                     <mat-card id="calendar-card">
                         <mat-calendar #calendar (click)="selectDate(selectedDate)" [(selected)]="selectedDate" [startAt]="selectedDate"></mat-calendar>
@@ -44,6 +44,17 @@
                         <div class="styled-input-single">
                             <input class="ship" formControlName="id" type="radio" [value]="ship.id" [attr.id]="'ship' + ship.id" (click)="updateRadioButtons('ship', ship.id, ship.description)">
                             <label [attr.for]="'ship' + ship.id">{{ ship.description }}</label>
+                        </div>
+                    </div>
+                </div>
+            </p-fieldset>
+            <!-- Ship route-->
+            <p-fieldset [legend]="getLabel('shipRoute')">
+                <div *ngFor="let shipRoute of shipRoutes">
+                    <div formGroupName="shipRoute">
+                        <div class="styled-input-single">
+                            <input class="shipRoute" formControlName="id" type="radio" [value]="shipRoute.id" [attr.id]="'shipRoute' + shipRoute.id" (click)="updateRadioButtons('shipRoute', shipRoute.id, shipRoute.description)">
+                            <label [attr.for]="'shipRoute' + shipRoute.id">{{ shipRoute.description }}</label>
                         </div>
                     </div>
                 </div>

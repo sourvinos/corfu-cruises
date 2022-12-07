@@ -21,6 +21,7 @@ import { ResetPasswordViewModel } from 'src/app/features/users/classes/view-mode
 import { ShipOwnerService } from 'src/app/features/shipOwners/classes/services/shipOwner.service'
 import { ShipService } from 'src/app/features/ships/classes/services/ship.service'
 import { environment } from 'src/environments/environment'
+import { ShipRouteService } from 'src/app/features/shipRoutes/classes/services/shipRoute.service'
 
 @Injectable({ providedIn: 'root' })
 
@@ -39,7 +40,7 @@ export class AccountService extends HttpDataService {
 
     //#endregion
 
-    constructor(httpClient: HttpClient, private coachRouteService: CoachRouteService, private customerService: CustomerService, private destinationService: DestinationService, private driverService: DriverService, private genderService: GenderService, private interactionService: InteractionService, private localStorageService: LocalStorageService, private nationalityService: NationalityService, private ngZone: NgZone, private pickupPointService: PickupPointService, private portService: PortService, private router: Router, private shipOwnerService: ShipOwnerService, private shipService: ShipService) {
+    constructor(httpClient: HttpClient, private coachRouteService: CoachRouteService, private customerService: CustomerService, private destinationService: DestinationService, private driverService: DriverService, private genderService: GenderService, private interactionService: InteractionService, private localStorageService: LocalStorageService, private nationalityService: NationalityService, private ngZone: NgZone, private pickupPointService: PickupPointService, private portService: PortService, private router: Router, private shipOwnerService: ShipOwnerService, private shipRouteService: ShipRouteService, private shipService: ShipService) {
         super(httpClient, environment.apiUrl)
     }
 
@@ -199,6 +200,7 @@ export class AccountService extends HttpDataService {
         this.portService.getActive().subscribe(response => { this.localStorageService.saveItem('ports', JSON.stringify(response)) })
         this.shipService.getActive().subscribe(response => { this.localStorageService.saveItem('ships', JSON.stringify(response)) })
         this.shipOwnerService.getActive().subscribe(response => { this.localStorageService.saveItem('shipOwners', JSON.stringify(response)) })
+        this.shipRouteService.getActive().subscribe(response => { this.localStorageService.saveItem('shipRoutes', JSON.stringify(response)) })
     }
 
     private setLoginStatus(status: boolean): void {
