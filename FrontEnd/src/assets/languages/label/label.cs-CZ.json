@@ -1708,7 +1708,7 @@
             },
             {
                 "id": "createPdfButton",
-                "description": "EXPORT DO PDF"
+                "description": "TISK"
             }
         ]
     },

@@ -1708,7 +1708,7 @@
             },
             {
                 "id": "createPdfButton",
-                "description": "ALS PDF EXPORTIEREN"
+                "description": "DRUCKEN"
             }
         ]
     },

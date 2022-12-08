@@ -11,9 +11,9 @@
     /*  Buttons */
     --color-button-text: #ffffff;
     --color-button-background-delete: #d94040;
-    --color-button-background-delete-hover: #ff7a7a;
-    --color-button-background-primary: #13678a;
-    --color-button-background-primary-hover: #799f9a;
+    --color-button-background-delete-hover: #af3c3c;
+    --color-button-background-primary: #86a2cb;
+    --color-button-background-primary-hover: #647997;
     /*  Checkboxes */
     --color-checkbox-background: #3baca3;
     /* Reservation Form Tabs */
@@ -41,7 +41,7 @@
     /* Date picker calendar */
     --color-day-border: #3baca3;
     --color-range-between: rgb(201 135 77 / 60%);
-    --color-day-selected:#3baca3;
+    --color-day-selected: #3baca3;
     /* Custom calendar */
     --color-background-saturday: #f29c6b;
     --color-background-sunday: #f26513;

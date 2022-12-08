@@ -1708,7 +1708,7 @@
             },
             {
                 "id": "createPdfButton",
-                "description": "CRÉER UN PDF"
+                "description": "IMPRIMER"
             }
         ]
     },
