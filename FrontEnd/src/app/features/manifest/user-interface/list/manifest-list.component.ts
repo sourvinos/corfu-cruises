@@ -167,10 +167,10 @@ export class ManifestListComponent {
     }
 
     private updateTotals(): void {
-        this.totals[0] = this.manifest?.passengers.length
-        this.totals[1] = this.manifest?.passengers.filter(x => x.occupant == 'PASSENGER').length
-        this.totals[2] = this.manifest?.passengers.filter(x => x.occupant == 'CREW').length
-        this.totals[3] = this.manifest?.passengers.reduce((sum: number) => sum + 1, 0)
+        this.totals[0] = this.manifest.passengers.length
+        this.totals[1] = this.manifest.passengers.filter(x => x.occupant == 'PASSENGER').length
+        this.totals[2] = this.manifest.passengers.filter(x => x.occupant == 'CREW').length
+        this.totals[3] = this.manifest.passengers.reduce((sum: number) => sum + 1, 0)
     }
 
     //#endregion
