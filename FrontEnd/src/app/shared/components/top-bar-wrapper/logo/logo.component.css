@@ -8,7 +8,7 @@
 #logo-image {
     color: #83b4ed !important;
     position: absolute;
-    width: var(--font-size-logo-image);
+    width: 3rem;
 }
 
 #logo-text {
@@ -17,5 +17,5 @@
     font-size: var(--font-size-logo-text) !important;
     font-weight: var(--font-weight-logo);
     line-height: 2.25rem;
-    margin: 0.125rem 0 0 5.2rem;
+    margin: 0.125rem 0 0 3.5rem;
 }

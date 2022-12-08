@@ -35,14 +35,6 @@
     transform: scale(1, 2.0);
 }
 
-.pill.number {
-    min-width: 6rem;
-}
-
-.pill.date {
-    min-width: 8rem;
-}
-
 .pill:nth-child(1) {
     background-color: var(--color-criteria-a);
     border-color: var(--color-criteria-a-border) !important;
