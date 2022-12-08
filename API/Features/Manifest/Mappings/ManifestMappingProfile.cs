@@ -41,9 +41,9 @@ namespace API.Features.Manifest {
                         .ConvertAll(crew => new ManifestFinalCrewVM {
                             Lastname = crew.Lastname.ToUpper(),
                             Firstname = crew.Firstname.ToUpper(),
-                            Birthdate = DateHelpers.DateTimeToISOString(crew.Birthdate),
+                            Birthdate = DateHelpers.DateToISOString(crew.Birthdate),
                             Gender = crew.Gender.Description,
-                            NationalityCode = crew.Nationality.Code,
+                            NationalityCode = crew.Nationality.Code.ToUpper(),
                             NationalityDescription = crew.Nationality.Description,
                             Occupant = crew.Occupant.Description,
                         })
@@ -62,10 +62,10 @@ namespace API.Features.Manifest {
                 .ForMember(x => x.Passengers, x => x.MapFrom(source => source.Passengers.Select(passenger => new ManifestFinalPassengerVM {
                     Lastname = passenger.Lastname.ToUpper(),
                     Firstname = passenger.Firstname.ToUpper(),
-                    Birthdate = DateHelpers.DateTimeToISOString(passenger.Birthdate),
+                    Birthdate = DateHelpers.DateToISOString(passenger.Birthdate),
                     Remarks = passenger.Remarks,
                     SpecialCare = passenger.SpecialCare,
-                    NationalityCode = passenger.Nationality.Code,
+                    NationalityCode = passenger.Nationality.Code.ToUpper(),
                     Gender = passenger.Gender.Description,
                     NationalityDescription = passenger.Nationality.Description,
                     Occupant = passenger.Occupant.Description

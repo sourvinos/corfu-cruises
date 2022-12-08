@@ -1708,7 +1708,7 @@
             },
             {
                 "id": "createPdfButton",
-                "description": "ΔΗΜΙΟΥΡΓΙΑ PDF"
+                "description": "ΕΞΑΓΩΓΗ ΣΕ PDF"
             }
         ]
     },
