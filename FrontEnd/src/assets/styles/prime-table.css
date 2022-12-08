@@ -3,6 +3,7 @@
 }
 
 .p-datatable-tbody {
+    backdrop-filter: blur(var(--blur));
     height: 100% !important;
     top: 0 !important;
 }

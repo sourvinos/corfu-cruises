@@ -37,6 +37,7 @@ input:-internal-autofill-previewed, input:-internal-autofill-selected {
 }
 
 .mat-form-field {
+    backdrop-filter: blur(var(--blur));
     background-color: #cddc3905 !important;
     border-radius: 10px;
     border: 1px solid var(--color-b) !important;
