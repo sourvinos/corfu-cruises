@@ -67,7 +67,7 @@ button.tab:first-child {
 }
 
 button.mat-mini-fab {
-    background-color: transparent !important;
+    background-color: var(--color-b) !important;
     box-shadow: none !important;
     color: var(--color-a) !important;
     margin: 0 !important;

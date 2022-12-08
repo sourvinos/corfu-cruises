@@ -61,6 +61,7 @@
 .mat-calendar-body-cell {
     background-color: transparent !important;
     border-radius: 50%;
+    font-family: var(--font-family-manrope) !important;
     transition: background-color 0.4s ease-out;
 }
 
