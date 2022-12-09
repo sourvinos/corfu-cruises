@@ -15,6 +15,12 @@ import { MessageSnackbarService } from 'src/app/shared/services/messages-snackba
 
 export class LanguageMenuComponent {
 
+    //#region variables
+
+    public imgIsLoaded = false
+
+    //#endregion
+
     constructor(private interactionService: InteractionService, private localStorageService: LocalStorageService, private messageCalendarService: MessageCalendarService, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService) { }
 
     //#region listeners
@@ -43,6 +49,14 @@ export class LanguageMenuComponent {
         document.querySelectorAll('.sub-menu').forEach((item) => {
             item.classList.add('hidden')
         })
+    }
+
+    public imageIsLoading(): any {
+        return this.imgIsLoaded ? '' : 'skeleton'
+    }
+
+    public loadImage(): void {
+        this.imgIsLoaded = true
     }
 
     //#endregion

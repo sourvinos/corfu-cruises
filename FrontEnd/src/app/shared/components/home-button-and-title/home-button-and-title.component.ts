@@ -17,6 +17,8 @@ export class HomeButtonAndTitleComponent {
     @Input() featureIcon: string
     @Input() header: string
 
+    public imgIsLoaded = false
+
     constructor(private messageLabelService: MessageLabelService) { }
 
     public getIcon(): string {
@@ -29,6 +31,14 @@ export class HomeButtonAndTitleComponent {
 
     public getFeatureIcon(): any {
         return environment.featuresIconDirectory + this.featureIcon + '.svg'
+    }
+
+    public imageIsLoading(): any {
+        return this.imgIsLoaded ? '' : 'skeleton'
+    }
+
+    public loadImage(): void {
+        this.imgIsLoaded = true
     }
 
 }

@@ -32,6 +32,7 @@ export class ManifestListComponent {
     public icon = 'arrow_back'
     public parentUrl = '/manifest'
 
+    public imgIsLoaded = false
     public criteria: any
     public manifest: ManifestVM
     public totals: number[] = [0, 0, 0, 0]
@@ -51,11 +52,11 @@ export class ManifestListComponent {
         this.populateDropdownFilters()
         this.populateCriteriaFromStorage()
         this.updateTotals()
-        this.calculateTableHeight()
     }
 
     ngAfterViewInit(): void {
         this.enableDisableFilters()
+        this.calculateTableHeight()
     }
 
     ngOnDestroy(): void {
@@ -99,6 +100,14 @@ export class ManifestListComponent {
         this.router.navigate([this.parentUrl])
     }
 
+    public imageIsLoading(): any {
+        return this.imgIsLoaded ? '' : 'skeleton'
+    }
+
+    public loadImage(): void {
+        this.imgIsLoaded = true
+    }
+
     public resetTableFilters(table: any): void {
         this.clearTableFilters(table)
         this.updateTotals()
@@ -118,7 +127,7 @@ export class ManifestListComponent {
     private calculateTableHeight(): void {
         setTimeout(() => {
             document.getElementById('table-wrapper').style.height = this.helperService.calculateTableWrapperHeight('top-bar', 'header', 'footer')
-        }, 500)
+        }, 1000)
     }
 
     private clearTableFilters(table: { clear: () => void }): void {

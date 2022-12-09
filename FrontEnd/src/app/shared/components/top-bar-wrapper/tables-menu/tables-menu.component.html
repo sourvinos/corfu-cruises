@@ -3,7 +3,13 @@
         <ul>
             <li>
                 <button>
-                    <img [src]="getIcon('tables')" height="25px">
+                    <!-- <img [src]="getIcon('tables')" height="25px" [ngClass]="imageIsLoading()" (load)="loadImage()"> -->
+                    <img 
+                    (load)="loadImage()" 
+                    [ngClass]="imageIsLoading()" 
+                    [src]="getIcon('tables')"
+                    style="--height: 25px; --width: 25px"
+                    >
                     <span class="material-icons-outlined">expand_more</span>
                 </button>
                 <ul class="sub-menu" (click)="hideMenu()">

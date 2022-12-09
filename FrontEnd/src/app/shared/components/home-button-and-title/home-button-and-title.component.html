@@ -1,9 +1,9 @@
 <div id="navigation">
-    <button *ngIf="parentUrl != null" data-cy="home-button" mat-mini-fab [routerLink]="[parentUrl]">
+    <button *ngIf="parentUrl != null" mat-mini-fab [routerLink]="[parentUrl]">
         <span class="material-icons" id="goBack">{{ getIcon() }}</span>
     </button>
     <div id="title">
-        <img *ngIf="featureIcon" id="feature-icon" [src]="getFeatureIcon()">
+        <img *ngIf="featureIcon" [src]="getFeatureIcon()" style="--height: 48px; --width: 48px" (load)="loadImage()" [ngClass]="imageIsLoading()" id="feature-icon">
         <h1>{{ getLabel() }}</h1>
     </div>
 </div>

@@ -20,6 +20,7 @@ export class UserMenuComponent {
 
     private userId: string
     public displayedUsername: string
+    public imgIsLoaded = false
     public menuItems = []
 
     //#endregion
@@ -65,6 +66,14 @@ export class UserMenuComponent {
         document.querySelectorAll('.sub-menu').forEach((item) => {
             item.classList.add('hidden')
         })
+    }
+
+    public imageIsLoading(): any {
+        return this.imgIsLoaded ? '' : 'skeleton'
+    }
+
+    public loadImage(): void {
+        this.imgIsLoaded = true
     }
 
     public logout(): void {

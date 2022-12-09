@@ -1,10 +1,10 @@
 import { Component, HostListener } from '@angular/core'
-import { Router } from '@angular/router'
 import { Observable, Subject, takeUntil } from 'rxjs'
+import { Router } from '@angular/router'
 // Custom
 import { AccountService } from 'src/app/shared/services/account.service'
-import { InteractionService } from 'src/app/shared/services/interaction.service'
 import { ConnectedUser } from 'src/app/shared/classes/connected-user'
+import { InteractionService } from 'src/app/shared/services/interaction.service'
 import { LocalStorageService } from 'src/app/shared/services/local-storage.service'
 import { MessageMenuService } from 'src/app/shared/services/messages-menu.service'
 import { environment } from 'src/environments/environment'
@@ -20,6 +20,7 @@ export class TasksMenuComponent {
     //#region variables
 
     private ngunsubscribe = new Subject<void>()
+    public imgIsLoaded = false
     public loginStatus: Observable<boolean>
     public menuItems: [] = []
 
@@ -53,27 +54,6 @@ export class TasksMenuComponent {
 
     //#endregion
 
-    //#region private methods
-
-    private createMenu(response: any): void {
-        this.menuItems = response
-    }
-
-    private subscribeToInteractionService(): void {
-        this.interactionService.refreshMenus.pipe(takeUntil(this.ngunsubscribe)).subscribe(() => {
-            this.messageMenuService.getMessages().then((response) => {
-                this.menuItems = response
-                this.createMenu(response)
-            })
-        })
-    }
-
-    private updateVariables(): void {
-        this.loginStatus = this.accountService.isLoggedIn
-    }
-
-    //#endregion
-
     //#region public methods
 
     public doNavigationTasks(feature: string): void {
@@ -94,8 +74,37 @@ export class TasksMenuComponent {
         })
     }
 
+    public imageIsLoading(): any {
+        return this.imgIsLoaded ? '' : 'skeleton'
+    }
+
     public isAdmin(): boolean {
         return ConnectedUser.isAdmin
+    }
+
+    public loadImage(): void {
+        this.imgIsLoaded = true
+    }
+
+    //#endregion
+
+    //#region private methods
+
+    private createMenu(response: any): void {
+        this.menuItems = response
+    }
+
+    private subscribeToInteractionService(): void {
+        this.interactionService.refreshMenus.pipe(takeUntil(this.ngunsubscribe)).subscribe(() => {
+            this.messageMenuService.getMessages().then((response) => {
+                this.menuItems = response
+                this.createMenu(response)
+            })
+        })
+    }
+
+    private updateVariables(): void {
+        this.loginStatus = this.accountService.isLoggedIn
     }
 
     //#endregion
