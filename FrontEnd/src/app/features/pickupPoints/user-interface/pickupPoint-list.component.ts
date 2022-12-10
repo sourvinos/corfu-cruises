@@ -40,7 +40,6 @@ export class PickupPointListComponent {
 
     ngOnInit(): void {
         this.loadRecords()
-        // this.calculateTableHeight()
         this.populateDropdownFilters()
     }
 
@@ -52,12 +51,12 @@ export class PickupPointListComponent {
 
     //#region public methods
 
-    public editRecord(id: number): void {
-        this.router.navigate([this.url, id])
+    public createPdf(): void {
+        this.pickupPointPdfService.createReport(this.recordsFiltered)
     }
 
-    public exportRecords(): void {
-        this.pickupPointPdfService.createReport(this.recordsFiltered)
+    public editRecord(id: number): void {
+        this.router.navigate([this.url, id])
     }
 
     public filterRecords(event: { filteredValue: any[] }): void {
@@ -79,12 +78,6 @@ export class PickupPointListComponent {
     //#endregion
 
     //#region private methods
-
-    private calculateTableHeight(): void {
-        setTimeout(() => {
-            document.getElementById('table-wrapper').style.height = this.helperService.calculateTableWrapperHeight('top-bar', 'header', 'footer')
-        }, 500)
-    }
 
     private cleanup(): void {
         this.unsubscribe.next()

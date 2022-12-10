@@ -250,11 +250,11 @@
                 "description": "Heure"
             },
             {
-                "id": "newButton",
+                "id": "newRecord",
                 "description": "NOUVEAU"
             },
             {
-                "id": "export",
+                "id": "createPdf",
                 "description": "CRÉER UN PDF"
             }
         ]
@@ -1707,8 +1707,8 @@
                 "description": "é"
             },
             {
-                "id": "createPdfButton",
-                "description": "IMPRIMER"
+                "id": "createPdf",
+                "description": "CRÉER UN PDF"
             }
         ]
     },

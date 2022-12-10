@@ -227,7 +227,7 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Σημεία παραλαβής επιβατών"
+                "description": "Σημεία παραλαβής"
             },
             {
                 "id": "headerIsActive",
@@ -250,11 +250,11 @@
                 "description": "Ώρα"
             },
             {
-                "id": "newButton",
+                "id": "newRecord",
                 "description": "ΝΕΟ"
             },
             {
-                "id": "export",
+                "id": "createPdf",
                 "description": "ΔΗΜΙΟΥΡΓΙΑ PDF"
             }
         ]
@@ -1707,8 +1707,8 @@
                 "description": "π"
             },
             {
-                "id": "createPdfButton",
-                "description": "ΕΚΤΥΠΩΣΗ"
+                "id": "createPdf",
+                "description": "ΔΗΜΙΟΥΡΓΙΑ PDF"
             }
         ]
     },

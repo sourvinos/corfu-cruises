@@ -5,34 +5,21 @@
     </div>
 
     <div id="table-wrapper">
-        <p-table #table 
-            (onFilter)="filterRecords($event)" 
-            [autoLayout]="false" 
-            [scrollable]="true" 
-            [value]="records" 
-            [virtualScrollItemSize]="40" 
-            [virtualScroll]="true" 
-            dataKey="id" 
-            scrollHeight="flex" 
-            selectionMode="single" 
-            sortMode="multiple" 
-            stateKey="pickupPoint-list" 
-            stateStorage="local"
-            >
+        <p-table #table (onFilter)="filterRecords($event)" [scrollable]="true" [value]="records" [virtualScrollItemSize]="33" [virtualScroll]="true" dataKey="id" scrollHeight="flex" selectionMode="single" sortMode="multiple" stateKey="pickupPoint-list" stateStorage="local">
             <ng-template pTemplate="header">
                 <tr>
-                    <th data-cy="column" style="width: 10%;" pSortableColumn="isActive">{{ getLabel("headerIsActive") }}<p-sortIcon field="isActive"></p-sortIcon></th>
-                    <th data-cy="column" style="width: 15%;" pSortableColumn="coachRouteAbbreviation">{{ getLabel("headerRouteAbbreviation") }}<p-sortIcon field="coachRouteAbbreviation"></p-sortIcon></th>
-                    <th data-cy="column" style="width: 35%;" pSortableColumn="description">{{ getLabel("headerDescription") }}<p-sortIcon field="description"></p-sortIcon></th>
-                    <th data-cy="column" style="width: 30%;" pSortableColumn="exactPoint">{{ getLabel("headerExactPoint") }}<p-sortIcon field="exactPoint"></p-sortIcon></th>
-                    <th data-cy="column" style="width: 10%;" pSortableColumn="time">{{ getLabel("headerTime") }}<p-sortIcon field="time"></p-sortIcon></th>
+                    <th style="width: 10%;" pSortableColumn="isActive">{{ getLabel("headerIsActive") }}<p-sortIcon field="isActive"></p-sortIcon></th>
+                    <th style="width: 15%;" pSortableColumn="coachRouteAbbreviation">{{ getLabel("headerRouteAbbreviation") }}<p-sortIcon field="coachRouteAbbreviation"></p-sortIcon></th>
+                    <th style="width: 35%;" pSortableColumn="description">{{ getLabel("headerDescription") }}<p-sortIcon field="description"></p-sortIcon></th>
+                    <th style="width: 30%;" pSortableColumn="exactPoint">{{ getLabel("headerExactPoint") }}<p-sortIcon field="exactPoint"></p-sortIcon></th>
+                    <th style="width: 10%;" pSortableColumn="time">{{ getLabel("headerTime") }}<p-sortIcon field="time"></p-sortIcon></th>
                 </tr>
                 <tr>
-                    <th style="width: 10%;"><p-columnFilter data-cy="filter-active" type="boolean" field="isActive"></p-columnFilter></th>
+                    <th style="width: 10%;"><p-columnFilter type="boolean" field="isActive"></p-columnFilter></th>
                     <th style="width: 15%;">
                         <p-columnFilter style="width: 100%;" field="coachRouteAbbreviation" matchMode="equals" [showMenu]="false">
                             <ng-template pTemplate="filter" let-value let-filter="filterCallback">
-                                <p-dropdown data-cy="filter-route" [ngModel]="value" [options]="dropdownRoutes" (onChange)="filter($event.value)" placeholder="⭐" [showClear]="true">
+                                <p-dropdown [ngModel]="value" [options]="dropdownRoutes" (onChange)="filter($event.value)" placeholder="⭐" [showClear]="true">
                                     <ng-template let-option pTemplate="item">
                                         <span>{{ option.label }}</span>
                                     </ng-template>
@@ -40,13 +27,13 @@
                             </ng-template>
                         </p-columnFilter>
                     </th>
-                    <th style="width: 35%;"><input data-cy="filter-description" type="text" class="p-inputtext" (input)="table.filter($event.target.value, 'description', 'contains')" [value]="$any(table).filters['description']?.value"></th>
-                    <th style="width: 30%;"><input data-cy="filter-exactPoint" type="text" class="p-inputtext" (input)="table.filter($event.target.value, 'exactPoint', 'contains')" [value]="$any(table).filters['exactPoint']?.value"></th>
-                    <th style="width: 10%;"><input data-cy="filter-time" type="text" class="p-inputtext center" (input)="table.filter($event.target.value, 'time', 'contains')" [value]="$any(table).filters['time']?.value"></th>
+                    <th style="width: 35%;"><input type="text" class="p-inputtext" (input)="table.filter($event.target.value, 'description', 'contains')" [value]="$any(table).filters['description']?.value"></th>
+                    <th style="width: 30%;"><input type="text" class="p-inputtext" (input)="table.filter($event.target.value, 'exactPoint', 'contains')" [value]="$any(table).filters['exactPoint']?.value"></th>
+                    <th style="width: 10%;"><input type="text" class="p-inputtext center" (input)="table.filter($event.target.value, 'time', 'contains')" [value]="$any(table).filters['time']?.value"></th>
                 </tr>
             </ng-template>
             <ng-template pTemplate="body" let-rowData>
-                <tr data-cy="row" [pSelectableRow]="rowData" (dblclick)="editRecord(rowData.id)" class="p-highlight" style="height:40px">
+                <tr [pSelectableRow]="rowData" (dblclick)="editRecord(rowData.id)" class="p-highlight" style="height:33px">
                     <td [ngClass]="rowData.isActive ? 'is-active': 'is-not-active'" style="width: 10%; text-align: center;">
                         <span *ngIf="rowData.isActive" class="is-active material-icons-outlined">check_circle</span>
                         <span *ngIf="!rowData.isActive" class="is-not-active material-icons-outlined">highlight_off</span>
@@ -72,8 +59,8 @@
             </div>
         </div>
         <div class="button-group">
-            <button data-cy="export" mat-flat-button class="secondary" id="export" (click)="exportRecords()">{{ getLabel("export") }}</button>
-            <button data-cy="new" mat-flat-button class="primary" id="new" (click)="newRecord()">{{ getLabel("newButton") }}</button>
+            <button mat-flat-button class="secondary" (click)="createPdf()">{{ getLabel("createPdf") }}</button>
+            <button mat-flat-button class="primary" (click)="newRecord()">{{ getLabel("newRecord") }}</button>
         </div>
     </div>
 

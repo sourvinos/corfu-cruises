@@ -250,11 +250,11 @@
                 "description": "Čas"
             },
             {
-                "id": "newButton",
+                "id": "newRecord",
                 "description": "NOVÝ"
             },
             {
-                "id": "export",
+                "id": "createPdf",
                 "description": "VYTVOŘIT PDF"
             }
         ]
@@ -1707,8 +1707,8 @@
                 "description": "p"
             },
             {
-                "id": "createPdfButton",
-                "description": "TISK"
+                "id": "createPdf",
+                "description": "VYTVOŘIT PDF"
             }
         ]
     },

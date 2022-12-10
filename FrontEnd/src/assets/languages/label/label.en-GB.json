@@ -250,11 +250,11 @@
                 "description": "Time"
             },
             {
-                "id": "newButton",
+                "id": "newRecord",
                 "description": "NEW"
             },
             {
-                "id": "export",
+                "id": "createPdf",
                 "description": "CREATE PDF"
             }
         ]
@@ -1707,8 +1707,8 @@
                 "description": "c"
             },
             {
-                "id": "createPdfButton",
-                "description": "PRINT"
+                "id": "createPdf",
+                "description": "CREATE PDF"
             }
         ]
     },

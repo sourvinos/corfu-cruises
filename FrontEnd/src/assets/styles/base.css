@@ -124,4 +124,5 @@ p.instructions {
     background-color: var(--color-scrollbar-thumb);
     border-radius: 9999px;
     border: 0.25rem solid rgba(0, 0, 0, 0);
+    min-height: 5rem;
 }
