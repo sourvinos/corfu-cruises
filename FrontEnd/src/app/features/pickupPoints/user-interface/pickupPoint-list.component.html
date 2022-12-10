@@ -5,7 +5,20 @@
     </div>
 
     <div id="table-wrapper">
-        <p-table #table (onFilter)="filterRecords($event)" [autoLayout]="false" [scrollable]="true" [value]="records" [virtualScrollItemSize]="33" [virtualScroll]="false" dataKey="id" scrollHeight="flex" selectionMode="single" sortMode="multiple" stateKey="pickupPoint-list" stateStorage="local">
+        <p-table #table 
+            (onFilter)="filterRecords($event)" 
+            [autoLayout]="false" 
+            [scrollable]="true" 
+            [value]="records" 
+            [virtualScrollItemSize]="40" 
+            [virtualScroll]="true" 
+            dataKey="id" 
+            scrollHeight="flex" 
+            selectionMode="single" 
+            sortMode="multiple" 
+            stateKey="pickupPoint-list" 
+            stateStorage="local"
+            >
             <ng-template pTemplate="header">
                 <tr>
                     <th data-cy="column" style="width: 10%;" pSortableColumn="isActive">{{ getLabel("headerIsActive") }}<p-sortIcon field="isActive"></p-sortIcon></th>
@@ -33,7 +46,7 @@
                 </tr>
             </ng-template>
             <ng-template pTemplate="body" let-rowData>
-                <tr data-cy="row" [pSelectableRow]="rowData" (dblclick)="editRecord(rowData.id)" class="p-highlight">
+                <tr data-cy="row" [pSelectableRow]="rowData" (dblclick)="editRecord(rowData.id)" class="p-highlight" style="height:40px">
                     <td [ngClass]="rowData.isActive ? 'is-active': 'is-not-active'" style="width: 10%; text-align: center;">
                         <span *ngIf="rowData.isActive" class="is-active material-icons-outlined">check_circle</span>
                         <span *ngIf="!rowData.isActive" class="is-not-active material-icons-outlined">highlight_off</span>

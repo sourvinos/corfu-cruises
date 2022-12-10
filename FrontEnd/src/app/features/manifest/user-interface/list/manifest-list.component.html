@@ -22,15 +22,15 @@
     </div>
 
     <div id="table-wrapper">
-        <p-table #table (onFilter)="filterManifest($event)" [autoLayout]="false" [scrollable]="true" [value]="manifest?.passengers" [virtualScroll]="false" [virtualScrollItemSize]="33" dataKey="id" selectionMode="single" scrollHeight="flex" sortMode="multiple">
+        <p-table #table (onFilter)="filterManifest($event)" [scrollable]="true" [value]="manifest.passengers" [virtualScrollItemSize]="33" [virtualScroll]="true" dataKey="id" scrollHeight="flex" selectionMode="single" sortMode="multiple">
             <ng-template pTemplate="header">
                 <tr>
-                    <th style="width: 20rem; border-radius: 0.75rem 0 0 0;" pSortableColumn="lastname">{{ getLabel('headerLastname') }}<p-sortIcon field="lastname"></p-sortIcon></th>
+                    <th style="width: 20rem;" pSortableColumn="lastname">{{ getLabel('headerLastname') }}<p-sortIcon field="lastname"></p-sortIcon></th>
                     <th style="width: 15rem;" pSortableColumn="firstname">{{ getLabel('headerFirstname') }}<p-sortIcon field="firstname"></p-sortIcon></th>
                     <th style="width: 15rem;" pSortableColumn="nationalityDescription">{{ getLabel("headerCountry") }}<p-sortIcon field="nationalityDescription"></p-sortIcon></th>
                     <th style="width: 15rem;" pSortableColumn="gender">{{ getLabel("headerGender") }}<p-sortIcon field="gender"></p-sortIcon></th>
                     <th style="width: 15rem;" pSortableColumn="birthdate">{{ getLabel("headerBirthdate") }}<p-sortIcon field="birthdate"></p-sortIcon></th>
-                    <th style="width: 15rem; border-radius: 0 0.75rem 0 0;" pSortableColumn="remarks">{{ getLabel("headerRemarks") }}<p-sortIcon field="remarks"></p-sortIcon></th>
+                    <th style="width: 15rem;" pSortableColumn="remarks">{{ getLabel("headerRemarks") }}<p-sortIcon field="remarks"></p-sortIcon></th>
                 </tr>
                 <tr>
                     <th style="width: 20rem;"><input (input)="table.filter($event.target.value, 'lastname', 'contains')" [disabled]="manifest.passengers.length==0" [value]="$any(table).filters['lastname']?.value" class="p-inputtext"></th>
@@ -62,7 +62,7 @@
                 </tr>
             </ng-template>
             <ng-template pTemplate="body" let-rowData>
-                <tr [pSelectableRow]="rowData">
+                <tr [pSelectableRow]="rowData" style="height:33px">
                     <td style="width: 20rem;">{{ rowData.lastname }}</td>
                     <td style="width: 15rem;">{{ rowData.firstname }}</td>
                     <td style="width: 15rem;">

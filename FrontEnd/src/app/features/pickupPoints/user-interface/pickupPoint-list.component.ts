@@ -40,7 +40,7 @@ export class PickupPointListComponent {
 
     ngOnInit(): void {
         this.loadRecords()
-        this.calculateTableHeight()
+        // this.calculateTableHeight()
         this.populateDropdownFilters()
     }
 

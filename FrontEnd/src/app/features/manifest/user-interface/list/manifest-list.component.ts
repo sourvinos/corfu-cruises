@@ -56,7 +56,6 @@ export class ManifestListComponent {
 
     ngAfterViewInit(): void {
         this.enableDisableFilters()
-        this.calculateTableHeight()
     }
 
     ngOnDestroy(): void {
@@ -123,11 +122,6 @@ export class ManifestListComponent {
                 this.manifest.passengers.push(crew)
             })
         }
-    }
-    private calculateTableHeight(): void {
-        setTimeout(() => {
-            document.getElementById('table-wrapper').style.height = this.helperService.calculateTableWrapperHeight('top-bar', 'header', 'footer')
-        }, 1000)
     }
 
     private clearTableFilters(table: { clear: () => void }): void {
