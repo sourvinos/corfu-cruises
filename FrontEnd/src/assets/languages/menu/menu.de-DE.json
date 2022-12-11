@@ -1,12 +1,12 @@
 [
 
-    { "id": "reservations-calendar", "description": "Reservierung" },
-    { "id": "reservations-availability", "description": "Verfügbarkeit" }, 
-    { "id": "reservations-billing", "description": "Meine Abrechnungen" },
+    { "id": "reservations-reservations", "description": "Reservierung" },
+    { "id": "reservations-availability", "description": "Verfügbarkeit prüfen" }, 
+    { "id": "reservations-ledgers", "description": "Mein Hauptbuch" },
 
     { "id": "tasks-embarkation", "description": "Einschiffung" },
-    { "id": "tasks-billing", "description": "Kundenabrechnung" },
     { "id": "tasks-manifest", "description": "Schiffsmanifest" },
+    { "id": "tasks-ledgers", "description": "Kundenbücher" },
 
     { "id": "tables-coachRoutes", "description": "Busrouten" },
     { "id": "tables-customers", "description": "Kunden" },
@@ -17,13 +17,13 @@
     { "id": "tables-ports", "description": "Häfen" },
     { "id": "tables-schedules", "description": "Reisepläne" },
     { "id": "tables-ships", "description": "Schiffe" }, 
-    { "id": "tables-ships-crews", "description": "Besatzungen" },
-    { "id": "tables-ships-registrars", "description": "Fahrgastregistrierer" },
-    { "id": "tables-ships-shipOwners", "description": "Schiffseigner" },
-    { "id": "tables-ships-shipRoutes", "description": "Schiffsrouten" },
+    { "id": "tables-shipCrews", "description": "Besatzungen" },
+    { "id": "tables-registrars", "description": "Fahrgastregistrierer" },
+    { "id": "tables-shipOwners", "description": "Schiffseigner" },
+    { "id": "tables-shipRoutes", "description": "Schiffsrouten" },
     { "id": "tables-users", "description": "Benutzer" },
 
-    { "id": "my-account", "description": "Mein Konto" },
-    { "id": "logout", "description": "Ausloggen" }
+    { "id": "user-account", "description": "Mein Konto" },
+    { "id": "user-logout", "description": "Ausloggen" }
 
 ]

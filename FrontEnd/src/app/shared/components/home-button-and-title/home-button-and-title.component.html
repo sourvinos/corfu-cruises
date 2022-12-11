@@ -3,7 +3,7 @@
         <span class="material-icons" id="goBack">{{ getIcon() }}</span>
     </button>
     <div id="title">
-        <img *ngIf="featureIcon" [src]="getFeatureIcon()" style="--height: 48px; --width: 48px" (load)="loadImage()" [ngClass]="imageIsLoading()" id="feature-icon">
+        <img *ngIf="featureIcon" [src]="getFeatureIcon()" style="height: 48px; width: 48px" (load)="loadImage()" [ngClass]="imageIsLoading()" id="feature-icon">
         <h1>{{ getLabel() }}</h1>
     </div>
 </div>

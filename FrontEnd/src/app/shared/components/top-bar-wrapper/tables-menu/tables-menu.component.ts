@@ -5,7 +5,7 @@ import { Router } from '@angular/router'
 import { AccountService } from 'src/app/shared/services/account.service'
 import { ConnectedUser } from 'src/app/shared/classes/connected-user'
 import { InteractionService } from 'src/app/shared/services/interaction.service'
-import { LocalStorageService } from 'src/app/shared/services/local-storage.service'
+import { Menu } from 'src/app/shared/classes/menu'
 import { MessageMenuService } from 'src/app/shared/services/messages-menu.service'
 import { environment } from 'src/environments/environment'
 
@@ -22,11 +22,11 @@ export class TablesMenuComponent {
     private ngunsubscribe = new Subject<void>()
     public imgIsLoaded = false
     public loginStatus: Observable<boolean>
-    public menuItems: [] = []
+    public menuItems: Menu[] = []
 
     //#endregion
 
-    constructor(private accountService: AccountService, private interactionService: InteractionService, private localStorageService: LocalStorageService, private messageMenuService: MessageMenuService, private router: Router) { }
+    constructor(private accountService: AccountService, private interactionService: InteractionService, private messageMenuService: MessageMenuService, private router: Router) { }
 
     //#region listeners
 
@@ -44,7 +44,6 @@ export class TablesMenuComponent {
         this.messageMenuService.getMessages().then((response) => {
             this.createMenu(response)
             this.subscribeToInteractionService()
-
         })
     }
 
@@ -57,15 +56,11 @@ export class TablesMenuComponent {
     //#region public methods
 
     public doNavigationTasks(feature: string): void {
-        this.router.navigate([feature])
+        this.router.navigate([feature.substring(7)])
     }
 
     public getIcon(filename: string): string {
-        return environment.menuIconDirectory + filename + '-' + this.localStorageService.getItem('my-theme') + '.svg'
-    }
-
-    public getLabel(id: string): string {
-        return this.messageMenuService.getDescription(this.menuItems, id)
+        return environment.menuIconDirectory + filename + '.svg'
     }
 
     public hideMenu(): void {
@@ -90,8 +85,14 @@ export class TablesMenuComponent {
 
     //#region private methods
 
-    private createMenu(response: any): void {
-        this.menuItems = response
+    private createMenu(items: Menu[]): void {
+        this.menuItems = []
+        items.sort((a, b) => (a.description < b.description) ? -1 : 1)
+        items.forEach(item => {
+            if (item.id.startsWith('tables')) {
+                this.menuItems.push(item)
+            }
+        })
     }
 
     private subscribeToInteractionService(): void {

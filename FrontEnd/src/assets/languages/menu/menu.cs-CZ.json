@@ -1,12 +1,12 @@
 [
 
-    { "id": "reservations-calendar", "description": "Rezervace" },
-    { "id": "reservations-availability", "description": "Dostupnost" }, 
-    { "id": "reservations-billing", "description": "Moje vyúčtování" },
+    { "id": "reservations-reservations", "description": "Rezervace" },
+    { "id": "reservations-availability", "description": "Ověřit dostupnost" }, 
+    { "id": "reservations-ledgers", "description": "Moje kniha" },
 
     { "id": "tasks-embarkation", "description": "Nalodění" },
-    { "id": "tasks-billing", "description": "Vyúčtování zákazníkům" },
     { "id": "tasks-manifest", "description": "Zpráva o plavidle" },
+    { "id": "tasks-ledgers", "description": "Knihy zákazníků" },
 
     { "id": "tables-coachRoutes", "description": "Trasy autobusů" },
     { "id": "tables-customers", "description": "Zákazníci" },
@@ -17,13 +17,13 @@
     { "id": "tables-ports", "description": "Přístavy" },
     { "id": "tables-schedules", "description": "Rozvrhy" },
     { "id": "tables-ships", "description": "Lodě" },
-    { "id": "tables-ships-crews", "description": "Posádky" },
-    { "id": "tables-ships-registrars", "description": "Registrátoři" },
-    { "id": "tables-ships-shipOwners", "description": "Vlastníci" },
-    { "id": "tables-ships-shipRoutes", "description": "Trasy lodí" },
+    { "id": "tables-shipCrews", "description": "Posádky" },
+    { "id": "tables-registrars", "description": "Registrátoři" },
+    { "id": "tables-shipOwners", "description": "Vlastníci" },
+    { "id": "tables-shipRoutes", "description": "Trasy lodí" },
     { "id": "tables-users", "description": "Uživatelé" },
 
-    { "id": "my-account", "description": "Můj účet" },
-    { "id": "logout", "description": "Odhlásit set" }
+    { "id": "user-account", "description": "Můj účet" },
+    { "id": "user-logout", "description": "Odhlásit set" }
     
 ]

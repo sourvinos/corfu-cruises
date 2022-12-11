@@ -8,7 +8,7 @@
    y="0px"
    viewBox="0 0 24 24"
    xml:space="preserve"
-   sodipodi:docname="embarkation-criteria.svg"
+   sodipodi:docname="embarkation.svg"
    inkscape:version="1.2.1 (9c6d41e410, 2022-07-14)"
    width="24"
    height="24"
@@ -27,8 +27,8 @@
    inkscape:deskcolor="#d1d1d1"
    showgrid="false"
    inkscape:zoom="33.916667"
-   inkscape:cx="11.985258"
-   inkscape:cy="12"
+   inkscape:cx="12"
+   inkscape:cy="12.029484"
    inkscape:window-width="1920"
    inkscape:window-height="1017"
    inkscape:window-x="-8"
@@ -132,8 +132,8 @@
      id="g54">
 </g></g><g
    id="g3608"
-   style="fill:#ffc107;fill-opacity:1;opacity:0.6"
-   transform="matrix(-0.13687131,0,0,-0.13687131,20.495353,20.495493)">
+   style="opacity:1;fill:#ffc107;fill-opacity:1"
+   transform="matrix(-0.13687131,0,0,-0.13687131,15.63125,24.000055)">
 	<path
    d="m 50.569,124.138 h 23.1 c 4.7,0 9,-3.8 9,-8.601 V 81.138 c 0,-4.7 3.5,-9 8.2,-9 h 14.699 c 7.2,0 11.2,-8.101 6.801,-13.8 l -44.101,-55 c -3.5,-4.5 -10.2,-4.4 -13.6,0 l -42.9,55 c -4.4,5.699 -0.4,13.8 6.8,13.8 h 14.8 c 4.7,0 8.3,4.2 8.3,9 v 34.399 c 10e-4,4.801 4.101,8.601 8.901,8.601 z"
    id="path3606"

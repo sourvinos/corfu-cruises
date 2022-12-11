@@ -12,7 +12,7 @@
             },
             {
                 "id": "title-bottom",
-                "description": "Πόλη Κέρκυρας, Μπενίτσες, Λευκίμμη, Κάβος"
+                "description": "Κέρκυρα, Μπενίτσες, Λευκίμμη, Κάβος"
             },
             {
                 "id": "header",
@@ -1787,7 +1787,7 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Διαδρομές πλοίων"
+                "description": "Δρομολόγια πλοίων"
             },
             {
                 "id": "headerIsActive",

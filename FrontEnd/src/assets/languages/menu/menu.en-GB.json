@@ -1,12 +1,12 @@
 [
 
-    { "id": "reservations-calendar", "description": "Reservations" },
-    { "id": "reservations-availability", "description": "Availability" }, 
-    { "id": "reservations-billing", "description": "My billings" },
+    { "id": "reservations-reservations", "description": "Reservations" },
+    { "id": "reservations-availability", "description": "Check availability" }, 
+    { "id": "reservations-ledgers", "description": "My ledger" },
 
     { "id": "tasks-embarkation", "description": "Embarkation" },
-    { "id": "tasks-billing", "description": "Customer billing" },
-    { "id": "tasks-manifest", "description": "Ship manifest" },
+    { "id": "tasks-manifest", "description": "Passenger manifest" },
+    { "id": "tasks-ledgers", "description": "Customer Ledgers" },
 
     { "id": "tables-coachRoutes", "description": "Coach routes" },
     { "id": "tables-customers", "description": "Customers" },
@@ -17,13 +17,13 @@
     { "id": "tables-ports", "description": "Ports" },
     { "id": "tables-schedules", "description": "Schedules" },
     { "id": "tables-ships", "description": "Ships" },
-    { "id": "tables-ships-crews", "description": "Crews" },
-    { "id": "tables-ships-registrars", "description": "Passenger registrars" },
-    { "id": "tables-ships-shipOwners", "description": "Shipowners" },
-    { "id": "tables-ships-shipRoutes", "description": "Ship routes" },
+    { "id": "tables-shipCrews", "description": "Crews" },
+    { "id": "tables-registrars", "description": "Passenger registrars" },
+    { "id": "tables-shipOwners", "description": "Shipowners" },
+    { "id": "tables-shipRoutes", "description": "Ship routes" },
     { "id": "tables-users", "description": "Users" },
 
-    { "id": "my-account", "description": "My account" },
-    { "id": "logout", "description": "Logout" }
+    { "id": "user-account", "description": "My account" },
+    { "id": "user-logout", "description": "Logout" }
 
 ]

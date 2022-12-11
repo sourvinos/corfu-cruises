@@ -3,13 +3,13 @@
         <ul>
             <li>
                 <button>
-                    <img (load)="loadImage()" [ngClass]="imageIsLoading()" [src]="getIcon('reservations')" style="--height: 25px; --width: 25px">
+                    <img (load)="loadImage()" [ngClass]="imageIsLoading()" [src]="getIcon('calendar')" style="height: 25px; width: 25px">
                     <span class="material-icons-outlined">expand_more</span>
                 </button>
-                <ul class="sub-menu" (click)="hideMenu()">
-                    <button class="hoverable" (click)="doNavigationTasks('reservations')"><img width="20px" [src]="getIcon('my-reservations')"><span>{{ getLabel('reservations-calendar') }}</span></button>
-                    <button class="hoverable" (click)="doNavigationTasks('availability')"><img width="20px" [src]="getIcon('availability')"><span>{{ getLabel('reservations-availability') }}</span></button>
-                    <button *ngIf=!isAdmin() class="hoverable" (click)="doNavigationTasks('invoicing')"><img width="20px" [src]="getIcon('billing')"><span>{{ getLabel('reservations-billing') }}</span></button>
+                <ul *ngIf="menuItems.length > 0" (click)="hideMenu()" class="sub-menu">
+                    <button (click)="doNavigationTasks(menuItems[0].id)" class="hoverable"><img width="20px" [src]="getIcon(menuItems[0].id.substring(13))"><span>{{ menuItems[0].description }}</span></button>
+                    <button (click)="doNavigationTasks(menuItems[1].id)" class="hoverable"><img width="20px" [src]="getIcon(menuItems[1].id.substring(13))"><span>{{ menuItems[1].description }}</span></button>
+                    <button [disabled]=isAdmin() (click)="doNavigationTasks(menuItems[2].id)" class="hoverable"><img width="20px" [src]="getIcon(menuItems[2].id.substring(13))"><span>{{ menuItems[2].description }}</span></button>
                 </ul>
             </li>
         </ul>

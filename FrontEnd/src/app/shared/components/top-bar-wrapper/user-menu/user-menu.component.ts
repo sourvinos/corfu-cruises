@@ -1,10 +1,12 @@
 import { Component, HostListener } from '@angular/core'
 import { Router } from '@angular/router'
+import { Subject, takeUntil } from 'rxjs'
 // Custom
 import { AccountService } from 'src/app/shared/services/account.service'
 import { ConnectedUser } from 'src/app/shared/classes/connected-user'
 import { InteractionService } from 'src/app/shared/services/interaction.service'
 import { LocalStorageService } from 'src/app/shared/services/local-storage.service'
+import { Menu } from 'src/app/shared/classes/menu'
 import { MessageMenuService } from '../../../services/messages-menu.service'
 import { environment } from 'src/environments/environment'
 
@@ -18,10 +20,11 @@ export class UserMenuComponent {
 
     //#region variables
 
+    private ngunsubscribe = new Subject<void>()
     private userId: string
     public displayedUsername: string
     public imgIsLoaded = false
-    public menuItems = []
+    public menuItems: Menu[] = []
 
     //#endregion
 
@@ -40,14 +43,26 @@ export class UserMenuComponent {
     //#region lifecycle hooks
 
     ngOnInit(): void {
-        this.getMenuItemsFromSubscription()
-        this.getDisplayedUsername()
-        this.getUserId()
+        this.messageMenuService.getMessages().then((response) => {
+            this.createMenu(response)
+            this.subscribeToInteractionService()
+            this.getDisplayedUsername()
+            this.getUserId()
+        })
     }
 
     //#endregion
 
     //#region public methods
+
+    public doNavigationTasks(feature: string): void {
+        if (feature.substring(5) == 'logout') {
+            this.accountService.logout()
+        } else {
+            this.localStorageService.saveItem('returnUrl', '/')
+            this.router.navigate(['/users/' + this.userId])
+        }
+    }
 
     public editRecord(): void {
         this.localStorageService.saveItem('returnUrl', '/')
@@ -55,7 +70,7 @@ export class UserMenuComponent {
     }
 
     public getIcon(filename: string): string {
-        return environment.menuIconDirectory + filename + '-' + this.localStorageService.getItem('my-theme') + '.svg'
+        return environment.menuIconDirectory + filename + '.svg'
     }
 
     public getLabel(id: string): string {
@@ -84,20 +99,30 @@ export class UserMenuComponent {
 
     //#region private methods
 
+    private createMenu(items: Menu[]): void {
+        this.menuItems = []
+        items.forEach(item => {
+            if (item.id.startsWith('user')) {
+                this.menuItems.push(item)
+            }
+        })
+    }
+
     private getDisplayedUsername(): void {
         this.displayedUsername = ConnectedUser.displayname
     }
 
-    private getMenuItemsFromSubscription(): void {
-        this.interactionService.refreshMenus.subscribe(() => {
-            this.messageMenuService.getMessages().then((response) => {
-                this.menuItems = response
-            })
-        })
-    }
-
     private getUserId(): void {
         this.userId = ConnectedUser.id
+    }
+
+    private subscribeToInteractionService(): void {
+        this.interactionService.refreshMenus.pipe(takeUntil(this.ngunsubscribe)).subscribe(() => {
+            this.messageMenuService.getMessages().then((response) => {
+                this.menuItems = response
+                this.createMenu(response)
+            })
+        })
     }
 
     //#endregion

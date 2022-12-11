@@ -3,8 +3,6 @@
     animation: pulse 1.5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
     background-color: var(--color-e);
     border-radius: 0.3125rem;
-    height: var(--height) !important;
-    width: var(--width) !important;
 }
 
 @keyframes pulse {
