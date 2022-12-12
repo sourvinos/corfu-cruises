@@ -328,7 +328,7 @@
                 "description": "Popis"
             },
             {
-                "id": "newButton",
+                "id": "newRecord",
                 "description": "NOVÉ"
             }
         ]
@@ -1884,7 +1884,7 @@
                 "description": "Plavidlo"
             },
             {
-                "id": "newButton",
+                "id": "newRecord",
                 "description": "NOVÝ"
             }
         ]

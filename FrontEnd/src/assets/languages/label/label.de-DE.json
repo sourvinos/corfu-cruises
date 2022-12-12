@@ -328,7 +328,7 @@
                 "description": "Beschreibung"
             },
             {
-                "id": "newButton",
+                "id": "newRecord",
                 "description": "NEUER"
             }
         ]
@@ -1884,7 +1884,7 @@
                 "description": "Schiff"
             },
             {
-                "id": "newButton",
+                "id": "newRecord",
                 "description": "NEUER"
             }
         ]

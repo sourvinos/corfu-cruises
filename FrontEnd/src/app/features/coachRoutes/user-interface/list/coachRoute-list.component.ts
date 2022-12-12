@@ -1,6 +1,7 @@
 import { ActivatedRoute, Router } from '@angular/router'
 import { Component, ViewChild } from '@angular/core'
 import { Subject } from 'rxjs'
+import { Table } from 'primeng/table'
 // Custom
 import { CoachRouteListVM } from '../../classes/view-models/coachRoute-list-vm'
 import { ListResolved } from 'src/app/shared/classes/list-resolved'
@@ -8,7 +9,6 @@ import { LocalStorageService } from 'src/app/shared/services/local-storage.servi
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
 import { ModalActionResultService } from 'src/app/shared/services/modal-action-result.service'
-import { Table } from 'primeng/table'
 import { environment } from 'src/environments/environment'
 
 @Component({

@@ -25,7 +25,7 @@
      inkscape:document-units="mm"
      showgrid="false"
      inkscape:zoom="17.584697"
-     inkscape:cx="23.11669"
+     inkscape:cx="23.145124"
      inkscape:cy="23.145124"
      inkscape:window-width="1920"
      inkscape:window-height="1017"
@@ -44,21 +44,21 @@
        id="g9189"
        transform="translate(92.342324,-17.748867)">
       <circle
-         style="fill:none;fill-opacity:1;stroke:#fd7e14;stroke-width:0.3;stroke-linejoin:bevel;stroke-dasharray:none;stroke-opacity:1"
+         style="fill:#ffe9a6;fill-opacity:1;stroke:#e05400;stroke-width:0.3;stroke-linejoin:bevel;stroke-dasharray:none;stroke-opacity:1"
          id="path573"
          cx="93.752731"
          cy="46.665112"
          r="5.973814" />
       <text
          xml:space="preserve"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:8.06269px;font-family:Montserrat;-inkscape-font-specification:'Montserrat, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;opacity:0.7;fill:none;stroke:#fd7e14;stroke-width:0.3;stroke-linejoin:bevel;stroke-dasharray:none;stroke-opacity:1"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:8.06269px;font-family:Montserrat;-inkscape-font-specification:'Montserrat, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;opacity:1;fill:none;stroke:#e05400;stroke-width:0.3;stroke-linejoin:bevel;stroke-dasharray:none;stroke-opacity:1"
          x="76.953545"
          y="57.138588"
          id="text507"
          transform="scale(1.1634486,0.85951369)"><tspan
            sodipodi:role="line"
            id="tspan505"
-           style="fill:none;stroke:#fd7e14;stroke-width:0.3;stroke-dasharray:none;stroke-opacity:1"
+           style="fill:none;stroke:#e05400;stroke-width:0.3;stroke-dasharray:none;stroke-opacity:1"
            x="76.953545"
            y="57.138588">12</tspan></text>
     </g>

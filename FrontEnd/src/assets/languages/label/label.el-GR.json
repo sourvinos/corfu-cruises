@@ -328,7 +328,7 @@
                 "description": "Περιγραφή"
             },
             {
-                "id": "newButton",
+                "id": "newRecord",
                 "description": "ΝΕΟ"
             }
         ]
@@ -1884,7 +1884,7 @@
                 "description": "Πλοίο"
             },
             {
-                "id": "newButton",
+                "id": "newRecord",
                 "description": "ΝΕΟΣ"
             }
         ]

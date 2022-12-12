@@ -1,6 +1,7 @@
 import { ActivatedRoute, Router } from '@angular/router'
 import { Component, ViewChild } from '@angular/core'
 import { Subject } from 'rxjs'
+import { Table } from 'primeng/table'
 // Custom
 import { HelperService } from 'src/app/shared/services/helper.service'
 import { ListResolved } from 'src/app/shared/classes/list-resolved'
@@ -10,7 +11,6 @@ import { MessageSnackbarService } from 'src/app/shared/services/messages-snackba
 import { ModalActionResultService } from 'src/app/shared/services/modal-action-result.service'
 import { PickupPointListVM } from '../classes/view-models/pickupPoint-list-vm'
 import { PickupPointPdfService } from '../classes/services/pickupPoint-pdf.service'
-import { Table } from 'primeng/table'
 import { environment } from 'src/environments/environment'
 
 @Component({

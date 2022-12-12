@@ -1,7 +1,7 @@
 <div id="list">
 
     <div id="header">
-        <home-button-and-title [feature]="feature" [featureIcon]="featureIcon" [icon]="icon" [parentUrl]="parentUrl"></home-button-and-title>
+        <home-button-and-title [featureIcon]="featureIcon" [feature]="feature" [icon]="icon" [parentUrl]="parentUrl"></home-button-and-title>
         <div id="criteria">
             <button (click)="resetTableFilters(table)" [disabled]="records.length==recordsFiltered.length" class="primary" mat-flat-button>
                 <i class="pi pi-filter-slash"></i>
@@ -38,8 +38,8 @@
                 </tr>
             </ng-template>
             <ng-template let-rowData pTemplate="body">
-                <tr (dblclick)="editRecord(rowData.id)" class="p-highlight" style="height:33px">
-                    <td [ngClass]="rowData.isActive ? 'is-active': 'is-not-active'" style="width: 10%; text-align: center;">
+                <tr (dblclick)="editRecord(rowData.id)" style="height:33px">
+                    <td [ngClass]="rowData.isActive ? 'is-active': 'is-not-active'" style="text-align: center; width: 10%">
                         <span *ngIf="rowData.isActive" class="is-active material-icons-outlined">check_circle</span>
                         <span *ngIf="!rowData.isActive" class="is-not-active material-icons-outlined">highlight_off</span>
                     </td>

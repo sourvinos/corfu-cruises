@@ -328,7 +328,7 @@
                 "description": "Description"
             },
             {
-                "id": "newButton",
+                "id": "newRecord",
                 "description": "NEW"
             }
         ]
@@ -1884,7 +1884,7 @@
                 "description": "Ship"
             },
             {
-                "id": "newButton",
+                "id": "newRecord",
                 "description": "NEW"
             }
         ]
