@@ -371,7 +371,7 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Διαδρομές λεωφορείων"
+                "description": "Δρομολόγια λεωφορείων"
             },
             {
                 "id": "headerIsActive",
@@ -390,8 +390,8 @@
                 "description": "Περιγραφή"
             },
             {
-                "id": "newButton",
-                "description": "ΝΕΑ"
+                "id": "newRecord",
+                "description": "NEO"
             }
         ]
     },

@@ -390,7 +390,7 @@
                 "description": "Description"
             },
             {
-                "id": "newButton",
+                "id": "newRecord",
                 "description": "NOUVELLE"
             }
         ]

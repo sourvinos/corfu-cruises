@@ -26,6 +26,13 @@ export class LocalStorageService {
         return localStorage.getItem(item) || ''
     }
 
+    public getFilters(filterName: string): any {
+        const x = this.getItem(filterName)
+        if (x != '' && x.length != 2) {
+            return JSON.parse(this.getItem(filterName))
+        }
+    }
+
     public getLanguage(): string {
         const language = localStorage.getItem('language')
         if (language == null) {
