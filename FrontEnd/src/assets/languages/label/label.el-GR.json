@@ -64,7 +64,7 @@
                 "description": "Email"
             },
             {
-                "id": "newButton",
+                "id": "newRecord",
                 "description": "ΝΕΟΣ"
             }
         ]
@@ -188,7 +188,7 @@
                 "description": "Τηλέφωνα"
             },
             {
-                "id": "newButton",
+                "id": "newRecord",
                 "description": "ΝΕΟΣ"
             }
         ]

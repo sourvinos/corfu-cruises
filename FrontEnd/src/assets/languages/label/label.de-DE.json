@@ -64,8 +64,8 @@
                 "description": "Email"
             },
             {
-                "id": "newButton",
-                "description": "NEU"
+                "id": "newRecord",
+                "description": "NEUER"
             }
         ]
     },
@@ -188,7 +188,7 @@
                 "description": "Telefone"
             },
             {
-                "id": "newButton",
+                "id": "newRecord",
                 "description": "NEUER"
             }
         ]
