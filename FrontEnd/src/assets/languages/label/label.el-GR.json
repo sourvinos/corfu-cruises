@@ -1242,7 +1242,7 @@
                 "description": "Περιγραφή"
             },
             {
-                "id": "newButton",
+                "id": "newRecord",
                 "description": "ΝΕΟ"
             }
         ]
@@ -2044,7 +2044,7 @@
                 "description": "Χωρητικότητα"
             },
             {
-                "id": "newButton",
+                "id": "newRecord",
                 "description": "NEO"
             }
         ]

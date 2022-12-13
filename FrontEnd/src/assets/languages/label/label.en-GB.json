@@ -1242,7 +1242,7 @@
                 "description": "Description"
             },
             {
-                "id": "newButton",
+                "id": "newRecord",
                 "description": "NEW"
             }
         ]
@@ -2044,7 +2044,7 @@
                 "description": "Max Pax"
             },
             {
-                "id": "newButton",
+                "id": "newRecord",
                 "description": "NEW"
             }
         ]

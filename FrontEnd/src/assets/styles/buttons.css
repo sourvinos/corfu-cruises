@@ -4,7 +4,6 @@ button {
     cursor: default !important;
     font-family: sans-serif !important;
     font-size: var(--font-size-button) !important;
-    justify-content: center;
     min-width: 0 !important;
     outline: 0 !important;
     padding-top: 0.0625rem !important;
@@ -92,6 +91,7 @@ button:not(:disabled) {
 button.mat-mini-fab .mat-button-wrapper {
     color: var(--color-c);
     line-height: 1.4375rem !important;
+    margin: 0 auto;
     padding: 0 !important;
     transition: color 0.2s ease-in;
 }

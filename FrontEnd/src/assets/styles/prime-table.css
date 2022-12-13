@@ -150,3 +150,18 @@ div:not(.p-column-filter).p-column-filter-row:hover {
 .material-icons-outlined {
     font-size: 1rem;
 }
+
+.header-datepicker {
+    display: flex;
+    margin: 0;
+    padding-top: 0 !important;
+}
+
+.header-datepicker input {
+    background-color: transparent !important;
+    border: 0;
+    color: var(--color-c);
+    font-family: var(--font-family-manrope) !important;
+    padding-top: 0 !important;
+    width: 5rem;
+}

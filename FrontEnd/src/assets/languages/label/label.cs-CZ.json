@@ -1242,7 +1242,7 @@
                 "description": "Popis"
             },
             {
-                "id": "newButton",
+                "id": "newRecord",
                 "description": "NOVÉ"
             }
         ]
@@ -2044,7 +2044,7 @@
                 "description": "Max Pax"
             },
             {
-                "id": "newButton",
+                "id": "newRecord",
                 "description": "NOVÝ"
             }
         ]

@@ -1,36 +1,35 @@
 <div id="list">
 
     <div id="header">
-        <home-button-and-title [feature]="feature" [featureIcon]="featureIcon" [icon]="icon" [parentUrl]="parentUrl"></home-button-and-title>
+        <home-button-and-title [featureIcon]="featureIcon" [feature]="feature" [icon]="icon" [parentUrl]="parentUrl"></home-button-and-title>
+        <div id="criteria">
+            <button (click)="resetTableFilters(table)" [disabled]="records.length==recordsFiltered.length" class="primary" mat-flat-button>
+                <i class="pi pi-filter-slash"></i>
+            </button>
+        </div>
     </div>
 
     <div id="table-wrapper">
-        <p-table #table (onFilter)="filterRecords($event)" [autoLayout]="false" [scrollable]="true" [value]="records" [virtualRowHeight]="33" [virtualScroll]="false" dataKey="id" scrollHeight="flex" selectionMode="single" sortMode="multiple" stateKey="schedule-list" stateStorage="local">
+        <p-table #table (onFilter)="filterRecords($event)" [scrollable]="true" [value]="records" [virtualScrollItemSize]="33" [virtualScroll]="true" dataKey="id" scrollHeight="flex" selectionMode="single" sortMode="multiple">
             <ng-template pTemplate="header">
                 <tr>
-                    <th data-cy="column" style="width: 10%;" pSortableColumn="isActive">{{ getLabel("headerIsActive") }}<p-sortIcon field="isActive"></p-sortIcon></th>
-                    <th data-cy="column" style="width: 10%;" pSortableColumn="date">{{ getLabel("headerDate") }}<p-sortIcon field="date"></p-sortIcon></th>
-                    <th data-cy="column" style="width: 40%;" pSortableColumn="destinationDescription">{{ getLabel("headerDestinationDescription") }}<p-sortIcon field="destinationDescription"></p-sortIcon></th>
-                    <th data-cy="column" style="width: 30%;" pSortableColumn="portDescription">{{ getLabel("headerPortDescription") }}<p-sortIcon field="portDescription"></p-sortIcon></th>
-                    <th data-cy="column" style="width: 10%;" pSortableColumn="maxPax">{{ getLabel("headerMaxPax") }}<p-sortIcon field="maxPax"></p-sortIcon></th>
+                    <th pSortableColumn="isActive" style="width: 10%;">{{ getLabel("headerIsActive") }}<p-sortIcon field="isActive"></p-sortIcon></th>
+                    <th pSortableColumn="date" style="width: 10%;">{{ getLabel("headerDate") }}<p-sortIcon field="date"></p-sortIcon></th>
+                    <th pSortableColumn="destinationDescription" style="width: 40%;">{{ getLabel("headerDestinationDescription") }}<p-sortIcon field="destinationDescription"></p-sortIcon></th>
+                    <th pSortableColumn="portDescription" style="width: 30%;">{{ getLabel("headerPortDescription") }}<p-sortIcon field="portDescription"></p-sortIcon></th>
+                    <th pSortableColumn="maxPax" style="width: 10%;">{{ getLabel("headerMaxPax") }}<p-sortIcon field="maxPax"></p-sortIcon></th>
                 </tr>
                 <tr>
-                    <th style="width: 10%;"><p-columnFilter data-cy="filter-active" type="boolean" field="isActive"></p-columnFilter></th>
-                    <th style="width: 10%;">
-                        <p-columnFilter style="width: 100%;" field="formattedDate" matchMode="equals" [showMenu]="false">
-                            <ng-template pTemplate="filter" let-value let-filter="filterCallback">
-                                <p-dropdown data-cy="filter-date" [ngModel]="value" [options]="dropdownDates" (onChange)="filter($event.value)" placeholder="⭐" [showClear]="true">
-                                    <ng-template let-option pTemplate="item">
-                                        <span>{{ option.label }}</span>
-                                    </ng-template>
-                                </p-dropdown>
-                            </ng-template>
-                        </p-columnFilter>
+                    <th style="width: 10%;"><p-columnFilter field="isActive" type="boolean"></p-columnFilter></th>
+                    <th class="header-datepicker">
+                        <input [matDatepicker]="picker" matInput [ngModel]="dropdownDate" (dateChange)="filterByDate($event)">
+                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker>
                     </th>
                     <th style="width: 40%;">
-                        <p-columnFilter style="width: 100%;" field="destinationDescription" matchMode="equals" [showMenu]="false">
-                            <ng-template pTemplate="filter" let-value let-filter="filterCallback">
-                                <p-dropdown data-cy="filter-destination" [ngModel]="value" [options]="dropdownDestinations" (onChange)="filter($event.value)" placeholder="⭐" [showClear]="true">
+                        <p-columnFilter [showMenu]="false" field="destinationDescription" matchMode="equals" style="width: 100%;">
+                            <ng-template let-filter="filterCallback" let-value pTemplate="filter">
+                                <p-dropdown (onChange)="filter($event.value)" [ngModel]="value" [options]="dropdownDestinations" [showClear]="true" placeholder="⭐">
                                     <ng-template let-option pTemplate="item">
                                         <span>{{ option.label }}</span>
                                     </ng-template>
@@ -39,9 +38,9 @@
                         </p-columnFilter>
                     </th>
                     <th style="width: 30%;">
-                        <p-columnFilter style="width: 100%;" field="portDescription" matchMode="equals" [showMenu]="false">
-                            <ng-template pTemplate="filter" let-value let-filter="filterCallback">
-                                <p-dropdown data-cy="filter-port" [ngModel]="value" [options]="dropdownPorts" (onChange)="filter($event.value)" placeholder="⭐" [showClear]="true">
+                        <p-columnFilter [showMenu]="false" field="portDescription" matchMode="equals" style="width: 100%;">
+                            <ng-template let-filter="filterCallback" let-value pTemplate="filter">
+                                <p-dropdown (onChange)="filter($event.value)" [ngModel]="value" [options]="dropdownPorts" [showClear]="true" placeholder="⭐">
                                     <ng-template let-option pTemplate="item">
                                         <span>{{ option.label }}</span>
                                     </ng-template>
@@ -49,19 +48,19 @@
                             </ng-template>
                         </p-columnFilter>
                     </th>
-                    <th style="width: 10%;"><input data-cy="filter-max-pax" type="text" class="p-inputtext center" (input)="table.filter($event.target.value, 'maxPax', 'contains')" [value]="$any(table).filters['maxPax']?.value"></th>
+                    <th style="width: 10%;"><input (input)="table.filter($event.target.value, 'maxPax', 'contains')" [value]="$any(table).filters['maxPax']?.value" class="p-inputtext center" type="text"></th>
                 </tr>
             </ng-template>
-            <ng-template pTemplate="body" let-rowData>
-                <tr data-cy="row" [pSelectableRow]="rowData" (dblclick)="editRecord(rowData.id)">
-                    <td [ngClass]="rowData.isActive ? 'is-active': 'is-not-active'" style="width: 10%; text-align: center;">
+            <ng-template let-rowData pTemplate="body">
+                <tr (dblclick)="editRecord(rowData.id)">
+                    <td style="text-align: center; width: 10%;">
                         <span *ngIf="rowData.isActive" class="is-active material-icons-outlined">check_circle</span>
                         <span *ngIf="!rowData.isActive" class="is-not-active material-icons-outlined">highlight_off</span>
                     </td>
-                    <td style="width: 10%; text-align: center;">{{ rowData.formattedDate }}</td>
+                    <td style="text-align: center; width: 10%;">{{ rowData.formattedDate }}</td>
                     <td style="width: 40%;">{{ rowData.destinationDescription }}</td>
                     <td style="width: 30%;">{{ rowData.portDescription }}</td>
-                    <td style="width: 10%; text-align: center;">{{ rowData.maxPax }}</td>
+                    <td style="text-align: center; width: 10%;">{{ rowData.maxPax }}</td>
                 </tr>
             </ng-template>
         </p-table>
@@ -79,7 +78,7 @@
             </div>
         </div>
         <div class="button-group">
-            <button data-cy="new" mat-flat-button class="primary" id="new" (click)="newRecord()">{{ getLabel("newButton") }}</button>
+            <button mat-flat-button class="primary" (click)="newRecord()">{{ getLabel("newRecord") }}</button>
         </div>
     </div>
 
