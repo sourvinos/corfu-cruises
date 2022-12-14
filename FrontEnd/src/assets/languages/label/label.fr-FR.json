@@ -461,14 +461,14 @@
             },
             {
                 "id": "headerDisplayname",
-                "description": "Nom Affiché"
+                "description": "Nom affiché"
             },
             {
                 "id": "headerEmail",
                 "description": "Email"
             },
             {
-                "id": "newButton",
+                "id": "newRecord",
                 "description": "NOUVEL"
             },
             {

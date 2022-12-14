@@ -452,7 +452,7 @@
                 "description": "Aktivní"
             },
             {
-                "id": "headerisAdmin",
+                "id": "headerIsAdmin",
                 "description": "Admin"
             },
             {
@@ -468,7 +468,7 @@
                 "description": "Email"
             },
             {
-                "id": "newButton",
+                "id": "newRecord",
                 "description": "NOVÝ"
             },
             {

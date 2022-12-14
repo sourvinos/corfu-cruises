@@ -452,7 +452,7 @@
                 "description": "Activ"
             },
             {
-                "id": "headerisAdmin",
+                "id": "headerIsAdmin",
                 "description": "Admin"
             },
             {
@@ -461,14 +461,14 @@
             },
             {
                 "id": "headerDisplayname",
-                "description": "Angezeigter name"
+                "description": "Angezeigter Name"
             },
             {
                 "id": "headerEmail",
                 "description": "Email"
             },
             {
-                "id": "newButton",
+                "id": "newRecord",
                 "description": "NEUER"
             },
             {

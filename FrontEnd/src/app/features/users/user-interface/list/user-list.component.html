@@ -1,40 +1,45 @@
 <div id="list">
 
     <div id="header">
-        <home-button-and-title [feature]="feature" [featureIcon]="featureIcon" [icon]="icon" [parentUrl]="parentUrl"></home-button-and-title>
+        <home-button-and-title [featureIcon]="featureIcon" [feature]="feature" [icon]="icon" [parentUrl]="parentUrl"></home-button-and-title>
+        <div id="criteria">
+            <button (click)="resetTableFilters(table)" [disabled]="records.length==recordsFiltered.length" class="primary" mat-flat-button>
+                <i class="pi pi-filter-slash"></i>
+            </button>
+        </div>
     </div>
 
     <div id="table-wrapper">
-        <p-table #table (onFilter)="filterRecords($event)" [autoLayout]="false" [scrollable]="true" [value]="records" [virtualRowHeight]="33" [virtualScroll]="false" dataKey="id" scrollHeight="flex" selectionMode="single" sortMode="multiple" stateKey="user-list" stateStorage="local">
+        <p-table #table (onFilter)="filterRecords($event)" [scrollable]="true" [value]="records" [virtualScrollItemSize]="33" [virtualScroll]="true" dataKey="id" scrollHeight="flex" selectionMode="single" sortMode="multiple">
             <ng-template pTemplate="header">
                 <tr>
-                    <th style="width: 10%;" pSortableColumn="isActive">{{ getLabel("headerIsActive") }}<p-sortIcon field="isActive"></p-sortIcon></th>
-                    <th style="width: 10%;" pSortableColumn="isAdmin">{{ getLabel("headerIsAdmin") }}<p-sortIcon field="isAdmin"></p-sortIcon></th>
-                    <th style="width: 30%;" pSortableColumn="userName">{{ getLabel("headerUsername") }}<p-sortIcon field="userName"></p-sortIcon></th>
-                    <th style="width: 20%;" pSortableColumn="displayname">{{ getLabel("headerDisplayname") }}<p-sortIcon field="displayname"></p-sortIcon></th>
-                    <th style="width: 30%;" pSortableColumn="email">{{ getLabel("headerEmail") }}<p-sortIcon field="email"></p-sortIcon></th>
+                    <th pSortableColumn="isActive" style="width: 10%;">{{ getLabel("headerIsActive") }}<p-sortIcon field="isActive"></p-sortIcon></th>
+                    <th pSortableColumn="isAdmin" style="width: 10%;">{{ getLabel("headerIsAdmin") }}<p-sortIcon field="isAdmin"></p-sortIcon></th>
+                    <th pSortableColumn="userName" style="width: 30%;">{{ getLabel("headerUsername") }}<p-sortIcon field="userName"></p-sortIcon></th>
+                    <th pSortableColumn="displayname" style="width: 20%;">{{ getLabel("headerDisplayname") }}<p-sortIcon field="displayname"></p-sortIcon></th>
+                    <th pSortableColumn="email" style="width: 30%;">{{ getLabel("headerEmail") }}<p-sortIcon field="email"></p-sortIcon></th>
                 </tr>
                 <tr>
-                    <th style="width: 10%;"><p-columnFilter type="boolean" field="isActive"></p-columnFilter></th>
-                    <th style="width: 10%;"><p-columnFilter type="boolean" field="isAdmin"></p-columnFilter></th>
-                    <th style="width: 30%;"><input type="text" class="p-inputtext" (input)="table.filter($event.target.value, 'userName', 'contains')" [value]="$any(table).filters['userName']?.value"></th>
-                    <th style="width: 20%;"><input type="text" class="p-inputtext" (input)="table.filter($event.target.value, 'displayname', 'contains')" [value]="$any(table).filters['displayname']?.value"></th>
-                    <th style="width: 30%;"><input type="text" class="p-inputtext" (input)="table.filter($event.target.value, 'email', 'contains')" [value]="$any(table).filters['email']?.value"></th>
+                    <th style="width: 10%;"><p-columnFilter field="isActive" type="boolean"></p-columnFilter></th>
+                    <th style="width: 10%;"><p-columnFilter field="isAdmin" type="boolean"></p-columnFilter></th>
+                    <th style="width: 30%;"><input (input)="table.filter($event.target.value, 'userName', 'contains')" [value]="$any(table).filters['userName']?.value" class="p-inputtext" type="text"></th>
+                    <th style="width: 20%;"><input (input)="table.filter($event.target.value, 'displayname', 'contains')" [value]="$any(table).filters['displayname']?.value" class="p-inputtext" type="text"></th>
+                    <th style="width: 30%;"><input (input)="table.filter($event.target.value, 'email', 'contains')" [value]="$any(table).filters['email']?.value" class="p-inputtext" type="text"></th>
                 </tr>
             </ng-template>
-            <ng-template pTemplate="body" let-rowData>
-                <tr [pSelectableRow]="rowData" (dblclick)="editRecord(rowData.id)">
-                    <td [ngClass]="rowData.isActive ? 'is-active': 'is-not-active'" style="width: 10%; text-align: center;">
+            <ng-template let-rowData pTemplate="body">
+                <tr (dblclick)="editRecord(rowData.id)">
+                    <td [ngClass]="rowData.isActive ? 'is-active': 'is-not-active'" style="text-align: center; width: 10%;">
                         <span *ngIf="rowData.isActive" class="is-active material-icons-outlined">check_circle</span>
                         <span *ngIf="!rowData.isActive" class="is-not-active material-icons-outlined">highlight_off</span>
                     </td>
-                    <td [ngClass]="rowData.isAdmin ? 'is-active': 'is-not-active'" style="width: 10%; text-align: center;">
+                    <td [ngClass]="rowData.isAdmin ? 'is-active': 'is-not-active'" style="text-align: center; width: 10%;">
                         <span *ngIf="rowData.isAdmin" class="is-active material-icons-outlined">check_circle</span>
                         <span *ngIf="!rowData.isAdmin" class="is-not-active material-icons-outlined">highlight_off</span>
                     </td>
-                    <td style="width: 30%; padding: 5px !important;">{{ rowData.userName }}</td>
-                    <td style="width: 20%; padding: 5px !important;">{{ rowData.displayname }}</td>
-                    <td style="width: 30%; padding: 5px !important;">{{ rowData.email }}</td>
+                    <td style="width: 30%;">{{ rowData.userName }}</td>
+                    <td style="width: 20%;">{{ rowData.displayname }}</td>
+                    <td style="width: 30%;">{{ rowData.email }}</td>
                 </tr>
             </ng-template>
         </p-table>
@@ -52,7 +57,7 @@
             </div>
         </div>
         <div class="button-group">
-            <button data-cy="new" mat-flat-button class="primary" id="new" (click)="newRecord()">{{ getLabel("newButton") }}</button>
+            <button mat-flat-button class="primary" (click)="newRecord()">{{ getLabel("newRecord") }}</button>
         </div>
     </div>
 
