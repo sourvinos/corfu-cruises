@@ -131,6 +131,7 @@
 }
 
 .p-datatable .p-datatable-thead > tr:nth-child(2) > th {
+    padding-top: 0 !important;
     padding-bottom: 0.3125rem !important;
 }
 
@@ -152,6 +153,7 @@ div:not(.p-column-filter).p-column-filter-row:hover {
 }
 
 .header-datepicker {
+    align-items: center;
     display: flex;
     margin: 0;
     padding-top: 0 !important;
@@ -164,4 +166,9 @@ div:not(.p-column-filter).p-column-filter-row:hover {
     font-family: var(--font-family-manrope) !important;
     padding-top: 0 !important;
     width: 5rem;
+}
+
+.date-clear-icon {
+    color: #6c757d;
+    font-size: 1.4rem;
 }

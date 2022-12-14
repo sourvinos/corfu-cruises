@@ -67,19 +67,14 @@ export class ScheduleListComponent {
 
     //#region public methods
 
-    public doFilterTasks(event: any): void {
-        console.log('Filtering...', event)
-    }
-
     public editRecord(id: number): void {
         this.router.navigate([this.url, id])
     }
 
     public filterByDate(event: MatDatepickerInputEvent<Date>): void {
-        const x = this.dateHelperService.formatISODateToLocale(this.dateHelperService.formatDateToIso(event.value, false))
-        const z = this.dateHelperService.formatDateToIso(event.value, false)
-        this.table.filter(z, 'date', 'equals')
-        // this.table.filter(x, 'formattedDate', 'equals')
+        const date = this.dateHelperService.formatDateToIso(event.value, false)
+        this.table.filter(date, 'date', 'equals')
+        this.dropdownDate = date
         this.localStorageService.saveItem(this.feature, JSON.stringify(this.table.filters))
     }
 
@@ -96,12 +91,22 @@ export class ScheduleListComponent {
         return this.messageLabelService.getDescription(this.feature, id)
     }
 
+    public hasDateFilter(): string {
+        return this.dropdownDate == '' ? 'hidden' : ''
+    }
+
     public newRecord(): void {
         this.router.navigate([this.url + '/new'])
     }
 
-    public resetTableFilters(table: any): void {
-        this.clearTableFilters(table)
+    public clearDateFilter(): void {
+        this.table.filter('', 'date', 'equals')
+        this.dropdownDate = ''
+        this.localStorageService.saveItem(this.feature, JSON.stringify(this.table.filters))
+    }
+
+    public resetTableFilters(): void {
+        this.helperService.clearTableTextFilters(this.table, ['date', 'maxPax'])
     }
 
     //#endregion
@@ -111,15 +116,6 @@ export class ScheduleListComponent {
     private cleanup(): void {
         this.unsubscribe.next()
         this.unsubscribe.unsubscribe()
-    }
-
-    private clearTableFilters(table: { clear: () => void }): void {
-        table.clear()
-        this.table.filter('', 'maxPax', 'contains')
-        const inputs = document.querySelectorAll<HTMLInputElement>('.p-inputtext[type="text"]')
-        inputs.forEach(box => {
-            box.value = ''
-        })
     }
 
     private filterColumns(element: { value: any }, field: string, matchMode: string): void {
@@ -134,26 +130,13 @@ export class ScheduleListComponent {
             setTimeout(() => {
                 this.filterColumns(filters.isActive, 'isActive', 'equals')
                 this.filterColumns(filters.date, 'date', 'equals')
-                // this.filterColumns(filters.formattedDate, 'formattedDate', 'equals')
                 this.filterColumns(filters.destinationDescription, 'destinationDescription', 'equals')
                 this.filterColumns(filters.portDescription, 'portDescription', 'equals')
                 this.filterColumns(filters.maxPax, 'maxPax', 'contains')
-                // this.dropdownDate = this.dateAdapter.createDate(2022, 7, 11)
-                // this.dropdownDate = this.dateAdapter.createDate(filters.date.value.substring(0, 4), filters.date.value.substring(5, 7), filters.date.value.substring(8, 10))
-                const z = new Date(Date.parse(filters.date.value))
-                // const i = this.dateHelperService.formatDateToIso(z, false)
-                // const p = this.dateHelperService.formatISODateToLocale(i)
-                console.log('OK', z)
-                // console.log('More OK', i)
-                // console.log('Final', p)
-                this.dropdownDate = this.dateAdapter.createDate(z.getFullYear(), z.getMonth(), parseInt(z.getDate().toLocaleString()))
-                // this.dropdownDate = this.dateAdapter.createDate(Date.parse())
-
-                // console.log(filters.date.value)
-                // console.log('Year', filters.date.value.substring(0, 4))
-                // console.log('Month', filters.date.value.substring(5, 7))
-                // console.log('Day', filters.date.value.substring(8, 10))
-                console.log('Dropdown', this.dropdownDate)
+                if (filters.date != undefined) {
+                    const date = new Date(Date.parse(filters.date.value))
+                    this.dropdownDate = this.dateAdapter.createDate(date.getFullYear(), date.getMonth(), parseInt(date.getDate().toLocaleString()))
+                }
             }, 500)
         }
     }

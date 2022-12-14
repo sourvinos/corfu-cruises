@@ -3,7 +3,7 @@
     <div id="header">
         <home-button-and-title [featureIcon]="featureIcon" [feature]="feature" [icon]="icon" [parentUrl]="parentUrl"></home-button-and-title>
         <div id="criteria">
-            <button (click)="resetTableFilters(table)" [disabled]="records.length==recordsFiltered.length" class="primary" mat-flat-button>
+            <button (click)="resetTableFilters()" [disabled]="records.length==recordsFiltered.length" class="primary" mat-flat-button>
                 <i class="pi pi-filter-slash"></i>
             </button>
         </div>
@@ -22,8 +22,9 @@
                 <tr>
                     <th style="width: 10%;"><p-columnFilter field="isActive" type="boolean"></p-columnFilter></th>
                     <th class="header-datepicker">
-                        <input [matDatepicker]="picker" matInput [ngModel]="dropdownDate" (dateChange)="filterByDate($event)">
-                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                        <input (dateInput)="filterByDate($event)" [matDatepicker]="picker" [ngModel]="dropdownDate" matInput>
+                        <mat-datepicker-toggle [for]="picker" matSuffix></mat-datepicker-toggle>
+                        <span (click)="clearDateFilter()" [ngClass]="hasDateFilter()" class="date-clear-icon material-icons">clear</span>
                         <mat-datepicker #picker></mat-datepicker>
                     </th>
                     <th style="width: 40%;">

@@ -4,6 +4,7 @@ import { defer, finalize, Observable, Subject } from 'rxjs'
 // Custom
 import { ModalActionResultService } from './modal-action-result.service'
 import { environment } from 'src/environments/environment'
+import { Table } from 'primeng/table'
 
 export function prepare<T>(callback: () => void): (source: Observable<T>) => Observable<T> {
     return (source: Observable<T>): Observable<T> => defer(() => {
@@ -141,6 +142,16 @@ export class HelperService {
         const textFilters = document.querySelectorAll('.p-inputtext')
         textFilters.forEach(x => {
             x.classList.add('p-disabled')
+        })
+    }
+
+    public clearTableTextFilters(table: Table, inputs: string[]): void {
+        table.clear()
+        inputs.forEach(input => {
+            table.filter('', input, 'contains')
+        })
+        document.querySelectorAll<HTMLInputElement>('.p-inputtext, .mat-input-element').forEach(box => {
+            box.value = ''
         })
     }
 
