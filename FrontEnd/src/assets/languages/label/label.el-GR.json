@@ -119,7 +119,7 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Προορισμοί εκδρομών"
+                "description": "Προορισμοί"
             },
             {
                 "id": "headerIsActive",
@@ -134,7 +134,7 @@
                 "description": "Περιγραφή"
             },
             {
-                "id": "newButton",
+                "id": "newRecord",
                 "description": "ΝΕΟΣ"
             }
         ]

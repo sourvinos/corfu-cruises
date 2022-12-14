@@ -134,7 +134,7 @@
                 "description": "Description"
             },
             {
-                "id": "newButton",
+                "id": "newRecord",
                 "description": "NEW"
             }
         ]

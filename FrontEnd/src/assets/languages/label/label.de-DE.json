@@ -134,7 +134,7 @@
                 "description": "Bezeichnung"
             },
             {
-                "id": "newButton",
+                "id": "newRecord",
                 "description": "NEUES"
             }
         ]
