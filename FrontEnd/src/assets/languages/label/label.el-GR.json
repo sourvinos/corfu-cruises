@@ -1966,7 +1966,7 @@
                 "description": "Ημερ/νία γέννησης"
             },
             {
-                "id": "newButton",
+                "id": "newRecord",
                 "description": "ΝΕΟ"
             }
         ]

@@ -1966,7 +1966,7 @@
                 "description": "Date de naissance"
             },
             {
-                "id": "newButton",
+                "id": "newRecord",
                 "description": "NOUVEAU"
             }
         ]

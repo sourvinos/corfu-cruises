@@ -67,6 +67,12 @@ export class ScheduleListComponent {
 
     //#region public methods
 
+    public clearDateFilter(): void {
+        this.table.filter('', 'date', 'equals')
+        this.dropdownDate = ''
+        this.localStorageService.saveItem(this.feature, JSON.stringify(this.table.filters))
+    }
+
     public editRecord(id: number): void {
         this.router.navigate([this.url, id])
     }
@@ -97,12 +103,6 @@ export class ScheduleListComponent {
 
     public newRecord(): void {
         this.router.navigate([this.url + '/new'])
-    }
-
-    public clearDateFilter(): void {
-        this.table.filter('', 'date', 'equals')
-        this.dropdownDate = ''
-        this.localStorageService.saveItem(this.feature, JSON.stringify(this.table.filters))
     }
 
     public resetTableFilters(): void {

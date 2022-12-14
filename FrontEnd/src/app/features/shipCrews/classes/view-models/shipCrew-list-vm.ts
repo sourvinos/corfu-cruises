@@ -5,6 +5,7 @@ export interface ShipCrewListVM {
     lastname: string
     firstname: string
     birthdate: string
+    formattedBirthdate: string
     isActive: boolean
 
 }

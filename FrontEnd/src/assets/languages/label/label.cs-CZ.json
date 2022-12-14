@@ -1966,7 +1966,7 @@
                 "description": "Datum narození"
             },
             {
-                "id": "newButton",
+                "id": "newRecord",
                 "description": "NOVÝ"
             }
         ]
