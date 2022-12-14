@@ -1787,7 +1787,7 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Routes"
+                "description": "Ship routes"
             },
             {
                 "id": "headerIsActive",
@@ -1799,14 +1799,14 @@
             },
             {
                 "id": "headerViaPort",
-                "description": "Via ports"
+                "description": "Intermediate ports of approach"
             },
             {
                 "id": "headerToPort",
                 "description": "Destination port"
             },
             {
-                "id": "newButton",
+                "id": "newRecord",
                 "description": "NEW"
             }
         ]

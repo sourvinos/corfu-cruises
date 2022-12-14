@@ -1799,14 +1799,14 @@
             },
             {
                 "id": "headerViaPort",
-                "description": "Über den Hafen"
+                "description": "Zwischenhäfen im Anflug"
             },
             {
                 "id": "headerToPort",
                 "description": "Zielhafen"
             },
             {
-                "id": "newButton",
+                "id": "newRecord",
                 "description": "NEUE"
             }
         ]

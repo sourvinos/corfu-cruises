@@ -1791,7 +1791,7 @@
             },
             {
                 "id": "headerIsActive",
-                "description": "Ενεργή"
+                "description": "Ενεργό"
             },
             {
                 "id": "headerFromPort",
@@ -1806,8 +1806,8 @@
                 "description": "Λιμάνι προορισμού"
             },
             {
-                "id": "newButton",
-                "description": "ΝΕΑ"
+                "id": "newRecord",
+                "description": "ΝΕO"
             }
         ]
     },

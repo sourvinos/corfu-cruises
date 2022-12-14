@@ -1787,7 +1787,7 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Routes maritimes"
+                "description": "Routes des navires"
             },
             {
                 "id": "headerIsActive",
@@ -1799,14 +1799,14 @@
             },
             {
                 "id": "headerViaPort",
-                "description": "Par les ports"
+                "description": "Ports d'approche intermédiaires"
             },
             {
                 "id": "headerToPort",
-                "description": "Le port de destination"
+                "description": "Port de destination"
             },
             {
-                "id": "newButton",
+                "id": "newRecord",
                 "description": "NOUVEAU"
             }
         ]

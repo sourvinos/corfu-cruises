@@ -2,15 +2,15 @@ import { ActivatedRoute, Router } from '@angular/router'
 import { Component, ViewChild } from '@angular/core'
 import { Subject } from 'rxjs'
 // Custom
+import { DestinationListVM } from '../classes/view-models/destination-list-vm'
 import { HelperService } from 'src/app/shared/services/helper.service'
 import { ListResolved } from 'src/app/shared/classes/list-resolved'
 import { LocalStorageService } from 'src/app/shared/services/local-storage.service'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
 import { ModalActionResultService } from 'src/app/shared/services/modal-action-result.service'
-import { environment } from 'src/environments/environment'
-import { DestinationListVM } from '../classes/view-models/destination-list-vm'
 import { Table } from 'primeng/table'
+import { environment } from 'src/environments/environment'
 
 @Component({
     selector: 'destination-list',

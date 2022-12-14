@@ -1799,15 +1799,15 @@
             },
             {
                 "id": "headerViaPort",
-                "description": "Přes přístav"
+                "description": "Mezilehlé přístavy přiblížení"
             },
             {
                 "id": "headerToPort",
                 "description": "Cílový přístav"
             },
             {
-                "id": "newButton",
-                "description": "NOVÝ"
+                "id": "newRecord",
+                "description": "NOVÁ"
             }
         ]
     },
