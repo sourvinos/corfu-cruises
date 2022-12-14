@@ -111,7 +111,7 @@ export class RegistrarListComponent {
         const filters = this.localStorageService.getFilters(this.feature)
         if (filters != undefined) {
             setTimeout(() => {
-                this.filterColumns(filters.isActive, 'isActive', 'equals')
+                this.filterColumns(filters.isActive, 'isActive', 'contains')
                 this.filterColumns(filters.isPrimary, 'isPrimary', 'equals')
                 this.filterColumns(filters.shipDescription, 'shipDescription', 'equals')
                 this.filterColumns(filters.fullname, 'fullname', 'contains')

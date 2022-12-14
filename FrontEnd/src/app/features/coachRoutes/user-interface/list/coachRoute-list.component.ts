@@ -108,7 +108,7 @@ export class CoachRouteListComponent {
         const filters = this.localStorageService.getFilters(this.feature)
         if (filters != undefined) {
             setTimeout(() => {
-                this.filterColumns(filters.isActive, 'isActive', 'equals')
+                this.filterColumns(filters.isActive, 'isActive', 'contains')
                 this.filterColumns(filters.hasTransfer, 'hasTransfer', 'equals')
                 this.filterColumns(filters.abbreviation, 'abbreviation', 'contains')
                 this.filterColumns(filters.description, 'description', 'contains')

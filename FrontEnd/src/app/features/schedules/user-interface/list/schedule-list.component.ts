@@ -106,6 +106,7 @@ export class ScheduleListComponent {
     }
 
     public resetTableFilters(): void {
+        this.dropdownDate = ''
         this.helperService.clearTableTextFilters(this.table, ['date', 'maxPax'])
     }
 
@@ -128,7 +129,7 @@ export class ScheduleListComponent {
         const filters = this.localStorageService.getFilters(this.feature)
         if (filters != undefined) {
             setTimeout(() => {
-                this.filterColumns(filters.isActive, 'isActive', 'equals')
+                this.filterColumns(filters.isActive, 'isActive', 'contains')
                 this.filterColumns(filters.date, 'date', 'equals')
                 this.filterColumns(filters.destinationDescription, 'destinationDescription', 'equals')
                 this.filterColumns(filters.portDescription, 'portDescription', 'equals')

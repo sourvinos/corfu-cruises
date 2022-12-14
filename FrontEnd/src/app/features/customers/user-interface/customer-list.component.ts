@@ -109,7 +109,7 @@ export class CustomerListComponent {
         const filters = this.localStorageService.getFilters(this.feature)
         if (filters != undefined) {
             setTimeout(() => {
-                this.filterColumns(filters.isActive, 'isActive', 'equals')
+                this.filterColumns(filters.isActive, 'isActive', 'contains')
                 this.filterColumns(filters.description, 'description', 'contains')
                 this.filterColumns(filters.email, 'email', 'contains')
                 this.filterColumns(filters.phones, 'phones', 'contains')
