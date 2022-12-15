@@ -1040,10 +1040,6 @@
                 "description": "Nom"
             },
             {
-                "id": "headerOwnerDescription",
-                "description": "Armateur"
-            },
-            {
                 "id": "headerIMO",
                 "description": "IMO"
             },

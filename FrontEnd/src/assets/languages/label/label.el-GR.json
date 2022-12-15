@@ -1040,15 +1040,11 @@
                 "description": "Όνομα"
             },
             {
-                "id": "headerOwnerDescription",
-                "description": "Πλοιοκτήτης"
-            },
-            {
                 "id": "headerIMO",
                 "description": "IMO"
             },
             {
-                "id": "newButton",
+                "id": "newRecord",
                 "description": "ΝΕΟ"
             }
         ]

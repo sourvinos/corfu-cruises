@@ -1040,10 +1040,6 @@
                 "description": "Název"
             },
             {
-                "id": "headerOwnerDescription",
-                "description": "Majitel lodi"
-            },
-            {
                 "id": "headerIMO",
                 "description": "IMO"
             },
