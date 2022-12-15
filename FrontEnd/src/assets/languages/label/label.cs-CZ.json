@@ -1717,18 +1717,26 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Majitelé lodí"
+                "description": "Majitelé plavidel"
             },
             {
                 "id": "headerIsActive",
                 "description": "Aktivní"
             },
             {
-                "id": "headerDescription",
-                "description": "Jméno společnosti"
+                "id": "headerName",
+                "description": "Název společnosti"
             },
             {
-                "id": "newButton",
+                "id": "headerPhones",
+                "description": "Phony"
+            },
+            {
+                "id": "headerEmail",
+                "description": "Email"
+            },
+            {
+                "id": "newRecord",
                 "description": "NOVÝ"
             }
         ]

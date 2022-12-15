@@ -1724,11 +1724,19 @@
                 "description": "Ενεργός"
             },
             {
-                "id": "headerDescription",
+                "id": "headerName",
                 "description": "Επωνυμία εταιρίας"
             },
             {
-                "id": "newButton",
+                "id": "headerPhones",
+                "description": "Τηλέφωνα"
+            },
+            {
+                "id": "headerEmail",
+                "description": "Email"
+            },
+            {
+                "id": "newRecord",
                 "description": "ΝΕΟΣ"
             }
         ]

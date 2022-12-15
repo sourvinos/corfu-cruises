@@ -49,7 +49,7 @@ export class ShipCrewListComponent {
 
     ngOnInit(): void {
         this.loadRecords()
-        this.formatDateToLocale()
+        this.formatDatesToLocale()
         this.populateDropdownFilters()
         this.subscribeToInteractionService()
         this.setLocale()
@@ -132,6 +132,7 @@ export class ShipCrewListComponent {
                 this.filterColumns(filters.isActive, 'isActive', 'contains')
                 this.filterColumns(filters.lastname, 'lastname', 'contains')
                 this.filterColumns(filters.firstname, 'firstname', 'contains')
+                this.filterColumns(filters.birthdate, 'birthdate', 'equals')
                 if (filters.birthdate != undefined) {
                     const date = new Date(Date.parse(filters.birthdate.value))
                     this.dropdownDate = this.dateAdapter.createDate(date.getFullYear(), date.getMonth(), parseInt(date.getDate().toLocaleString()))
@@ -140,7 +141,7 @@ export class ShipCrewListComponent {
         }
     }
 
-    private formatDateToLocale(): void {
+    private formatDatesToLocale(): void {
         this.records.forEach(record => {
             record.formattedBirthdate = this.dateHelperService.formatISODateToLocale(record.birthdate)
         })
@@ -175,7 +176,7 @@ export class ShipCrewListComponent {
 
     private subscribeToInteractionService(): void {
         this.interactionService.refreshDateAdapter.pipe(takeUntil(this.unsubscribe)).subscribe(() => {
-            this.formatDateToLocale()
+            this.formatDatesToLocale()
             this.setLocale()
         })
     }

@@ -1724,11 +1724,19 @@
                 "description": "Active"
             },
             {
-                "id": "headerDescription",
+                "id": "headerName",
                 "description": "Company name"
             },
             {
-                "id": "newButton",
+                "id": "headerPhones",
+                "description": "Phones"
+            },
+            {
+                "id": "headerEmail",
+                "description": "Email"
+            },
+            {
+                "id": "newRecord",
                 "description": "NEW"
             }
         ]

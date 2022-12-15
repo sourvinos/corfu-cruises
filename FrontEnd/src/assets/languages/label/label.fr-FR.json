@@ -1724,11 +1724,19 @@
                 "description": "Actif"
             },
             {
-                "id": "headerDescription",
-                "description": "Nom de compagnie"
+                "id": "headerName",
+                "description": "Nom de la société"
             },
             {
-                "id": "newButton",
+                "id": "headerPhones",
+                "description": "Téléphone"
+            },
+            {
+                "id": "headerEmail",
+                "description": "Email"
+            },
+            {
+                "id": "newRecord",
                 "description": "NOUVEAU"
             }
         ]
