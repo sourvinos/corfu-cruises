@@ -1,6 +1,7 @@
 import { ActivatedRoute, Router } from '@angular/router'
 import { Component, ViewChild } from '@angular/core'
 import { Subject } from 'rxjs'
+import { Table } from 'primeng/table'
 // Custom
 import { DestinationListVM } from '../classes/view-models/destination-list-vm'
 import { HelperService } from 'src/app/shared/services/helper.service'
@@ -9,8 +10,6 @@ import { LocalStorageService } from 'src/app/shared/services/local-storage.servi
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
 import { ModalActionResultService } from 'src/app/shared/services/modal-action-result.service'
-import { Table } from 'primeng/table'
-import { environment } from 'src/environments/environment'
 
 @Component({
     selector: 'destination-list',
@@ -64,10 +63,6 @@ export class DestinationListComponent {
         this.localStorageService.saveItem(this.feature, JSON.stringify(this.table.filters))
     }
 
-    public getIcon(filename: string): string {
-        return environment.criteriaIconDirectory + filename + '.svg'
-    }
-
     public getLabel(id: string): string {
         return this.messageLabelService.getDescription(this.feature, id)
     }
@@ -89,7 +84,7 @@ export class DestinationListComponent {
         this.unsubscribe.unsubscribe()
     }
 
-    private filterColumns(element: { value: any }, field: string, matchMode: string): void {
+    private filterColumn(element: { value: any }, field: string, matchMode: string): void {
         if (element != undefined && (element.value != null || element.value != undefined)) {
             this.table.filter(element.value, field, matchMode)
         }
@@ -99,9 +94,9 @@ export class DestinationListComponent {
         const filters = this.localStorageService.getFilters(this.feature)
         if (filters != undefined) {
             setTimeout(() => {
-                this.filterColumns(filters.isActive, 'isActive', 'contains')
-                this.filterColumns(filters.abbreviation, 'abbreviation', 'contains')
-                this.filterColumns(filters.description, 'description', 'contains')
+                this.filterColumn(filters.isActive, 'isActive', 'contains')
+                this.filterColumn(filters.abbreviation, 'abbreviation', 'contains')
+                this.filterColumn(filters.description, 'description', 'contains')
             }, 500)
         }
     }

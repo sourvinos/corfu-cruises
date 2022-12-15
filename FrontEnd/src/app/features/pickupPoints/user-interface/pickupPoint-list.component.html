@@ -3,7 +3,7 @@
     <div id="header">
         <home-button-and-title [featureIcon]="featureIcon" [feature]="feature" [icon]="icon" [parentUrl]="parentUrl"></home-button-and-title>
         <div id="criteria">
-            <button (click)="resetTableFilters(table)" [disabled]="records.length==recordsFiltered.length" class="primary" mat-flat-button>
+            <button (click)="resetTableFilters()" [disabled]="records.length==recordsFiltered.length" class="primary" mat-flat-button>
                 <i class="pi pi-filter-slash"></i>
             </button>
         </div>
@@ -53,16 +53,7 @@
     </div>
 
     <div id="footer">
-        <div id="filters">
-            <div class="pill">
-                <img [src]="getIcon('total')">
-                <div class="number description">{{ records.length }}</div>
-            </div>
-            <div class="pill">
-                <img [src]="getIcon('filter')">
-                <div class="number description">{{ recordsFiltered.length }}</div>
-            </div>
-        </div>
+        <table-total-filtered-records [recordCount]="records.length" [filteredRecordCount]="recordsFiltered.length"></table-total-filtered-records>
         <div class="button-group">
             <button (click)="createPdf()" class="secondary" mat-flat-button>{{ getLabel("createPdf") }}</button>
             <button (click)="newRecord()" class="primary" mat-flat-button>{{ getLabel("newRecord") }}</button>

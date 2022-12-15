@@ -3,13 +3,13 @@ import { Component, ViewChild } from '@angular/core'
 import { Subject } from 'rxjs'
 import { Table } from 'primeng/table'
 // Custom
+import { HelperService } from 'src/app/shared/services/helper.service'
 import { ListResolved } from 'src/app/shared/classes/list-resolved'
 import { LocalStorageService } from 'src/app/shared/services/local-storage.service'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
 import { ModalActionResultService } from 'src/app/shared/services/modal-action-result.service'
 import { UserListVM } from '../../classes/view-models/user-list-vm'
-import { environment } from 'src/environments/environment'
 
 @Component({
     selector: 'user-list',
@@ -34,7 +34,7 @@ export class UserListComponent {
 
     //#endregion
 
-    constructor(private activatedRoute: ActivatedRoute, private localStorageService: LocalStorageService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private modalActionResultService: ModalActionResultService, private router: Router) { }
+    constructor(private activatedRoute: ActivatedRoute, private helperService: HelperService, private localStorageService: LocalStorageService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private modalActionResultService: ModalActionResultService, private router: Router) { }
 
     //#region lifecycle hooks
 
@@ -55,8 +55,8 @@ export class UserListComponent {
     //#region public methods
 
     public editRecord(id: string): void {
-        this.localStorageService.saveItem('returnUrl', '/users')
         this.router.navigate([this.url, id])
+        this.localStorageService.saveItem('returnUrl', this.url)
     }
 
     public filterRecords(event: { filteredValue: any[] }): void {
@@ -64,21 +64,16 @@ export class UserListComponent {
         this.localStorageService.saveItem(this.feature, JSON.stringify(this.table.filters))
     }
 
-    public getIcon(filename: string): string {
-        return environment.criteriaIconDirectory + filename + '.svg'
-    }
-
     public getLabel(id: string): string {
         return this.messageLabelService.getDescription(this.feature, id)
     }
 
     public newRecord(): void {
-        this.localStorageService.saveItem('returnUrl', this.url)
         this.router.navigate([this.url + '/new'])
     }
 
-    public resetTableFilters(table: any): void {
-        this.clearTableFilters(table)
+    public resetTableFilters(): void {
+        this.helperService.clearTableTextFilters(this.table, ['userName', 'displayname', 'email'])
     }
 
     //#endregion
@@ -90,18 +85,7 @@ export class UserListComponent {
         this.unsubscribe.unsubscribe()
     }
 
-    private clearTableFilters(table: { clear: () => void }): void {
-        table.clear()
-        this.table.filter('', 'userName', 'contains')
-        this.table.filter('', 'displayname', 'contains')
-        this.table.filter('', 'email', 'contains')
-        const inputs = document.querySelectorAll<HTMLInputElement>('.p-inputtext[type="text"]')
-        inputs.forEach(box => {
-            box.value = ''
-        })
-    }
-
-    private filterColumns(element: { value: any }, field: string, matchMode: string): void {
+    private filterColumn(element: { value: any }, field: string, matchMode: string): void {
         if (element != undefined && (element.value != null || element.value != undefined)) {
             this.table.filter(element.value, field, matchMode)
         }
@@ -111,11 +95,11 @@ export class UserListComponent {
         const filters = this.localStorageService.getFilters(this.feature)
         if (filters != undefined) {
             setTimeout(() => {
-                this.filterColumns(filters.isActive, 'isActive', 'contains')
-                this.filterColumns(filters.isAdmin, 'isAdmin', 'equals')
-                this.filterColumns(filters.userName, 'userName', 'contains')
-                this.filterColumns(filters.displayname, 'displayname', 'contains')
-                this.filterColumns(filters.email, 'email', 'contains')
+                this.filterColumn(filters.isActive, 'isActive', 'contains')
+                this.filterColumn(filters.isAdmin, 'isAdmin', 'equals')
+                this.filterColumn(filters.userName, 'userName', 'contains')
+                this.filterColumn(filters.displayname, 'displayname', 'contains')
+                this.filterColumn(filters.email, 'email', 'contains')
             }, 500)
         }
     }

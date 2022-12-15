@@ -15,7 +15,6 @@ import { MessageSnackbarService } from 'src/app/shared/services/messages-snackba
 import { ModalActionResultService } from 'src/app/shared/services/modal-action-result.service'
 import { ShipActiveVM } from '../../ships/classes/view-models/ship-active-vm'
 import { ShipCrewListVM } from '../classes/view-models/shipCrew-list-vm'
-import { environment } from 'src/environments/environment'
 
 @Component({
     selector: 'ship-crew-list',
@@ -89,10 +88,6 @@ export class ShipCrewListComponent {
         this.localStorageService.saveItem(this.feature, JSON.stringify(this.table.filters))
     }
 
-    public getIcon(filename: string): string {
-        return environment.criteriaIconDirectory + filename + '.svg'
-    }
-
     public getLabel(id: string): string {
         return this.messageLabelService.getDescription(this.feature, id)
     }
@@ -119,7 +114,7 @@ export class ShipCrewListComponent {
         this.unsubscribe.unsubscribe()
     }
 
-    private filterColumns(element: { value: any }, field: string, matchMode: string): void {
+    private filterColumn(element: { value: any }, field: string, matchMode: string): void {
         if (element != undefined && (element.value != null || element.value != undefined)) {
             this.table.filter(element.value, field, matchMode)
         }
@@ -129,10 +124,10 @@ export class ShipCrewListComponent {
         const filters = this.localStorageService.getFilters(this.feature)
         if (filters != undefined) {
             setTimeout(() => {
-                this.filterColumns(filters.isActive, 'isActive', 'contains')
-                this.filterColumns(filters.lastname, 'lastname', 'contains')
-                this.filterColumns(filters.firstname, 'firstname', 'contains')
-                this.filterColumns(filters.birthdate, 'birthdate', 'equals')
+                this.filterColumn(filters.isActive, 'isActive', 'contains')
+                this.filterColumn(filters.lastname, 'lastname', 'contains')
+                this.filterColumn(filters.firstname, 'firstname', 'contains')
+                this.filterColumn(filters.birthdate, 'birthdate', 'equals')
                 if (filters.birthdate != undefined) {
                     const date = new Date(Date.parse(filters.birthdate.value))
                     this.dropdownDate = this.dateAdapter.createDate(date.getFullYear(), date.getMonth(), parseInt(date.getDate().toLocaleString()))

@@ -10,7 +10,6 @@ import { MessageLabelService } from 'src/app/shared/services/messages-label.serv
 import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
 import { ModalActionResultService } from 'src/app/shared/services/modal-action-result.service'
 import { ShipOwnerListVM } from '../classes/view-models/shipOwner-list-vm'
-import { environment } from 'src/environments/environment'
 
 @Component({
     selector: 'ship-owner-list',
@@ -62,10 +61,6 @@ export class ShipOwnerListComponent {
     public filterRecords(event: { filteredValue: any[] }): void {
         this.recordsFiltered = event.filteredValue
         this.localStorageService.saveItem(this.feature, JSON.stringify(this.table.filters))
-    }
-
-    public getIcon(filename: string): string {
-        return environment.criteriaIconDirectory + filename + '.svg'
     }
 
     public getLabel(id: string): string {

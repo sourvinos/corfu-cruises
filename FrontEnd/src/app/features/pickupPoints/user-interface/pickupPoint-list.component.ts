@@ -11,7 +11,6 @@ import { MessageSnackbarService } from 'src/app/shared/services/messages-snackba
 import { ModalActionResultService } from 'src/app/shared/services/modal-action-result.service'
 import { PickupPointListVM } from '../classes/view-models/pickupPoint-list-vm'
 import { PickupPointPdfService } from '../classes/services/pickupPoint-pdf.service'
-import { environment } from 'src/environments/environment'
 
 @Component({
     selector: 'pickupPoint-list',
@@ -72,10 +71,6 @@ export class PickupPointListComponent {
         this.localStorageService.saveItem(this.feature, JSON.stringify(this.table.filters))
     }
 
-    public getIcon(filename: string): string {
-        return environment.criteriaIconDirectory + filename + '.svg'
-    }
-
     public getLabel(id: string): string {
         return this.messageLabelService.getDescription(this.feature, id)
     }
@@ -84,8 +79,8 @@ export class PickupPointListComponent {
         this.router.navigate([this.url + '/new'])
     }
 
-    public resetTableFilters(table: any): void {
-        this.clearTableFilters(table)
+    public resetTableFilters(): void {
+        this.helperService.clearTableTextFilters(this.table, ['description', 'exactPoint', 'time'])
     }
 
     //#endregion
@@ -97,18 +92,7 @@ export class PickupPointListComponent {
         this.unsubscribe.unsubscribe()
     }
 
-    private clearTableFilters(table: { clear: () => void }): void {
-        table.clear()
-        this.table.filter('', 'description', 'contains')
-        this.table.filter('', 'exactPoint', 'contains')
-        this.table.filter('', 'time', 'contains')
-        const inputs = document.querySelectorAll<HTMLInputElement>('.p-inputtext[type="text"]')
-        inputs.forEach(box => {
-            box.value = ''
-        })
-    }
-
-    private filterColumns(element: { value: any }, field: string, matchMode: string): void {
+    private filterColumn(element: { value: any }, field: string, matchMode: string): void {
         if (element != undefined && (element.value != null || element.value != undefined)) {
             this.table.filter(element.value, field, matchMode)
         }
@@ -118,11 +102,11 @@ export class PickupPointListComponent {
         const filters = this.localStorageService.getFilters(this.feature)
         if (filters != undefined) {
             setTimeout(() => {
-                this.filterColumns(filters.isActive, 'isActive', 'contains')
-                this.filterColumns(filters.coachRouteAbbreviation, 'coachRouteAbbreviation', 'equals')
-                this.filterColumns(filters.description, 'description', 'contains')
-                this.filterColumns(filters.exactPoint, 'exactPoint', 'contains')
-                this.filterColumns(filters.time, 'time', 'contains')
+                this.filterColumn(filters.isActive, 'isActive', 'contains')
+                this.filterColumn(filters.coachRouteAbbreviation, 'coachRouteAbbreviation', 'equals')
+                this.filterColumn(filters.description, 'description', 'contains')
+                this.filterColumn(filters.exactPoint, 'exactPoint', 'contains')
+                this.filterColumn(filters.time, 'time', 'contains')
             }, 500)
         }
     }

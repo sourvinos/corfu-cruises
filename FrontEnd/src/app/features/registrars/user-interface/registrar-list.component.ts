@@ -10,7 +10,6 @@ import { MessageLabelService } from 'src/app/shared/services/messages-label.serv
 import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
 import { ModalActionResultService } from 'src/app/shared/services/modal-action-result.service'
 import { RegistrarListVM } from '../classes/view-models/registrar-list-vm'
-import { environment } from 'src/environments/environment'
 
 @Component({
     selector: 'registrar-list',
@@ -67,10 +66,6 @@ export class RegistrarListComponent {
         this.localStorageService.saveItem(this.feature, JSON.stringify(this.table.filters))
     }
 
-    public getIcon(filename: string): string {
-        return environment.criteriaIconDirectory + filename + '.svg'
-    }
-
     public getLabel(id: string): string {
         return this.messageLabelService.getDescription(this.feature, id)
     }
@@ -79,8 +74,8 @@ export class RegistrarListComponent {
         this.router.navigate([this.url + '/new'])
     }
 
-    public resetTableFilters(table: any): void {
-        this.clearTableFilters(table)
+    public resetTableFilters(): void {
+        this.helperService.clearTableTextFilters(this.table, ['fullname'])
     }
 
     //#endregion
@@ -92,16 +87,7 @@ export class RegistrarListComponent {
         this.unsubscribe.unsubscribe()
     }
 
-    private clearTableFilters(table: { clear: () => void }): void {
-        table.clear()
-        this.table.filter('', 'fullname', 'contains')
-        const inputs = document.querySelectorAll<HTMLInputElement>('.p-inputtext[type="text"]')
-        inputs.forEach(box => {
-            box.value = ''
-        })
-    }
-
-    private filterColumns(element: { value: any }, field: string, matchMode: string): void {
+    private filterColumn(element: { value: any }, field: string, matchMode: string): void {
         if (element != undefined && (element.value != null || element.value != undefined)) {
             this.table.filter(element.value, field, matchMode)
         }
@@ -111,10 +97,10 @@ export class RegistrarListComponent {
         const filters = this.localStorageService.getFilters(this.feature)
         if (filters != undefined) {
             setTimeout(() => {
-                this.filterColumns(filters.isActive, 'isActive', 'contains')
-                this.filterColumns(filters.isPrimary, 'isPrimary', 'equals')
-                this.filterColumns(filters.shipDescription, 'shipDescription', 'equals')
-                this.filterColumns(filters.fullname, 'fullname', 'contains')
+                this.filterColumn(filters.isActive, 'isActive', 'contains')
+                this.filterColumn(filters.isPrimary, 'isPrimary', 'equals')
+                this.filterColumn(filters.shipDescription, 'shipDescription', 'equals')
+                this.filterColumn(filters.fullname, 'fullname', 'contains')
             }, 500)
         }
     }

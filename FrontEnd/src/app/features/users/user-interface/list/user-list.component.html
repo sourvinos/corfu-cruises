@@ -3,7 +3,7 @@
     <div id="header">
         <home-button-and-title [featureIcon]="featureIcon" [feature]="feature" [icon]="icon" [parentUrl]="parentUrl"></home-button-and-title>
         <div id="criteria">
-            <button (click)="resetTableFilters(table)" [disabled]="records.length==recordsFiltered.length" class="primary" mat-flat-button>
+            <button (click)="resetTableFilters()" [disabled]="records.length==recordsFiltered.length" class="primary" mat-flat-button>
                 <i class="pi pi-filter-slash"></i>
             </button>
         </div>
@@ -28,7 +28,7 @@
                 </tr>
             </ng-template>
             <ng-template let-rowData pTemplate="body">
-                <tr (dblclick)="editRecord(rowData.id)">
+                <tr (dblclick)="editRecord(rowData.id)" style="height: 33px">
                     <td [ngClass]="rowData.isActive ? 'is-active': 'is-not-active'" style="text-align: center; width: 10%;">
                         <span *ngIf="rowData.isActive" class="is-active material-icons-outlined">check_circle</span>
                         <span *ngIf="!rowData.isActive" class="is-not-active material-icons-outlined">highlight_off</span>
@@ -46,16 +46,7 @@
     </div>
 
     <div id="footer">
-        <div id="filters">
-            <div class="pill">
-                <img [src]="getIcon('total')">
-                <div class="number description">{{ records.length }}</div>
-            </div>
-            <div class="pill">
-                <img [src]="getIcon('filter')">
-                <div class="number description">{{ recordsFiltered.length }}</div>
-            </div>
-        </div>
+        <table-total-filtered-records [recordCount]="records.length" [filteredRecordCount]="recordsFiltered.length"></table-total-filtered-records>
         <div class="button-group">
             <button mat-flat-button class="primary" (click)="newRecord()">{{ getLabel("newRecord") }}</button>
         </div>

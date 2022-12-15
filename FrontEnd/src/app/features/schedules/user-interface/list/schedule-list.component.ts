@@ -14,7 +14,6 @@ import { MessageLabelService } from 'src/app/shared/services/messages-label.serv
 import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
 import { ModalActionResultService } from 'src/app/shared/services/modal-action-result.service'
 import { ScheduleListVM } from './../../classes/view-models/schedule-list-vm'
-import { environment } from 'src/environments/environment'
 
 @Component({
     selector: 'pickuppoint-list',
@@ -49,7 +48,7 @@ export class ScheduleListComponent {
 
     ngOnInit(): void {
         this.loadRecords()
-        this.formatDateToLocale()
+        this.formatDatesToLocale()
         this.populateDropdownFilters()
         this.subscribeToInteractionService()
         this.setLocale()
@@ -89,10 +88,6 @@ export class ScheduleListComponent {
         this.localStorageService.saveItem(this.feature, JSON.stringify(this.table.filters))
     }
 
-    public getIcon(filename: string): string {
-        return environment.criteriaIconDirectory + filename + '.svg'
-    }
-
     public getLabel(id: string): string {
         return this.messageLabelService.getDescription(this.feature, id)
     }
@@ -119,7 +114,7 @@ export class ScheduleListComponent {
         this.unsubscribe.unsubscribe()
     }
 
-    private filterColumns(element: { value: any }, field: string, matchMode: string): void {
+    private filterColumn(element: { value: any }, field: string, matchMode: string): void {
         if (element != undefined && (element.value != null || element.value != undefined)) {
             this.table.filter(element.value, field, matchMode)
         }
@@ -129,11 +124,11 @@ export class ScheduleListComponent {
         const filters = this.localStorageService.getFilters(this.feature)
         if (filters != undefined) {
             setTimeout(() => {
-                this.filterColumns(filters.isActive, 'isActive', 'contains')
-                this.filterColumns(filters.date, 'date', 'equals')
-                this.filterColumns(filters.destinationDescription, 'destinationDescription', 'equals')
-                this.filterColumns(filters.portDescription, 'portDescription', 'equals')
-                this.filterColumns(filters.maxPax, 'maxPax', 'contains')
+                this.filterColumn(filters.isActive, 'isActive', 'contains')
+                this.filterColumn(filters.date, 'date', 'equals')
+                this.filterColumn(filters.destinationDescription, 'destinationDescription', 'equals')
+                this.filterColumn(filters.portDescription, 'portDescription', 'equals')
+                this.filterColumn(filters.maxPax, 'maxPax', 'contains')
                 if (filters.date != undefined) {
                     const date = new Date(Date.parse(filters.date.value))
                     this.dropdownDate = this.dateAdapter.createDate(date.getFullYear(), date.getMonth(), parseInt(date.getDate().toLocaleString()))
@@ -142,7 +137,7 @@ export class ScheduleListComponent {
         }
     }
 
-    private formatDateToLocale(): void {
+    private formatDatesToLocale(): void {
         this.records.forEach(record => {
             record.formattedDate = this.dateHelperService.formatISODateToLocale(record.date)
         })
@@ -178,7 +173,7 @@ export class ScheduleListComponent {
 
     private subscribeToInteractionService(): void {
         this.interactionService.refreshDateAdapter.pipe(takeUntil(this.unsubscribe)).subscribe(() => {
-            this.formatDateToLocale()
+            this.formatDatesToLocale()
             this.setLocale()
         })
     }

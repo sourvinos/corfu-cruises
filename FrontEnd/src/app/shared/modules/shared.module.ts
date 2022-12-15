@@ -17,6 +17,7 @@ import { ModalActionResultComponent } from '../components/modal-action-result/mo
 import { PrimeNgModule } from './primeng.module'
 import { SafeStylePipe } from '../pipes/safeStyle.pipe'
 import { SnackbarComponent } from '../components/snackbar/snackbar.component'
+import { TableTotalFilteredRecordsComponent } from '../components/table-total-filtered-records/table-total-filtered-records.component'
 import { ThemeMenuComponent } from './../components/top-bar-wrapper/theme-menu/theme-menu.component'
 
 @NgModule({
@@ -32,7 +33,8 @@ import { ThemeMenuComponent } from './../components/top-bar-wrapper/theme-menu/t
         ModalActionResultComponent,
         SafeStylePipe,
         SnackbarComponent,
-        ThemeMenuComponent,
+        TableTotalFilteredRecordsComponent,
+        ThemeMenuComponent
     ],
     imports: [
         CommonModule,
@@ -55,6 +57,7 @@ import { ThemeMenuComponent } from './../components/top-bar-wrapper/theme-menu/t
         PrimeNgModule,
         ReactiveFormsModule,
         RouterModule,
+        TableTotalFilteredRecordsComponent,
         ThemeMenuComponent,
         ZXingScannerModule
     ],

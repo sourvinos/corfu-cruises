@@ -3,6 +3,7 @@ import { Component, ViewChild } from '@angular/core'
 import { Subject } from 'rxjs'
 import { Table } from 'primeng/table'
 // Custom
+import { HelperService } from 'src/app/shared/services/helper.service'
 import { ListResolved } from 'src/app/shared/classes/list-resolved'
 import { LocalStorageService } from 'src/app/shared/services/local-storage.service'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
@@ -34,7 +35,7 @@ export class PortListComponent {
 
     //#endregion
 
-    constructor(private activatedRoute: ActivatedRoute, private localStorageService: LocalStorageService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private modalActionResultService: ModalActionResultService, private router: Router) { }
+    constructor(private activatedRoute: ActivatedRoute, private helperService: HelperService, private localStorageService: LocalStorageService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private modalActionResultService: ModalActionResultService, private router: Router) { }
 
     //#region lifecycle hooks
 
@@ -63,10 +64,6 @@ export class PortListComponent {
         this.localStorageService.saveItem(this.feature, JSON.stringify(this.table.filters))
     }
 
-    public getIcon(filename: string): string {
-        return environment.criteriaIconDirectory + filename + '.svg'
-    }
-
     public getLabel(id: string): string {
         return this.messageLabelService.getDescription(this.feature, id)
     }
@@ -79,8 +76,8 @@ export class PortListComponent {
         this.router.navigate([this.url + '/new'])
     }
 
-    public resetTableFilters(table: any): void {
-        this.clearTableFilters(table)
+    public resetTableFilters(): void {
+        this.helperService.clearTableTextFilters(this.table, ['description'])
     }
 
     //#endregion
@@ -92,16 +89,7 @@ export class PortListComponent {
         this.unsubscribe.unsubscribe()
     }
 
-    private clearTableFilters(table: { clear: () => void }): void {
-        table.clear()
-        this.table.filter('', 'description', 'contains')
-        const inputs = document.querySelectorAll<HTMLInputElement>('.p-inputtext[type="text"]')
-        inputs.forEach(box => {
-            box.value = ''
-        })
-    }
-
-    private filterColumns(element: { value: any }, field: string, matchMode: string): void {
+    private filterColumn(element: { value: any }, field: string, matchMode: string): void {
         if (element != undefined && (element.value != null || element.value != undefined)) {
             this.table.filter(element.value, field, matchMode)
         }
@@ -111,8 +99,8 @@ export class PortListComponent {
         const filters = this.localStorageService.getFilters(this.feature)
         if (filters != undefined) {
             setTimeout(() => {
-                this.filterColumns(filters.isActive, 'isActive', 'contains')
-                this.filterColumns(filters.description, 'description', 'contains')
+                this.filterColumn(filters.isActive, 'isActive', 'contains')
+                this.filterColumn(filters.description, 'description', 'contains')
             }, 500)
         }
     }

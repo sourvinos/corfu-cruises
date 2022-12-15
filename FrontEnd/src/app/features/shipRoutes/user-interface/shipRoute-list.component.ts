@@ -10,7 +10,6 @@ import { MessageLabelService } from 'src/app/shared/services/messages-label.serv
 import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
 import { ModalActionResultService } from 'src/app/shared/services/modal-action-result.service'
 import { ShipRouteListVM } from '../classes/view-models/shipRoute-list-vm'
-import { environment } from 'src/environments/environment'
 
 @Component({
     selector: 'ship-route-list',
@@ -64,10 +63,6 @@ export class ShipRouteListComponent {
         this.localStorageService.saveItem(this.feature, JSON.stringify(this.table.filters))
     }
 
-    public getIcon(filename: string): string {
-        return environment.criteriaIconDirectory + filename + '.svg'
-    }
-
     public getLabel(id: string): string {
         return this.messageLabelService.getDescription(this.feature, id)
     }
@@ -89,7 +84,7 @@ export class ShipRouteListComponent {
         this.unsubscribe.unsubscribe()
     }
 
-    private filterColumns(element: { value: any }, field: string, matchMode: string): void {
+    private filterColumn(element: { value: any }, field: string, matchMode: string): void {
         if (element != undefined && (element.value != null || element.value != undefined)) {
             this.table.filter(element.value, field, matchMode)
         }
@@ -99,10 +94,10 @@ export class ShipRouteListComponent {
         const filters = this.localStorageService.getFilters(this.feature)
         if (filters != undefined) {
             setTimeout(() => {
-                this.filterColumns(filters.isActive, 'isActive', 'contains')
-                this.filterColumns(filters.fromPort, 'fromPort', 'contains')
-                this.filterColumns(filters.viaPort, 'viaPort', 'contains')
-                this.filterColumns(filters.toPort, 'toPort', 'contains')
+                this.filterColumn(filters.isActive, 'isActive', 'contains')
+                this.filterColumn(filters.fromPort, 'fromPort', 'contains')
+                this.filterColumn(filters.viaPort, 'viaPort', 'contains')
+                this.filterColumn(filters.toPort, 'toPort', 'contains')
             }, 500)
         }
     }
