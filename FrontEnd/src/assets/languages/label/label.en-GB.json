@@ -2025,7 +2025,7 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Schedules"
+                "description": "Trips schedule"
             },
             {
                 "id": "headerIsActive",
