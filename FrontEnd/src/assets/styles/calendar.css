@@ -34,8 +34,11 @@
     margin-left: 0 !important;
 }
 
-.mat-calendar-next-button {
+.mat-calendar-previous-button, .mat-calendar-next-button {
     color: var(--color-c) !important;
+}
+
+.mat-calendar-next-button {
     margin-right: 0.2rem !important;
 }
 
@@ -115,10 +118,6 @@
 .mat-calendar-body-cell::before, .mat-calendar-body-cell::after, .mat-calendar-body-cell-preview {
     height: 0 !important;
     width: 0 !important;
-}
-
-.mat-calendar-previous-button {
-    color: var(--color-c) !important;
 }
 
 .mat-date-range-input-start-wrapper {

@@ -2099,10 +2099,14 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Κρατήσεις έτους"
+                "description": "Κρατήσεις"
             },
             {
-                "id": "gotoTodayButton",
+                "id": "date",
+                "description": "Ημερομηνία"
+            },
+            {
+                "id": "todayButton",
                 "description": "ΣΗΜΕΡΑ"
             },
             {

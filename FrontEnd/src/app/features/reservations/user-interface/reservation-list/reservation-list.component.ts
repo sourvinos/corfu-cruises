@@ -318,13 +318,15 @@ export class ReservationListComponent {
     }
 
     private populateDropdowns(): void {
-        this.dropdownCoachRoutes = this.helperService.populateTableFiltersDropdowns(this.reservationGroupDto.reservations, 'coachRouteAbbreviation')
-        this.dropdownCustomers = this.helperService.populateTableFiltersDropdowns(this.reservationGroupDto.reservations, 'customerDescription')
-        this.dropdownDestinations = this.helperService.populateTableFiltersDropdowns(this.reservationGroupDto.reservations, 'destinationDescription')
-        this.dropdownDrivers = this.helperService.populateTableFiltersDropdowns(this.reservationGroupDto.reservations, 'driverDescription')
-        this.dropdownPickupPoints = this.helperService.populateTableFiltersDropdowns(this.reservationGroupDto.reservations, 'pickupPointDescription')
-        this.dropdownPorts = this.helperService.populateTableFiltersDropdowns(this.reservationGroupDto.reservations, 'portDescription')
-        this.dropdownShips = this.helperService.populateTableFiltersDropdowns(this.reservationGroupDto.reservations, 'shipDescription')
+        setTimeout(() => {
+            this.dropdownCoachRoutes = this.helperService.populateTableFiltersDropdowns(this.reservationGroupDto.reservations, 'coachRouteAbbreviation')
+            this.dropdownCustomers = this.helperService.populateTableFiltersDropdowns(this.reservationGroupDto.reservations, 'customerDescription')
+            this.dropdownDestinations = this.helperService.populateTableFiltersDropdowns(this.reservationGroupDto.reservations, 'destinationDescription')
+            this.dropdownDrivers = this.helperService.populateTableFiltersDropdowns(this.reservationGroupDto.reservations, 'driverDescription')
+            this.dropdownPickupPoints = this.helperService.populateTableFiltersDropdowns(this.reservationGroupDto.reservations, 'pickupPointDescription')
+            this.dropdownPorts = this.helperService.populateTableFiltersDropdowns(this.reservationGroupDto.reservations, 'portDescription')
+            this.dropdownShips = this.helperService.populateTableFiltersDropdowns(this.reservationGroupDto.reservations, 'shipDescription')
+        }, 500)
     }
 
     private clearTableFilters(table: { clear: () => void }): void {

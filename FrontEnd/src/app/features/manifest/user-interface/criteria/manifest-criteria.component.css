@@ -11,3 +11,7 @@
 .p-fieldset .p-fieldset-content {
     flex-direction: column;
 }
+
+.mat-calendar-previous-button, .mat-calendar-next-button {
+    display: block !important;
+}

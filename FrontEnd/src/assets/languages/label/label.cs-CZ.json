@@ -2099,10 +2099,14 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Rezervace na rok"
+                "description": "Rezervace"
             },
             {
-                "id": "gotoTodayButton",
+                "id": "date",
+                "description": "Datum"
+            },
+            {
+                "id": "todayButton",
                 "description": "DENNĚ"
             },
             {

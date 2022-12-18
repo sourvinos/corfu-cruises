@@ -2102,7 +2102,11 @@
                 "description": "Reservations for"
             },
             {
-                "id": "gotoTodayButton",
+                "id": "date",
+                "description": "Date"
+            },
+            {
+                "id": "todayButton",
                 "description": "TODAY"
             },
             {

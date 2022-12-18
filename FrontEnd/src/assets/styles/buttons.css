@@ -66,6 +66,10 @@ button.tab:first-child {
     margin-right: 1rem;
 }
 
+.mat-fab .mat-button-wrapper {
+    line-height: 0 !important;
+}
+
 button.mat-mini-fab {
     background-color: var(--color-b) !important;
     box-shadow: none !important;

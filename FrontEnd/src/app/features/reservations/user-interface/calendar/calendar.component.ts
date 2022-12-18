@@ -1,15 +1,18 @@
-import { Component } from '@angular/core'
+import { Component, ViewChild } from '@angular/core'
+import { DateAdapter } from '@angular/material/core'
 import { Router } from '@angular/router'
-import { Subject } from 'rxjs'
+import { Subject, takeUntil } from 'rxjs'
 // Custom
 import { ActiveYearDialogComponent } from 'src/app/shared/components/active-year-dialog/active-year-dialog.component'
 import { DateHelperService } from 'src/app/shared/services/date-helper.service'
 import { DayVM } from '../../classes/calendar/day-vm'
+import { InteractionService } from 'src/app/shared/services/interaction.service'
 import { LocalStorageService } from 'src/app/shared/services/local-storage.service'
 import { MatDialog } from '@angular/material/dialog'
 import { MessageCalendarService } from 'src/app/shared/services/messages-calendar.service'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { ReservationService } from '../../classes/services/reservation.service'
+import { MatCalendar } from '@angular/material/datepicker'
 
 @Component({
     selector: 'calendar',
@@ -21,26 +24,28 @@ export class CalendarComponent {
 
     // #region variables
 
+    @ViewChild('calendar', { static: false }) calendar: MatCalendar<Date>
+
     private unsubscribe = new Subject<void>()
     public feature = 'reservationsCalendar'
     public featureIcon = 'reservations'
     public icon = 'home'
     public parentUrl = '/'
 
-    private days: any
     private daysWithSchedule = []
     public activeYear: number
     public dayWidth: number
     public isLeftScrollAllowed: boolean
     public isLoading: boolean
     public isRightScrollAllowed: boolean
-    public months: number[]
+    public months: any[]
     public todayScrollPosition: number
     public year: DayVM[]
+    public imgIsLoaded = false
 
     // #endregion 
 
-    constructor(private dateHelperService: DateHelperService, private localStorageService: LocalStorageService, private messageCalendarService: MessageCalendarService, private messageLabelService: MessageLabelService, private reservationService: ReservationService, private router: Router, public dialog: MatDialog) { }
+    constructor(private dateAdapter: DateAdapter<any>, private dateHelperService: DateHelperService, private interactionService: InteractionService, private localStorageService: LocalStorageService, private messageCalendarService: MessageCalendarService, private messageLabelService: MessageLabelService, private reservationService: ReservationService, private router: Router, public dialog: MatDialog) { }
 
     //#region lifecycle hooks
 
@@ -49,13 +54,15 @@ export class CalendarComponent {
         this.populateMonths()
         this.buildCalendar()
         this.updateCalendar()
+        this.setLocale()
+        this.subscribeToInteractionService()
     }
 
     ngAfterViewInit(): void {
-        this.updateDayVariables()
-        this.scrollToToday()
-        this.scrollToStoredDate()
-        this.updateArrows()
+        setTimeout(() => {
+            this.scrollToToday()
+            this.scrollToStoredDate()
+        }, 500)
     }
 
     ngOnDestroy(): void {
@@ -85,13 +92,11 @@ export class CalendarComponent {
 
     public gotoMonth(month: number): void {
         this.scrollToMonth(month)
-        this.updateArrows()
-        this.saveScrollPosition()
     }
 
     public gotoReservationsList(date: any): void {
         if (this.dayHasSchedule(date)) {
-            this.storeCriteria(date.date)
+            this.storeVariables(date.date)
             this.navigateToList()
         }
     }
@@ -103,8 +108,10 @@ export class CalendarComponent {
             this.updateCalendar()
         }
         this.scrollToToday()
-        this.updateArrows()
-        this.saveScrollPosition()
+    }
+
+    public imageIsLoading(): any {
+        return this.imgIsLoaded ? '' : 'skeleton'
     }
 
     public isSaturday(day: any): boolean {
@@ -117,12 +124,6 @@ export class CalendarComponent {
 
     public isToday(day: any): boolean {
         return day.date == new Date().toISOString().substring(0, 10)
-    }
-
-    public scrollDays(direction: string): void {
-        this.scrollLeftOrRight(direction)
-        this.updateArrows()
-        this.saveScrollPosition()
     }
 
     public setActiveYear(): void {
@@ -141,7 +142,6 @@ export class CalendarComponent {
                 if (this.mustRebuildCalendar()) {
                     this.buildCalendar()
                     this.updateCalendar()
-                    this.updateArrows()
                 }
             }
         })
@@ -184,10 +184,6 @@ export class CalendarComponent {
             : parseInt(this.localStorageService.getItem('year'))
     }
 
-    private getMonthOffset(month: number): number {
-        return this.dateHelperService.getMonthFirstDayOffset(month, this.activeYear.toString())
-    }
-
     private getReservations(): Promise<any> {
         const promise = new Promise((resolve) => {
             this.reservationService.getForCalendar(this.activeYear + '-01-01', this.activeYear + '-12-31').subscribe(response => {
@@ -198,24 +194,16 @@ export class CalendarComponent {
         return promise
     }
 
-    private getTodayScrollPosition(): number {
-        const date = new Date()
-        const fromDate = Date.UTC(date.getFullYear(), date.getMonth(), date.getDate())
-        const toDate = Date.UTC(date.getFullYear(), 0, 0)
-        const differenceInMilliseconds = fromDate - toDate
-        const differenceInDays = differenceInMilliseconds / 1000 / 60 / 60 / 24
-        return differenceInDays
-    }
 
     /**
- * Decides whether to re-create the calendar (build the days and read the reservations from the backend) or not
- * Called when either:
- *  a. The gotoToday button is clicked.
- *  b. The user has given a year to work on in the modal dialog
- * @returns 
- *  a. True if we are working in another year (not the current), therefore it must be re-created
- *  b. False if the working year is equal to the active year
- */
+     * Decides whether to re-create the calendar (build the days and read the reservations from the backend) or not
+     * Called when either:
+     *  a. The gotoToday button is clicked.
+     *  b. The user has given a working year
+     * @returns 
+     *  a. True if we are working in another year (not the current), therefore it must be re-created
+     *  b. False if the working year is equal to the active year
+     */
     private mustRebuildCalendar(): boolean {
         const storedYear = this.localStorageService.getItem('year')
         if (storedYear != this.activeYear.toString()) {
@@ -233,10 +221,6 @@ export class CalendarComponent {
         this.months = [...Array(12).keys()].map(x => ++x)
     }
 
-    private saveScrollPosition(): void {
-        localStorage.setItem('scrollLeft', this.days.scrollLeft)
-    }
-
     /**
      * Stores the optional year as a string
      * Called when either:
@@ -250,34 +234,42 @@ export class CalendarComponent {
             : this.dateHelperService.getCurrentYear().toString())
     }
 
-    private scrollLeftOrRight(direction: string): void {
-        this.days.scrollLeft += direction == 'previous' ? -this.dayWidth : this.dayWidth
+    private setLocale(): void {
+        this.dateAdapter.setLocale(this.localStorageService.getLanguage())
     }
 
     private scrollToMonth(month: number): void {
-        this.days.scrollLeft = this.getMonthOffset(month) * this.dayWidth
+        document.getElementById(this.activeYear.toString() + '-' + (month.toString().length == 1 ? '0' + month.toString() : month.toString()) + '-' + '01').scrollIntoView()
     }
 
     private scrollToStoredDate(): void {
-        if (localStorage.getItem('scrollLeft') != undefined) {
-            this.days.scrollLeft = localStorage.getItem('scrollLeft')
+        if (localStorage.getItem('scrollTop') != undefined) {
+            const me = localStorage.getItem('scrollTop')
+            const z = document.getElementById('days')
+            z.scrollTop = parseInt(me)
         }
     }
 
     private scrollToToday(): void {
-        this.todayScrollPosition = this.getTodayScrollPosition() - 2
-        this.days.scrollLeft = this.todayScrollPosition * this.dayWidth
+        if (localStorage.getItem('scrollTop') == undefined) {
+            setTimeout(() => {
+                const element = document.querySelector('.is-today')
+                if (element != null) {
+                    element.scrollIntoView()
+                }
+            }, 500)
+        }
     }
 
-    private storeCriteria(date: string): void {
+    private storeVariables(date: string): void {
+        this.localStorageService.saveItem('scrollTop', document.getElementById('days').scrollTop.toString())
         this.localStorageService.saveItem('date', date)
     }
 
-    private updateArrows(): void {
-        setTimeout(() => {
-            this.isLeftScrollAllowed = this.days.scrollLeft == 0 ? false : true
-            this.isRightScrollAllowed = this.days.scrollLeft == this.days.scrollWidth - this.days.clientWidth ? false : true
-        }, 500)
+    private subscribeToInteractionService(): void {
+        this.interactionService.refreshDateAdapter.pipe(takeUntil(this.unsubscribe)).subscribe(() => {
+            this.setLocale()
+        })
     }
 
     private updateCalendar(): void {
@@ -292,11 +284,6 @@ export class CalendarComponent {
             this.year[this.year.indexOf(x)].destinations = day.destinations
             this.year[this.year.indexOf(x)].pax = day.pax
         })
-    }
-
-    private updateDayVariables(): void {
-        this.days = document.querySelector('#days')
-        this.dayWidth = document.querySelectorAll('.day')[0].getBoundingClientRect().width + 2
     }
 
     //#endregion

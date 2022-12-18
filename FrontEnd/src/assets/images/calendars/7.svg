@@ -25,8 +25,8 @@
      inkscape:document-units="mm"
      showgrid="false"
      inkscape:zoom="17.544013"
-     inkscape:cx="23.170298"
-     inkscape:cy="23.198798"
+     inkscape:cx="23.198797"
+     inkscape:cy="23.255797"
      inkscape:window-width="1920"
      inkscape:window-height="1017"
      inkscape:window-x="-8"
@@ -43,23 +43,23 @@
     <g
        id="g2805"
        transform="translate(-11.387633,-100.51068)"
-       style="fill:none;stroke:#cf6755;stroke-width:0.3;stroke-dasharray:none;stroke-opacity:1">
+       style="fill:#ffe9a6;stroke:#e05400;stroke-width:0.3;stroke-dasharray:none;stroke-opacity:1;fill-opacity:1">
       <circle
-         style="opacity:1;fill:none;fill-opacity:1;stroke:#cf6755;stroke-width:0.3;stroke-linejoin:bevel;stroke-dasharray:none;stroke-opacity:1"
+         style="opacity:1;fill:#ffe9a6;fill-opacity:1;stroke:#e05400;stroke-width:0.3;stroke-linejoin:bevel;stroke-dasharray:none;stroke-opacity:1"
          id="circle2641"
          cx="130.76625"
          cy="129.42693"
          r="5.9880152" />
       <text
          xml:space="preserve"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:7.94435px;font-family:Montserrat;-inkscape-font-specification:'Montserrat, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;opacity:1;fill:#cf6755;stroke:none;stroke-width:0.3;stroke-linejoin:bevel;stroke-dasharray:none;stroke-opacity:1;fill-opacity:1"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:7.94435px;font-family:Montserrat;-inkscape-font-specification:'Montserrat, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;opacity:1;fill:#ffe9a6;stroke:#e05400;stroke-width:0.3;stroke-linejoin:bevel;stroke-dasharray:none;stroke-opacity:1;fill-opacity:1"
          x="111.79607"
          y="151.12288"
          id="text2662"
          transform="scale(1.1461476,0.87248798)"><tspan
            sodipodi:role="line"
            id="tspan2660"
-           style="fill:#cf6755;stroke:none;stroke-width:0.3;stroke-dasharray:none;stroke-opacity:1;fill-opacity:1"
+           style="fill:#ffe9a6;stroke:#e05400;stroke-width:0.3;stroke-dasharray:none;stroke-opacity:1;fill-opacity:1"
            x="111.79607"
            y="151.12288">7</tspan></text>
     </g>

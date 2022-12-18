@@ -7,6 +7,7 @@ import { ListboxModule } from 'primeng/listbox'
 import { MenubarModule } from 'primeng/menubar'
 import { PanelMenuModule } from 'primeng/panelmenu'
 import { PanelModule } from 'primeng/panel'
+import { SpeedDialModule } from 'primeng/speeddial'
 import { TableModule } from 'primeng/table'
 
 @NgModule({
@@ -18,6 +19,7 @@ import { TableModule } from 'primeng/table'
         MenubarModule,
         PanelMenuModule,
         PanelModule,
+        SpeedDialModule,
         TableModule
     ]
 })

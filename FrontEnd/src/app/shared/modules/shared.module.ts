@@ -14,6 +14,7 @@ import { LoadingSpinnerComponent } from '../components/loading-spinner/loading-s
 import { LoginLogoComponent } from 'src/app/features/login/user-interface/login-logo.component'
 import { MaterialModule } from './material.module'
 import { ModalActionResultComponent } from '../components/modal-action-result/modal-action-result.component'
+import { MonthSelectorComponent } from '../components/month-selector/month-selector.component'
 import { PrimeNgModule } from './primeng.module'
 import { SafeStylePipe } from '../pipes/safeStyle.pipe'
 import { SnackbarComponent } from '../components/snackbar/snackbar.component'
@@ -31,6 +32,7 @@ import { ThemeMenuComponent } from './../components/top-bar-wrapper/theme-menu/t
         LoadingSpinnerComponent,
         LoginLogoComponent,
         ModalActionResultComponent,
+        MonthSelectorComponent,
         SafeStylePipe,
         SnackbarComponent,
         TableTotalFilteredRecordsComponent,
@@ -54,6 +56,7 @@ import { ThemeMenuComponent } from './../components/top-bar-wrapper/theme-menu/t
         LoadingSpinnerComponent,
         LoginLogoComponent,
         MaterialModule,
+        MonthSelectorComponent,
         PrimeNgModule,
         ReactiveFormsModule,
         RouterModule,

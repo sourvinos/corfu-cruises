@@ -19,11 +19,8 @@
 }
 
 #content {
-    height: inherit;
-}
-
-#menu-button {
-    position: absolute;
+    height: 100%;
+    min-height: 0;
 }
 
 #loading-indication, #loading-indication::before {
