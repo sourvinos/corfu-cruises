@@ -136,24 +136,11 @@ export class CalendarComponent {
         this.imgIsLoaded = true
     }
 
-    public setActiveYear(): void {
-        const dialogRef = this.dialog.open(ActiveYearDialogComponent, {
-            height: '550px',
-            width: '500px',
-            data: {
-                activeYear: '',
-                actions: ['abort', 'ok']
-            },
-            panelClass: 'dialog'
-        })
-        dialogRef.afterClosed().subscribe(result => {
-            if (result !== undefined) {
-                this.saveYear(result)
-                if (this.mustRebuildCalendar()) {
-                    this.router.navigate([this.url])
-                }
-            }
-        })
+    public setActiveYear(year: string): void {
+        this.saveYear(year)
+        if (this.mustRebuildCalendar()) {
+            this.router.navigate([this.url])
+        }
     }
 
     //#endregion

@@ -20,6 +20,7 @@ import { SafeStylePipe } from '../pipes/safeStyle.pipe'
 import { SnackbarComponent } from '../components/snackbar/snackbar.component'
 import { TableTotalFilteredRecordsComponent } from '../components/table-total-filtered-records/table-total-filtered-records.component'
 import { ThemeMenuComponent } from './../components/top-bar-wrapper/theme-menu/theme-menu.component'
+import { YearSelectorComponent } from '../components/year-selector/year-selector.component'
 
 @NgModule({
     declarations: [
@@ -36,7 +37,8 @@ import { ThemeMenuComponent } from './../components/top-bar-wrapper/theme-menu/t
         SafeStylePipe,
         SnackbarComponent,
         TableTotalFilteredRecordsComponent,
-        ThemeMenuComponent
+        ThemeMenuComponent,
+        YearSelectorComponent
     ],
     imports: [
         CommonModule,
@@ -62,6 +64,7 @@ import { ThemeMenuComponent } from './../components/top-bar-wrapper/theme-menu/t
         RouterModule,
         TableTotalFilteredRecordsComponent,
         ThemeMenuComponent,
+        YearSelectorComponent,
         ZXingScannerModule
     ],
     entryComponents: [

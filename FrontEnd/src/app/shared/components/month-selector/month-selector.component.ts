@@ -15,7 +15,7 @@ export class MonthSelectorComponent {
 
     @Output() public monthEmitter = new EventEmitter()
 
-    @ViewChild('opener', { static: false }) opener: ElementRef<HTMLInputElement>
+    @ViewChild('monthOpener', { static: false }) monthOpener: ElementRef<HTMLInputElement>
 
     public months: Month[] = []
     public imgIsLoaded = false
@@ -26,7 +26,6 @@ export class MonthSelectorComponent {
     ngOnInit(): void {
         this.populateMonths()
     }
-
 
     public getIcon(filename: string): string {
         return environment.calendarIconDirectory + filename + '.svg'
@@ -42,12 +41,12 @@ export class MonthSelectorComponent {
 
     public selectMonth(month: number): any {
         this.monthEmitter.emit(month)
-        this.opener.nativeElement.checked = false
+        this.monthOpener.nativeElement.checked = false
         this.isOpen = false
     }
 
     public setOpenerVisibility(): void {
-        this.opener.nativeElement.checked = !this.opener.nativeElement.checked
+        this.monthOpener.nativeElement.checked = !this.monthOpener.nativeElement.checked
         this.isOpen = !this.isOpen
     }
 

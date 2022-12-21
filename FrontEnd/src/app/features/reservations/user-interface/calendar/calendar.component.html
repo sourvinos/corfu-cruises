@@ -2,10 +2,11 @@
 
     <div id="header">
         <home-button-and-title [featureIcon]="featureIcon" [feature]="feature" [icon]="icon" [parentUrl]="parentUrl"></home-button-and-title>
-        <div id="active-year" (click)="setActiveYear()">
+        <year-selector (yearEmitter)="setActiveYear($event)" [activeYear]="activeYear"></year-selector>
+        <!-- <div id="active-year" (click)="setActiveYear()">
             <span>{{ activeYear }}</span>
             <mat-icon class="button-icon">event</mat-icon>
-        </div>
+        </div> -->
     </div>
 
     <div id="content">
