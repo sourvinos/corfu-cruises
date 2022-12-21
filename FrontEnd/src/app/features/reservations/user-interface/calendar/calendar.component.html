@@ -3,10 +3,6 @@
     <div id="header">
         <home-button-and-title [featureIcon]="featureIcon" [feature]="feature" [icon]="icon" [parentUrl]="parentUrl"></home-button-and-title>
         <year-selector (yearEmitter)="setActiveYear($event)" [activeYear]="activeYear"></year-selector>
-        <!-- <div id="active-year" (click)="setActiveYear()">
-            <span>{{ activeYear }}</span>
-            <mat-icon class="button-icon">event</mat-icon>
-        </div> -->
     </div>
 
     <div id="content">
@@ -17,7 +13,7 @@
                     <div class="date">{{ day.value }}</div>
                     <div class="month">{{ getLocaleMonthName(day.monthName) }}</div>
                 </div>
-                <div class="reservation-data">
+                <div *ngIf="day.destinations != undefined" class="reservation-data">
                     <div class="reservation">
                         <div class="destinations" *ngFor="let destination of day.destinations">
                             <div class="destination-description">{{ destination.abbreviation }}</div>
@@ -25,6 +21,9 @@
                         </div>
                     </div>
                     <div class="pax">{{ day.pax }}</div>
+                </div>
+                <div *ngIf="day.destinations == undefined" class="no-reservation-data">
+                    <span class="material-icons-outlined">do_not_disturb</span>
                 </div>
             </div>
         </div>

@@ -3,7 +3,6 @@ import { Component } from '@angular/core'
 import { DateAdapter } from '@angular/material/core'
 import { Subject, takeUntil } from 'rxjs'
 // Custom
-import { ActiveYearDialogComponent } from 'src/app/shared/components/active-year-dialog/active-year-dialog.component'
 import { DateHelperService } from 'src/app/shared/services/date-helper.service'
 import { DayVM } from 'src/app/features/reservations/classes/view-models/calendar/day-vm'
 import { HelperService } from 'src/app/shared/services/helper.service'
