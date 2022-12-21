@@ -1,4 +1,5 @@
 import { Component, ElementRef, EventEmitter, Input, Output, ViewChild } from '@angular/core'
+import { environment } from 'src/environments/environment'
 
 @Component({
     selector: 'month-selector',
@@ -17,12 +18,26 @@ export class MonthSelectorComponent {
     @ViewChild('opener', { static: false }) opener: ElementRef<HTMLInputElement>
 
     public months: Month[] = []
+    public imgIsLoaded = false
     public isOpen = false
     private baseOffset = -10
     private saturation = '50%'
 
     ngOnInit(): void {
         this.populateMonths()
+    }
+
+
+    public getIcon(filename: string): string {
+        return environment.calendarIconDirectory + filename + '.svg'
+    }
+
+    public imageIsLoading(): any {
+        return this.imgIsLoaded ? '' : 'skeleton'
+    }
+
+    public loadImage(): void {
+        this.imgIsLoaded = true
     }
 
     public selectMonth(month: number): any {
@@ -58,7 +73,7 @@ export class MonthSelectorComponent {
     }
 
     public setOffsetLeft(): string {
-        return (this.baseOffset -= 40) + 'px'
+        return (this.baseOffset -= 38) + 'px'
     }
 
 }

@@ -2099,23 +2099,11 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Réservations pour"
+                "description": "Réservations"
             },
             {
-                "id": "date",
-                "description": "Date"
-            },
-            {
-                "id": "todayButton",
-                "description": "AUJOURD'HUI"
-            },
-            {
-                "id": "newButton",
-                "description": "NOUVELLE RÉSERVATION"
-            },
-            {
-                "id": "setActiveYearButton",
-                "description": "Définir l'année active"
+                "id": "newRecord",
+                "description": "NOUVELLE"
             }
         ]
     },

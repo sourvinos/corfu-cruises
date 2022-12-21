@@ -326,7 +326,7 @@ export class ReservationListComponent {
             this.dropdownPickupPoints = this.helperService.populateTableFiltersDropdowns(this.reservationGroupDto.reservations, 'pickupPointDescription')
             this.dropdownPorts = this.helperService.populateTableFiltersDropdowns(this.reservationGroupDto.reservations, 'portDescription')
             this.dropdownShips = this.helperService.populateTableFiltersDropdowns(this.reservationGroupDto.reservations, 'shipDescription')
-        }, 500)
+        }, 1000)
     }
 
     private clearTableFilters(table: { clear: () => void }): void {

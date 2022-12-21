@@ -1,8 +1,14 @@
 <div id="wrapper">
-    <div id="content">
-        <div id="month-selector">
-            <month-selector [baseColor]="147" [baseBrightness]="10" [brightnessStep]="5" (monthEmitter)="gotoMonth($event)"></month-selector>
+
+    <div id="header">
+        <home-button-and-title [featureIcon]="featureIcon" [feature]="feature" [icon]="icon" [parentUrl]="parentUrl"></home-button-and-title>
+        <div id="active-year" (click)="setActiveYear()">
+            <span>{{ activeYear }}</span>
+            <mat-icon class="button-icon">event</mat-icon>
         </div>
+    </div>
+
+    <div id="content">
         <div id="days">
             <div (click)="gotoReservationsList(day)" [attr.id]="day.date" class="day" *ngFor="let day of year" [ngClass]="{ 'saturday':isSaturday(day), 'sunday':isSunday(day), 'is-today':isToday(day), 'has-schedule':dayHasSchedule(day) }">
                 <div class="day-data">
@@ -13,7 +19,7 @@
                 <div class="reservation-data">
                     <div class="reservation">
                         <div class="destinations" *ngFor="let destination of day.destinations">
-                            <div class="destination-description">{{ destination.description }}</div>
+                            <div class="destination-description">{{ destination.abbreviation }}</div>
                             <div class="destination-pax">{{ destination.pax }}</div>
                         </div>
                     </div>
@@ -21,17 +27,20 @@
                 </div>
             </div>
         </div>
-        <div id="today-selector">
-            <button mat-flat-button mat-fab class="primary" (click)="gotoToday()">
-                <mat-icon>calendar_month</mat-icon>
+    </div>
+
+    <div id="footer">
+        <div class="button-group-left">
+            <month-selector [baseColor]="147" [baseBrightness]="10" [brightnessStep]="5" (monthEmitter)="gotoMonth($event)"></month-selector>
+            <button (click)="gotoToday()" class="primary square" mat-icon-button>
+                <img (load)="loadImage()" [ngClass]="imageIsLoading()" [src]="getIcon('calendar-goto-today')" style="height: 24px; width: 24px">
             </button>
         </div>
-    </div>
-    <div id="footer">
-        <div class="button-group">
-            <button mat-flat-button class="primary" id="new">{{ getLabel("newButton") }}</button>
+        <div class="button-group-right">
+            <button mat-flat-button class="primary" id="new">{{ getLabel("newRecord") }}</button>
         </div>
     </div>
+
 </div>
 
 <div *ngIf="isLoading">

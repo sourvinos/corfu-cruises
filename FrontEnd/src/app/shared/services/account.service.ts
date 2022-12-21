@@ -60,7 +60,7 @@ export class AccountService extends HttpDataService {
             { 'item': 'returnUrl', 'when': 'always' },
             // Reservations
             { 'item': 'date', 'when': 'always' },
-            { 'item': 'scrollTop', 'when': 'always' },
+            { 'item': 'scrollLeft', 'when': 'always' },
             { 'item': 'year', 'when': 'always' },
             // Reservations calendar
             { 'item': 'year', 'when': 'production' },

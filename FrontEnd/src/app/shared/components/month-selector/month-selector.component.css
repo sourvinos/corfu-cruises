@@ -8,15 +8,20 @@
 
 #button {
     align-items: center;
-    background: var(--color-button-background-primary);
-    border-radius: 50%;
+    background-color: var(--color-button-background-primary);
+    border-radius: 4px;
     cursor: pointer;
     display: flex;
-    height: 56px;
+    height: 40px;
     justify-content: center;
     position: relative;
-    width: 56px;
+    width: 40px;
     z-index: 10;
+    transition: all 0.3s ease;
+}
+
+#button:hover {
+    background-color: var(--color-button-background-primary-hover);
 }
 
 .month {
@@ -25,12 +30,12 @@
     color: #ffffff;
     display: flex;
     font-family: "Montserrat";
-    height: 40px;
+    height: 38px;
     justify-content: center;
-    left: 8px;
+    left: 0;
     position: absolute;
     transition: all 0.4s ease;
-    width: 40px;
+    width: 38px;
 }
 
 .month:hover {

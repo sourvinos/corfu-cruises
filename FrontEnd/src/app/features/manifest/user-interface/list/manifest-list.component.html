@@ -88,7 +88,7 @@
                 <div class="number description">{{ totals[3] || 0}}</div>
             </div>
         </div>
-        <div class="button-group">
+        <div class="button-group-right">
             <button (click)="createPdf()" [disabled]="manifest.passengers.length==0" class="primary" mat-flat-button>
                 <mat-icon *ngIf="manifest.passengers.length==0" class="button-icon">lock</mat-icon>
                 <span>{{ getLabel("createPdf") }}</span>

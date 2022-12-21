@@ -14,22 +14,21 @@ namespace API.Features.Reservations {
 
         public ReservationCalendar(AppDbContext context, IHttpContextAccessor httpContext, IOptions<TestingEnvironment> testingEnvironment) : base(context, httpContext, testingEnvironment) { }
 
-        public IEnumerable<ReservationCalendarGroupVM> GetForCalendar(string fromDate, string toDate) {
-            return CreateCalendar(GetSchedules(fromDate, toDate), GetReservations(fromDate, toDate));
+        public IEnumerable<ReservationCalendarGroupVM> GetForCalendar(int year) {
+            return CreateCalendar(GetSchedules(year), GetReservations(year));
         }
 
         /// <summary>
-        ///     Gets all schedules between two dates
+        ///     Gets all schedules for the selected year
         /// </summary>
-        /// <param name="fromDate"></param>
-        /// <param name="toDate"></param>
+        /// <param name="year"></param>
         /// <returns>
         ///     A list of ScheduleVM objects
         /// </returns>
-        private IList<ScheduleVM> GetSchedules(string fromDate, string toDate) {
+        private IList<ScheduleVM> GetSchedules(int year) {
             return context.Schedules
                 .Include(x => x.Destination)
-                .Where(x => x.Date >= Convert.ToDateTime(fromDate) && x.Date <= Convert.ToDateTime(toDate))
+                .Where(x => x.Date.Year == year)
                 .GroupBy(x => new { x.Date, x.DestinationId, x.Destination.Abbreviation, x.Destination.Description })
                 .OrderBy(x => x.Key.Date).ThenBy(x => x.Key.DestinationId)
                 .Select(x => new ScheduleVM {
@@ -43,16 +42,15 @@ namespace API.Features.Reservations {
         }
 
         /// <summary>
-        ///     Gets all reservations between two dates
+        ///     Gets all reservations for the selected year
         /// </summary>
-        /// <param name="fromDate"></param>
-        /// <param name="toDate"></param>
+        /// <param name="year"></param>
         /// <returns>
         ///     A list of ReservationVM objects
         /// </returns>
-        private IList<ReservationVM> GetReservations(string fromDate, string toDate) {
+        private IList<ReservationVM> GetReservations(int year) {
             return context.Reservations
-                .Where(x => x.Date >= Convert.ToDateTime(fromDate) && x.Date <= Convert.ToDateTime(toDate))
+                .Where(x => x.Date.Year == year)
                 .GroupBy(x => new { x.Date, x.DestinationId, x.Destination.Description, x.Destination.Abbreviation })
                 .OrderBy(x => x.Key.Date).ThenBy(x => x.Key.DestinationId)
                 .Select(x => new ReservationVM {

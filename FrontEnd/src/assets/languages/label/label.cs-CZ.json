@@ -2102,20 +2102,8 @@
                 "description": "Rezervace"
             },
             {
-                "id": "date",
-                "description": "Datum"
-            },
-            {
-                "id": "todayButton",
-                "description": "DENNĚ"
-            },
-            {
-                "id": "newButton",
-                "description": "NOVÁ REZERVACE"
-            },
-            {
-                "id": "setActiveYearButton",
-                "description": "Nastavení aktivního roku"
+                "id": "newRecord",
+                "description": "NOVÁ"
             }
         ]
     },

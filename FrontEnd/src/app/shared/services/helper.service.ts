@@ -155,6 +155,13 @@ export class HelperService {
         })
     }
 
+    public enableHorizontalScroll(element):void{
+        element.addEventListener('wheel', (evt: WheelEvent) => {
+            evt.preventDefault()
+            element.scrollLeft += evt.deltaY
+        })
+    }
+
     //#endregion
 
 }

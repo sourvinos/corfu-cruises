@@ -1,18 +1,21 @@
-import { Component, ViewChild } from '@angular/core'
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router'
+import { Component } from '@angular/core'
 import { DateAdapter } from '@angular/material/core'
-import { Router } from '@angular/router'
 import { Subject, takeUntil } from 'rxjs'
 // Custom
 import { ActiveYearDialogComponent } from 'src/app/shared/components/active-year-dialog/active-year-dialog.component'
 import { DateHelperService } from 'src/app/shared/services/date-helper.service'
-import { DayVM } from '../../classes/calendar/day-vm'
+import { DayVM } from 'src/app/features/reservations/classes/view-models/calendar/day-vm'
+import { HelperService } from 'src/app/shared/services/helper.service'
 import { InteractionService } from 'src/app/shared/services/interaction.service'
+import { ListResolved } from 'src/app/shared/classes/list-resolved'
 import { LocalStorageService } from 'src/app/shared/services/local-storage.service'
 import { MatDialog } from '@angular/material/dialog'
 import { MessageCalendarService } from 'src/app/shared/services/messages-calendar.service'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
-import { ReservationService } from '../../classes/services/reservation.service'
-import { MatCalendar } from '@angular/material/datepicker'
+import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
+import { ModalActionResultService } from 'src/app/shared/services/modal-action-result.service'
+import { environment } from 'src/environments/environment'
 
 @Component({
     selector: 'calendar',
@@ -24,50 +27,47 @@ export class CalendarComponent {
 
     // #region variables
 
-    @ViewChild('calendar', { static: false }) calendar: MatCalendar<Date>
+    // @ViewChild('calendar', { static: false }) calendar: MatCalendar<Date>
 
     private unsubscribe = new Subject<void>()
     public feature = 'reservationsCalendar'
     public featureIcon = 'reservations'
     public icon = 'home'
     public parentUrl = '/'
+    private records: DayVM[] = []
 
-    private daysWithSchedule = []
+    private days: any
+    private url = '/reservations'
     public activeYear: number
     public dayWidth: number
-    public isLeftScrollAllowed: boolean
+    public imgIsLoaded = false
     public isLoading: boolean
-    public isRightScrollAllowed: boolean
     public months: any[]
     public todayScrollPosition: number
-    public year: DayVM[]
-    public imgIsLoaded = false
+    public year: DayVM[] = []
 
     // #endregion 
 
-    constructor(private dateAdapter: DateAdapter<any>, private dateHelperService: DateHelperService, private interactionService: InteractionService, private localStorageService: LocalStorageService, private messageCalendarService: MessageCalendarService, private messageLabelService: MessageLabelService, private reservationService: ReservationService, private router: Router, public dialog: MatDialog) { }
+    constructor(private activatedRoute: ActivatedRoute, private dateAdapter: DateAdapter<any>, private dateHelperService: DateHelperService, private helperService: HelperService, private interactionService: InteractionService, private localStorageService: LocalStorageService, private messageCalendarService: MessageCalendarService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private modalActionResultService: ModalActionResultService, private router: Router, public dialog: MatDialog) {
+        this.router.events.subscribe((navigation) => {
+            if (navigation instanceof NavigationEnd) {
+                this.getActiveYear()
+                this.buildCalendar()
+                this.updateCalendar()
+                this.setLocale()
+                this.subscribeToInteractionService()
+            }
+        })
+    }
 
     //#region lifecycle hooks
 
-    ngOnInit(): void {
-        this.getActiveYear()
-        this.populateMonths()
-        this.buildCalendar()
-        this.updateCalendar()
-        this.setLocale()
-        this.subscribeToInteractionService()
-    }
-
     ngAfterViewInit(): void {
         setTimeout(() => {
-            this.scrollToToday()
-            this.scrollToStoredDate()
+            this.updateDayVariables()
+            this.scrollToTodayOrStoredDate(false)
+            this.enableHorizontalScroll()
         }, 500)
-    }
-
-    ngOnDestroy(): void {
-        this.unsubscribe.next()
-        this.unsubscribe.unsubscribe()
     }
 
     //#endregion
@@ -76,6 +76,10 @@ export class CalendarComponent {
 
     public dayHasSchedule(day: DayVM): boolean {
         return day.destinations?.length >= 1
+    }
+
+    public getIcon(filename: string): string {
+        return environment.calendarIconDirectory + filename + '.svg'
     }
 
     public getLabel(id: string): string {
@@ -92,11 +96,13 @@ export class CalendarComponent {
 
     public gotoMonth(month: number): void {
         this.scrollToMonth(month)
+        this.storeScrollLeft()
     }
 
     public gotoReservationsList(date: any): void {
         if (this.dayHasSchedule(date)) {
             this.storeVariables(date.date)
+            this.storeScrollLeft()
             this.navigateToList()
         }
     }
@@ -107,7 +113,7 @@ export class CalendarComponent {
             this.buildCalendar()
             this.updateCalendar()
         }
-        this.scrollToToday()
+        this.scrollToTodayOrStoredDate(true)
     }
 
     public imageIsLoading(): any {
@@ -126,6 +132,10 @@ export class CalendarComponent {
         return day.date == new Date().toISOString().substring(0, 10)
     }
 
+    public loadImage(): void {
+        this.imgIsLoaded = true
+    }
+
     public setActiveYear(): void {
         const dialogRef = this.dialog.open(ActiveYearDialogComponent, {
             height: '550px',
@@ -140,8 +150,7 @@ export class CalendarComponent {
             if (result !== undefined) {
                 this.saveYear(result)
                 if (this.mustRebuildCalendar()) {
-                    this.buildCalendar()
-                    this.updateCalendar()
+                    this.router.navigate([this.url])
                 }
             }
         })
@@ -151,13 +160,6 @@ export class CalendarComponent {
 
     //#region private methods
 
-    /**
-     * Creates the year array with 365 or 366 elements
-     * Called from 
-     *  a. onInit
-     *  b. When gotoToday button is clicked, only if mustRebuildCalendar() returns true
-     *  c. When the modal dialog (to select a working year) is closed, only if mustRebuildCalendar() returns true 
-     */
     private buildCalendar(): void {
         this.year = []
         for (let index = 0; index < 12; index++) {
@@ -178,32 +180,47 @@ export class CalendarComponent {
         }
     }
 
+    private enableHorizontalScroll(): void {
+        this.helperService.enableHorizontalScroll(document.querySelector('#days'))
+    }
+
     private getActiveYear(): void {
         this.activeYear = isNaN(parseInt(this.localStorageService.getItem('year')))
             ? this.dateHelperService.getCurrentYear()
             : parseInt(this.localStorageService.getItem('year'))
     }
 
+    private getMonthOffset(month: number): number {
+        return this.dateHelperService.getMonthFirstDayOffset(month, this.activeYear.toString())
+    }
+
     private getReservations(): Promise<any> {
         const promise = new Promise((resolve) => {
-            this.reservationService.getForCalendar(this.activeYear + '-01-01', this.activeYear + '-12-31').subscribe(response => {
-                this.daysWithSchedule = response
-                resolve(this.daysWithSchedule)
-            })
+            const listResolved: ListResolved = this.activatedRoute.snapshot.data[this.feature]
+            if (listResolved.error == null) {
+                this.records = listResolved.list
+                resolve(this.records)
+            } else {
+                this.goBack()
+                this.modalActionResultService.open(this.messageSnackbarService.filterResponse(new Error('500')), 'error', ['ok'])
+            }
         })
         return promise
     }
 
+    private getTodayLeftScroll(): number {
+        const date = new Date()
+        const fromDate = Date.UTC(date.getFullYear(), date.getMonth(), date.getDate())
+        const toDate = Date.UTC(date.getFullYear(), 0, 0)
+        const differenceInMilliseconds = fromDate - toDate
+        const differenceInDays = differenceInMilliseconds / 1000 / 60 / 60 / 24
+        return differenceInDays
+    }
 
-    /**
-     * Decides whether to re-create the calendar (build the days and read the reservations from the backend) or not
-     * Called when either:
-     *  a. The gotoToday button is clicked.
-     *  b. The user has given a working year
-     * @returns 
-     *  a. True if we are working in another year (not the current), therefore it must be re-created
-     *  b. False if the working year is equal to the active year
-     */
+    private goBack(): void {
+        this.router.navigate([this.parentUrl])
+    }
+
     private mustRebuildCalendar(): boolean {
         const storedYear = this.localStorageService.getItem('year')
         if (storedYear != this.activeYear.toString()) {
@@ -217,17 +234,6 @@ export class CalendarComponent {
         this.router.navigate(['reservations/date/', this.localStorageService.getItem('date')])
     }
 
-    private populateMonths(): void {
-        this.months = [...Array(12).keys()].map(x => ++x)
-    }
-
-    /**
-     * Stores the optional year as a string
-     * Called when either:
-     *  a. The gotoToday button is clicked (the year is left empty because it will be taken from the system)
-     *  b. The user has given a year to work on in the modal dialog
-     * @param year 
-     */
     private saveYear(year?: string): void {
         this.localStorageService.saveItem('year', year
             ? year
@@ -239,31 +245,32 @@ export class CalendarComponent {
     }
 
     private scrollToMonth(month: number): void {
+        this.days.scrollLeft = this.getMonthOffset(month) * this.dayWidth
         document.getElementById(this.activeYear.toString() + '-' + (month.toString().length == 1 ? '0' + month.toString() : month.toString()) + '-' + '01').scrollIntoView()
     }
 
-    private scrollToStoredDate(): void {
-        if (localStorage.getItem('scrollTop') != undefined) {
-            const me = localStorage.getItem('scrollTop')
-            const z = document.getElementById('days')
-            z.scrollTop = parseInt(me)
-        }
-    }
-
-    private scrollToToday(): void {
-        if (localStorage.getItem('scrollTop') == undefined) {
+    private scrollToTodayOrStoredDate(ignoreStoredScrollLeft: boolean): void {
+        const scrollLeft = localStorage.getItem('scrollLeft')
+        if (ignoreStoredScrollLeft || scrollLeft == null) {
             setTimeout(() => {
-                const element = document.querySelector('.is-today')
-                if (element != null) {
-                    element.scrollIntoView()
-                }
+                this.todayScrollPosition = this.getTodayLeftScroll() - 2
+                this.days.scrollLeft = this.todayScrollPosition * this.dayWidth
+                this.localStorageService.deleteItems([
+                    { 'item': 'scrollLeft', 'when': 'always' }
+                ])
             }, 500)
+        } else {
+            const z = document.getElementById('days')
+            z.scrollLeft = parseInt(scrollLeft)
         }
     }
 
     private storeVariables(date: string): void {
-        this.localStorageService.saveItem('scrollTop', document.getElementById('days').scrollTop.toString())
         this.localStorageService.saveItem('date', date)
+    }
+
+    private storeScrollLeft(): void {
+        this.localStorageService.saveItem('scrollLeft', document.getElementById('days').scrollLeft.toString())
     }
 
     private subscribeToInteractionService(): void {
@@ -279,11 +286,16 @@ export class CalendarComponent {
     }
 
     private updateCalendarWithReservations(): void {
-        this.daysWithSchedule.forEach(day => {
+        this.records.forEach(day => {
             const x = this.year.find(x => x.date == day.date)
             this.year[this.year.indexOf(x)].destinations = day.destinations
             this.year[this.year.indexOf(x)].pax = day.pax
         })
+    }
+
+    private updateDayVariables(): void {
+        this.days = document.querySelector('#days')
+        this.dayWidth = document.querySelectorAll('.day')[0].getBoundingClientRect().width
     }
 
     //#endregion

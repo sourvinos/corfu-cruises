@@ -49,7 +49,7 @@
     padding: var(--gap) 4rem;
 }
 
-#footer .button-group {
+#footer .button-group-right {
     display: flex;
     gap: 1rem;
 }

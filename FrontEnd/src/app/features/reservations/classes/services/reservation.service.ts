@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core'
 import { Observable } from 'rxjs'
 // Custom
 import { HttpDataService } from 'src/app/shared/services/http-data.service'
+import { LocalStorageService } from './../../../../shared/services/local-storage.service'
 import { ReservationGroupDto } from '../dtos/list/reservation-group-dto'
 import { environment } from 'src/environments/environment'
 
@@ -10,12 +11,12 @@ import { environment } from 'src/environments/environment'
 
 export class ReservationService extends HttpDataService {
 
-    constructor(httpClient: HttpClient) {
+    constructor(httpClient: HttpClient, private localStorageService: LocalStorageService) {
         super(httpClient, environment.apiUrl + '/reservations')
     }
 
-    public getForCalendar(fromDate: string, toDate: string): Observable<any> {
-        return this.http.get<any>(this.url + '/fromDate/' + fromDate + '/toDate/' + toDate)
+    public getForCalendar(year: number): Observable<any> {
+        return this.http.get<any>(this.url + '/year/' + year)
     }
 
     public getByDate(date: string): Observable<ReservationGroupDto> {

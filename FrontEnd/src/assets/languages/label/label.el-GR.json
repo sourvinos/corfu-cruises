@@ -2102,20 +2102,8 @@
                 "description": "Κρατήσεις"
             },
             {
-                "id": "date",
-                "description": "Ημερομηνία"
-            },
-            {
-                "id": "todayButton",
-                "description": "ΣΗΜΕΡΑ"
-            },
-            {
-                "id": "newButton",
-                "description": "ΝΕΑ ΚΡΑΤΗΣΗ"
-            },
-            {
-                "id": "setActiveYearButton",
-                "description": "Ορισμός ενεργού έτους"
+                "id": "newRecord",
+                "description": "ΝΕΑ"
             }
         ]
     },

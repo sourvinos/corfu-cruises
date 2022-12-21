@@ -1,9 +1,9 @@
 <div id="month-picker">
     <input #opener (click)="setOpenerVisibility()" id="opener" type="checkbox" />
     <label for="opener" id="button">
-        <mat-icon>calendar_month</mat-icon>
+        <img (load)="loadImage()" [ngClass]="imageIsLoading()" [src]="getIcon('calendar-goto-month')" style="height: 24px; width: 24px">
     </label>
-    <div *ngFor="let m of months, let i = index" (click)="selectMonth(m.id)" class="month {{ m.description }}" [ngStyle]="{ 'top': isOpen ?  m.offsetLeft : '7px', 'background-color': m.backgroundColor }">
+    <div *ngFor="let m of months, let i = index" (click)="selectMonth(m.id)" class="month {{ m.description }}" [ngStyle]="{ 'top': isOpen ?  m.offsetLeft : '0', 'background-color': m.backgroundColor }">
         {{ m.id }}
     </div>
 </div>
