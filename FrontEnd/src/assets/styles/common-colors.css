@@ -67,4 +67,6 @@
     --color-link: #e57b7b;
     /* New schedule weekdays */
     --color-day-selected-weekday: #ff7a7a;
+    /* Dropdown menus */
+    --color-dropdown-menu-border: #ff7a7a;
 }

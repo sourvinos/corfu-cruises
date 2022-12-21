@@ -1,12 +1,16 @@
 <div id="year-picker">
-    <input #yearOpener id="year-opener" type="checkbox" />
-    <div (mouseenter)="setOpenerVisibility(true)" (mouseleave)="setOpenerVisibility(false)" id="active-year">
-        <span>{{ activeYear }}</span>
-        <mat-icon class="button-icon">event</mat-icon>
-        <div [ngStyle]="{ 'display': getOpenerVisibility() ? 'block' : 'none' }" id="years">
-            <div *ngFor="let year of years, let i = index" (click)="selectYear(year)" class="year">
-                {{ year }}
-            </div>
-        </div>
-    </div>
+    <ul>
+        <li>
+            <button>
+                <span id="active-year">{{ activeYear }}</span>
+                <span class="material-icons-outlined">expand_more</span>
+            </button>
+            <ul (click)="hideMenu()" class="sub-menu">
+                <button *ngFor="let year of years" (click)="selectYear(year)" class="hoverable">
+                    <img width="20px" [src]="getIcon('calendar')">
+                    <span>{{ year }}</span>
+                </button>
+            </ul>
+        </li>
+    </ul>
 </div>

@@ -1,19 +1,6 @@
-#year-picker {
-    position: relative;
-}
-
-#year-opener {
-    /* display: none; */
-}
-
-#years {
-    background-color: var(--color-e);
-    border-radius: 5px;
-    color: var(--color-c);
-    left: auto;
-    padding: 2rem;
-    position: absolute;
-    top: auto;
+:host {
+    align-items: center;
+    display: flex;
 }
 
 #active-year {
@@ -27,22 +14,109 @@
     transition: all 0.1s ease-in;
 }
 
-#active-year span {
-    margin-right: 0.5rem;
+ul {
+    display: flex;
+    list-style: none;
+    margin: 0 auto;
+    padding: 0;
 }
 
-#active-year:hover {
-    cursor: pointer;
+li {
+    position: relative;
 }
 
-.year {
-    font-family: var(--font-family-ubuntu);
-    font-size: 1.5rem;
-    margin: 0.5rem;
-    transition: all 0.1s ease-in;
+button {
+    background-color: transparent;
+    border-radius: 0;
+    border: none;
+    color: var(--color-c);
+    display: flex;
+    padding: 0.25rem 0 0.25rem 1rem !important;
 }
 
-.year:hover {
-    cursor: pointer;
-    color: orange;
+button.hoverable:hover {
+    background-color: var(--color-e) !important;
+}
+
+span {
+    margin: 0 0 0 0.5rem;
+}
+
+li:hover .sub-menu {
+    display: flex;
+}
+
+.sub-menu {
+    display: none;
+    flex-direction: column;
+    left: 0;
+    list-style: none;
+    padding: 0;
+    position: absolute;
+    right: 0;
+    top: 100%;
+    width: max-content;
+    z-index: 2 !important;
+}
+
+.sub-menu button {
+    animation: enter 0.1s ease forwards;
+    background-color: var(--color-a);
+    justify-content: flex-start;
+    opacity: 0;
+    padding: 0.8rem 1rem !important;
+    transform-origin: bottom;
+    width: 100%;
+    border: 1px solid var(--color-dropdown-menu-border);
+    border-bottom: none;
+}
+
+.sub-menu button:last-child {
+    border-bottom: 1px solid var(--color-dropdown-menu-border);
+}
+
+.sub-menu button:nth-child(1) {
+    animation-delay: 0.10s;
+}
+
+.sub-menu button:nth-child(2) {
+    animation-delay: 0.15s;
+}
+
+.sub-menu button:nth-child(3) {
+    animation-delay: 0.20s;
+}
+
+.sub-menu button:nth-child(4) {
+    animation-delay: 0.25s;
+}
+
+.sub-menu button:nth-child(5) {
+    animation-delay: 0.30s;
+}
+
+.sub-menu button:nth-child(6) {
+    animation-delay: 0.35s;
+}
+
+@keyframes enter {
+    from {
+        opacity: 0;
+        transform: translateY(0.625rem);
+    }
+
+    to {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+@keyframes fade {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
 }
