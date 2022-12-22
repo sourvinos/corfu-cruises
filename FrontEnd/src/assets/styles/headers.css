@@ -3,8 +3,9 @@ h1 {
     font-family: var(--font-family-handbook) !important;
     font-size: var(--font-size-h1) !important;
     font-weight: var(--font-weight-header) !important;
-    margin: 0 !important;
     padding: 0 !important;
+    transform: scale(1.4, 1);
+    transform-origin: left;
 }
 
 h5 {
