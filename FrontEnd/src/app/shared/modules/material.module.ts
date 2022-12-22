@@ -19,6 +19,7 @@ import { MatSelectModule } from '@angular/material/select'
 import { MatSlideToggleModule } from '@angular/material/slide-toggle'
 import { MatSnackBarModule, MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material/snack-bar'
 import { MatTabsModule } from '@angular/material/tabs'
+import { MatTooltipModule } from '@angular/material/tooltip'
 // Custom
 import { CustomDateAdapter } from '../adapters/custom-date-adapter'
 
@@ -42,7 +43,8 @@ import { CustomDateAdapter } from '../adapters/custom-date-adapter'
         MatSelectModule,
         MatSlideToggleModule,
         MatSnackBarModule,
-        MatTabsModule
+        MatTabsModule,
+        MatTooltipModule
     ],
     providers: [
         { provide: DateAdapter, useClass: CustomDateAdapter },

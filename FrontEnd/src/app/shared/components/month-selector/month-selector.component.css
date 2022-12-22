@@ -1,43 +1,135 @@
-#month-picker {
+:host {
+    align-items: center;
+    display: flex;
+}
+
+ul {
+    display: flex;
+    list-style: none;
+    margin: 0 auto;
+    padding: 0;
+}
+
+li {
     position: relative;
 }
 
-#month-opener {
+button {
+    background-color: transparent;
+    border-radius: 0;
+    border: none;
+    color: var(--color-c);
+    display: flex;
+    padding: 0.25rem 0 0.25rem 1rem !important;
+}
+
+button.hoverable:hover {
+    background-color: var(--color-e) !important;
+}
+
+span {
+    margin: 0 0 0 0;
+}
+
+li:hover .sub-menu {
+    display: flex;
+}
+
+.sub-menu {
     display: none;
-}
-
-#button {
-    align-items: center;
-    background-color: var(--color-button-background-primary);
-    border-radius: 4px;
-    cursor: pointer;
-    display: flex;
-    height: 40px;
-    justify-content: center;
-    position: relative;
-    width: 40px;
-    z-index: 10;
-    transition: all 0.3s ease;
-}
-
-#button:hover {
-    background-color: var(--color-button-background-primary-hover);
-}
-
-.month {
-    align-items: center;
-    border-radius: 50%;
-    color: #ffffff;
-    display: flex;
-    font-family: "Montserrat";
-    height: 38px;
-    justify-content: center;
+    flex-direction: column;
     left: 0;
+    list-style: none;
+    padding: 0;
     position: absolute;
-    transition: all 0.4s ease;
-    width: 38px;
+    right: 0;
+    top: 100%;
+    width: max-content;
+    z-index: 2 !important;
 }
 
-.month:hover {
-    cursor: pointer;
+.sub-menu button {
+    animation: enter 0.1s ease forwards;
+    background-color: var(--color-a);
+    justify-content: center;
+    opacity: 0;
+    padding: 0.8rem 1rem !important;
+    transform-origin: bottom;
+    width: 100%;
+    border: 1px solid var(--color-dropdown-menu-border);
+    border-bottom: none;
+}
+
+.sub-menu button:last-child {
+    border-bottom: 1px solid var(--color-dropdown-menu-border);
+}
+
+.sub-menu button:nth-child(1) {
+    animation-delay: 0.10s;
+}
+
+.sub-menu button:nth-child(2) {
+    animation-delay: 0.15s;
+}
+
+.sub-menu button:nth-child(3) {
+    animation-delay: 0.20s;
+}
+
+.sub-menu button:nth-child(4) {
+    animation-delay: 0.25s;
+}
+
+.sub-menu button:nth-child(5) {
+    animation-delay: 0.30s;
+}
+
+.sub-menu button:nth-child(6) {
+    animation-delay: 0.35s;
+}
+
+.sub-menu button:nth-child(7) {
+    animation-delay: 0.40s;
+}
+
+.sub-menu button:nth-child(8) {
+    animation-delay: 0.45s;
+}
+
+.sub-menu button:nth-child(9) {
+    animation-delay: 0.50s;
+}
+
+.sub-menu button:nth-child(10) {
+    animation-delay: 0.55s;
+}
+
+.sub-menu button:nth-child(11) {
+    animation-delay: 0.60s;
+}
+
+.sub-menu button:nth-child(12) {
+    animation-delay: 0.65s;
+}
+
+@keyframes enter {
+    from {
+        opacity: 0;
+        transform: translateY(0.625rem);
+    }
+
+    to {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+@keyframes fade {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
 }

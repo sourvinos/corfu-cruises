@@ -4,10 +4,6 @@
     height: 100%;
 }
 
-#header {
-    justify-content: space-between !important;
-}
-
 #content {
     display: flex;
     flex-direction: row;
@@ -34,7 +30,6 @@
     min-width: 11rem;
     padding: 1.8rem;
     scroll-snap-align: start;
-    transition: background-color var(--delay) ease-in, border var(--delay) ease-in, transform 0.1s ease-in;
 }
 
 .day:hover {
@@ -133,4 +128,15 @@
 
 .is-today {
     background-color: var(--color-background-today) !important;
+}
+
+#gotoTodayButton {
+    background-color: transparent !important;
+    margin: 0 1rem 0 auto !important;
+}
+
+.mat-icon#today {
+    color: var(--color-background-today) !important;
+    font-size: 1.4rem !important;
+    margin-top: 1px !important;
 }

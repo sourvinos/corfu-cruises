@@ -9,7 +9,6 @@ import { HelperService } from 'src/app/shared/services/helper.service'
 import { InteractionService } from 'src/app/shared/services/interaction.service'
 import { ListResolved } from 'src/app/shared/classes/list-resolved'
 import { LocalStorageService } from 'src/app/shared/services/local-storage.service'
-import { MatDialog } from '@angular/material/dialog'
 import { MessageCalendarService } from 'src/app/shared/services/messages-calendar.service'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
@@ -26,8 +25,6 @@ export class CalendarComponent {
 
     // #region variables
 
-    // @ViewChild('calendar', { static: false }) calendar: MatCalendar<Date>
-
     private unsubscribe = new Subject<void>()
     public feature = 'reservationsCalendar'
     public featureIcon = 'reservations'
@@ -38,6 +35,7 @@ export class CalendarComponent {
     private days: any
     private url = '/reservations'
     public activeYear: number
+    public activeMonth: number
     public dayWidth: number
     public imgIsLoaded = false
     public isLoading: boolean
@@ -47,7 +45,7 @@ export class CalendarComponent {
 
     // #endregion 
 
-    constructor(private activatedRoute: ActivatedRoute, private dateAdapter: DateAdapter<any>, private dateHelperService: DateHelperService, private helperService: HelperService, private interactionService: InteractionService, private localStorageService: LocalStorageService, private messageCalendarService: MessageCalendarService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private modalActionResultService: ModalActionResultService, private router: Router, public dialog: MatDialog) {
+    constructor(private activatedRoute: ActivatedRoute, private dateAdapter: DateAdapter<any>, private dateHelperService: DateHelperService, private helperService: HelperService, private interactionService: InteractionService, private localStorageService: LocalStorageService, private messageCalendarService: MessageCalendarService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private modalActionResultService: ModalActionResultService, private router: Router) {
         this.router.events.subscribe((navigation) => {
             if (navigation instanceof NavigationEnd) {
                 this.getActiveYear()
@@ -69,9 +67,17 @@ export class CalendarComponent {
         }, 500)
     }
 
+    ngOnDestroy(): void {
+        this.cleanup()
+    }
+
     //#endregion
 
     //#region public methods
+
+    public currentYearIsNotDisplayedYear(): boolean {
+        return this.dateHelperService.getCurrentYear().toString() != this.localStorageService.getItem('year')
+    }
 
     public dayHasSchedule(day: DayVM): boolean {
         return day.destinations?.length >= 1
@@ -93,7 +99,7 @@ export class CalendarComponent {
         return this.messageCalendarService.getDescription('weekdays', weekdayName)
     }
 
-    public gotoMonth(month: number): void {
+    public setActiveMonth(month: number): void {
         this.scrollToMonth(month)
         this.storeScrollLeft()
     }
@@ -107,11 +113,6 @@ export class CalendarComponent {
     }
 
     public gotoToday(): void {
-        this.saveYear()
-        if (this.mustRebuildCalendar()) {
-            this.buildCalendar()
-            this.updateCalendar()
-        }
         this.scrollToTodayOrStoredDate(true)
     }
 
@@ -164,6 +165,11 @@ export class CalendarComponent {
                 })
             })
         }
+    }
+
+    private cleanup(): void {
+        this.unsubscribe.next()
+        this.unsubscribe.unsubscribe()
     }
 
     private enableHorizontalScroll(): void {
