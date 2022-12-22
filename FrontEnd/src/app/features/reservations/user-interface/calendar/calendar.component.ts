@@ -67,10 +67,6 @@ export class CalendarComponent {
         }, 500)
     }
 
-    ngOnDestroy(): void {
-        this.cleanup()
-    }
-
     //#endregion
 
     //#region public methods
@@ -165,11 +161,6 @@ export class CalendarComponent {
                 })
             })
         }
-    }
-
-    private cleanup(): void {
-        this.unsubscribe.next()
-        this.unsubscribe.unsubscribe()
     }
 
     private enableHorizontalScroll(): void {

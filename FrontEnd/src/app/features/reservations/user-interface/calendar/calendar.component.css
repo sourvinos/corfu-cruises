@@ -114,7 +114,7 @@
     color: var(--color-c);
     font-family: var(--font-family-montserrat);
     font-size: 1.5rem;
-    margin-top: auto;
+    margin: auto auto 1rem auto;
     text-align: center;
 }
 
