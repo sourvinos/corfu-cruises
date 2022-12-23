@@ -1,7 +1,7 @@
 [
 
     { "id": "reservations-reservations", "description": "Rezervace" },
-    { "id": "reservations-availability", "description": "Ověřit dostupnost" }, 
+    { "id": "reservations-availability", "description": "Dostupnost" }, 
     { "id": "reservations-ledgers", "description": "Moje kniha" },
 
     { "id": "tasks-embarkation", "description": "Nalodění" },

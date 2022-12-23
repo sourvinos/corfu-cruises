@@ -62,8 +62,9 @@ export class AccountService extends HttpDataService {
             { 'item': 'date', 'when': 'always' },
             { 'item': 'scrollLeft', 'when': 'always' },
             { 'item': 'year', 'when': 'always' },
-            // Reservations calendar
-            { 'item': 'year', 'when': 'production' },
+            //  calendars
+            { 'item': 'activeYearAvailability', 'when': 'always' },
+            { 'item': 'activeYearReservations', 'when': 'always' },
             // Criteria
             { 'item': 'embarkation-criteria', 'when': 'production' },
             { 'item': 'invoicing-criteria', 'when': 'production' },

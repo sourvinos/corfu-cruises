@@ -1,7 +1,7 @@
 [
 
     { "id": "reservations-reservations", "description": "Réservations" },
-    { "id": "reservations-availability", "description": "Vérifier la disponibilité" }, 
+    { "id": "reservations-availability", "description": "Disponibilité" }, 
     { "id": "reservations-ledgers", "description": "Mon registre" },
 
     { "id": "tasks-embarkation", "description": "Embarquement" },

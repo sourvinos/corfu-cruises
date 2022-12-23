@@ -1,7 +1,7 @@
 [
 
     { "id": "reservations-reservations", "description": "Reservations" },
-    { "id": "reservations-availability", "description": "Check availability" }, 
+    { "id": "reservations-availability", "description": "Availability" }, 
     { "id": "reservations-ledgers", "description": "My ledger" },
 
     { "id": "tasks-embarkation", "description": "Embarkation" },

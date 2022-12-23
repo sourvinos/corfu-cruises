@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http'
 import { Injectable } from '@angular/core'
-import { firstValueFrom } from 'rxjs'
+import { Observable } from 'rxjs'
 // Custom
 import { HttpDataService } from 'src/app/shared/services/http-data.service'
 import { environment } from 'src/environments/environment'
@@ -13,12 +13,8 @@ export class AvailabilityService extends HttpDataService {
         super(httpClient, environment.apiUrl + '/availability')
     }
 
-    //#region public methods
-
-    public async getForCalendar(fromDate: string, toDate: string): Promise<any> {
-        return await firstValueFrom(this.http.get<any>(this.url + '/fromDate/' + fromDate + '/toDate/' + toDate))
+    public getForCalendar(year: number): Observable<any> {
+        return this.http.get<any>(this.url + '/year/' + year)
     }
-
-    //#endregion
 
 }

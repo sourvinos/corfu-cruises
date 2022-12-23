@@ -1,7 +1,7 @@
 [
 
     { "id": "reservations-reservations", "description": "Κρατήσεις" },
-    { "id": "reservations-availability", "description": "Εμφάνιση διαθεσιμότητας" },
+    { "id": "reservations-availability", "description": "Διαθεσιμότητα" },
     { "id": "reservations-ledgers", "description": "Η καρτέλα μου" },
     
     { "id": "tasks-embarkation", "description": "Επιβίβαση" },

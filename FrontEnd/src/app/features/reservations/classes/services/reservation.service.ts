@@ -3,7 +3,6 @@ import { Injectable } from '@angular/core'
 import { Observable } from 'rxjs'
 // Custom
 import { HttpDataService } from 'src/app/shared/services/http-data.service'
-import { LocalStorageService } from './../../../../shared/services/local-storage.service'
 import { ReservationGroupDto } from '../dtos/list/reservation-group-dto'
 import { environment } from 'src/environments/environment'
 
@@ -11,7 +10,7 @@ import { environment } from 'src/environments/environment'
 
 export class ReservationService extends HttpDataService {
 
-    constructor(httpClient: HttpClient, private localStorageService: LocalStorageService) {
+    constructor(httpClient: HttpClient) {
         super(httpClient, environment.apiUrl + '/reservations')
     }
 

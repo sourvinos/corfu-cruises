@@ -2236,15 +2236,15 @@
         ]
     },
     {
-        "feature": "availability",
+        "feature": "availabilityCalendar",
         "labels": [
             {
                 "id": "header",
                 "description": "Dostupnost"
             },
             {
-                "id": "next-button",
-                "description": "POKRAČOVAT"
+                "id": "newRecord",
+                "description": "NOVÝ"
             }
         ]
     },

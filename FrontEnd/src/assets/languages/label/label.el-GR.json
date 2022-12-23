@@ -2236,15 +2236,15 @@
         ]
     },
     {
-        "feature": "availability",
+        "feature": "availabilityCalendar",
         "labels": [
             {
                 "id": "header",
                 "description": "Διαθεσιμότητα"
             },
             {
-                "id": "next-button",
-                "description": "ΣΥΝΕΧΕΙΑ"
+                "id": "newRecord",
+                "description": "ΝΕΑ"
             }
         ]
     },

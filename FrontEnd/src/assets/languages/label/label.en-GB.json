@@ -2236,15 +2236,15 @@
         ]
     },
     {
-        "feature": "availability",
+        "feature": "availabilityCalendar",
         "labels": [
             {
                 "id": "header",
                 "description": "Availability"
             },
             {
-                "id": "next-button",
-                "description": "CONTINUE"
+                "id": "newRecord",
+                "description": "NEW"
             }
         ]
     },
