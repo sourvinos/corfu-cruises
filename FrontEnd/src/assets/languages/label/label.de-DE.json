@@ -1280,24 +1280,24 @@
                 "description": "Datum"
             },
             {
-                "id": "searchDateHint",
-                "description": "Einschiffungsdatum"
+                "id": "destinations",
+                "description": "Reiseziele"
             },
             {
-                "id": "destination",
-                "description": "Reiseziel"
+                "id": "ports",
+                "description": "Häfen"
             },
             {
-                "id": "port",
-                "description": "Hafen"
-            },
-            {
-                "id": "ship",
-                "description": "Schiff"
+                "id": "ships",
+                "description": "Schiffe"
             },
             {
                 "id": "searchButton",
                 "description": "SUCHEN"
+            },
+            {
+                "id": "todayButton",
+                "description": "HEUTE"
             }
         ]
     },

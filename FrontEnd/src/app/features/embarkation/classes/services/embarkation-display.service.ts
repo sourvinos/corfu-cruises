@@ -14,8 +14,12 @@ export class EmbarkationService extends HttpDataService {
         super(httpClient, environment.apiUrl + '/embarkation')
     }
 
-    get(date: string, destinationId: number, portId: number, shipId: number): Observable<EmbarkationVM> {
-        return this.http.get<any>(this.url + '/date/' + date + '/destinationId/' + destinationId + '/portId/' + portId + '/shipId/' + shipId)
+    get(date: string, destinationIds: number[], portIds: number[], shipIds: number[]): Observable<EmbarkationVM> {
+        return this.http.get<any>(this.url + '?date=' + date
+            + this.buildDestinationsQuery(destinationIds)
+            + this.buildPortsQuery(portIds)
+            + this.buildShipsQuery(shipIds))
+        // return this.http.get<any>(this.url + '/date/' + date + '/destinationId/' + destinationId + '/portId/' + portId + '/shipId/' + shipId)
     }
 
     embarkSinglePassenger(id: number): Observable<any> {
@@ -31,6 +35,30 @@ export class EmbarkationService extends HttpDataService {
             }
         })
         return this.http.patch(this.url + '/embarkAllPassengers?', null, { params: params })
+    }
+
+    private buildDestinationsQuery(destinationIds: number[]): string {
+        let query = ''
+        destinationIds.forEach(destinationId => {
+            query += '&destinationId=' + destinationId
+        })
+        return query
+    }
+
+    private buildPortsQuery(portIds: number[]): string {
+        let query = ''
+        portIds.forEach(portId => {
+            query += '&portId=' + portId
+        })
+        return query
+    }
+
+    private buildShipsQuery(shipIds: number[]): string {
+        let query = ''
+        shipIds.forEach(shipId => {
+            query += '&shipId=' + shipId
+        })
+        return query
     }
 
 }

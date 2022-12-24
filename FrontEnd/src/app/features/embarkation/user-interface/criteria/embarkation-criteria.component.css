@@ -1,13 +1,17 @@
-#form {
-    align-items: center;
-    flex-direction: row !important;
-    height: 100%;
-}
-
-#field-wrapper {
+:host {
     display: flex;
     flex-direction: column;
-    justify-content: space-evenly;
-    margin-left: 2rem;
-    width: 100%;
+    height: inherit;
+}
+
+#form {
+    flex-direction: row !important;
+}
+
+.p-fieldset .p-fieldset-content {
+    flex-direction: column;
+}
+
+.mat-calendar-previous-button, .mat-calendar-next-button {
+    display: block !important;
 }

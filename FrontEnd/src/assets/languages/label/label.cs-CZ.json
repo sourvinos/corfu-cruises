@@ -1280,24 +1280,24 @@
                 "description": "Datum"
             },
             {
-                "id": "searchDateHint",
-                "description": "Datum nalodění"
-            },
-            {
-                "id": "destination",
+                "id": "destinations",
                 "description": "Destinace"
             },
             {
-                "id": "port",
-                "description": "Přístav"
+                "id": "ports",
+                "description": "Přístavy"
             },
             {
-                "id": "ship",
-                "description": "Plavidlo"
+                "id": "ships",
+                "description": "Lodě"
             },
             {
                 "id": "searchButton",
-                "description": "VYHLEDÁVÁNÍ"
+                "description": "HLEDAT"
+            },
+            {
+                "id": "todayButton",
+                "description": "DENNĚ"
             }
         ]
     },

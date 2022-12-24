@@ -82,11 +82,12 @@ ul {
     display: none !important;
 }
 
-p.instructions {
+.instructions {
     color: var(--color-c);
-    font-family: var(--font-family-handbook);
+    font-family: var(--font-family-ubuntu);
     font-size: 1rem;
-    overflow: hidden;
+    height: 200px;
+    width: 1000px;
 }
 
 .no-border {

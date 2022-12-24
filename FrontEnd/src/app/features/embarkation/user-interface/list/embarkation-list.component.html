@@ -17,7 +17,7 @@
             </div>
             <div class="pill">
                 <img [src]="getIcon('ship')">
-                <div class="description">{{ replaceWildcardWithText(embarkationCriteria.ship) }}</div>                
+                <div class="description">{{ replaceWildcardWithText(embarkationCriteria.ship) }}</div>
             </div>
         </div>
     </div>
@@ -149,85 +149,85 @@
                             <div class="passengers-row">
                                 <p-table class="nested-table" [value]="reservation.passengers" dataKey="lastname">
                                     <ng-template pTemplate="header">
-                                        <tr>
-                                            <th style="width: 40%; padding: 10px !important;" pSortableColumn="lastname">{{ getLabel('headerLastname')}}<p-sortIcon field="lastname"></p-sortIcon>
-                                            </th>
-                                            <th style="width: 30%; padding: 10px !important;" pSortableColumn="firstname">{{ getLabel('headerFirstname') }}<p-sortIcon field="firstname"></p-sortIcon>
-                                            </th>
-                                            <th style="width: 20%; padding: 10px !important;" pSortableColumn="nationalityDescription">{{ getLabel('headerCountry') }}<p-sortIcon field="nationalityDescription"></p-sortIcon>
-                                            </th>
-                                            <th style="width: 10%;" pSortableColumn="isCheckedIn">{{ getLabel('headerStatus') }}<p-sortIcon field="isCheckedIn"></p-sortIcon>
-                                            </th>
-                                        </tr>
-                                    </ng-template>
-                                    <ng-template pTemplate="body" let-passenger>
-                                        <tr class="passenger-row">
-                                            <td style="width: 40%;">{{ passenger.lastname }}</td>
-                                            <td style="width: 30%;">{{ passenger.firstname }}</td>
-                                            <td style="width: 20%; justify-content: left;">
-                                                <img src="assets/images/nationalities/{{ passenger.nationalityCode }}.png" width="32" style="vertical-align: middle" />
-                                                <span style="overflow: hidden;">&nbsp;&nbsp;{{ passenger.nationalityDescription }}</span>
-                                            </td>
-                                            <td (click)="embarkSinglePassenger(passenger.id)" class="embarkation-status" [ngClass]="passenger.isCheckedIn ? 'complete' : 'pending'" style="width: 10%; text-align: center; margin-left: 3px;">
-                                                <span *ngIf="passenger.isCheckedIn">{{ getLabel('boarded') }}</span>
-                                                <span *ngIf="!passenger.isCheckedIn">{{ getLabel('pending') }}</span>
-                                            </td>
-                                        </tr>
-                                    </ng-template>
-                                    <ng-template pTemplate="footer">
-                                        <tr>
-                                            <td style="width: 40%; padding: 0;"></td>
-                                            <td style="width: 30%; padding: 0;"></td>
-                                            <td style="width: 20%; padding: 0;"></td>
-                                            <td style="width: 10%; padding: 0; text-align: center;">
-                                                <button (click)="embarkAllPassengers(reservation.passengerIds)" [disabled]="reservation.passengerIds.length == 0" class="primary embark-all-passengers" mat-flat-button>{{ getLabel("embarkAllPassengers") }}</button>
-                                            </td>
-                                        </tr>
-                                    </ng-template>
-                                </p-table>
-                            </div>
+                    <tr>
+                        <th style="width: 40%; padding: 10px !important;" pSortableColumn="lastname">{{ getLabel('headerLastname')}}<p-sortIcon field="lastname"></p-sortIcon>
+                        </th>
+                        <th style="width: 30%; padding: 10px !important;" pSortableColumn="firstname">{{ getLabel('headerFirstname') }}<p-sortIcon field="firstname"></p-sortIcon>
+                        </th>
+                        <th style="width: 20%; padding: 10px !important;" pSortableColumn="nationalityDescription">{{ getLabel('headerCountry') }}<p-sortIcon field="nationalityDescription"></p-sortIcon>
+                        </th>
+                        <th style="width: 10%;" pSortableColumn="isCheckedIn">{{ getLabel('headerStatus') }}<p-sortIcon field="isCheckedIn"></p-sortIcon>
+                        </th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-passenger>
+                    <tr class="passenger-row">
+                        <td style="width: 40%;">{{ passenger.lastname }}</td>
+                        <td style="width: 30%;">{{ passenger.firstname }}</td>
+                        <td style="width: 20%; justify-content: left;">
+                            <img src="assets/images/nationalities/{{ passenger.nationalityCode }}.png" width="32" style="vertical-align: middle" />
+                            <span style="overflow: hidden;">&nbsp;&nbsp;{{ passenger.nationalityDescription }}</span>
+                        </td>
+                        <td (click)="embarkSinglePassenger(passenger.id)" class="embarkation-status" [ngClass]="passenger.isCheckedIn ? 'complete' : 'pending'" style="width: 10%; text-align: center; margin-left: 3px;">
+                            <span *ngIf="passenger.isCheckedIn">{{ getLabel('boarded') }}</span>
+                            <span *ngIf="!passenger.isCheckedIn">{{ getLabel('pending') }}</span>
                         </td>
                     </tr>
-                    <tr *ngIf="reservation.passengerIds.length == 0">
-                        <div class="no-passengers">
-                            {{ showNoPassengersEmoji() }} {{ getLabel('no-passengers') }}
-                        </div>
+                </ng-template>
+                <ng-template pTemplate="footer">
+                    <tr>
+                        <td style="width: 40%; padding: 0;"></td>
+                        <td style="width: 30%; padding: 0;"></td>
+                        <td style="width: 20%; padding: 0;"></td>
+                        <td style="width: 10%; padding: 0; text-align: center;">
+                            <button (click)="embarkAllPassengers(reservation.passengerIds)" [disabled]="reservation.passengerIds.length == 0" class="primary embark-all-passengers" mat-flat-button>{{ getLabel("embarkAllPassengers") }}</button>
+                        </td>
                     </tr>
                 </ng-template>
             </p-table>
         </div>
-    </ng-container>
+        </td>
+        </tr>
+        <tr *ngIf="reservation.passengerIds.length == 0">
+            <div class="no-passengers">
+                {{ showNoPassengersEmoji() }} {{ getLabel('no-passengers') }}
+            </div>
+        </tr>
+        </ng-template>
+        </p-table>
+</div>
+</ng-container>
 
-    <div *ngIf="records.totalPersons > 0" id="footer">
-        <div  id="filters">
-            <div class="pill" id="total">
-                <img [src]="getIcon('total')">
-                <div class="number description">{{ records.totalPersons }}</div>
-            </div>
-            <div class="pill" id="boarded">
-                <img [src]="getIcon('boarded')">
-                <div class="number description">{{ records.embarkedPassengers }}</div>
-            </div>
-            <div class="pill" id="pending">
-                <img [src]="getIcon('pending')">
-                <div class="number description">{{ records.pendingPersons }}</div>
-            </div>
+<div *ngIf="records.totalPersons > 0" id="footer">
+    <div id="filters">
+        <div class="pill" id="total">
+            <img [src]="getIcon('total')">
+            <div class="number description">{{ records.totalPersons }}</div>
         </div>
-        <div>
-            <div class="button-group-right">
-                <button mat-flat-button class="primary" id="createPdf" (click)="doReportTasks()">{{ getLabel("createPDF") }}</button>
-                <button mat-flat-button class="primary" id="showScanner" (click)="onShowScanner()">{{ getLabel('scanOpenButton') }}</button>
-            </div>
+        <div class="pill" id="boarded">
+            <img [src]="getIcon('boarded')">
+            <div class="number description">{{ records.embarkedPassengers }}</div>
+        </div>
+        <div class="pill" id="pending">
+            <img [src]="getIcon('pending')">
+            <div class="number description">{{ records.pendingPersons }}</div>
         </div>
     </div>
-
-    <ng-container *ngIf="records.totalPersons == 0">
-        <list-no-results [feature]="feature" [parentUrl]="parentUrl"></list-no-results>
-    </ng-container>
-
-    <div *ngIf="isLoading | async">
-        <loading-spinner></loading-spinner>
+    <div>
+        <div class="button-group-right">
+            <button mat-flat-button class="primary" id="createPdf" (click)="doReportTasks()">{{ getLabel("createPDF") }}</button>
+            <button mat-flat-button class="primary" id="showScanner" (click)="onShowScanner()">{{ getLabel('scanOpenButton') }}</button>
+        </div>
     </div>
+</div>
+
+<ng-container *ngIf="records.totalPersons == 0">
+    <list-no-results [feature]="feature" [parentUrl]="parentUrl"></list-no-results>
+</ng-container>
+
+<div *ngIf="isLoading | async">
+    <loading-spinner></loading-spinner>
+</div>
 
 </div>
 

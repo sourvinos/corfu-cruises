@@ -5,7 +5,7 @@ namespace API.Features.Embarkation {
 
     public interface IEmbarkationRepository {
 
-        Task<EmbarkationFinalGroupVM> GetAsync(string date, string destinationId, string portId, string shipId);
+        Task<EmbarkationFinalGroupVM> GetAsync(string date, int[] destinationIds, int[] portIds, int?[] shipIds);
         Task<Passenger> GetPassengerByIdAsync(int id);
         void EmbarkPassenger(int id);
         void EmbarkPassengers(int[] ids);

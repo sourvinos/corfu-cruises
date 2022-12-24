@@ -19,10 +19,9 @@ namespace API.Features.Embarkation {
 
         #endregion
 
-        [HttpGet("date/{date}/destinationId/{destinationId}/portId/{portId}/shipId/{shipId}")]
         [Authorize(Roles = "admin")]
-        public async Task<EmbarkationFinalGroupVM> GetAsync(string date, string destinationId, string portId, string shipId) {
-            return await repo.GetAsync(date, destinationId, portId, shipId);
+        public async Task<EmbarkationFinalGroupVM> GetAsync([FromQuery(Name = "date")] string date, [FromQuery(Name = "destinationId")] int[] destinationIds, [FromQuery(Name = "portId")] int[] portIds, [FromQuery(Name = "shipId")] int?[] shipIds) {
+            return await repo.GetAsync(date, destinationIds, portIds, shipIds);
         }
 
         [HttpPut("{id}")]

@@ -1280,24 +1280,24 @@
                 "description": "Ημερ/νία"
             },
             {
-                "id": "searchDateHint",
-                "description": "Ημερ/νία αναχώρησης"
+                "id": "destinations",
+                "description": "Προορισμοί"
             },
             {
-                "id": "destination",
-                "description": "Προορισμός"
+                "id": "ports",
+                "description": "Λιμάνια"
             },
             {
-                "id": "port",
-                "description": "Λιμάνι"
-            },
-            {
-                "id": "ship",
-                "description": "Πλοίο"
+                "id": "ships",
+                "description": "Πλοία"
             },
             {
                 "id": "searchButton",
                 "description": "ΑΝΑΖΗΤΗΣΗ"
+            },
+            {
+                "id": "todayButton",
+                "description": "ΣΗΜΕΡΑ"
             }
         ]
     },

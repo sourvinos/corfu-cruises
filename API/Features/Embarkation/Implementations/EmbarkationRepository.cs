@@ -23,7 +23,7 @@ namespace API.Features.Embarkation {
             this.testingSettings = testingSettings.Value;
         }
 
-        public async Task<EmbarkationFinalGroupVM> GetAsync(string date, string destinationId, string portId, string shipId) {
+        public async Task<EmbarkationFinalGroupVM> GetAsync(string date, int[] destinationIds, int[] portIds, int?[] shipIds) {
             var reservations = await context.Reservations
                 .AsNoTracking()
                 .Include(x => x.Customer)
@@ -32,11 +32,11 @@ namespace API.Features.Embarkation {
                 .Include(x => x.Ship)
                 .Include(x => x.Port)
                 .Include(x => x.Passengers).ThenInclude(x => x.Nationality)
-                .Where(x => x.ShipId != null)
                 .Where(x => x.Date == Convert.ToDateTime(date)
-                    && ((destinationId == "all") || x.DestinationId == int.Parse(destinationId))
-                    && ((portId == "all") || x.PortId == int.Parse(portId))
-                    && ((shipId == "all") || x.ShipId == int.Parse(shipId)))
+                    && destinationIds.Contains(x.DestinationId)
+                    && portIds.Contains(x.PickupPoint.CoachRoute.PortId)
+                    && shipIds.Contains(x.ShipId)
+                )
                 .ToListAsync();
             int totalPersons = reservations.Sum(x => x.TotalPersons);
             int embarkedPassengers = reservations.SelectMany(c => c.Passengers).Count(x => x.IsCheckedIn);

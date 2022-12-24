@@ -8,7 +8,7 @@ import { EmbarkationListResolver } from '../resolvers/embarkation-list.resolver'
 
 const routes: Routes = [
     { path: '', component: EmbarkationCriteriaComponent, canActivate: [AuthGuardService] },
-    { path: 'date/:date/destinationId/:destinationId/portId/:portId/shipId/:shipId', component: EmbarkationListComponent, canActivate: [AuthGuardService], resolve: { embarkationList: EmbarkationListResolver }, runGuardsAndResolvers: 'always' }
+    { path: 'list', component: EmbarkationListComponent, canActivate: [AuthGuardService], resolve: { embarkationList: EmbarkationListResolver }, runGuardsAndResolvers: 'always' }
 ]
 
 @NgModule({
