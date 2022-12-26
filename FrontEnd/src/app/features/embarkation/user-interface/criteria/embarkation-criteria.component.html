@@ -10,7 +10,7 @@
             <p-fieldset [legend]="getLabel('date')" class="calendar">
                 <div id="calendar-wrapper">
                     <mat-card id="calendar-card">
-                        <mat-calendar #calendar (click)="selectDate(selectedDate)" [(selected)]="selectedDate" [startAt]="selectedDate"></mat-calendar>
+                        <mat-calendar #calendar (click)="selectDateFromCalendar(selectedDate)" [(selected)]="selectedDate" [startAt]="selectedDate"></mat-calendar>
                     </mat-card>
                     <button (click)="gotoToday()" class="primary" mat-flat-button>{{ getLabel("todayButton") }}</button>
                 </div>
@@ -20,7 +20,7 @@
                 <div *ngFor="let destination of destinations">
                     <div class="styled-input-square">
                         <div class="styled-input-single" (change)="onCheckboxChange($event, 'destinations', destination.description)">
-                            <input class="destination" formArrayName="destinations" type="checkbox" [value]="destination.id" [attr.id]="'destination' + destination.id" [checked]="lookupDestination(destination.id)">
+                            <input class="destination" formArrayName="destinations" type="checkbox" [value]="destination.id" [attr.id]="'destination' + destination.id" [checked]="lookup('destinations', destination.id)">
                             <label [attr.for]="'destination' + destination.id">{{ destination.description }}</label>
                         </div>
                     </div>
@@ -31,7 +31,7 @@
                 <div *ngFor="let port of ports">
                     <div class="styled-input-square">
                         <div class="styled-input-single" (change)="onCheckboxChange($event, 'ports', port.description)">
-                            <input class="port" formArrayName="ports" type="checkbox" [value]="port.id" [attr.id]="'port' + port.id" [checked]="lookupPort(port.id)">
+                            <input class="port" formArrayName="ports" type="checkbox" [value]="port.id" [attr.id]="'port' + port.id" [checked]="lookup('ports', port.id)">
                             <label [attr.for]="'port' + port.id">{{ port.description }}</label>
                         </div>
                     </div>
@@ -42,7 +42,7 @@
                 <div *ngFor="let ship of ships">
                     <div class="styled-input-square">
                         <div class="styled-input-single" (change)="onCheckboxChange($event, 'ships', ship.description)">
-                            <input class="ship" formArrayName="ships" type="checkbox" [value]="ship.id" [attr.id]="'ship' + ship.id" [checked]="lookupShip(ship.id)">
+                            <input class="ship" formArrayName="ships" type="checkbox" [value]="ship.id" [attr.id]="'ship' + ship.id" [checked]="lookup('ships', ship.id)">
                             <label [attr.for]="'ship' + ship.id">{{ ship.description }}</label>
                         </div>
                     </div>

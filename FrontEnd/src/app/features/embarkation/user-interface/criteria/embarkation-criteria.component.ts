@@ -8,6 +8,7 @@ import { takeUntil } from 'rxjs/operators'
 // Custom
 import { DateHelperService } from 'src/app/shared/services/date-helper.service'
 import { DestinationActiveVM } from '../../../destinations/classes/view-models/destination-active-vm'
+import { EmbarkationCriteriaVM } from '../../classes/view-models/embarkation-criteria-vm'
 import { InteractionService } from 'src/app/shared/services/interaction.service'
 import { LocalStorageService } from 'src/app/shared/services/local-storage.service'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
@@ -35,7 +36,7 @@ export class EmbarkationCriteriaComponent {
     public parentUrl = null
 
     public selectedDate = new Date()
-    private criteria: any
+    private criteria: EmbarkationCriteriaVM
     public destinations: DestinationActiveVM[] = []
     public ports: PortActiveVM[] = []
     public ships: ShipActiveVM[] = []
@@ -74,32 +75,14 @@ export class EmbarkationCriteriaComponent {
     }
 
     /**
-     * @param destinationId 
+     * Scans the criteria which are loaded from the storage
+     * @param arrayName 
+     * @param arrayId 
      * @returns True or false so that the checkbox can be checked or left empty
      */
-    public lookupDestination(destinationId: number): boolean {
+    public lookup(arrayName: string, arrayId: number): boolean {
         if (this.criteria) {
-            return this.criteria.destinations.filter((destination: any) => destination.id == destinationId).length != 0 ? true : false
-        }
-    }
-
-    /**
-     * @param portId 
-     * @returns True or false so that the checkbox can be checked or left empty
-     */
-    public lookupPort(portId: number): boolean {
-        if (this.criteria) {
-            return this.criteria.ports.filter((port: any) => port.id == portId).length != 0 ? true : false
-        }
-    }
-
-    /**
-     * @param shipId 
-     * @returns True or false so that the checkbox can be checked or left empty
-     */
-    public lookupShip(shipId: number): boolean {
-        if (this.criteria) {
-            return this.criteria.ships.filter((ship: any) => ship.id == shipId).length != 0 ? true : false
+            return this.criteria[arrayName].filter((x: { id: number }) => x.id == arrayId).length != 0 ? true : false
         }
     }
 
@@ -127,7 +110,7 @@ export class EmbarkationCriteriaComponent {
         this.navigateToList()
     }
 
-    public selectDate(selected: Date): void {
+    public selectDateFromCalendar(selected: Date): void {
         this.form.patchValue({
             date: this.dateHelperService.formatDateToIso(selected, false)
         })
@@ -138,43 +121,15 @@ export class EmbarkationCriteriaComponent {
     //#region private methods
 
     /**
-     * Adds all the stored destinations from the localstorage to the form.
-     * Called on every page load (when called from the menu or when returning from the manifest list)
+     * Adds all the stored criteria from the storage to the form.
+     * Called on every page load (when called from the menu or when returning from the embarkation list)
      */
-    private addDestinationsFromStorage(): void {
-        const selectedDestinations = this.form.controls['destinations'] as FormArray
-        this.criteria.destinations.forEach((destination: any) => {
-            selectedDestinations.push(new FormControl({
-                'id': destination.id,
-                'description': destination.description
-            }))
-        })
-    }
-
-    /**
-     * Adds all the stored ports from the localstorage to the form.
-     * Called on every page load (when called from the menu or when returning from the manifest list)
-     */
-    private addPortsFromStorage(): void {
-        const selectedPorts = this.form.controls['ports'] as FormArray
-        this.criteria.ports.forEach((port: any) => {
-            selectedPorts.push(new FormControl({
-                'id': port.id,
-                'description': port.description
-            }))
-        })
-    }
-
-    /**
-     * Adds all the stored ships from the localstorage to the form.
-     * Called on every page load (when called from the menu or when returning from the manifest list)
-     */
-    private addShipsFromStorage(): void {
-        const selectedShips = this.form.controls['ships'] as FormArray
-        this.criteria.ships.forEach((ship: any) => {
-            selectedShips.push(new FormControl({
-                'id': ship.id,
-                'description': ship.description
+    private addSelectedCriteriaFromStorage(arrayName: string): void {
+        const x = this.form.controls[arrayName] as FormArray
+        this.criteria[arrayName].forEach((element: any) => {
+            x.push(new FormControl({
+                'id': element.id,
+                'description': element.description
             }))
         })
     }
@@ -212,9 +167,9 @@ export class EmbarkationCriteriaComponent {
             this.criteria = JSON.parse(this.localStorageService.getItem('embarkation-criteria'))
             this.form.patchValue({
                 date: this.criteria.date,
-                destinations: this.addDestinationsFromStorage(),
-                ports: this.addPortsFromStorage(),
-                ships: this.addShipsFromStorage(),
+                destinations: this.addSelectedCriteriaFromStorage('destinations'),
+                ports: this.addSelectedCriteriaFromStorage('ports'),
+                ships: this.addSelectedCriteriaFromStorage('ships'),
             })
         }
     }

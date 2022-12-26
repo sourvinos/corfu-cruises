@@ -1273,7 +1273,7 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Embarquement"
+                "description": "Critères d'embarquement"
             },
             {
                 "id": "date",

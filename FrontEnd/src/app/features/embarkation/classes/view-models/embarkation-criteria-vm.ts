@@ -1,12 +1,12 @@
-export class EmbarkationCriteriaVM {
+import { DestinationActiveVM } from 'src/app/features/destinations/classes/view-models/destination-active-vm'
+import { PortActiveVM } from './../../../ports/classes/view-models/port-active-vm'
+import { ShipActiveVM } from './../../../ships/classes/view-models/ship-active-vm'
 
-    constructor(
+export interface EmbarkationCriteriaVM {
 
-        public date: string,
-        public destination: { id: number, description: string },
-        public port: { id: number, description: string },
-        public ship: { id: number, description: string },
-
-    ) { }
+    date: string,
+    destinations: DestinationActiveVM[]
+    ports: PortActiveVM[]
+    ship: ShipActiveVM[]
 
 }

@@ -34,7 +34,7 @@ namespace API.Features.Embarkation {
                 .Include(x => x.Passengers).ThenInclude(x => x.Nationality)
                 .Where(x => x.Date == Convert.ToDateTime(date)
                     && destinationIds.Contains(x.DestinationId)
-                    && portIds.Contains(x.PickupPoint.CoachRoute.PortId)
+                    && portIds.Contains(x.PortId)
                     && shipIds.Contains(x.ShipId)
                 )
                 .ToListAsync();

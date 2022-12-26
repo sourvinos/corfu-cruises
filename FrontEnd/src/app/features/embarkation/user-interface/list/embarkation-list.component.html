@@ -1,234 +1,208 @@
 <div id="list">
 
-    <div *ngIf="records.totalPersons > 0" id="header">
+    <div id="header">
         <home-button-and-title [feature]="feature" [featureIcon]="featureIcon" [icon]="icon" [parentUrl]="parentUrl"></home-button-and-title>
         <div id="criteria">
             <div class="pill">
-                <img [src]="getIcon('calendar')">
-                <div class="description">{{ formatDate() }}</div>
+                <div class="description">{{ formatDateToLocale(criteria.date, true) }}</div>
             </div>
             <div class="pill">
-                <img [src]="getIcon('destination')">
-                <div class="description">{{ replaceWildcardWithText(embarkationCriteria.destination) }}</div>
+                <div class="description">{{ getDestinationDescriptions() }}</div>
             </div>
             <div class="pill">
-                <img [src]="getIcon('port')">
-                <div class="description">{{ replaceWildcardWithText(embarkationCriteria.port) }}</div>
+                <div class="description">{{ getPortDescriptions() }}</div>
             </div>
             <div class="pill">
-                <img [src]="getIcon('ship')">
-                <div class="description">{{ replaceWildcardWithText(embarkationCriteria.ship) }}</div>
+                <div class="description">{{ getShipDescriptions() }}</div>
             </div>
+            <button (click)="resetTableFilters()" [disabled]="records.reservations.length == 0 || filteredRecords.reservations.length == records.reservations.length" class="primary" mat-flat-button>
+                <i class="pi pi-filter-slash"></i>
+            </button>
         </div>
     </div>
 
-    <ng-container *ngIf="records.totalPersons > 0">
-        <div id="table-wrapper">
-            <p-table #table (onFilter)="filterRecords($event)" [autoLayout]="false" [globalFilterFields]="['ticketNo']" [scrollable]="true" [value]="records.reservations" [virtualScrollItemSize]="33" [virtualScroll]="false" dataKey="ticketNo" scrollHeight="flex" selectionMode="single" sortMode="multiple" stateKey="embarkation-list" stateStorage="session">
-                <ng-template pTemplate="header">
-                    <tr>
-                        <th style="width: 3%;"></th>
-                        <th style="width: 6%;">{{ getLabel('headerRemarks') }}</th>
-                        <th style="width: 10%;" pSortableColumn="refNo">{{ getLabel('headerRefNo') }}<p-sortIcon field="refNo"></p-sortIcon></th>
-                        <th style="width: 10%;" pSortableColumn="ticketNo">{{ getLabel('headerTicketNo') }}<p-sortIcon field="ticketNo"></p-sortIcon></th>
-                        <th pSortableColumn="destination">{{ getLabel('headerDestination') }}<p-sortIcon field="destination"></p-sortIcon></th>
-                        <th pSortableColumn="customer">{{ getLabel('headerCustomer') }}<p-sortIcon field="customer"></p-sortIcon></th>
-                        <th pSortableColumn="driver">{{ getLabel('headerDriver') }}<p-sortIcon field="driver"></p-sortIcon></th>
-                        <th pSortableColumn="port">{{ getLabel('headerPort') }}<p-sortIcon field="port"></p-sortIcon></th>
-                        <th pSortableColumn="ship">{{ getLabel('headerShip') }}<p-sortIcon field="ship"></p-sortIcon></th>
-                        <th style="width: 5%;">{{ getLabel('headerPersons') }}</th>
-                        <th style="width: 5%;">{{ getLabel('headerPlusMinus') }}</th>
-                        <th style="width: 10%;" pSortableColumn="embarkationStatus">{{ getLabel('headerEmbarkationStatus') }}<p-sortIcon field="embarkationStatus"></p-sortIcon></th>
-                    </tr>
-                    <tr>
-                        <!-- Row expander -->
-                        <th style="width: 3%;"></th>
-                        <!-- Comments -->
-                        <th style="width: 6%;"></th>
-                        <!-- RefNo -->
-                        <th style="width: 10%;"><input type="text" class="p-inputtext" (input)="table.filter($event.target.value, 'refNo', 'contains')" [value]="$any(table).filters['refNo']?.value"></th>
-                        <!-- Ticket No -->
-                        <th style="width: 10%;"><input type="text" class="p-inputtext" (input)="table.filter($event.target.value, 'ticketNo', 'contains')" [value]="$any(table).filters['ticketNo']?.value"></th>
-                        <!-- Destination -->
-                        <th>
-                            <p-columnFilter style="width: 100%;" field="destination" matchMode="equals" [showMenu]="false">
-                                <ng-template pTemplate="filter" let-value let-filter="filterCallback">
-                                    <p-dropdown [ngModel]="value" [options]="dropdownDestinations" (onChange)="filter($event.value)" placeholder="⭐" [showClear]="true">
-                                        <ng-template let-option pTemplate="item">
-                                            <span>{{ option.label }}</span>
-                                        </ng-template>
-                                    </p-dropdown>
+    <div id="table-wrapper">
+        <p-table #table (onFilter)="filterRecords($event)" [globalFilterFields]="['ticketNo']" [scrollable]="true" [value]="records.reservations" [virtualScrollItemSize]="33" [virtualScroll]="true" dataKey="ticketNo" scrollHeight="flex" selectionMode="single" sortMode="multiple">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th style="max-width: 3.5rem; min-width: 3.5rem; width: 3.5rem;"></th>
+                    <th style="max-width: 7rem; min-width: 7rem; width: 7rem;">{{ getLabel('headerRemarks') }}</th>
+                    <th pSortableColumn="refNo" style="max-width: 10rem; min-width: 10rem; width: 10rem;">{{ getLabel('headerRefNo') }}<p-sortIcon field="refNo"></p-sortIcon></th>
+                    <th pSortableColumn="ticketNo">{{ getLabel('headerTicketNo') }}<p-sortIcon field="ticketNo"></p-sortIcon></th>
+                    <th pSortableColumn="destination" style="max-width: 10rem; min-width: 10rem; width: 10rem;">{{ getLabel('headerDestination') }}<p-sortIcon field="destination"></p-sortIcon></th>
+                    <th pSortableColumn="customer" style="max-width: 10rem; min-width: 10rem; width: 10rem;">{{ getLabel('headerCustomer') }}<p-sortIcon field="customer"></p-sortIcon></th>
+                    <th pSortableColumn="driver" style="max-width: 10rem; min-width: 10rem; width: 10rem;">{{ getLabel('headerDriver') }}<p-sortIcon field="driver"></p-sortIcon></th>
+                    <th pSortableColumn="port" style="max-width: 10rem; min-width: 10rem; width: 10rem;">{{ getLabel('headerPort') }}<p-sortIcon field="port"></p-sortIcon></th>
+                    <th pSortableColumn="ship" style="max-width: 10rem; min-width: 10rem; width: 10rem;">{{ getLabel('headerShip') }}<p-sortIcon field="ship"></p-sortIcon></th>
+                    <th style="max-width: 6rem; min-width: 6rem; width: 6rem;">{{ getLabel('headerPersons') }}</th>
+                    <th style="max-width: 3rem; min-width: 3rem; width: 3rem;">{{ getLabel('headerPlusMinus') }}</th>
+                    <th pSortableColumn="embarkationStatus" style="max-width: 10rem; min-width: 10rem; width: 10rem;">{{ getLabel('headerEmbarkationStatus') }}<p-sortIcon field="embarkationStatus"></p-sortIcon></th>
+                </tr>
+                <tr>
+                    <th></th>
+                    <th></th>
+                    <th><input type="text" class="p-inputtext" (input)="table.filter($event.target.value, 'refNo', 'contains')" [value]="$any(table).filters['refNo']?.value"></th>
+                    <th><input type="text" class="p-inputtext" (input)="table.filter($event.target.value, 'ticketNo', 'contains')" [value]="$any(table).filters['ticketNo']?.value"></th>
+                    <th>
+                        <p-columnFilter style="width: 100%;" field="destination" matchMode="equals" [showMenu]="false">
+                            <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+                                <p-dropdown [ngModel]="value" [options]="dropdownDestinations" (onChange)="filter($event.value)" placeholder="⭐" [showClear]="true">
+                                    <ng-template let-option pTemplate="item">
+                                        <span>{{ option.label }}</span>
+                                    </ng-template>
+                                </p-dropdown>
+                            </ng-template>
+                        </p-columnFilter>
+                    </th>
+                    <th>
+                        <p-columnFilter style="width: 100%;" field="customer" matchMode="equals" [showMenu]="false">
+                            <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+                                <p-dropdown [ngModel]="value" [options]="dropdownCustomers" (onChange)="filter($event.value)" placeholder="⭐" [showClear]="true">
+                                    <ng-template let-option pTemplate="item">
+                                        <span>{{ option.label }}</span>
+                                    </ng-template>
+                                </p-dropdown>
+                            </ng-template>
+                        </p-columnFilter>
+                    </th>
+                    <th>
+                        <p-columnFilter style="width: 100%;" field="driver" matchMode="equals" [showMenu]="false">
+                            <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+                                <p-dropdown [ngModel]="value" [options]="dropdownDrivers" (onChange)="filter($event.value)" placeholder="⭐" [showClear]="true">
+                                    <ng-template let-option pTemplate="item">
+                                        <span>{{ option.label }}</span>
+                                    </ng-template>
+                                </p-dropdown>
+                            </ng-template>
+                        </p-columnFilter>
+                    </th>
+                    <th>
+                        <p-columnFilter style="width: 100%;" field="port" matchMode="equals" [showMenu]="false">
+                            <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+                                <p-dropdown [ngModel]="value" [options]="dropdownPorts" (onChange)="filter($event.value)" placeholder="⭐" [showClear]="true">
+                                    <ng-template let-option pTemplate="item">
+                                        <span>{{ option.label }}</span>
+                                    </ng-template>
+                                </p-dropdown>
+                            </ng-template>
+                        </p-columnFilter>
+                    </th>
+                    <th>
+                        <p-columnFilter style="width: 100%;" field="ship" matchMode="equals" [showMenu]="false">
+                            <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+                                <p-dropdown [ngModel]="value" [options]="dropdownShips" (onChange)="filter($event.value)" placeholder="⭐" [showClear]="true">
+                                    <ng-template let-option pTemplate="item">
+                                        <span>{{ option.label }}</span>
+                                    </ng-template>
+                                </p-dropdown>
+                            </ng-template>
+                        </p-columnFilter>
+                    </th>
+                    <th><input type="text" class="p-inputtext" (input)="table.filter($event.target.value, 'totalPersons', 'equals')" [value]="$any(table).filters['totalPersons']?.value"></th>
+                    <th></th>
+                    <th>
+                        <p-columnFilter style="width: 100%;" field="embarkationStatus" matchMode="contains" [showMenu]="false">
+                            <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+                                <p-dropdown [ngModel]="value" [options]="dropdownEmbarkationStatuses" (onChange)="filter($event.value)" placeholder="⭐" [showClear]="true">
+                                    <ng-template let-option pTemplate="item">
+                                        <span>{{ option.label }}</span>
+                                    </ng-template>
+                                </p-dropdown>
+                            </ng-template>
+                        </p-columnFilter>
+                    </th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-reservation let-expanded="expanded">
+                <tr>
+                    <td style="max-width: 3.5rem; min-width: 3.5rem; width: 3.5rem;"><button pButton pRipple [pRowToggler]="reservation" class="p-button-text p-button-rounded p-button-plain" [icon]="expanded ? 'fas fa-angle-down' : 'fas fa-angle-right'"></button></td>
+                    <td style="max-width: 7rem; min-width: 7rem; width: 7rem; text-align: center;"><span class="remarks" *ngIf="hasRemarks(reservation.remarks)" (click)="onShowRemarks(reservation.remarks)">{{ getEmoji('remarks') }}</span></td>
+                    <td style="max-width: 10rem; min-width: 10rem; text-align: center; width: 10rem;">{{ reservation.refNo }}</td>
+                    <td style="text-align: center;">{{ reservation.ticketNo }}</td>
+                    <td style="max-width: 10rem; min-width: 10rem; width: 10rem;">{{ reservation.destination }}</td>
+                    <td style="min-width: 10rem; max-width: 10rem; width:10rem;">{{ reservation.customer }}</td>
+                    <td style="max-width: 10rem; min-width: 10rem; width: 10rem;">{{ reservation.driver }}</td>
+                    <td style="max-width: 10rem; min-width: 10rem; width: 10rem;">{{ reservation.port }}</td>
+                    <td style="max-width: 10rem; min-width: 10rem; width: 10rem;">{{ reservation.ship }}</td>
+                    <td style="max-width: 6rem; min-width: 6rem; width: 6rem; text-align: center;">{{ reservation.totalPersons }}</td>
+                    <td style="max-width: 3rem; min-width: 3rem; width: 3rem; text-align: center;">{{ calculateDifference(reservation.totalPersons, reservation.passengers.length) }}</td>
+                    <td style="max-width: 10rem; min-width: 10rem; width: 10rem;">{{ getStatusText(reservation.embarkationStatus) }}</td>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="rowexpansion" let-reservation>
+                <tr *ngIf="reservation.passengerIds.length > 0">
+                    <td colspan="7">
+                        <div class="passengers-row">
+                            <p-table class="nested-table" [value]="reservation.passengers" dataKey="lastname">
+                                <ng-template pTemplate="header">
+                                    <tr>
+                                        <th style="max-width: 10rem; min-width: 10rem; width: 10rem;" pSortableColumn="lastname">{{ getLabel('headerLastname')}}<p-sortIcon field="lastname"></p-sortIcon></th>
+                                        <th style="max-width: 10rem; min-width: 10rem; width: 10rem;" pSortableColumn="firstname">{{ getLabel('headerFirstname') }}<p-sortIcon field="firstname"></p-sortIcon></th>
+                                        <th style="max-width: 10rem; min-width: 10rem; width: 10rem;" pSortableColumn="nationalityDescription">{{ getLabel('headerCountry') }}<p-sortIcon field="nationalityDescription"></p-sortIcon></th>
+                                        <th style="max-width: 10rem; min-width: 10rem; width: 10rem;" pSortableColumn="isCheckedIn">{{ getLabel('headerStatus') }}<p-sortIcon field="isCheckedIn"></p-sortIcon></th>
+                                    </tr>
                                 </ng-template>
-                            </p-columnFilter>
-                        </th>
-                        <!-- Customer -->
-                        <th>
-                            <p-columnFilter style="width: 100%;" field="customer" matchMode="equals" [showMenu]="false">
-                                <ng-template pTemplate="filter" let-value let-filter="filterCallback">
-                                    <p-dropdown [ngModel]="value" [options]="dropdownCustomers" (onChange)="filter($event.value)" placeholder="⭐" [showClear]="true">
-                                        <ng-template let-option pTemplate="item">
-                                            <span>{{ option.label }}</span>
-                                        </ng-template>
-                                    </p-dropdown>
+                                <ng-template pTemplate="body" let-passenger>
+                                    <tr class="passenger-row">
+                                        <td style="max-width: 10rem; min-width: 10rem; width: 10rem;">{{ passenger.lastname }}</td>
+                                        <td style="max-width: 10rem; min-width: 10rem; width: 10rem;">{{ passenger.firstname }}</td>
+                                        <td style="max-width: 10rem; min-width: 10rem; width: 10rem; justify-content: left;">
+                                            <img src="assets/images/nationalities/{{ passenger.nationalityCode }}.png" width="32" style="vertical-align: middle" />
+                                            <span style="overflow: hidden;">&nbsp;&nbsp;{{ passenger.nationalityDescription }}</span>
+                                        </td>
+                                        <td (click)="embarkSinglePassenger(passenger.id)" class="embarkation-status" [ngClass]="passenger.isCheckedIn ? 'complete' : 'pending'" style="max-width: 10rem; min-width: 10rem; width: 10rem; text-align: center; margin-left: 3px;">
+                                            <span *ngIf="passenger.isCheckedIn">{{ getLabel('boarded') }}</span>
+                                            <span *ngIf="!passenger.isCheckedIn">{{ getLabel('pending') }}</span>
+                                        </td>
+                                    </tr>
                                 </ng-template>
-                            </p-columnFilter>
-                        </th>
-                        <!-- Driver -->
-                        <th>
-                            <p-columnFilter style="width: 100%;" field="driver" matchMode="equals" [showMenu]="false">
-                                <ng-template pTemplate="filter" let-value let-filter="filterCallback">
-                                    <p-dropdown [ngModel]="value" [options]="dropdownDrivers" (onChange)="filter($event.value)" placeholder="⭐" [showClear]="true">
-                                        <ng-template let-option pTemplate="item">
-                                            <span>{{ option.label }}</span>
-                                        </ng-template>
-                                    </p-dropdown>
+                                <ng-template pTemplate="footer">
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td style="width: 10%; padding: 0; text-align: center;">
+                                        <button (click)="embarkAllPassengers(reservation.passengerIds)" [disabled]="reservation.passengerIds.length == 0" class="primary embark-all-passengers" mat-flat-button>{{ getLabel("embarkAllPassengers") }}</button>
+                                    </td>
                                 </ng-template>
-                            </p-columnFilter>
-                        </th>
-                        <!-- Port -->
-                        <th>
-                            <p-columnFilter style="width: 100%;" field="port" matchMode="equals" [showMenu]="false">
-                                <ng-template pTemplate="filter" let-value let-filter="filterCallback">
-                                    <p-dropdown [ngModel]="value" [options]="dropdownPorts" (onChange)="filter($event.value)" placeholder="⭐" [showClear]="true">
-                                        <ng-template let-option pTemplate="item">
-                                            <span>{{ option.label }}</span>
-                                        </ng-template>
-                                    </p-dropdown>
-                                </ng-template>
-                            </p-columnFilter>
-                        </th>
-                        <!-- Ship -->
-                        <th>
-                            <p-columnFilter style="width: 100%;" field="ship" matchMode="equals" [showMenu]="false">
-                                <ng-template pTemplate="filter" let-value let-filter="filterCallback">
-                                    <p-dropdown [ngModel]="value" [options]="dropdownShips" (onChange)="filter($event.value)" placeholder="⭐" [showClear]="true">
-                                        <ng-template let-option pTemplate="item">
-                                            <span>{{ option.label }}</span>
-                                        </ng-template>
-                                    </p-dropdown>
-                                </ng-template>
-                            </p-columnFilter>
-                        </th>
-                        <!-- Total persons -->
-                        <th style="width: 5%;"><input type="text" class="p-inputtext" (input)="table.filter($event.target.value, 'totalPersons', 'equals')" [value]="$any(table).filters['totalPersons']?.value"></th>
-                        <!-- +/- -->
-                        <th style="width: 5%;"></th>
-                        <!-- EmbarkationStatus -->
-                        <th style="width: 10%;">
-                            <p-columnFilter style="width: 100%;" field="embarkationStatus" matchMode="contains" [showMenu]="false">
-                                <ng-template pTemplate="filter" let-value let-filter="filterCallback">
-                                    <p-dropdown [ngModel]="value" [options]="dropdownEmbarkationStatuses" (onChange)="filter($event.value)" placeholder="⭐" [showClear]="true">
-                                        <ng-template let-option pTemplate="item">
-                                            <span>{{ option.label }}</span>
-                                        </ng-template>
-                                    </p-dropdown>
-                                </ng-template>
-                            </p-columnFilter>
-                        </th>
-                    </tr>
-                </ng-template>
-                <ng-template pTemplate="body" let-reservation let-expanded="expanded">
-                    <tr>
-                        <td style="width: 3%;"><button pButton pRipple [pRowToggler]="reservation" class="p-button-text p-button-rounded p-button-plain" [icon]="expanded ? 'fas fa-angle-down' : 'fas fa-angle-right'"></button></td>
-                        <td style="width: 6%; text-align: center;"><span class="remarks" *ngIf="hasRemarks(reservation.remarks)" (click)="onShowRemarks(reservation.remarks)">{{ getEmoji('remarks') }}</span></td>
-                        <td style="width: 10%; text-align: center;">{{ reservation.refNo }}</td>
-                        <td style="width: 10%; text-align: center;">{{ reservation.ticketNo }}</td>
-                        <td>{{ reservation.destination }}</td>
-                        <td>{{ reservation.customer }}</td>
-                        <td>{{ reservation.driver }}</td>
-                        <td>{{ reservation.port }}</td>
-                        <td>{{ reservation.ship }}</td>
-                        <td style="width: 5%; text-align: center;">{{ reservation.totalPersons }}</td>
-                        <td style="width: 5%; text-align: center;">{{ calculateDifference(reservation.totalPersons, reservation.passengers.length) }}</td>
-                        <td style="width: 10%;">{{ getStatusText(reservation.embarkationStatus) }}</td>
-                    </tr>
-                </ng-template>
-                <ng-template pTemplate="rowexpansion" let-reservation>
-                    <tr *ngIf="reservation.passengerIds.length > 0">
-                        <td>
-                            <div class="passengers-row">
-                                <p-table class="nested-table" [value]="reservation.passengers" dataKey="lastname">
-                                    <ng-template pTemplate="header">
-                    <tr>
-                        <th style="width: 40%; padding: 10px !important;" pSortableColumn="lastname">{{ getLabel('headerLastname')}}<p-sortIcon field="lastname"></p-sortIcon>
-                        </th>
-                        <th style="width: 30%; padding: 10px !important;" pSortableColumn="firstname">{{ getLabel('headerFirstname') }}<p-sortIcon field="firstname"></p-sortIcon>
-                        </th>
-                        <th style="width: 20%; padding: 10px !important;" pSortableColumn="nationalityDescription">{{ getLabel('headerCountry') }}<p-sortIcon field="nationalityDescription"></p-sortIcon>
-                        </th>
-                        <th style="width: 10%;" pSortableColumn="isCheckedIn">{{ getLabel('headerStatus') }}<p-sortIcon field="isCheckedIn"></p-sortIcon>
-                        </th>
-                    </tr>
-                </ng-template>
-                <ng-template pTemplate="body" let-passenger>
-                    <tr class="passenger-row">
-                        <td style="width: 40%;">{{ passenger.lastname }}</td>
-                        <td style="width: 30%;">{{ passenger.firstname }}</td>
-                        <td style="width: 20%; justify-content: left;">
-                            <img src="assets/images/nationalities/{{ passenger.nationalityCode }}.png" width="32" style="vertical-align: middle" />
-                            <span style="overflow: hidden;">&nbsp;&nbsp;{{ passenger.nationalityDescription }}</span>
-                        </td>
-                        <td (click)="embarkSinglePassenger(passenger.id)" class="embarkation-status" [ngClass]="passenger.isCheckedIn ? 'complete' : 'pending'" style="width: 10%; text-align: center; margin-left: 3px;">
-                            <span *ngIf="passenger.isCheckedIn">{{ getLabel('boarded') }}</span>
-                            <span *ngIf="!passenger.isCheckedIn">{{ getLabel('pending') }}</span>
-                        </td>
-                    </tr>
-                </ng-template>
-                <ng-template pTemplate="footer">
-                    <tr>
-                        <td style="width: 40%; padding: 0;"></td>
-                        <td style="width: 30%; padding: 0;"></td>
-                        <td style="width: 20%; padding: 0;"></td>
-                        <td style="width: 10%; padding: 0; text-align: center;">
-                            <button (click)="embarkAllPassengers(reservation.passengerIds)" [disabled]="reservation.passengerIds.length == 0" class="primary embark-all-passengers" mat-flat-button>{{ getLabel("embarkAllPassengers") }}</button>
-                        </td>
-                    </tr>
-                </ng-template>
-            </p-table>
-        </div>
-        </td>
-        </tr>
-        <tr *ngIf="reservation.passengerIds.length == 0">
-            <div class="no-passengers">
-                {{ showNoPassengersEmoji() }} {{ getLabel('no-passengers') }}
-            </div>
-        </tr>
-        </ng-template>
-        </p-table>
-</div>
-</ng-container>
-
-<div *ngIf="records.totalPersons > 0" id="footer">
-    <div id="filters">
-        <div class="pill" id="total">
-            <img [src]="getIcon('total')">
-            <div class="number description">{{ records.totalPersons }}</div>
-        </div>
-        <div class="pill" id="boarded">
-            <img [src]="getIcon('boarded')">
-            <div class="number description">{{ records.embarkedPassengers }}</div>
-        </div>
-        <div class="pill" id="pending">
-            <img [src]="getIcon('pending')">
-            <div class="number description">{{ records.pendingPersons }}</div>
-        </div>
+                            </p-table>
+                        </div>
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>    
     </div>
-    <div>
+
+    <div id="footer">
+        <div id="filters">
+            <div class="pill">
+                <img [src]="getIcon('total')">
+                <div class="number description">{{ records.totalPersons }}</div>
+            </div>
+            <div class="pill">
+                <img [src]="getIcon('boarded')">
+                <div class="number description">{{ records.embarkedPassengers }}</div>
+            </div>
+            <div class="pill">
+                <img [src]="getIcon('pending')">
+                <div class="number description">{{ records.pendingPersons }}</div>
+            </div>
+        </div>
         <div class="button-group-right">
-            <button mat-flat-button class="primary" id="createPdf" (click)="doReportTasks()">{{ getLabel("createPDF") }}</button>
-            <button mat-flat-button class="primary" id="showScanner" (click)="onShowScanner()">{{ getLabel('scanOpenButton') }}</button>
+            <button (click)="doReportTasks()" [disabled]="records.reservations.length == 0" class="primary" mat-flat-button>
+                <mat-icon *ngIf="records.reservations.length == 0" class="button-icon">lock</mat-icon>
+                <span>{{ getLabel("createPDF") }}</span>
+            </button>
+            <button (click)="onShowScanner()" [disabled]="records.reservations.length == 0" class="primary" mat-flat-button>
+                <mat-icon *ngIf="records.reservations.length == 0" class="button-icon">lock</mat-icon>
+                <span>{{ getLabel('scanOpenButton') }}</span>
+            </button>
         </div>
     </div>
-</div>
 
-<ng-container *ngIf="records.totalPersons == 0">
-    <list-no-results [feature]="feature" [parentUrl]="parentUrl"></list-no-results>
-</ng-container>
+</div>
 
 <div *ngIf="isLoading | async">
     <loading-spinner></loading-spinner>
-</div>
-
 </div>
 
 <div id="video">

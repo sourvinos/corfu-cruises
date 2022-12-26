@@ -1273,7 +1273,7 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Einschiffung"
+                "description": "Einschiffungskriterien"
             },
             {
                 "id": "date",
