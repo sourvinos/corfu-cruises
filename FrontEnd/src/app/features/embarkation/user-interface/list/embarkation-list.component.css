@@ -1,16 +1,17 @@
-/* #scan-close-button {
+#scan-close-button {
+    background-color: var(--color-button-background-primary) !important;
     left: 89.3%;
     position: absolute;
     top: 9.5%;
-} */
+}
 
-/* #video {
+#video {
     background-color: var(--color-a);
     display: none;
     padding: 1rem;
     position: fixed;
     z-index: 1;
-} */
+}
 
 .embark-all-passengers {
     margin: 1rem 0 1rem 0;

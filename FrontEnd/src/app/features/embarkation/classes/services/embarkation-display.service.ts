@@ -19,12 +19,11 @@ export class EmbarkationService extends HttpDataService {
             + this.buildDestinationsQuery(destinationIds)
             + this.buildPortsQuery(portIds)
             + this.buildShipsQuery(shipIds))
-        // return this.http.get<any>(this.url + '/date/' + date + '/destinationId/' + destinationId + '/portId/' + portId + '/shipId/' + shipId)
     }
 
     embarkSinglePassenger(id: number): Observable<any> {
-        const params = new HttpParams().set('id', id.toString())
-        return this.http.patch(this.url + '/embarkSinglePassenger?', null, { params: params })
+        const params = new HttpParams().set('id', id)
+        return this.http.patch(this.url + '/embarkPassenger?', null, { params: params })
     }
 
     embarkAllPassengers(id: number[]): Observable<any> {
@@ -34,7 +33,7 @@ export class EmbarkationService extends HttpDataService {
                 params = params.append('id', element)
             }
         })
-        return this.http.patch(this.url + '/embarkAllPassengers?', null, { params: params })
+        return this.http.patch(this.url + '/embarkPassengers?', null, { params: params })
     }
 
     private buildDestinationsQuery(destinationIds: number[]): string {

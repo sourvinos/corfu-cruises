@@ -156,48 +156,48 @@
                                         </td>
                                     </tr>
                                 </ng-template>
-                                <ng-template pTemplate="footer">
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td style="width: 10%; padding: 0; text-align: center;">
-                                        <button (click)="embarkAllPassengers(reservation.passengerIds)" [disabled]="reservation.passengerIds.length == 0" class="primary embark-all-passengers" mat-flat-button>{{ getLabel("embarkAllPassengers") }}</button>
-                                    </td>
-                                </ng-template>
-                            </p-table>
-                        </div>
-                    </td>
-                </tr>
-            </ng-template>
-        </p-table>    
-    </div>
+                            <ng-template pTemplate="footer">
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td style="width: 10%; padding: 0; text-align: center;">
+                                    <button (click)="embarkAllPassengers(reservation.passengerIds)" [disabled]="reservation.passengerIds.length == 0" class="primary embark-all-passengers" mat-flat-button>{{ getLabel("embarkAllPassengers") }}</button>
+                                </td>
+                            </ng-template>
+                        </p-table>
+                    </div>
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>
 
-    <div id="footer">
-        <div id="filters">
-            <div class="pill">
-                <img [src]="getIcon('total')">
-                <div class="number description">{{ records.totalPersons }}</div>
-            </div>
-            <div class="pill">
-                <img [src]="getIcon('boarded')">
-                <div class="number description">{{ records.embarkedPassengers }}</div>
-            </div>
-            <div class="pill">
-                <img [src]="getIcon('pending')">
-                <div class="number description">{{ records.pendingPersons }}</div>
-            </div>
+<div id="footer">
+    <div id="filters">
+        <div class="pill">
+            <img [src]="getIcon('total')">
+            <div class="number description">{{ records.totalPersons }}</div>
         </div>
-        <div class="button-group-right">
-            <button (click)="doReportTasks()" [disabled]="records.reservations.length == 0" class="primary" mat-flat-button>
-                <mat-icon *ngIf="records.reservations.length == 0" class="button-icon">lock</mat-icon>
-                <span>{{ getLabel("createPDF") }}</span>
-            </button>
-            <button (click)="onShowScanner()" [disabled]="records.reservations.length == 0" class="primary" mat-flat-button>
-                <mat-icon *ngIf="records.reservations.length == 0" class="button-icon">lock</mat-icon>
-                <span>{{ getLabel('scanOpenButton') }}</span>
-            </button>
+        <div class="pill">
+            <img [src]="getIcon('boarded')">
+            <div class="number description">{{ records.embarkedPassengers }}</div>
+        </div>
+        <div class="pill">
+            <img [src]="getIcon('pending')">
+            <div class="number description">{{ records.pendingPersons }}</div>
         </div>
     </div>
+    <div class="button-group-right">
+        <button (click)="doReportTasks()" [disabled]="records.reservations.length == 0" class="primary" mat-flat-button>
+            <mat-icon *ngIf="records.reservations.length == 0" class="button-icon">lock</mat-icon>
+            <span>{{ getLabel("createPDF") }}</span>
+        </button>
+        <button (click)="onShowScanner()" [disabled]="records.reservations.length == 0" class="primary" mat-flat-button>
+            <mat-icon *ngIf="records.reservations.length == 0" class="button-icon">lock</mat-icon>
+            <span>{{ getLabel('scanOpenButton') }}</span>
+        </button>
+    </div>
+</div>
 
 </div>
 

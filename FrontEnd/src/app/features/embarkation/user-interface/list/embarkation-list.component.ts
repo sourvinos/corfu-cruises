@@ -1,4 +1,4 @@
-import { ActivatedRoute, Router } from '@angular/router'
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router'
 import { Component, ViewChild } from '@angular/core'
 import { DateAdapter } from '@angular/material/core'
 import { Subject } from 'rxjs'
@@ -9,7 +9,6 @@ import { DateHelperService } from 'src/app/shared/services/date-helper.service'
 import { DestinationActiveVM } from 'src/app/features/destinations/classes/view-models/destination-active-vm'
 import { DialogService } from 'src/app/shared/services/dialog.service'
 import { DriverActiveVM } from 'src/app/features/drivers/classes/view-models/driver-active-vm'
-import { EmbarkationCriteriaVM } from '../../classes/view-models/embarkation-criteria-vm'
 import { EmbarkationGroupVM } from '../../classes/view-models/embarkation-group-vm'
 import { EmbarkationPDFService } from '../../classes/services/embarkation-pdf.service'
 import { EmbarkationService } from '../../classes/services/embarkation-display.service'
@@ -40,6 +39,7 @@ export class EmbarkationListComponent {
     public featureIcon = 'embarkation'
     public icon = 'arrow_back'
     public parentUrl = '/embarkation'
+    public url = '/embarkation/list'
 
     public criteria: any
     public filteredRecords: EmbarkationGroupVM
@@ -57,7 +57,15 @@ export class EmbarkationListComponent {
 
     //#endregion
 
-    constructor(private activatedRoute: ActivatedRoute, private dateAdapter: DateAdapter<any>, private dateHelperService: DateHelperService, private dialogService: DialogService, private embarkationDisplayService: EmbarkationService, private embarkationPDFService: EmbarkationPDFService, private emojiService: EmojiService, private helperService: HelperService, private localStorageService: LocalStorageService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private modalActionResultService: ModalActionResultService, private router: Router) { }
+    constructor(private activatedRoute: ActivatedRoute, private dateAdapter: DateAdapter<any>, private dateHelperService: DateHelperService, private dialogService: DialogService, private embarkationDisplayService: EmbarkationService, private embarkationPDFService: EmbarkationPDFService, private emojiService: EmojiService, private helperService: HelperService, private localStorageService: LocalStorageService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private modalActionResultService: ModalActionResultService, private router: Router) {
+        this.router.events.subscribe((navigation) => {
+            if (navigation instanceof NavigationEnd) {
+                this.url = navigation.url
+                this.loadRecords()
+                this.updatePassengerStatusPills()
+            }
+        })
+    }
 
     //#region lifecycle hooks
 
@@ -136,7 +144,7 @@ export class EmbarkationListComponent {
     }
 
     public goBack(): void {
-        this.router.navigate([this.parentUrl])
+        this.router.navigate([this.url])
     }
 
     public hasDevices(): void {
@@ -250,7 +258,6 @@ export class EmbarkationListComponent {
         if (listResolved.error === null) {
             this.records = listResolved.result
             this.filteredRecords = Object.assign([], this.records)
-            console.log(this.records)
         } else {
             this.goBack()
             this.modalActionResultService.open(this.messageSnackbarService.filterResponse(new Error('500')), 'error', ['ok'])
@@ -278,8 +285,7 @@ export class EmbarkationListComponent {
     }
 
     public refreshList(): void {
-        this.loadRecords()
-        this.updatePassengerStatusPills()
+        this.router.navigate([this.url])
     }
 
     private updatePassengerStatusPills(): void {

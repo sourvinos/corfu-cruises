@@ -24,12 +24,12 @@ namespace API.Features.Embarkation {
             return await repo.GetAsync(date, destinationIds, portIds, shipIds);
         }
 
-        [HttpPut("{id}")]
+        [HttpPatch("embarkPassenger")]
         [Authorize(Roles = "admin")]
-        public async Task<Response> EmbarkPassenger([FromRoute] int id) {
-            var x = await repo.GetPassengerByIdAsync(id);
+        public async Task<Response> EmbarkPassenger([FromQuery] int[] id) {
+            var x = await repo.GetPassengerByIdAsync(id[0]);
             if (x != null) {
-                repo.EmbarkPassenger(id);
+                repo.EmbarkPassenger(id[0]);
                 return new Response {
                     Code = 200,
                     Icon = Icons.Success.ToString(),
@@ -44,8 +44,8 @@ namespace API.Features.Embarkation {
 
         [HttpPatch("embarkPassengers")]
         [Authorize(Roles = "admin")]
-        public Response EmbarkPassengers([FromQuery] int[] ids) {
-            repo.EmbarkPassengers(ids);
+        public Response EmbarkPassengers([FromQuery] int[] id) {
+            repo.EmbarkPassengers(id);
             return new Response {
                 Code = 200,
                 Icon = Icons.Success.ToString(),
