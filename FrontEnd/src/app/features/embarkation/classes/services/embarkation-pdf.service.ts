@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core'
 // Custom
 import { DateHelperService } from 'src/app/shared/services/date-helper.service'
+import { EmbarkationCriteriaComponent } from './../../user-interface/criteria/embarkation-criteria.component'
 import { EmbarkationVM } from '../view-models/embarkation-vm'
 import { LocalStorageService } from 'src/app/shared/services/local-storage.service'
 import { LogoService } from 'src/app/features/reservations/classes/services/logo.service'
@@ -9,6 +10,7 @@ import pdfFonts from 'pdfmake/build/vfs_fonts'
 import pdfMake from 'pdfmake/build/pdfmake'
 import { strAkaAcidCanterBold } from '../../../../../assets/fonts/Aka-Acid-CanterBold.Base64.encoded'
 import { strPFHandbookPro } from '../../../../../assets/fonts/PF-Handbook-Pro.Base64.encoded'
+import { strSimplifica } from '../../../../../assets/fonts/Simplifica.Base64.encoded'
 
 pdfMake.vfs = pdfFonts.pdfMake.vfs
 
@@ -16,12 +18,15 @@ pdfMake.vfs = pdfFonts.pdfMake.vfs
 
 export class EmbarkationPDFService {
 
+    private criteria: EmbarkationCriteriaComponent
+
     constructor(private dateHelperService: DateHelperService, private localStorageService: LocalStorageService, private logoService: LogoService) { }
 
     //#region public methods
 
     public createPDF(records: EmbarkationVM[]): void {
         this.setFonts()
+        this.criteria = JSON.parse(this.localStorageService.getItem('embarkation-criteria'))
         const dd = {
             background: this.setBackgroundImage(),
             info: this.setPageInfo(),
@@ -29,11 +34,8 @@ export class EmbarkationPDFService {
             pageSize: 'A4',
             content: [
                 {
-                    margin: [-10, 0, 0, 20],
                     columns: [
-                        this.setLogo(),
-                        this.setTitle(),
-                        this.setCriteria(this.populateCriteriaFromStoredVariables())
+                        this.setTitle(this.populateCriteriaFromStoredVariables()),
                     ]
                 },
                 {
@@ -47,15 +49,26 @@ export class EmbarkationPDFService {
             styles: {
                 AkaAcidCanterBold: {
                     font: 'AkaAcidCanterBold',
-                }, PFHandbookPro: {
+                },
+                PFHandbookPro: {
                     font: 'PFHandbookPro',
+                },
+                Simplifica: {
+                    font: 'Simplifica',
+                },
+                paddingLeft: {
+                    margin: [40, 0, 0, 0]
+                },
+                paddingTop: {
+                    margin: [0, 15, 0, 0]
                 }
             },
             defaultStyle: {
                 font: 'PFHandbookPro',
+                fontSize: 7
             },
             footer: (currentPage: { toString: () => string }, pageCount: string): void => {
-                return this.setFooter(currentPage, pageCount)
+                return this.createPageFooter(currentPage, pageCount)
             }
         }
         this.createPdf(dd)
@@ -73,10 +86,7 @@ export class EmbarkationPDFService {
         if (this.localStorageService.getItem('embarkation-criteria')) {
             const criteria = JSON.parse(this.localStorageService.getItem('embarkation-criteria'))
             return {
-                'date': criteria.date,
-                'destination': criteria.destination,
-                'port': criteria.port,
-                'ship': criteria.ship
+                'date': criteria.date
             }
         }
     }
@@ -138,19 +148,19 @@ export class EmbarkationPDFService {
         return rows
     }
 
-    private singleOrAllCriteria(criteria: { id: string; description: string }): string {
-        return criteria.id == 'all' ? 'ALL' : criteria.description
-    }
-
     private setFonts(): void {
         pdfFonts.pdfMake.vfs['AkaAcidCanterBold'] = strAkaAcidCanterBold
         pdfFonts.pdfMake.vfs['PFHandbookPro'] = strPFHandbookPro
+        pdfFonts.pdfMake.vfs['Simplifica'] = strSimplifica
         pdfMake.fonts = {
             PFHandbookPro: {
                 normal: 'PFHandbookPro',
             },
             AkaAcidCanterBold: {
                 normal: 'AkaAcidCanterBold'
+            },
+            Simplifica: {
+                normal: 'Simplifica'
             }
         }
     }
@@ -174,43 +184,23 @@ export class EmbarkationPDFService {
         return pageInfo
     }
 
-    private setLogo(): any {
-        const logo = {
-            type: 'none',
-            width: 60,
-            margin: [0, -6, 0, 0],
-            ul: [
-                { image: this.logoService.getLogo('light'), fit: [40, 40], alignment: 'left' },
-            ]
-        }
-        return logo
-    }
-
-    private setTitle(): any {
+    private setTitle(criteriaFromStorage: any): any {
         const title = {
             type: 'none',
+            margin: [0, 0, 0, 0],
             ul: [
-                { text: 'Corfu Cruises', alignment: 'left', color: '#0a5f91', fontSize: 20, margin: [-5, 0, 0, 0], style: 'AkaAcidCanterBold' },
-                { text: 'Embarkation Report', alignment: 'left', color: '#22a7f2', fontSize: 10, margin: [-4, 0, 0, 0] }
+                { text: 'CORFU CRUISES', fontSize: 14, style: 'AkaAcidCanterBold' },
+                { text: 'ΚΑΤΑΣΤΑΣΗ ΕΠΙΒΙΒΑΣΗΣ', fontSize: 18, style: 'Simplifica' },
+                { text: this.dateHelperService.formatISODateToLocale(criteriaFromStorage.date, true), fontSize: 12, style: 'Simplifica' },
+                { text: ' ' },
+                { text: ' ' }
+
             ]
         }
         return title
     }
 
-    private setCriteria(criteriaFromStorage: any): any {
-        const criteria = {
-            type: 'none',
-            ul: [
-                { text: 'Date: ' + this.dateHelperService.formatISODateToLocale(criteriaFromStorage.date, true), alignment: 'right', color: '#0a5f91', fontSize: 8 },
-                { text: 'Destination: ' + this.singleOrAllCriteria(criteriaFromStorage.destination), alignment: 'right', color: '#0a5f91', fontSize: 8 },
-                { text: 'Port: ' + this.singleOrAllCriteria(criteriaFromStorage.port), alignment: 'right', color: '#0a5f91', fontSize: 8 },
-                { text: 'Ship: ' + this.singleOrAllCriteria(criteriaFromStorage.ship), alignment: 'right', color: '#0a5f91', fontSize: 8 }
-            ]
-        }
-        return criteria
-    }
-
-    private setFooter(currentPage: { toString: any }, pageCount: string): any {
+    private createPageFooter(currentPage: { toString: any }, pageCount: string): any {
         const footer = {
             layout: 'noBorders',
             margin: [0, 10, 40, 10],
@@ -218,7 +208,7 @@ export class EmbarkationPDFService {
                 widths: ['100%'],
                 body: [
                     [
-                        { text: 'Page ' + currentPage.toString() + ' of ' + pageCount, alignment: 'right', fontSize: 6 }
+                        { text: 'ΣΕΛΙΔΑ ' + currentPage.toString() + ' ΑΠΟ ' + pageCount, alignment: 'right', fontSize: 6 }
                     ]
                 ]
             }
