@@ -1,8 +1,4 @@
 * {
-    /*  Hamburger Menu */
-    --color-hamburger-menu: #d94040;
-    /* Background */
-    --color-background: #ffffff;
     /* Lists */
     --color-row-seperator: #bebebe;
     --color-list-active-item: #7bc3b8;
@@ -20,15 +16,8 @@
     --color-tab-overview: #5f80a7;
     --color-tab-passengers: #829ebe;
     --color-tab-more: #acbed3;
-    /* Snackbars */
-    --color-snackbar-background-success: #698984;
-    --color-snackbar-background-error: #d94040;
-    --color-snackbar-background-warning: #ffc107;
-    --color-snackbar-text: #efefef;
     /* Loader */
     --color-loader: #d94040;
-    /* Timeout snackbar */
-    --color-timeout-snackbar: #d94040;
     /* Criteria & Totals */
     --color-criteria-a: #1786cb;
     --color-criteria-a-border: #1786cb;
@@ -69,4 +58,6 @@
     --color-day-selected-weekday: #ff7a7a;
     /* Dropdown menus */
     --color-dropdown-menu-border: #ff7a7a;
+    /* Dialog headers (assign passengers to driver, create pre-boarding list) */
+    --color-dialog-header: #ff7a7a;
 }

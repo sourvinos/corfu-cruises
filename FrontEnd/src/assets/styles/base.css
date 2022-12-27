@@ -1,42 +1,43 @@
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@300&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Ubuntu+Condensed&display=swap");
-@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@200&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Mono:wght@200&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@200&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+Mono:wght@200&display=swap");
 @import url("https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp");
 
-@import "autocomplete.css";
-@import "buttons.css";
-@import "calendar.css";
-@import "card.css";
-@import "checkbox.css";
-@import "common-colors.css";
-@import "criteria.css";
-@import "dialogs.css";
-@import "headers.css";
-@import "input-error.css";
-@import "input-focused-not-error.css";
-@import "input-not-focused-not-error.css";
-@import "input.css";
-@import "loader.css";
-@import "menu.css";
-@import "prime-button.css";
-@import "prime-checkbox.css";
-@import "prime-dropdown.css";
-@import "prime-fieldset.css";
-@import "prime-input.css";
-@import "prime-list.css";
-@import "prime-table.css";
-@import "radio.css";
-@import "scrollable.css";
-@import "skeleton.css";
-@import "slider.css";
-@import "snackbar.css";
-@import "table-wrapper.css";
-@import "tabs.css";
-@import "tooltip.css";
-@import "variables-narrow.css";
-@import "variables-wide.css";
-@import "variables.css";
+@import url("common-colors.css");
+
+@import url("autocomplete.css");
+@import url("buttons.css");
+@import url("calendar.css");
+@import url("card.css");
+@import url("checkbox.css");
+@import url("criteria.css");
+@import url("dialogs.css");
+@import url("headers.css");
+@import url("input-error.css");
+@import url("input-focused-not-error.css");
+@import url("input-not-focused-not-error.css");
+@import url("input.css");
+@import url("loader.css");
+@import url("menu.css");
+@import url("prime-button.css");
+@import url("prime-checkbox.css");
+@import url("prime-dropdown.css");
+@import url("prime-fieldset.css");
+@import url("prime-input.css");
+@import url("prime-list.css");
+@import url("prime-table.css");
+@import url("radio.css");
+@import url("scrollable.css");
+@import url("skeleton.css");
+@import url("slider.css");
+@import url("snackbar.css");
+@import url("table-wrapper.css");
+@import url("tabs.css");
+@import url("tooltip.css");
+@import url("variables-narrow.css");
+@import url("variables-wide.css");
+@import url("variables.css");
 
 @font-face {
     font-family: Aka-Acid-CanterBold;
@@ -59,13 +60,13 @@ html, body {
 }
 
 html {
-    height: -webkit-fill-available;
+    height: 100%;
 }
 
 body {
     height: 100%;
     min-height: 100vh;
-    min-height: -webkit-fill-available;
+    min-height: 100%;
 }
 
 ul {
@@ -124,6 +125,6 @@ ul {
     background-clip: padding-box;
     background-color: var(--color-scrollbar-thumb);
     border-radius: 9999px;
-    border: 0.25rem solid rgba(0, 0, 0, 0);
+    border: 0.25rem solid rgb(0 0 0 /0%);
     min-height: 5rem;
 }

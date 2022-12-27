@@ -21,7 +21,7 @@
 
 #search-by-ref-no-text::placeholder {
     color: var(--color-c) !important;
-    opacity: 35%;
+    opacity: 0.35;
 }
 
 input {

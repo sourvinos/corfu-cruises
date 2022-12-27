@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core'
-import { environment } from 'src/environments/environment'
 // Custom
 import { MessageLabelService } from '../../services/messages-label.service'
+import { environment } from 'src/environments/environment'
 
 @Component({
     selector: 'home-button-and-title',

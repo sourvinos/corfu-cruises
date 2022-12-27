@@ -4,8 +4,7 @@ import { environment } from 'src/environments/environment'
 
 @Component({
     selector: 'table-total-filtered-records',
-    templateUrl: './table-total-filtered-records.component.html',
-    styleUrls: ['./table-total-filtered-records.component.css']
+    templateUrl: './table-total-filtered-records.component.html'
 })
 
 export class TableTotalFilteredRecordsComponent {

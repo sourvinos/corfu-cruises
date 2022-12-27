@@ -1,5 +1,6 @@
 import { Injectable, NgZone } from '@angular/core'
 import { MatSnackBar } from '@angular/material/snack-bar'
+// Custom
 import { SnackbarComponent } from '../components/snackbar/snackbar.component'
 
 @Injectable({ providedIn: 'root' })

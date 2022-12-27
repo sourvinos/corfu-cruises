@@ -75,7 +75,7 @@
 }
 
 .no-reservation-data span {
-    color: rgba(0, 0, 0, 0.1);
+    color: rgb(0 0 0 /0%);
     font-size: 4rem;
 }
 
@@ -130,7 +130,7 @@
     background-color: var(--color-background-today) !important;
 }
 
-#gotoTodayButton {
+#goto-today-button {
     background-color: transparent !important;
     margin: 0 1rem 0 auto !important;
 }

@@ -15,7 +15,7 @@ import { PickupPointPdfService } from '../classes/services/pickupPoint-pdf.servi
 @Component({
     selector: 'pickupPoint-list',
     templateUrl: './pickupPoint-list.component.html',
-    styleUrls: ['../../../../assets/styles/lists.css', './pickupPoint-list.component.css']
+    styleUrls: ['../../../../assets/styles/lists.css']
 })
 
 export class PickupPointListComponent {

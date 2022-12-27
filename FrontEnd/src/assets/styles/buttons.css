@@ -80,7 +80,6 @@ button.mat-mini-fab {
 
 button.mat-mini-fab:hover {
     background-color: var(--color-a) !important;
-    color: var(--color-background) !important;
 }
 
 button:disabled {

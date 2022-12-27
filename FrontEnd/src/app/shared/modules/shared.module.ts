@@ -45,6 +45,7 @@ import { YearSelectorComponent } from '../components/year-selector/year-selector
         FormsModule,
         MaterialModule,
         PrimeNgModule,
+        RouterModule,
         ZXingScannerModule
     ],
     exports: [
@@ -60,7 +61,9 @@ import { YearSelectorComponent } from '../components/year-selector/year-selector
         MaterialModule,
         MonthSelectorComponent,
         PrimeNgModule,
+        PrimeNgModule,
         ReactiveFormsModule,
+        RouterModule,
         RouterModule,
         TableTotalFilteredRecordsComponent,
         ThemeMenuComponent,

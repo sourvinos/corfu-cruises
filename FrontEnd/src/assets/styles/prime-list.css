@@ -27,6 +27,6 @@
     box-shadow: none;
 }
 
-.p-listbox:not(.p-disabled) .p-listbox-item:not(.p-highlight):not(.p-disabled):hover {
-    background-color: var(--color-d);
+.p-listbox .p-listbox-list .p-listbox-item:hover {
+    background-color: var(--color-d) !important;
 }
