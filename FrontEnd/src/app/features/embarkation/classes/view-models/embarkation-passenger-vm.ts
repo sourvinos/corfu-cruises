@@ -1,14 +1,10 @@
-export class EmbarkationPassenger {
+export interface EmbarkationPassenger {
 
-    constructor(
-
-        public id: number,
-        public lastname: string,
-        public firstname: string,
-        public nationalityCode: string,
-        public nationalityDescription: string,
-        public isCheckedIn: boolean
-
-    ) { }
+    id: number,
+    lastname: string,
+    firstname: string,
+    nationalityCode: string,
+    nationalityDescription: string,
+    isCheckedIn: boolean
 
 }

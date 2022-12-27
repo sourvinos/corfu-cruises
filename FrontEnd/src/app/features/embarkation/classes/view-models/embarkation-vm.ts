@@ -1,7 +1,7 @@
 import { Guid } from 'guid-typescript'
 import { EmbarkationPassenger } from './embarkation-passenger-vm'
 
-export class EmbarkationVM {
+export interface EmbarkationVM {
 
     reservationId: Guid
     refNo: string

@@ -1,5 +1,5 @@
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router'
-import { Component, ViewChild } from '@angular/core'
+import { ChangeDetectorRef, Component, ViewChild } from '@angular/core'
 import { DateAdapter } from '@angular/material/core'
 import { Subject } from 'rxjs'
 import { Table } from 'primeng/table'
@@ -21,6 +21,7 @@ import { ModalActionResultService } from 'src/app/shared/services/modal-action-r
 import { PortActiveVM } from 'src/app/features/ports/classes/view-models/port-active-vm'
 import { ShipActiveVM } from 'src/app/features/ships/classes/view-models/ship-active-vm'
 import { environment } from 'src/environments/environment'
+import { EmbarkationCriteriaVM } from '../../classes/view-models/embarkation-criteria-vm'
 
 @Component({
     selector: 'embarkation-list',
@@ -41,7 +42,7 @@ export class EmbarkationListComponent {
     public parentUrl = '/embarkation'
     public url = '/embarkation/list'
 
-    public criteria: any
+    public criteria: EmbarkationCriteriaVM
     public filteredRecords: EmbarkationGroupVM
     public isLoading = new Subject<boolean>()
     public records: EmbarkationGroupVM
@@ -57,7 +58,7 @@ export class EmbarkationListComponent {
 
     //#endregion
 
-    constructor(private activatedRoute: ActivatedRoute, private dateAdapter: DateAdapter<any>, private dateHelperService: DateHelperService, private dialogService: DialogService, private embarkationDisplayService: EmbarkationService, private embarkationPDFService: EmbarkationPDFService, private emojiService: EmojiService, private helperService: HelperService, private localStorageService: LocalStorageService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private modalActionResultService: ModalActionResultService, private router: Router) {
+    constructor(private activatedRoute: ActivatedRoute, private cd: ChangeDetectorRef, private dateAdapter: DateAdapter<any>, private dateHelperService: DateHelperService, private dialogService: DialogService, private embarkationDisplayService: EmbarkationService, private embarkationPDFService: EmbarkationPDFService, private emojiService: EmojiService, private helperService: HelperService, private localStorageService: LocalStorageService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private modalActionResultService: ModalActionResultService, private router: Router) {
         this.router.events.subscribe((navigation) => {
             if (navigation instanceof NavigationEnd) {
                 this.url = navigation.url
@@ -78,8 +79,13 @@ export class EmbarkationListComponent {
         this.getLocale()
     }
 
+    ngAfterContentChecked(): void {
+        this.cd.detectChanges()
+    }
+
     ngAfterViewInit(): void {
         this.enableDisableFilters()
+        this.dontScrollToTop()
     }
 
     ngOnDestroy(): void {
@@ -135,11 +141,11 @@ export class EmbarkationListComponent {
     public getStatusText(reservationStatus: string): string {
         switch (reservationStatus) {
             case 'OK':
-                return this.getLabel('boardedFilter')
+                return this.getEmoji('green-circle')
             case 'PENDING':
-                return this.getLabel('pendingFilter')
+                return this.getEmoji('red-circle')
             default:
-                return this.emojiService.getEmoji('warning')
+                return this.getEmoji('yellow-circle')
         }
     }
 
@@ -159,19 +165,14 @@ export class EmbarkationListComponent {
         this.embarkationPDFService.createPDF(this.filteredRecords.reservations)
     }
 
-    public embarkSinglePassenger(id: number): void {
-        this.embarkationDisplayService.embarkSinglePassenger(id).pipe(indicate(this.isLoading)).subscribe({
-            complete: () => {
-                this.refreshList()
-            },
-            error: (errorFromInterceptor) => {
-                this.helperService.doPostSaveFormTasks(this.messageSnackbarService.filterResponse(errorFromInterceptor), 'error', '', false, false)
-            }
-        })
+    public embarkPassenger(id: number): void {
+        const ids = []
+        ids.push(id)
+        this.embarkAllPassengers(false, ids)
     }
 
-    public embarkAllPassengers(id: number[]): void {
-        this.embarkationDisplayService.embarkAllPassengers(id).pipe(indicate(this.isLoading)).subscribe({
+    public embarkAllPassengers(ignoreCurrentStatus: boolean, id: number[]): void {
+        this.embarkationDisplayService.embarkAllPassengers(ignoreCurrentStatus, id).pipe(indicate(this.isLoading)).subscribe({
             complete: () => {
                 this.refreshList()
             },
@@ -218,6 +219,10 @@ export class EmbarkationListComponent {
         return embarkationStatus ? this.emojiService.getEmoji('ok') : this.emojiService.getEmoji('warning')
     }
 
+    public shouldDisableResetFiltersButton(): any {
+        return this.records.reservations.length == 0 || this.filteredRecords.reservations.length == this.records.reservations.length
+    }
+
     //#endregion
 
     //#region private methods
@@ -225,6 +230,10 @@ export class EmbarkationListComponent {
     private cleanup(): void {
         this.unsubscribe.next()
         this.unsubscribe.unsubscribe()
+    }
+
+    private dontScrollToTop(): void {
+        this.helperService.dontScrollToTop(this.table)
     }
 
     private enableDisableFilters(): void {
@@ -258,6 +267,7 @@ export class EmbarkationListComponent {
         if (listResolved.error === null) {
             this.records = listResolved.result
             this.filteredRecords = Object.assign([], this.records)
+            console.log(this.records)
         } else {
             this.goBack()
             this.modalActionResultService.open(this.messageSnackbarService.filterResponse(new Error('500')), 'error', ['ok'])

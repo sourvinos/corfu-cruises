@@ -7,6 +7,6 @@ export interface EmbarkationCriteriaVM {
     date: string,
     destinations: DestinationActiveVM[]
     ports: PortActiveVM[]
-    ship: ShipActiveVM[]
+    ships: ShipActiveVM[]
 
 }

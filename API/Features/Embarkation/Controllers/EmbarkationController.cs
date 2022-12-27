@@ -24,28 +24,10 @@ namespace API.Features.Embarkation {
             return await repo.GetAsync(date, destinationIds, portIds, shipIds);
         }
 
-        [HttpPatch("embarkPassenger")]
-        [Authorize(Roles = "admin")]
-        public async Task<Response> EmbarkPassenger([FromQuery] int[] id) {
-            var x = await repo.GetPassengerByIdAsync(id[0]);
-            if (x != null) {
-                repo.EmbarkPassenger(id[0]);
-                return new Response {
-                    Code = 200,
-                    Icon = Icons.Success.ToString(),
-                    Message = ApiMessages.OK()
-                };
-            } else {
-                throw new CustomException() {
-                    ResponseCode = 404
-                };
-            }
-        }
-
         [HttpPatch("embarkPassengers")]
         [Authorize(Roles = "admin")]
-        public Response EmbarkPassengers([FromQuery] int[] id) {
-            repo.EmbarkPassengers(id);
+        public Response EmbarkPassengers([FromQuery] bool ignoreCurrentStatus, [FromQuery] int[] id) {
+            repo.EmbarkPassengers(ignoreCurrentStatus, id);
             return new Response {
                 Code = 200,
                 Icon = Icons.Success.ToString(),

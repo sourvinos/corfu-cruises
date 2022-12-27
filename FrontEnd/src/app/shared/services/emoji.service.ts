@@ -13,9 +13,12 @@ export class EmojiService {
             case 'ok': return '✔️'
             case 'warning': return '⚠️'
             case 'wildcard': return '[ ⭐ ]'
-            case 'remarks': return '✉️'
+            case 'remarks': return '🔔'
             case 'sum': return '∑'
             case 'no-passengers': return '😕'
+            case 'red-circle': return '🔴'
+            case 'yellow-circle': return '🟡'
+            case 'green-circle': return '🟢'
         }
 
     }

@@ -1,15 +1,11 @@
 import { EmbarkationVM } from './embarkation-vm'
 
-export class EmbarkationGroupVM {
+export interface EmbarkationGroupVM {
 
-    constructor(
+    totalPersons: number
+    embarkedPassengers: number
+    pendingPersons: number
 
-        public totalPersons: number,
-        public embarkedPassengers: number,
-        public pendingPersons: number,
-
-        public reservations: EmbarkationVM[] = []
-
-    ) { }
+    reservations: EmbarkationVM[]
 
 }

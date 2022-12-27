@@ -155,11 +155,19 @@ export class HelperService {
         })
     }
 
-    public enableHorizontalScroll(element):void{
+    public enableHorizontalScroll(element): void {
         element.addEventListener('wheel', (evt: WheelEvent) => {
             evt.preventDefault()
             element.scrollLeft += evt.deltaY
         })
+    }
+
+    public dontScrollToTop(table: Table): void {
+        if (table != null) {
+            table.resetScrollTop = (): void => {
+                // 
+            }
+        }
     }
 
     //#endregion

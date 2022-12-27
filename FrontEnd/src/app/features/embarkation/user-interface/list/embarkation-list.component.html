@@ -15,14 +15,14 @@
             <div class="pill">
                 <div class="description">{{ getShipDescriptions() }}</div>
             </div>
-            <button (click)="resetTableFilters()" [disabled]="records.reservations.length == 0 || filteredRecords.reservations.length == records.reservations.length" class="primary" mat-flat-button>
+            <button (click)="resetTableFilters()" [disabled]="shouldDisableResetFiltersButton()" class="primary" mat-flat-button>
                 <i class="pi pi-filter-slash"></i>
             </button>
         </div>
     </div>
 
     <div id="table-wrapper">
-        <p-table #table (onFilter)="filterRecords($event)" [globalFilterFields]="['ticketNo']" [scrollable]="true" [value]="records.reservations" [virtualScrollItemSize]="33" [virtualScroll]="true" dataKey="ticketNo" scrollHeight="flex" selectionMode="single" sortMode="multiple">
+        <p-table #table (onFilter)="filterRecords($event)" [globalFilterFields]="['ticketNo']" [scrollable]="true" [value]="records.reservations" [virtualScrollItemSize]="33" [virtualScroll]="false" dataKey="ticketNo" scrollHeight="flex" selectionMode="single" sortMode="multiple">
             <ng-template pTemplate="header">
                 <tr>
                     <th style="max-width: 3.5rem; min-width: 3.5rem; width: 3.5rem;"></th>
@@ -126,7 +126,7 @@
                     <td style="max-width: 10rem; min-width: 10rem; width: 10rem;">{{ reservation.ship }}</td>
                     <td style="max-width: 6rem; min-width: 6rem; width: 6rem; text-align: center;">{{ reservation.totalPersons }}</td>
                     <td style="max-width: 3rem; min-width: 3rem; width: 3rem; text-align: center;">{{ calculateDifference(reservation.totalPersons, reservation.passengers.length) }}</td>
-                    <td style="max-width: 10rem; min-width: 10rem; width: 10rem;">{{ getStatusText(reservation.embarkationStatus) }}</td>
+                    <td style="max-width: 10rem; min-width: 10rem; text-align: center; width: 10rem;">{{ getStatusText(reservation.embarkationStatus) }}</td>
                 </tr>
             </ng-template>
             <ng-template pTemplate="rowexpansion" let-reservation>
@@ -150,8 +150,8 @@
                                             <img src="assets/images/nationalities/{{ passenger.nationalityCode }}.png" width="32" style="vertical-align: middle" />
                                             <span style="overflow: hidden;">&nbsp;&nbsp;{{ passenger.nationalityDescription }}</span>
                                         </td>
-                                        <td (click)="embarkSinglePassenger(passenger.id)" class="embarkation-status" [ngClass]="passenger.isCheckedIn ? 'complete' : 'pending'" style="max-width: 10rem; min-width: 10rem; width: 10rem; text-align: center; margin-left: 3px;">
-                                            <span *ngIf="passenger.isCheckedIn">{{ getLabel('boarded') }}</span>
+                                        <td (click)="embarkPassenger(passenger.id)" class="embarkation-status" [ngClass]="passenger.isCheckedIn ? 'complete' : 'pending'" style="max-width: 10rem; min-width: 10rem; width: 10rem; text-align: center; margin-left: 3px;">
+                                            <span *ngIf="passenger.isCheckedIn">{{ getEmoji('ok') }}</span>
                                             <span *ngIf="!passenger.isCheckedIn">{{ getLabel('pending') }}</span>
                                         </td>
                                     </tr>
@@ -161,7 +161,7 @@
                                 <td></td>
                                 <td></td>
                                 <td style="width: 10%; padding: 0; text-align: center;">
-                                    <button (click)="embarkAllPassengers(reservation.passengerIds)" [disabled]="reservation.passengerIds.length == 0" class="primary embark-all-passengers" mat-flat-button>{{ getLabel("embarkAllPassengers") }}</button>
+                                    <button (click)="embarkAllPassengers(true, reservation.passengerIds)" [disabled]="reservation.passengerIds.length == 0" class="primary embark-all-passengers" mat-flat-button>{{ getLabel("embarkAllPassengers") }}</button>
                                 </td>
                             </ng-template>
                         </p-table>
@@ -206,5 +206,6 @@
 </div>
 
 <div id="video">
-    <zxing-scanner [enable]="scannerEnabled" (scanSuccess)="doPostScanTasks($event)" (hasDevices)="hasDevices()" (camerasFound)="camerasFound()"></zxing-scanner><button mat-flat-button class="secondary" id="scan-close-button" (click)="onHideScanner()">{{ getLabel('scan-close-button') }}</button>
+    <zxing-scanner [enable]="scannerEnabled" (scanSuccess)="doPostScanTasks($event)" (hasDevices)="hasDevices()" (camerasFound)="camerasFound()"></zxing-scanner>
+    <button mat-flat-button class="secondary" id="scan-close-button" (click)="onHideScanner()">{{ getLabel('scan-close-button') }}</button>
 </div>

@@ -50,29 +50,12 @@ namespace API.Features.Embarkation {
             return mapper.Map<EmbarkationInitialGroupVM, EmbarkationFinalGroupVM>(mainResult);
         }
 
-        public async Task<Passenger> GetPassengerByIdAsync(int id) {
-            return await context.Passengers
-                .AsNoTracking()
-                .Where(x => x.Id == id)
-                .FirstOrDefaultAsync();
-        }
-
-        public void EmbarkPassenger(int id) {
-            using var transaction = context.Database.BeginTransaction();
-            var passenger = context.Passengers
-                .Where(x => x.Id == id)
-                .FirstOrDefault();
-            passenger.IsCheckedIn = !passenger.IsCheckedIn;
-            context.SaveChanges();
-            DisposeOrCommit(transaction);
-        }
-
-        public void EmbarkPassengers(int[] ids) {
+        public void EmbarkPassengers(bool ignoreCurrentStatus, int[] ids) {
             using var transaction = context.Database.BeginTransaction();
             var records = context.Passengers
                 .Where(x => ids.Contains(x.Id))
                 .ToList();
-            records.ForEach(x => x.IsCheckedIn = true);
+            records.ForEach(x => x.IsCheckedIn = ignoreCurrentStatus || !x.IsCheckedIn);
             context.SaveChanges();
             DisposeOrCommit(transaction);
         }
