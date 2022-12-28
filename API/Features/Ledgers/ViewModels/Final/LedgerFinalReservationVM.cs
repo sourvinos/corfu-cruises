@@ -1,8 +1,8 @@
 using System;
 
-namespace API.Features.Billing {
+namespace API.Features.Ledger {
 
-    public class BillingFinalReservationVM {
+    public class LedgerFinalReservationVM {
 
         // Level 2b of 3
 

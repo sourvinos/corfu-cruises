@@ -1,8 +1,8 @@
-namespace API.Features.Billing {
+namespace API.Features.Ledger {
 
-    public class BillingFinalHasTransferGroupVM {
+    public class LedgerInitialPortGroupVM {
 
-        // Level 3 of 3
+        // Level 3
 
         public bool HasTransfer { get; set; }
         public int Adults { get; set; }

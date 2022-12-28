@@ -1,6 +1,6 @@
-namespace API.Features.Billing {
+namespace API.Features.Ledger {
 
-    public class BillingInitialHasTransferGroupVM {
+    public class LedgerInitialHasTransferGroupVM {
 
         // Level 2b
 

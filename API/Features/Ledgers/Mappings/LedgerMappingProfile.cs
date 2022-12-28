@@ -2,14 +2,14 @@ using System.Linq;
 using API.Infrastructure.Helpers;
 using AutoMapper;
 
-namespace API.Features.Billing {
+namespace API.Features.Ledger {
 
-    public class BillingMappingProfile : Profile {
+    public class LedgerMappingProfile : Profile {
 
-        public BillingMappingProfile() {
-            CreateMap<BillingInitialVM, BillingFinalVM>()
+        public LedgerMappingProfile() {
+            CreateMap<LedgerInitialVM, LedgerFinalVM>()
                 .ForMember(x => x.Customer, x => x.MapFrom(x => x.Customer))
-                .ForMember(x => x.PortGroup, x => x.MapFrom(x => x.Ports.Select(x => new BillingInitialPortVM {
+                .ForMember(x => x.PortGroup, x => x.MapFrom(x => x.Ports.Select(x => new LedgerInitialPortVM {
                     Port = x.Port,
                     HasTransferGroup = x.HasTransferGroup,
                     Adults = x.Adults,
@@ -18,7 +18,7 @@ namespace API.Features.Billing {
                     TotalPersons = x.TotalPersons,
                     TotalPassengers = x.TotalPassengers
                 })))
-                .ForMember(x => x.Reservations, x => x.MapFrom(x => x.Reservations.Select(x => new BillingFinalReservationVM {
+                .ForMember(x => x.Reservations, x => x.MapFrom(x => x.Reservations.Select(x => new LedgerFinalReservationVM {
                     Date = DateHelpers.DateToISOString(x.Date),
                     RefNo = x.RefNo,
                     ReservationId = x.ReservationId,

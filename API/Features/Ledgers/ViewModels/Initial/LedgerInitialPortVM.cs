@@ -1,18 +1,18 @@
 using System.Collections.Generic;
 
-namespace API.Features.Billing {
+namespace API.Features.Ledger {
 
-    public class BillingFinalPortVM {
+    public class LedgerInitialPortVM {
 
-        // Level 2a of 3
+        // Level 2a
 
         public string Port { get; set; }
-        public IEnumerable<BillingFinalHasTransferGroupVM> HasTransferGroup { get; set; } // Level 3 of 3
         public int Adults { get; set; }
         public int Kids { get; set; }
         public int Free { get; set; }
         public int TotalPersons { get; set; }
         public int TotalPassengers { get; set; }
+        public IEnumerable<LedgerInitialPortGroupVM> HasTransferGroup { get; set; } // Level 3
 
     }
 

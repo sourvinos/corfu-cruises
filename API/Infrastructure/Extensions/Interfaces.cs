@@ -1,5 +1,5 @@
 using API.Features.Availability;
-using API.Features.Billing;
+using API.Features.Ledger;
 using API.Features.CoachRoutes;
 using API.Features.Customers;
 using API.Features.Destinations;
@@ -29,7 +29,7 @@ namespace API.Infrastructure.Extensions
         public static void AddInterfaces(IServiceCollection services) {
             services.AddScoped<Token>();
             // Tables
-            services.AddTransient<IBillingRepository, BillingRepository>();
+            services.AddTransient<ILedgerRepository, LedgerRepository>();
             services.AddTransient<ICoachRouteRepository, CoachRouteRepository>();
             services.AddTransient<ICustomerRepository, CustomerRepository>();
             services.AddTransient<IDestinationRepository, DestinationRepository>();
