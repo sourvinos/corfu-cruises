@@ -1,4 +1,4 @@
-export interface InvoicingPortVM {
+export interface LedgerPortVM {
 
     port: string,
     hasTransferGroup: HasTransferGroupVM[],

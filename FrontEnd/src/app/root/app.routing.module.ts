@@ -20,7 +20,7 @@ const appRoutes: Routes = [
     { path: 'reservations', loadChildren: () => import('../features/reservations/classes/modules/reservation.module').then(m => m.ReservationModule) },
     { path: 'availability', loadChildren: () => import('../features/availability/classes/modules/availability.module').then(m => m.AvailabilityModule) },
     // Tasks menu
-    { path: 'invoicing', loadChildren: () => import('../features/invoicing/classes/modules/invoicing.module').then(m => m.InvoicingModule) },
+    { path: 'ledgers', loadChildren: () => import('../features/ledgers/classes/modules/ledger.module').then(m => m.LedgerModule) },
     { path: 'embarkation', loadChildren: () => import('../features/embarkation/classes/modules/embarkation.module').then(m => m.EmbarkationModule) },
     { path: 'manifest', loadChildren: () => import('../features/manifest/classes/modules/manifest.module').then(m => m.ManifestModule) },
     // Tables menu

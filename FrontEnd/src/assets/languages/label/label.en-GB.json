@@ -952,79 +952,6 @@
         ]
     },
     {
-        "feature": "index",
-        "labels": [
-            {
-                "id": "ports",
-                "description": "Ports"
-            },
-            {
-                "id": "portId",
-                "description": "Id"
-            },
-            {
-                "id": "portDescription",
-                "description": "Description"
-            },
-            {
-                "id": "destinations",
-                "description": "Destinations"
-            },
-            {
-                "id": "destinationId",
-                "description": "Id"
-            },
-            {
-                "id": "destinationDescription",
-                "description": "Description"
-            },
-            {
-                "id": "customers",
-                "description": "Customers"
-            },
-            {
-                "id": "customerId",
-                "description": "Id"
-            },
-            {
-                "id": "customerDescription",
-                "description": "Name"
-            },
-            {
-                "id": "pickupPoints",
-                "description": "Pickup points"
-            },
-            {
-                "id": "pickupPointId",
-                "description": "Id"
-            },
-            {
-                "id": "pickupPointDescription",
-                "description": "Description"
-            },
-            {
-                "id": "exactPoint",
-                "description": "Exact point"
-            },
-            {
-                "id": "time",
-                "description": "Time"
-            },
-            {
-                "id": "selectButton",
-                "description": "Select"
-            },
-            {
-                "id": "nationalityDescription",
-                "description": "Nationality"
-            },
-            {
-                "id": "genderDescription",
-                "description": "Gender"
-            }
-        ]
-    },
-    {
         "feature": "shipList",
         "labels": [
             {
@@ -1473,35 +1400,27 @@
         ]
     },
     {
-        "feature": "invoicingCriteria",
+        "feature": "ledgerCriteria",
         "labels": [
             {
                 "id": "header",
-                "description": "Customer billing"
+                "description": "Customer ledgers"
             },
             {
-                "id": "searchLabel",
+                "id": "date",
                 "description": "Date"
             },
             {
-                "id": "searchDateHint",
-                "description": "Select or enter date"
+                "id": "customers",
+                "description": "Customers"
             },
             {
-                "id": "dateRange",
-                "description": "Date range"
+                "id": "destinations",
+                "description": "Destinations"
             },
             {
-                "id": "customer",
-                "description": "Customer"
-            },
-            {
-                "id": "destination",
-                "description": "Destination"
-            },
-            {
-                "id": "ship",
-                "description": "Ship"
+                "id": "ships",
+                "description": "Ships"
             },
             {
                 "id": "searchButton",
@@ -1510,7 +1429,7 @@
         ]
     },
     {
-        "feature": "invoicingList",
+        "feature": "LedgerList",
         "labels": [
             {
                 "id": "header",
@@ -2274,23 +2193,11 @@
         ]
     },
     {
-        "feature": "activeYear",
+        "feature": "mat-calendar",
         "labels": [
             {
-                "id": "header",
-                "description": "Current year"
-            },
-            {
-                "id": "sub-header",
-                "description": "Enter the year in which you want to work on"
-            },
-            {
-                "id": "activeYear",
-                "description": "Year"
-            },
-            {
-                "id": "saveButton",
-                "description": "SAVE"
+                "id": "todayButton",
+                "description": "TODAY"
             }
         ]
     }

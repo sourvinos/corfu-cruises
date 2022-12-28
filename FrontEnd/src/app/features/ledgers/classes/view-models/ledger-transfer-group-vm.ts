@@ -1,4 +1,4 @@
-export interface InvoicingTransferGroupVM {
+export interface LedgerTransferGroupVM {
 
     hasTransfer: boolean,
     adults: number,

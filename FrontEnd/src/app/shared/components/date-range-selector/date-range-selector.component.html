@@ -1,0 +1,2 @@
+<mat-calendar #calendar (selectedChange)="selectedChange($event)" [selected]="selectedRangeValue" [startAt]="selectedRangeValue.start"></mat-calendar>
+<button (click)="gotoToday()" class="primary" mat-flat-button>{{ getLabel("todayButton") }}</button>

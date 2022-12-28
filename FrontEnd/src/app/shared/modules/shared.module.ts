@@ -4,6 +4,7 @@ import { NgModule } from '@angular/core'
 import { RouterModule } from '@angular/router'
 import { ZXingScannerModule } from '@zxing/ngx-scanner'
 // Custom
+import { DateRangeSelectorComponent } from '../components/date-range-selector/date-range-selector.component'
 import { DialogAlertComponent } from '../components/dialog-alert/dialog-alert.component'
 import { DisableToogleDirective } from '../directives/mat-slide-toggle.directive'
 import { HomeButtonAndTitleComponent } from '../components/home-button-and-title/home-button-and-title.component'
@@ -24,6 +25,7 @@ import { YearSelectorComponent } from '../components/year-selector/year-selector
 
 @NgModule({
     declarations: [
+        DateRangeSelectorComponent,
         DialogAlertComponent,
         DisableToogleDirective,
         HomeButtonAndTitleComponent,
@@ -38,7 +40,7 @@ import { YearSelectorComponent } from '../components/year-selector/year-selector
         SnackbarComponent,
         TableTotalFilteredRecordsComponent,
         ThemeMenuComponent,
-        YearSelectorComponent
+        YearSelectorComponent,
     ],
     imports: [
         CommonModule,
@@ -50,6 +52,7 @@ import { YearSelectorComponent } from '../components/year-selector/year-selector
     ],
     exports: [
         CommonModule,
+        DateRangeSelectorComponent,
         DisableToogleDirective,
         FormsModule,
         HomeButtonAndTitleComponent,

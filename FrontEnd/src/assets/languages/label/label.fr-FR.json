@@ -952,79 +952,6 @@
         ]
     },
     {
-        "feature": "index",
-        "labels": [
-            {
-                "id": "ports",
-                "description": "Des ports"
-            },
-            {
-                "id": "portId",
-                "description": "Id"
-            },
-            {
-                "id": "portDescription",
-                "description": "Description"
-            },
-            {
-                "id": "destinations",
-                "description": "Destinations"
-            },
-            {
-                "id": "destinationId",
-                "description": "Id"
-            },
-            {
-                "id": "destinationDescription",
-                "description": "Description"
-            },
-            {
-                "id": "customers",
-                "description": "Clients"
-            },
-            {
-                "id": "customerId",
-                "description": "Id"
-            },
-            {
-                "id": "customerDescription",
-                "description": "Nom de compagnie"
-            },
-            {
-                "id": "pickupPoints",
-                "description": "Points de collecte"
-            },
-            {
-                "id": "pickupPointId",
-                "description": "Id"
-            },
-            {
-                "id": "pickupPointDescription",
-                "description": "Description"
-            },
-            {
-                "id": "exactPoint",
-                "description": "Point de rendez-vous precis"
-            },
-            {
-                "id": "time",
-                "description": "Heure"
-            },
-            {
-                "id": "selectButton",
-                "description": "Choix"
-            },
-            {
-                "id": "nationalityDescription",
-                "description": "Nationalite"
-            },
-            {
-                "id": "genderDescription",
-                "description": "Sexe"
-            }
-        ]
-    },
-    {
         "feature": "shipList",
         "labels": [
             {
@@ -1473,35 +1400,27 @@
         ]
     },
     {
-        "feature": "invoicingCriteria",
+        "feature": "ledgerCriteria",
         "labels": [
             {
                 "id": "header",
-                "description": "Facturation au client"
+                "description": "Registres des clients"
             },
             {
-                "id": "searchLabel",
+                "id": "date",
                 "description": "Date"
             },
             {
-                "id": "searchDateHint",
-                "description": "Donnez Date"
-            },
-            {
-                "id": "dateRange",
-                "description": "Plage de dates"
-            },
-            {
-                "id": "customer",
+                "id": "customers",
                 "description": "Client"
             },
             {
-                "id": "destination",
-                "description": "Destination"
+                "id": "destinations",
+                "description": "Destinations"
             },
             {
-                "id": "ship",
-                "description": "Navire"
+                "id": "ships",
+                "description": "Navires"
             },
             {
                 "id": "searchButton",
@@ -1510,7 +1429,7 @@
         ]
     },
     {
-        "feature": "invoicingList",
+        "feature": "LedgerList",
         "labels": [
             {
                 "id": "header",
@@ -2274,23 +2193,11 @@
         ]
     },
     {
-        "feature": "activeYear",
+        "feature": "mat-calendar",
         "labels": [
             {
-                "id": "header",
-                "description": "Année en cours"
-            },
-            {
-                "id": "sub-header",
-                "description": "Indiquez l'année sur laquelle vous souhaitez travailler"
-            },
-            {
-                "id": "activeYear",
-                "description": "Année"
-            },
-            {
-                "id": "saveButton",
-                "description": "ENREGISTRER"
+                "id": "todayButton",
+                "description": "DENNĚ"
             }
         ]
     }

@@ -5,10 +5,10 @@ import { Subject } from 'rxjs'
 // Custom
 import { DateHelperService } from 'src/app/shared/services/date-helper.service'
 import { EmojiService } from 'src/app/shared/services/emoji.service'
-import { InvoicingCriteriaVM } from '../../classes/view-models/invoicing-criteria-vm'
-import { InvoicingPDFService } from '../../classes/services/invoicing-pdf.service'
-import { InvoicingVM } from '../../classes/view-models/invoicing-vm'
 import { KeyboardShortcuts, Unlisten } from 'src/app/shared/services/keyboard-shortcuts.service'
+import { LedgerCriteriaVM } from '../../classes/view-models/ledger-criteria-vm'
+import { LedgerPDFService } from '../../classes/services/ledger-pdf.service'
+import { LedgerVM } from '../../classes/view-models/ledger-vm'
 import { LocalStorageService } from 'src/app/shared/services/local-storage.service'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
@@ -16,29 +16,29 @@ import { ModalActionResultService } from 'src/app/shared/services/modal-action-r
 import { environment } from 'src/environments/environment'
 
 @Component({
-    selector: 'invoicing-list',
-    templateUrl: './invoicing-list.component.html',
-    styleUrls: ['../../../../../assets/styles/lists.css', './invoicing-list.component.css']
+    selector: 'ledger-list',
+    templateUrl: './ledger-list.component.html',
+    styleUrls: ['../../../../../assets/styles/lists.css', './ledger-list.component.css']
 })
 
-export class InvoicingListComponent {
+export class LedgerListComponent {
 
     //#region variables
 
     private unlisten: Unlisten
     private unsubscribe = new Subject<void>()
-    public feature = 'invoicingList'
+    public feature = 'ledgerList'
     public featureIcon = ''
     public icon = 'arrow_back'
-    public parentUrl = '/invoicing'
+    public parentUrl = '/ledger'
 
-    public invoicingCriteria: InvoicingCriteriaVM
-    public records: InvoicingVM[] = []
+    public ledgerCriteria: LedgerCriteriaVM
+    public records: LedgerVM[] = []
     public isLoading = new Subject<boolean>()
 
     //#endregion
 
-    constructor(private activatedRoute: ActivatedRoute, private dateHelperService: DateHelperService, private emojiService: EmojiService, private invoicingPdfService: InvoicingPDFService, private keyboardShortcutsService: KeyboardShortcuts, private localStorageService: LocalStorageService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private modalActionResultService: ModalActionResultService, private router: Router) { }
+    constructor(private activatedRoute: ActivatedRoute, private dateHelperService: DateHelperService, private emojiService: EmojiService, private ledgerPdfService: LedgerPDFService, private keyboardShortcutsService: KeyboardShortcuts, private localStorageService: LocalStorageService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private modalActionResultService: ModalActionResultService, private router: Router) { }
 
     //#region lifecycle hooks
 
@@ -61,20 +61,20 @@ export class InvoicingListComponent {
         const element = document.getElementById('table-wrapper')
         const ws: XLSX.WorkSheet = XLSX.utils.table_to_sheet(element)
         const wb: XLSX.WorkBook = XLSX.utils.book_new()
-        XLSX.utils.book_append_sheet(wb, ws, 'Invoicing')
-        XLSX.writeFile(wb, 'Billings for ' + this.invoicingCriteria.fromDate + '.xlsx')
+        XLSX.utils.book_append_sheet(wb, ws, 'Ledger')
+        XLSX.writeFile(wb, 'Billings for ' + this.ledgerCriteria.fromDate + '.xlsx')
     }
 
     public exportSingleCustomer(customerId: number): void {
         const customerRecords = this.records.find(x => x.customer.id == customerId)
-        this.invoicingPdfService.createPDF(customerRecords)
+        this.ledgerPdfService.createPDF(customerRecords)
     }
 
     public formatDatePeriod(): string {
-        if (this.invoicingCriteria.fromDate == this.invoicingCriteria.toDate) {
-            return this.formatDateToLocale(this.invoicingCriteria.fromDate, true)
+        if (this.ledgerCriteria.fromDate == this.ledgerCriteria.toDate) {
+            return this.formatDateToLocale(this.ledgerCriteria.fromDate, true)
         } else {
-            return this.formatDateToLocale(this.invoicingCriteria.fromDate, true) + ' - ' + this.formatDateToLocale(this.invoicingCriteria.toDate, true)
+            return this.formatDateToLocale(this.ledgerCriteria.fromDate, true) + ' - ' + this.formatDateToLocale(this.ledgerCriteria.toDate, true)
         }
     }
 
@@ -136,9 +136,9 @@ export class InvoicingListComponent {
     }
 
     private populateCriteriaFromStoredVariables(): void {
-        if (this.localStorageService.getItem('invoicing-criteria')) {
-            const criteria = JSON.parse(this.localStorageService.getItem('invoicing-criteria'))
-            this.invoicingCriteria = {
+        if (this.localStorageService.getItem('ledger-criteria')) {
+            const criteria = JSON.parse(this.localStorageService.getItem('ledger-criteria'))
+            this.ledgerCriteria = {
                 fromDate: criteria.fromDate,
                 toDate: criteria.toDate,
                 customer: criteria.customer,

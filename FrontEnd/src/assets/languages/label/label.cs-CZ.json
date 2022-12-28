@@ -952,79 +952,6 @@
         ]
     },
     {
-        "feature": "index",
-        "labels": [
-            {
-                "id": "ports",
-                "description": "Přístavy"
-            },
-            {
-                "id": "portId",
-                "description": "Id"
-            },
-            {
-                "id": "portDescription",
-                "description": "Popisy"
-            },
-            {
-                "id": "destinations",
-                "description": "Destinace"
-            },
-            {
-                "id": "destinationId",
-                "description": "Id"
-            },
-            {
-                "id": "destinationDescription",
-                "description": "Popisy"
-            },
-            {
-                "id": "customers",
-                "description": "Zákazníci"
-            },
-            {
-                "id": "customerId",
-                "description": "Id"
-            },
-            {
-                "id": "customerDescription",
-                "description": "Název"
-            },
-            {
-                "id": "pickupPoints",
-                "description": "Nástupní místa"
-            },
-            {
-                "id": "pickupPointId",
-                "description": "Id"
-            },
-            {
-                "id": "pickupPointDescription",
-                "description": "Popis"
-            },
-            {
-                "id": "exactPoint",
-                "description": "Přesné místo"
-            },
-            {
-                "id": "time",
-                "description": "Čas"
-            },
-            {
-                "id": "selectButton",
-                "description": "Vybrat"
-            },
-            {
-                "id": "nationalityDescription",
-                "description": "Národnost"
-            },
-            {
-                "id": "genderDescription",
-                "description": "Rod"
-            }
-        ]
-    },
-    {
         "feature": "shipList",
         "labels": [
             {
@@ -1473,35 +1400,31 @@
         ]
     },
     {
-        "feature": "invoicingCriteria",
+        "feature": "ledgerCriteria",
         "labels": [
             {
                 "id": "header",
                 "description": "Vyúčtování zákazníkům"
             },
             {
-                "id": "searchLabel",
+                "id": "date",
                 "description": "Datum"
             },
             {
-                "id": "searchDateHint",
-                "description": "Vyplňte nebo vyberte datum"
-            },
-            {
-                "id": "dateRange",
-                "description": "Rozsah dat"
-            },
-            {
-                "id": "customer",
+                "id": "customers",
                 "description": "Zákazník"
             },
             {
-                "id": "destination",
+                "id": "destinations",
                 "description": "Destinace"
             },
             {
-                "id": "ship",
+                "id": "ships",
                 "description": "Plavidlo"
+            },
+            {
+                "id": "todayButton",
+                "description": "DENNĚ"
             },
             {
                 "id": "searchButton",
@@ -1510,7 +1433,7 @@
         ]
     },
     {
-        "feature": "invoicingList",
+        "feature": "LedgerList",
         "labels": [
             {
                 "id": "header",
@@ -2274,23 +2197,11 @@
         ]
     },
     {
-        "feature": "activeYear",
+        "feature": "mat-calendar",
         "labels": [
             {
-                "id": "header",
-                "description": "Aktuální rok"
-            },
-            {
-                "id": "sub-header",
-                "description": "Uveďte rok, ve kterém chcete pracovat."
-            },
-            {
-                "id": "activeYear",
-                "description": "Rok"
-            },
-            {
-                "id": "saveButton",
-                "description": "ULOŽIT"
+                "id": "todayButton",
+                "description": "DENNĚ"
             }
         ]
     }

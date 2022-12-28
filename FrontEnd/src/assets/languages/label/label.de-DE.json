@@ -952,79 +952,6 @@
         ]
     },
     {
-        "feature": "index",
-        "labels": [
-            {
-                "id": "ports",
-                "description": "Häfen"
-            },
-            {
-                "id": "portId",
-                "description": "Id"
-            },
-            {
-                "id": "portDescription",
-                "description": "Beschreibung"
-            },
-            {
-                "id": "destinations",
-                "description": "Reiseziele"
-            },
-            {
-                "id": "destinationId",
-                "description": "Id"
-            },
-            {
-                "id": "destinationDescription",
-                "description": "Beschreibung"
-            },
-            {
-                "id": "customers",
-                "description": "Kunder"
-            },
-            {
-                "id": "customerId",
-                "description": "Id"
-            },
-            {
-                "id": "customerDescription",
-                "description": "Name der Firma"
-            },
-            {
-                "id": "pickupPoints",
-                "description": "Abholpunkte"
-            },
-            {
-                "id": "pickupPointId",
-                "description": "Id"
-            },
-            {
-                "id": "pickupPointDescription",
-                "description": "Beschreibung"
-            },
-            {
-                "id": "exactPoint",
-                "description": "Genauer Punkt"
-            },
-            {
-                "id": "time",
-                "description": "Uhr"
-            },
-            {
-                "id": "selectButton",
-                "description": "Wählen"
-            },
-            {
-                "id": "nationalityDescription",
-                "description": "Nationalität"
-            },
-            {
-                "id": "genderDescription",
-                "description": "Geschlecht"
-            }
-        ]
-    },
-    {
         "feature": "shipList",
         "labels": [
             {
@@ -1473,35 +1400,27 @@
         ]
     },
     {
-        "feature": "invoicingCriteria",
+        "feature": "ledgerCriteria",
         "labels": [
             {
                 "id": "header",
-                "description": "Kundenabrechnung"
+                "description": "Kundenbücher"
             },
             {
-                "id": "searchLabel",
+                "id": "date",
                 "description": "Datum"
             },
             {
-                "id": "searchDateHint",
-                "description": "Einschiffungsdatum"
+                "id": "customers",
+                "description": "Kunden"
             },
             {
-                "id": "dateRange",
-                "description": "Datumsbereich"
+                "id": "destinations",
+                "description": "Reiseziele"
             },
             {
-                "id": "customer",
-                "description": "Kunde"
-            },
-            {
-                "id": "destination",
-                "description": "Reiseziel"
-            },
-            {
-                "id": "ship",
-                "description": "Schiff"
+                "id": "ships",
+                "description": "Schiffe"
             },
             {
                 "id": "searchButton",
@@ -1510,7 +1429,7 @@
         ]
     },
     {
-        "feature": "invoicingList",
+        "feature": "LedgerList",
         "labels": [
             {
                 "id": "header",
@@ -2274,23 +2193,11 @@
         ]
     },
     {
-        "feature": "activeYear",
+        "feature": "mat-calendar",
         "labels": [
             {
-                "id": "header",
-                "description": "Aktuelles Jahr"
-            },
-            {
-                "id": "sub-header",
-                "description": "Geben Sie das Jahr an, in dem Sie arbeiten möchten"
-            },
-           {
-                "id": "activeYear",
-                "description": "Jahr"
-            },
-            {
-                "id": "saveButton",
-                "description": "SPEICHERN"
+                "id": "todayButton",
+                "description": "HEUTE"
             }
         ]
     }

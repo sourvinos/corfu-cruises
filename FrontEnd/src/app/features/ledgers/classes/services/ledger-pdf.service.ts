@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core'
 // Custom
 import { DateHelperService } from 'src/app/shared/services/date-helper.service'
-import { InvoicingPortVM } from '../view-models/invoicing-port-vm'
-import { InvoicingVM } from '../view-models/invoicing-vm'
+import { LedgerPortVM } from '../view-models/ledger-port-vm'
+import { LedgerVM } from '../view-models/ledger-vm'
 import { LogoService } from 'src/app/features/reservations/classes/services/logo.service'
 // Fonts
 import pdfFonts from 'pdfmake/build/vfs_fonts'
@@ -15,21 +15,21 @@ pdfMake.vfs = pdfFonts.pdfMake.vfs
 
 @Injectable({ providedIn: 'root' })
 
-export class InvoicingPDFService {
+export class LedgerPDFService {
 
     constructor(private dateHelperService: DateHelperService, private logoService: LogoService) { }
 
-    public createPDF(invoicing: InvoicingVM): void {
+    public createPDF(ledger: LedgerVM): void {
         this.setFonts()
         const dd = {
             background: this.setBackgroundImage(),
-            info: this.setPageInfo(invoicing.customer.description),
+            info: this.setPageInfo(ledger.customer.description),
             pageOrientation: 'landscape',
             pageSize: 'A4',
             content: [
-                this.createHeaders(invoicing),
-                this.createSummary(invoicing),
-                this.createBody(invoicing)
+                this.createHeaders(ledger),
+                this.createSummary(ledger),
+                this.createBody(ledger)
             ],
             styles: {
                 AkaAcidCanterBold: {
@@ -55,14 +55,14 @@ export class InvoicingPDFService {
 
     //#region Headers
 
-    private createHeaders(invoicing: InvoicingVM): any {
+    private createHeaders(ledger: LedgerVM): any {
         const headers =
         {
             margin: [-10, 0, 0, 20],
             columns: [
                 this.setLogo(),
                 this.setTitle(),
-                this.setCriteria(invoicing)
+                this.setCriteria(ledger)
             ]
         }
         return headers
@@ -91,7 +91,7 @@ export class InvoicingPDFService {
         return title
     }
 
-    private setCriteria(record: InvoicingVM): any {
+    private setCriteria(record: LedgerVM): any {
         const fromDate = this.dateHelperService.formatISODateToLocale(record.fromDate)
         const toDate = this.dateHelperService.formatISODateToLocale(record.toDate)
         const criteria = {
@@ -108,9 +108,9 @@ export class InvoicingPDFService {
 
     //#region Summary
 
-    private createSummary(invoicing: InvoicingVM): any {
+    private createSummary(ledger: LedgerVM): any {
         const columns = []
-        invoicing.portGroup.forEach(x => {
+        ledger.portGroup.forEach(x => {
             const portGroup = {
                 layout: 'noBorders',
                 table: {
@@ -122,7 +122,7 @@ export class InvoicingPDFService {
         return columns
     }
 
-    private createPortHasTransferGroup(element: InvoicingPortVM): any {
+    private createPortHasTransferGroup(element: LedgerPortVM): any {
         const columns = []
         // Port description
         columns.push({
@@ -190,23 +190,23 @@ export class InvoicingPDFService {
 
     //#region Body
 
-    private createBody(invoicing: InvoicingVM): any {
+    private createBody(ledger: LedgerVM): any {
         const body = {
             margin: [0, 10, 0, 0],
             table: {
                 headerRows: 1,
                 widths: [35, 'auto', 'auto', 'auto', 'auto', 'auto', 20, 20, 20, 20, 20, 20, 'auto', '*'],
-                body: this.createReservationLines(invoicing)
+                body: this.createReservationLines(ledger)
             },
             layout: 'lightHorizontalLines'
         }
         return body
     }
 
-    private createReservationLines(invoicing: InvoicingVM): any {
+    private createReservationLines(ledger: LedgerVM): any {
         const rows = []
         rows.push(this.createBodyHeader())
-        invoicing.reservations.forEach(reservation => {
+        ledger.reservations.forEach(reservation => {
             rows.push([
                 { text: this.dateHelperService.formatISODateToLocale(reservation.date), alignment: 'center' },
                 { text: reservation.refNo },
@@ -224,7 +224,7 @@ export class InvoicingPDFService {
                 { text: reservation.remarks },
             ])
         })
-        rows.push(this.createBodyTotals(invoicing))
+        rows.push(this.createBodyTotals(ledger))
         return rows
     }
 
@@ -247,7 +247,7 @@ export class InvoicingPDFService {
         ])
     }
 
-    private createBodyTotals(reservations: InvoicingVM): any {
+    private createBodyTotals(reservations: LedgerVM): any {
         return ([
             { text: '' },
             { text: '' },

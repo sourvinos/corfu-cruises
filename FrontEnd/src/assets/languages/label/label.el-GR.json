@@ -952,79 +952,6 @@
         ]
     },
     {
-        "feature": "index",
-        "labels": [
-            {
-                "id": "ports",
-                "description": "Λιμάνια"
-            },
-            {
-                "id": "portId",
-                "description": "Id"
-            },
-            {
-                "id": "portDescription",
-                "description": "Περιγραφή"
-            },
-            {
-                "id": "destinations",
-                "description": "Προορισμοί"
-            },
-            {
-                "id": "destinationId",
-                "description": "Id"
-            },
-            {
-                "id": "destinationDescription",
-                "description": "Περιγραφή"
-            },
-            {
-                "id": "customers",
-                "description": "Πελάτες"
-            },
-            {
-                "id": "customerId",
-                "description": "Id"
-            },
-            {
-                "id": "customerDescription",
-                "description": "Επωνυμία"
-            },
-            {
-                "id": "pickupPoints",
-                "description": "Σημεία παραλαβής"
-            },
-            {
-                "id": "pickupPointId",
-                "description": "Id"
-            },
-            {
-                "id": "pickupPointDescription",
-                "description": "Περιγραφή"
-            },
-            {
-                "id": "exactPoint",
-                "description": "Ακριβές σημείο"
-            },
-            {
-                "id": "time",
-                "description": "Ώρα"
-            },
-            {
-                "id": "selectButton",
-                "description": "Επιλογή"
-            },
-            {
-                "id": "nationalityDescription",
-                "description": "Εθνικότητα"
-            },
-            {
-                "id": "genderDescription",
-                "description": "Φύλο"
-            }
-        ]
-    },
-    {
         "feature": "shipList",
         "labels": [
             {
@@ -1473,35 +1400,27 @@
         ]
     },
     {
-        "feature": "invoicingCriteria",
+        "feature": "ledgerCriteria",
         "labels": [
             {
                 "id": "header",
-                "description": "Τιμολόγηση πελατών"
+                "description": "Δημιουργία καρτελών πελατών"
             },
             {
-                "id": "searchLabel",
+                "id": "date",
                 "description": "Ημερομηνία"
             },
             {
-                "id": "searchDateHint",
-                "description": "Ημερ/νία αναχώρησης"
+                "id": "customers",
+                "description": "Πελάτες"
             },
             {
-                "id": "dateRange",
-                "description": "Εύρος ημερομηνίας *"
+                "id": "destinations",
+                "description": "Προορισμοί"
             },
             {
-                "id": "customer",
-                "description": "Πελάτης"
-            },
-            {
-                "id": "destination",
-                "description": "Προορισμός"
-            },
-            {
-                "id": "ship",
-                "description": "Πλοίο"
+                "id": "ships",
+                "description": "Πλοία"
             },
             {
                 "id": "searchButton",
@@ -1510,7 +1429,7 @@
         ]
     },
     {
-        "feature": "invoicingList",
+        "feature": "LedgerList",
         "labels": [
             {
                 "id": "header",
@@ -2274,23 +2193,11 @@
         ]
     },
     {
-        "feature": "activeYear",
+        "feature": "mat-calendar",
         "labels": [
             {
-                "id": "header",
-                "description": "Ενεργό έτος"
-            },
-            {
-                "id": "sub-header",
-                "description": "Δώστε το έτος στο οποίο επιθυμείτε να εργαστείτε"
-            },
-            {
-                "id": "activeYear",
-                "description": "Ετος"
-            },
-            {
-                "id": "saveButton",
-                "description": "ΑΠΟΘΗΚΕΥΣΗ"
+                "id": "todayButton",
+                "description": "ΣΗΜΕΡΑ"
             }
         ]
     }

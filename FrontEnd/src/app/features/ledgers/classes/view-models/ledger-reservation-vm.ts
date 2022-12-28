@@ -1,4 +1,4 @@
-export interface InvoicingReservationVM {
+export interface LedgerReservationVM {
 
     date: string
     refNo: string

@@ -1,6 +1,6 @@
 import { CustomerVM } from './customer-vm'
 
-export interface InvoicingCriteriaVM {
+export interface LedgerCriteriaVM {
 
     fromDate: string,
     toDate: string,
