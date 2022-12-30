@@ -42,8 +42,11 @@ export class LedgerCriteriaComponent {
     public selectedRangeValue: DateRange<Date>
     private criteria: LedgerCriteriaVM
     public customers: CustomerActiveVM[] = []
+    public filteredCustomers: CustomerActiveVM[] = []
     public destinations: DestinationActiveVM[] = []
+    public filteredDestinations: DestinationActiveVM[] = []
     public ships: ShipActiveVM[] = []
+
 
     //#endregion
 
@@ -96,6 +99,37 @@ export class LedgerCriteriaComponent {
         return ConnectedUser.isAdmin
     }
 
+    /**
+     * Scans the criteria which are loaded from the storage
+     * @param arrayName 
+     * @param arrayId 
+     * @returns True or false so that the checkbox can be checked or left empty
+     */
+    public lookup(arrayName: string, arrayId: number): boolean {
+        if (this.criteria) {
+            return this.criteria[arrayName].filter((x: { id: number }) => x.id == arrayId).length != 0 ? true : false
+        }
+    }
+
+    /**
+     * Adds/removes controls to/from the formArray
+     * @param event
+     * @param formControlsArray
+     * @param description 
+     */
+    public onCheckboxChange(event: any, formControlsArray: string, description: string): void {
+        const selected = this.form.controls[formControlsArray] as FormArray
+        if (event.target.checked) {
+            selected.push(this.formBuilder.group({
+                id: [parseInt(event.target.value), Validators.required],
+                description: [description]
+            }))
+        } else {
+            const index = selected.controls.findIndex(x => x.value.id == parseInt(event.target.value))
+            selected.removeAt(index)
+        }
+    }
+
     //#endregion
 
     //#region private methods
@@ -122,9 +156,10 @@ export class LedgerCriteriaComponent {
         this.form = this.formBuilder.group({
             fromDate: ['', [Validators.required]],
             toDate: ['', [Validators.required]],
-            // customers: this.formBuilder.array([], Validators.required),
+            customers: this.formBuilder.array([], Validators.required),
             // destinations: this.formBuilder.array([], Validators.required),
             // ships: this.formBuilder.array([], Validators.required),
+            customersFilter: ''
         })
     }
 
@@ -143,19 +178,22 @@ export class LedgerCriteriaComponent {
 
     private populateDropdowns(): void {
         this.populateDropdownFromLocalStorage('customers')
-        this.populateDropdownFromLocalStorage('destinations')
-        this.populateDropdownFromLocalStorage('ships')
+        // this.populateDropdownFromLocalStorage('destinations')
+        // this.populateDropdownFromLocalStorage('ships')
+        this.filteredCustomers = this.customers
+        // this.filteredDestinations = this.destinations
     }
 
     private populateFieldsFromStoredVariables(): void {
         if (this.localStorageService.getItem('ledger-criteria')) {
             this.criteria = JSON.parse(this.localStorageService.getItem('ledger-criteria'))
-            this.form.setValue({
+            this.form.patchValue({
                 fromDate: this.criteria.fromDate,
                 toDate: this.criteria.toDate,
-                // customers: this.addSelectedCriteriaFromStorage('customers'),
+                customers: this.addSelectedCriteriaFromStorage('customers'),
                 // destinations: this.addSelectedCriteriaFromStorage('destinations'),
                 // ships: this.addSelectedCriteriaFromStorage('ships'),
+                customersFilter: ''
             })
         }
     }
@@ -187,12 +225,8 @@ export class LedgerCriteriaComponent {
 
     private setSelectedDates(): void {
         if (this.criteria != undefined) {
-            // this.selectedFromDate = new Date(this.criteria.fromDate)
-            // this.selectedToDate = new Date(this.criteria.toDate)
             this.selectedRangeValue = new DateRange(new Date(this.criteria.fromDate), new Date(this.criteria.toDate))
         } else {
-            // this.selectedFromDate = new Date()
-            // this.selectedToDate = new Date()
             this.selectedRangeValue = new DateRange(new Date(), new Date())
             this.form.patchValue({
                 fromDate: this.dateHelperService.formatDateToIso(new Date(), false),
@@ -208,6 +242,29 @@ export class LedgerCriteriaComponent {
                 toDate: this.dateHelperService.formatDateToIso(event.end, false)
             })
         }
+    }
+
+    public filterList(event): void {
+        this.filteredCustomers = this.customers
+        const x = event.target.value
+        this.filteredCustomers = this.customers.filter(i => i.description.toLowerCase().includes(x.toLowerCase()))
+        setTimeout(() => {
+            const criteria = this.form.value.customers
+            criteria.forEach(element => {
+                this.filteredCustomers.forEach(x => {
+                    if (element.description == x.description) {
+                        const input = document.getElementById('customer' + x.id) as HTMLInputElement
+                        if (input != null) {
+                            input.checked = true
+                        }
+                    }
+                })
+            }, 500)
+        })
+    }
+
+    public clearFilter(): void {
+        this.form.patchValue({ customersFilter: '' })
     }
 
 }

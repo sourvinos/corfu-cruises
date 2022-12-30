@@ -47,6 +47,19 @@ input:-internal-autofill-previewed, input:-internal-autofill-selected {
     width: 100% !important;
 }
 
+.mat-form-field.list-filter {
+    backdrop-filter: blur(0);
+    background-color: transparent !important;
+    border: none !important;
+    line-height: 0 !important;
+    margin-top: 0 !important;
+    padding: 0 1.5rem !important;
+}
+
+.mat-form-field.list-filter .mat-form-field-infix {
+    border-top: 0 !important;
+}
+
 .mat-form-field-infix {
     border-top: 20px solid transparent;
     display: flex !important;

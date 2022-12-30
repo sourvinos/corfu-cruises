@@ -14,7 +14,7 @@ export class DateRangeSelectorComponent {
     //#region variables
 
     @ViewChild('calendar', { static: false }) calendar: MatCalendar<Date>
-    @Input() selectedRangeValue: DateRange<Date> | undefined
+    @Input() selectedRangeValue: DateRange<Date>
     @Output() selectedRangeValueChange = new EventEmitter<DateRange<Date>>()
 
     private feature = 'mat-calendar'

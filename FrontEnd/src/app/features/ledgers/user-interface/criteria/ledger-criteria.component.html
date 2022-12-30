@@ -7,13 +7,53 @@
     <div id="content">
         <form id="form" [formGroup]="form" autocomplete="off">
             <!-- Date -->
-            <p-fieldset [legend]="getLabel('date')" class="calendar">
+            <fieldset class="me fit-content">
+                <legend>{{ getLabel('date') }}</legend>
                 <div id="calendar-wrapper">
                     <mat-card id="calendar-card">
                         <date-range-selector [selectedRangeValue]="selectedRangeValue" (selectedRangeValueChange)="patchFormWithSelectedDates($event)"></date-range-selector>
                     </mat-card>
                 </div>
-            </p-fieldset>
+            </fieldset>
+            <!-- Customers -->
+            <fieldset class="me max-height">
+                <legend>{{ getLabel('customers') }}</legend>
+                <mat-form-field class="list-filter">
+                    <input (keyup)="filterList($event)" formControlName="customersFilter" matInput type="text">
+                </mat-form-field>
+                <div id="customers">
+                    <div *ngFor="let customer of filteredCustomers">
+                        <div class="styled-input-square">
+                            <div class="styled-input-single" (change)="onCheckboxChange($event, 'customers', customer.description)">
+                                <input class="customer" formArrayName="customers" type="checkbox" [value]="customer.id" [attr.id]="'customer' + customer.id" [checked]="lookup('customers', customer.id)">
+                                <label [attr.for]="'customer' + customer.id">{{ customer.description }}</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+            <!-- Destinations -->
+            <!-- <p-fieldset [legend]="getLabel('destinations')">
+                <div *ngFor="let destination of destinations">
+                    <div class="styled-input-square">
+                        <div class="styled-input-single" (change)="onCheckboxChange($event, 'destinations', destination.description)">
+                            <input class="destination" formArrayName="destinations" type="checkbox" [value]="destination.id" [attr.id]="'destination' + destination.id" [checked]="lookup('destination', destination.id)">
+                            <label [attr.for]="'destination' + destination.id">{{ destination.description }}</label>
+                        </div>
+                    </div>
+                </div>
+            </p-fieldset> -->
+            <!-- Ships -->
+            <!-- <p-fieldset [legend]="getLabel('ships')">
+                <div *ngFor="let ship of ships">
+                    <div class="styled-input-square">
+                        <div class="styled-input-single" (change)="onCheckboxChange($event, 'ships', ship.description)">
+                            <input class="ship" formArrayName="ships" type="checkbox" [value]="ship.id" [attr.id]="'ship' + ship.id" [checked]="lookup('ship', ship.id)">
+                            <label [attr.for]="'ship' + ship.id">{{ ship.description }}</label>
+                        </div>
+                    </div>
+                </div>
+            </p-fieldset> -->
         </form>
         <p class="instructions" [class.hidden]=false>{{ form.value | json }} {{ form.valid }}</p>
     </div>
