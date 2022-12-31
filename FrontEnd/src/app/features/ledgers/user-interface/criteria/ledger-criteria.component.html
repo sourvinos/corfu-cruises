@@ -7,7 +7,7 @@
     <div id="content">
         <form id="form" [formGroup]="form" autocomplete="off">
             <!-- Date -->
-            <fieldset class="me fit-content">
+            <fieldset class="fit-content">
                 <legend>{{ getLabel('date') }}</legend>
                 <div id="calendar-wrapper">
                     <mat-card id="calendar-card">
@@ -16,44 +16,80 @@
                 </div>
             </fieldset>
             <!-- Customers -->
-            <fieldset class="me max-height">
+            <fieldset class="max-height">
                 <legend>{{ getLabel('customers') }}</legend>
-                <mat-form-field class="list-filter">
-                    <input (keyup)="filterList($event)" formControlName="customersFilter" matInput type="text">
-                </mat-form-field>
-                <div id="customers">
+                <div class="filter">
+                    <div class="styled-input-square">
+                        <div class="styled-input-single">
+                            <input (click)="toggleAllCheckboxes('customer', 'allCustomersCheckbox')" id="all-customers" type="checkbox" formControlName="allCustomersCheckbox">
+                            <label for="all-customers"></label>
+                        </div>
+                    </div>
+                    <mat-form-field class="list-filter">
+                        <input (click)="selectAllText('customersFilter')" (keyup)="filterList($event, 'filteredCustomers', 'customers', 'customer')" formControlName="customersFilter" id="customersFilter" matInput>
+                    </mat-form-field>
+                </div>
+                <div class="list-wrapper">
                     <div *ngFor="let customer of filteredCustomers">
                         <div class="styled-input-square">
                             <div class="styled-input-single" (change)="onCheckboxChange($event, 'customers', customer.description)">
                                 <input class="customer" formArrayName="customers" type="checkbox" [value]="customer.id" [attr.id]="'customer' + customer.id" [checked]="lookup('customers', customer.id)">
-                                <label [attr.for]="'customer' + customer.id">{{ customer.description }}</label>
+                                <label [attr.for]="'customer' + customer.id" [attr.id]="'customer-label' + customer.id">{{ customer.description }}</label>
                             </div>
                         </div>
                     </div>
                 </div>
             </fieldset>
             <!-- Destinations -->
-            <!-- <p-fieldset [legend]="getLabel('destinations')">
-                <div *ngFor="let destination of destinations">
+            <fieldset class="max-height">
+                <legend>{{ getLabel('destinations') }}</legend>
+                <div class="filter">
                     <div class="styled-input-square">
-                        <div class="styled-input-single" (change)="onCheckboxChange($event, 'destinations', destination.description)">
-                            <input class="destination" formArrayName="destinations" type="checkbox" [value]="destination.id" [attr.id]="'destination' + destination.id" [checked]="lookup('destination', destination.id)">
-                            <label [attr.for]="'destination' + destination.id">{{ destination.description }}</label>
+                        <div class="styled-input-single">
+                            <input (click)="toggleAllCheckboxes('destination', 'allDestinationsCheckbox')" id="all-destinations" type="checkbox" formControlName="allDestinationsCheckbox">
+                            <label for="all-destinations"></label>
+                        </div>
+                    </div>
+                    <mat-form-field class="list-filter">
+                        <input (click)="selectAllText('destinationsFilter')" (keyup)="filterList($event, 'filteredDestinations', 'destinations', 'destination')" formControlName="destinationsFilter" id="destinationsFilter" matInput>
+                    </mat-form-field>
+                </div>
+                <div class="list-wrapper">
+                    <div *ngFor="let destination of filteredDestinations">
+                        <div class="styled-input-square">
+                            <div class="styled-input-single" (change)="onCheckboxChange($event, 'destinations', destination.description)">
+                                <input class="destination" formArrayName="destinations" type="checkbox" [value]="destination.id" [attr.id]="'destination' + destination.id" [checked]="lookup('destinations', destination.id)">
+                                <label [attr.for]="'destination' + destination.id" [attr.id]="'destination-label' + destination.id">{{ destination.description }}</label>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </p-fieldset> -->
+            </fieldset>
             <!-- Ships -->
-            <!-- <p-fieldset [legend]="getLabel('ships')">
-                <div *ngFor="let ship of ships">
+            <fieldset class="max-height">
+                <legend>{{ getLabel('ships') }}</legend>
+                <div class="filter">
                     <div class="styled-input-square">
-                        <div class="styled-input-single" (change)="onCheckboxChange($event, 'ships', ship.description)">
-                            <input class="ship" formArrayName="ships" type="checkbox" [value]="ship.id" [attr.id]="'ship' + ship.id" [checked]="lookup('ship', ship.id)">
-                            <label [attr.for]="'ship' + ship.id">{{ ship.description }}</label>
+                        <div class="styled-input-single">
+                            <input (click)="toggleAllCheckboxes('ship', 'allShipsCheckbox')" id="all-ships" type="checkbox" formControlName="allShipsCheckbox">
+                            <label for="all-ships"></label>
+                        </div>
+                    </div>
+                    <mat-form-field class="list-filter">
+                        <input (click)="selectAllText('shipsFilter')" (keyup)="filterList($event, 'filteredShips', 'ships', 'ship')" formControlName="shipsFilter" id="shipsFilter" matInput>
+                    </mat-form-field>
+                </div>
+                <div class="list-wrapper">
+                    <div *ngFor="let ship of filteredShips">
+                        <div class="styled-input-square">
+                            <div class="styled-input-single" (change)="onCheckboxChange($event, 'ships', ship.description)">
+                                <input class="ship" formArrayName="ships" type="checkbox" [value]="ship.id" [attr.id]="'ship' + ship.id" [checked]="lookup('ships', ship.id)">
+                                <label [attr.for]="'ship' + ship.id" [attr.id]="'ship-label' + ship.id">{{ ship.description }}</label>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </p-fieldset> -->
+            </fieldset>
         </form>
         <p class="instructions" [class.hidden]=false>{{ form.value | json }} {{ form.valid }}</p>
     </div>

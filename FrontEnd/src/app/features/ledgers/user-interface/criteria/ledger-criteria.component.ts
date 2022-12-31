@@ -9,12 +9,12 @@ import { ConnectedUser } from 'src/app/shared/classes/connected-user'
 import { CustomerActiveVM } from 'src/app/features/customers/classes/view-models/customer-active-vm'
 import { CustomerService } from 'src/app/features/customers/classes/services/customer.service'
 import { DateHelperService } from 'src/app/shared/services/date-helper.service'
+import { DateRange, MatCalendar } from '@angular/material/datepicker'
 import { DestinationActiveVM } from 'src/app/features/destinations/classes/view-models/destination-active-vm'
+import { HelperService } from 'src/app/shared/services/helper.service'
 import { InteractionService } from 'src/app/shared/services/interaction.service'
 import { LedgerCriteriaVM } from '../../classes/view-models/ledger-criteria-vm'
 import { LocalStorageService } from 'src/app/shared/services/local-storage.service'
-import { DateRange, MatCalendar } from '@angular/material/datepicker'
-import { MessageHintService } from 'src/app/shared/services/messages-hint.service'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { ShipActiveVM } from 'src/app/features/ships/classes/view-models/ship-active-vm'
 
@@ -37,31 +37,20 @@ export class LedgerCriteriaComponent {
     public icon = 'home'
     public parentUrl = null
 
-    public selectedFromDate = new Date()
-    public selectedToDate = new Date()
-    public selectedRangeValue: DateRange<Date>
     private criteria: LedgerCriteriaVM
+    public selectedFromDate = new Date()
+    public selectedRangeValue: DateRange<Date>
+    public selectedToDate = new Date()
     public customers: CustomerActiveVM[] = []
     public filteredCustomers: CustomerActiveVM[] = []
     public destinations: DestinationActiveVM[] = []
     public filteredDestinations: DestinationActiveVM[] = []
     public ships: ShipActiveVM[] = []
-
+    public filteredShips: ShipActiveVM[] = []
 
     //#endregion
 
-    constructor(
-        private activatedRoute: ActivatedRoute,
-        private customerService: CustomerService,
-        private dateAdapter: DateAdapter<any>,
-        private dateHelperService: DateHelperService,
-        private formBuilder: FormBuilder,
-        private interactionService: InteractionService,
-        private localStorageService: LocalStorageService,
-        private messageHintService: MessageHintService,
-        private messageLabelService: MessageLabelService,
-        private router: Router,
-    ) { }
+    constructor(private activatedRoute: ActivatedRoute, private customerService: CustomerService, private dateAdapter: DateAdapter<any>, private helperService: HelperService, private dateHelperService: DateHelperService, private formBuilder: FormBuilder, private interactionService: InteractionService, private localStorageService: LocalStorageService, private messageLabelService: MessageLabelService, private router: Router) { }
 
     //#region lifecycle hooks
 
@@ -82,13 +71,32 @@ export class LedgerCriteriaComponent {
 
     //#region public methods
 
+    public clearFilterText(field: string): void {
+        this.form.patchValue({ [field]: '' })
+    }
+
     public doTasks(): void {
         this.storeCriteria()
         // this.navigateToList()
     }
 
-    public getHint(id: string, minmax = 0): string {
-        return this.messageHintService.getDescription(id, minmax)
+    public filterList(event: { target: { value: any } }, filteredList: string, list: string, listElement: string): void {
+        this[filteredList] = this[list]
+        const x = event.target.value
+        this[filteredList] = this[list].filter(i => i.description.toLowerCase().includes(x.toLowerCase()))
+        setTimeout(() => {
+            const criteria = this.form.value[list]
+            criteria.forEach((element: { description: any }) => {
+                this[filteredList].forEach((x: { description: any; id: string }) => {
+                    if (element.description == x.description) {
+                        const input = document.getElementById(listElement + x.id) as HTMLInputElement
+                        if (input != null) {
+                            input.checked = true
+                        }
+                    }
+                })
+            }, 500)
+        })
     }
 
     public getLabel(id: string): string {
@@ -130,9 +138,48 @@ export class LedgerCriteriaComponent {
         }
     }
 
+    public patchFormWithSelectedDates(event: any): void {
+        if (event.start != null && event.end != null) {
+            this.form.patchValue({
+                fromDate: this.dateHelperService.formatDateToIso(event.start, false),
+                toDate: this.dateHelperService.formatDateToIso(event.end, false)
+            })
+        }
+    }
+
+    public selectAllText(field: string): void {
+        this.helperService.focusOnField(field)
+    }
+
+    public toggleAllCheckboxes(array: string, allCheckboxes: string): void {
+        const selected = this.form.controls[array + 's'] as FormArray
+        const checkboxes = document.querySelectorAll<HTMLInputElement>('.' + array)
+        checkboxes.forEach(checkbox => {
+            checkbox.checked = !this.form.value[allCheckboxes]
+            if (checkbox.checked) {
+                selected.push(this.formBuilder.group({
+                    id: [checkbox.value, Validators.required],
+                    description: document.getElementById(array + '-label' + checkbox.value).innerHTML
+                }))
+            } else {
+                selected.clear()
+            }
+        })
+    }
+
     //#endregion
 
     //#region private methods
+
+    private addSelectedCriteriaFromStorage(arrayName: string): void {
+        const x = this.form.controls[arrayName] as FormArray
+        this.criteria[arrayName].forEach((element: any) => {
+            x.push(new FormControl({
+                'id': element.id,
+                'description': element.description
+            }))
+        })
+    }
 
     private cleanup(): void {
         this.unsubscribe.next()
@@ -157,9 +204,14 @@ export class LedgerCriteriaComponent {
             fromDate: ['', [Validators.required]],
             toDate: ['', [Validators.required]],
             customers: this.formBuilder.array([], Validators.required),
-            // destinations: this.formBuilder.array([], Validators.required),
-            // ships: this.formBuilder.array([], Validators.required),
-            customersFilter: ''
+            destinations: this.formBuilder.array([], Validators.required),
+            ships: this.formBuilder.array([], Validators.required),
+            customersFilter: '',
+            destinationsFilter: '',
+            shipsFilter: '',
+            allCustomersCheckbox: '',
+            allDestinationsCheckbox: '',
+            allShipsCheckbox: ''
         })
     }
 
@@ -178,10 +230,11 @@ export class LedgerCriteriaComponent {
 
     private populateDropdowns(): void {
         this.populateDropdownFromLocalStorage('customers')
-        // this.populateDropdownFromLocalStorage('destinations')
-        // this.populateDropdownFromLocalStorage('ships')
+        this.populateDropdownFromLocalStorage('destinations')
+        this.populateDropdownFromLocalStorage('ships')
         this.filteredCustomers = this.customers
-        // this.filteredDestinations = this.destinations
+        this.filteredDestinations = this.destinations
+        this.filteredShips = this.ships
     }
 
     private populateFieldsFromStoredVariables(): void {
@@ -191,9 +244,11 @@ export class LedgerCriteriaComponent {
                 fromDate: this.criteria.fromDate,
                 toDate: this.criteria.toDate,
                 customers: this.addSelectedCriteriaFromStorage('customers'),
-                // destinations: this.addSelectedCriteriaFromStorage('destinations'),
-                // ships: this.addSelectedCriteriaFromStorage('ships'),
-                customersFilter: ''
+                destinations: this.addSelectedCriteriaFromStorage('destinations'),
+                ships: this.addSelectedCriteriaFromStorage('ships'),
+                customersFilter: '',
+                destinationsFilter: '',
+                shipsFilter: '',
             })
         }
     }
@@ -212,17 +267,6 @@ export class LedgerCriteriaComponent {
         })
     }
 
-    //#endregion
-    private addSelectedCriteriaFromStorage(arrayName: string): void {
-        const x = this.form.controls[arrayName] as FormArray
-        this.criteria[arrayName].forEach((element: any) => {
-            x.push(new FormControl({
-                'id': element.id,
-                'description': element.description
-            }))
-        })
-    }
-
     private setSelectedDates(): void {
         if (this.criteria != undefined) {
             this.selectedRangeValue = new DateRange(new Date(this.criteria.fromDate), new Date(this.criteria.toDate))
@@ -235,36 +279,6 @@ export class LedgerCriteriaComponent {
         }
     }
 
-    public patchFormWithSelectedDates(event: any): void {
-        if (event.start != null && event.end != null) {
-            this.form.patchValue({
-                fromDate: this.dateHelperService.formatDateToIso(event.start, false),
-                toDate: this.dateHelperService.formatDateToIso(event.end, false)
-            })
-        }
-    }
-
-    public filterList(event): void {
-        this.filteredCustomers = this.customers
-        const x = event.target.value
-        this.filteredCustomers = this.customers.filter(i => i.description.toLowerCase().includes(x.toLowerCase()))
-        setTimeout(() => {
-            const criteria = this.form.value.customers
-            criteria.forEach(element => {
-                this.filteredCustomers.forEach(x => {
-                    if (element.description == x.description) {
-                        const input = document.getElementById('customer' + x.id) as HTMLInputElement
-                        if (input != null) {
-                            input.checked = true
-                        }
-                    }
-                })
-            }, 500)
-        })
-    }
-
-    public clearFilter(): void {
-        this.form.patchValue({ customersFilter: '' })
-    }
+    //#endregion
 
 }

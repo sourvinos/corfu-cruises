@@ -8,44 +8,36 @@
     flex-direction: row !important;
 }
 
-.p-fieldset .p-fieldset-content {
-    flex-direction: column;
-}
-
-.mat-calendar-previous-button, .mat-calendar-next-button {
-    display: block !important;
-}
-
-.wrapper {
-    padding: 1rem 0.5rem 1rem 0;
-    border: 1px solid var(--color-b);
-    border-radius: 0.625rem;
-}
-
-#customers {
-    height: 100%;
-    overflow-y: scroll;
-}
-
-fieldset.me {
-    backdrop-filter: blur(var(--blur));
-    background-color: #cddc3905 !important;
-    border-radius: 0.625rem;
-    border: 0.0625rem solid var(--color-b);
-    padding: 1rem 0 1rem 0;
-}
-
-fieldset legend {
-    color: var(--color-c);
-    font-family: var(--font-family-handbook);
-    padding: 0 1rem 0 1rem;
-    font-size: 1.1875rem;
-}
-
 .fit-content {
     height: fit-content;
 }
 
 .max-height {
     height: 100%;
+}
+
+.filter {
+    display: flex;
+    flex-direction: row;
+}
+
+.list-wrapper {
+    height: 92%;
+    overflow-y: scroll;
+}
+
+fieldset {
+    backdrop-filter: blur(var(--blur));
+    background-color: #cddc3905 !important;
+    border-radius: 0.625rem;
+    border: 0.0625rem solid var(--color-b);
+    padding: 1rem 0 1rem 0;
+    width: 20rem;
+}
+
+fieldset legend {
+    color: var(--color-c);
+    font-family: var(--font-family-handbook);
+    font-size: 0.95rem;
+    padding: 0 1rem 0 1rem;
 }

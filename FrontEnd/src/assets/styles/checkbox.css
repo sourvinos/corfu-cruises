@@ -1,6 +1,6 @@
 .styled-input-single {
     margin: 0 1.5rem;
-    padding: 1.25rem 0.1875rem 1.25rem 2.5rem;
+    padding: 0.5rem 0.1875rem 0.5rem 2.5rem;
     position: relative;
     text-align: left;
 }
@@ -8,7 +8,7 @@
 .styled-input-single label {
     color: var(--color-c);
     cursor: pointer;
-    font-family: var(--font-family-handbook);
+    font-family: var(--font-family-manrope);
     font-size: var(--font-size-checkbox);
 }
 
@@ -45,7 +45,7 @@
 }
 
 .styled-input-single input[type="radio"], .styled-input-single input[type="checkbox"] {
-    left: -9999px;
+    left: -1rem;
     position: absolute;
     top: 0;
     visibility: hidden;

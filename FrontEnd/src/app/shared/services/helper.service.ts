@@ -110,7 +110,7 @@ export class HelperService {
             const input = <HTMLInputElement>document.getElementById(element)
             input.focus()
             input.select()
-        }, 1000)
+        }, 500)
     }
 
     public toggleActiveItem(item: string, lookupArray: string[], className: string): any {
