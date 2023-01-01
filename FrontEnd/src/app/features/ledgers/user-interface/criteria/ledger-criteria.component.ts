@@ -77,7 +77,7 @@ export class LedgerCriteriaComponent {
 
     public doTasks(): void {
         this.storeCriteria()
-        // this.navigateToList()
+        this.navigateToList()
     }
 
     public filterList(event: { target: { value: any } }, filteredList: string, list: string, listElement: string): void {
@@ -216,12 +216,7 @@ export class LedgerCriteriaComponent {
     }
 
     private navigateToList(): void {
-        this.router.navigate([
-            'fromDate', this.form.value.fromDate,
-            'toDate', this.form.value.toDate,
-            'customerId', this.form.value.customer.id,
-            'destinationId', this.form.value.destination.id,
-            'shipId', this.form.value.ship.id], { relativeTo: this.activatedRoute })
+        this.router.navigate(['ledgers/list'])
     }
 
     private populateDropdownFromLocalStorage(table: string): void {

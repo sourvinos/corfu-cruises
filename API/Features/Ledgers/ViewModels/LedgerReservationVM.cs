@@ -2,9 +2,7 @@ using System;
 
 namespace API.Features.Ledger {
 
-    public class LedgerFinalReservationVM {
-
-        // Level 2b of 3
+    public class LedgerReservationVM {
 
         public string Date { get; set; }
         public string RefNo { get; set; }

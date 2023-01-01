@@ -4,8 +4,8 @@ using System.Linq;
 using API.Features.Users;
 using API.Infrastructure.Classes;
 using API.Infrastructure.Extensions;
+using API.Infrastructure.Helpers;
 using API.Infrastructure.Implementations;
-using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -16,16 +16,14 @@ namespace API.Features.Ledger {
     public class LedgerRepository : Repository<LedgerRepository>, ILedgerRepository {
 
         private readonly IHttpContextAccessor httpContext;
-        private readonly IMapper mapper;
         private readonly UserManager<UserExtended> userManager;
 
-        public LedgerRepository(AppDbContext appDbContext, IHttpContextAccessor httpContext, IMapper mapper, IOptions<TestingEnvironment> settings, UserManager<UserExtended> userManager) : base(appDbContext, httpContext, settings) {
+        public LedgerRepository(AppDbContext appDbContext, IHttpContextAccessor httpContext, IOptions<TestingEnvironment> settings, UserManager<UserExtended> userManager) : base(appDbContext, httpContext, settings) {
             this.httpContext = httpContext;
-            this.mapper = mapper;
             this.userManager = userManager;
         }
 
-        public IEnumerable<LedgerFinalVM> Get(string fromDate, string toDate, int[] customerIds, int[] destinationIds, int?[] shipIds) {
+        public IEnumerable<LedgerVM> Get(string fromDate, string toDate, int[] customerIds, int[] destinationIds, int?[] shipIds) {
             customerIds = GetConnectedCustomerIdForConnectedUser(customerIds);
             var records = context.Reservations
                 .AsNoTracking()
@@ -41,17 +39,15 @@ namespace API.Features.Ledger {
                     && destinationIds.Contains(x.DestinationId)
                     && shipIds.Contains(x.ShipId))
                 .AsEnumerable()
-                .GroupBy(x => new { x.Customer }).OrderBy(x => x.Key.Customer.Description)
-                .Select(x => new LedgerInitialVM {
-                    FromDate = fromDate,
-                    ToDate = toDate,
+                .GroupBy(x => new { x.Customer.Id, x.Customer.Description })
+                .Select(x => new LedgerVM {
                     Customer = new SimpleEntity {
-                        Id = x.Key.Customer.Id,
-                        Description = x.Key.Customer.Description
+                        Id = x.Key.Id,
+                        Description = x.Key.Description
                     },
-                    Ports = x.GroupBy(x => x.Port).OrderBy(x => x.Key.StopOrder).Select(x => new LedgerInitialPortVM {
+                    Ports = x.GroupBy(x => new { x.Port.Id, x.Port.Description, x.Port.StopOrder }).OrderBy(x => x.Key.StopOrder).Select(x => new LedgerPortVM {
                         Port = x.Key.Description,
-                        HasTransferGroup = x.GroupBy(x => x.PickupPoint.CoachRoute.HasTransfer).Select(x => new LedgerInitialPortGroupVM {
+                        HasTransferGroup = x.GroupBy(x => x.PickupPoint.CoachRoute.HasTransfer).Select(x => new LedgerPortGroupVM {
                             HasTransfer = x.Key,
                             Adults = x.Sum(x => x.Adults),
                             Kids = x.Sum(x => x.Kids),
@@ -69,10 +65,25 @@ namespace API.Features.Ledger {
                     Kids = x.Sum(x => x.Kids),
                     Free = x.Sum(x => x.Free),
                     TotalPersons = x.Sum(x => x.TotalPersons),
-                    Reservations = x.OrderBy(x => x.Date).ThenBy(x => !x.PickupPoint.CoachRoute.HasTransfer).ToList()
-                })
-                .ToList();
-            return mapper.Map<IEnumerable<LedgerInitialVM>, IEnumerable<LedgerFinalVM>>(records);
+                    Reservations = x.OrderBy(x => x.Date).ThenBy(x => !x.PickupPoint.CoachRoute.HasTransfer).Select(x => new LedgerReservationVM {
+                        Date = DateHelpers.DateToISOString(x.Date),
+                        RefNo = x.RefNo,
+                        ReservationId = x.ReservationId,
+                        Destination = x.Destination.Description,
+                        Port = x.Port.Description,
+                        Ship = x.Ship.Description,
+                        TicketNo = x.TicketNo,
+                        Adults = x.Adults,
+                        Kids = x.Kids,
+                        Free = x.Free,
+                        TotalPersons = x.TotalPersons,
+                        EmbarkedPassengers = x.Passengers.Count(x => x.IsCheckedIn),
+                        TotalNoShow = x.TotalPersons - x.Passengers.Count(x => x.IsCheckedIn),
+                        Remarks = x.Remarks,
+                        HasTransfer = x.PickupPoint.CoachRoute.HasTransfer,
+                    }).ToList()
+                });
+            return records;
         }
 
         private int[] GetConnectedCustomerIdForConnectedUser(int[] customerIds) {

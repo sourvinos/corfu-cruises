@@ -1,11 +1,10 @@
 import * as XLSX from 'xlsx'
 import { ActivatedRoute, Router } from '@angular/router'
-import { Component } from '@angular/core'
+import { Component, ViewChild } from '@angular/core'
 import { Subject } from 'rxjs'
 // Custom
 import { DateHelperService } from 'src/app/shared/services/date-helper.service'
 import { EmojiService } from 'src/app/shared/services/emoji.service'
-import { KeyboardShortcuts, Unlisten } from 'src/app/shared/services/keyboard-shortcuts.service'
 import { LedgerCriteriaVM } from '../../classes/view-models/ledger-criteria-vm'
 import { LedgerPDFService } from '../../classes/services/ledger-pdf.service'
 import { LedgerVM } from '../../classes/view-models/ledger-vm'
@@ -14,6 +13,7 @@ import { MessageLabelService } from 'src/app/shared/services/messages-label.serv
 import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
 import { ModalActionResultService } from 'src/app/shared/services/modal-action-result.service'
 import { environment } from 'src/environments/environment'
+import { Table } from 'primeng/table'
 
 @Component({
     selector: 'ledger-list',
@@ -25,32 +25,31 @@ export class LedgerListComponent {
 
     //#region variables
 
-    private unlisten: Unlisten
+    @ViewChild('table') table: Table | undefined
+
     private unsubscribe = new Subject<void>()
     public feature = 'ledgerList'
-    public featureIcon = ''
+    public featureIcon = 'ledgers'
     public icon = 'arrow_back'
-    public parentUrl = '/ledger'
+    public parentUrl = '/ledgers'
 
-    public ledgerCriteria: LedgerCriteriaVM
+    public imgIsLoaded = false
+    public criteria: LedgerCriteriaVM
     public records: LedgerVM[] = []
-    public isLoading = new Subject<boolean>()
 
     //#endregion
 
-    constructor(private activatedRoute: ActivatedRoute, private dateHelperService: DateHelperService, private emojiService: EmojiService, private ledgerPdfService: LedgerPDFService, private keyboardShortcutsService: KeyboardShortcuts, private localStorageService: LocalStorageService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private modalActionResultService: ModalActionResultService, private router: Router) { }
+    constructor(private activatedRoute: ActivatedRoute, private dateHelperService: DateHelperService, private emojiService: EmojiService, private ledgerPdfService: LedgerPDFService,  private localStorageService: LocalStorageService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private modalActionResultService: ModalActionResultService, private router: Router) { }
 
     //#region lifecycle hooks
 
     ngOnInit(): void {
-        this.addShortcuts()
         this.loadRecords()
-        this.populateCriteriaFromStoredVariables()
+        // this.populateCriteriaFromStoredVariables()
     }
 
     ngOnDestroy(): void {
         this.cleanup()
-        this.unlisten()
     }
 
     //#endregion
@@ -62,7 +61,7 @@ export class LedgerListComponent {
         const ws: XLSX.WorkSheet = XLSX.utils.table_to_sheet(element)
         const wb: XLSX.WorkBook = XLSX.utils.book_new()
         XLSX.utils.book_append_sheet(wb, ws, 'Ledger')
-        XLSX.writeFile(wb, 'Billings for ' + this.ledgerCriteria.fromDate + '.xlsx')
+        // XLSX.writeFile(wb, 'Billings for ' + this.ledgerCriteria.fromDate + '.xlsx')
     }
 
     public exportSingleCustomer(customerId: number): void {
@@ -70,13 +69,17 @@ export class LedgerListComponent {
         this.ledgerPdfService.createPDF(customerRecords)
     }
 
-    public formatDatePeriod(): string {
-        if (this.ledgerCriteria.fromDate == this.ledgerCriteria.toDate) {
-            return this.formatDateToLocale(this.ledgerCriteria.fromDate, true)
-        } else {
-            return this.formatDateToLocale(this.ledgerCriteria.fromDate, true) + ' - ' + this.formatDateToLocale(this.ledgerCriteria.toDate, true)
-        }
+    public filterRecords(event: { filteredValue: any[] }): void {
+        // this.filteredRecords.reservations = event.filteredValue
     }
+
+    // public formatDatePeriod(): string {
+    //     if (this.ledgerCriteria.fromDate == this.ledgerCriteria.toDate) {
+    //         return this.formatDateToLocale(this.ledgerCriteria.fromDate, true)
+    //     } else {
+    //         return this.formatDateToLocale(this.ledgerCriteria.fromDate, true) + ' - ' + this.formatDateToLocale(this.ledgerCriteria.toDate, true)
+    //     }
+    // }
 
     public formatDateToLocale(date: string, showWeekday = false): string {
         return this.dateHelperService.formatISODateToLocale(date, showWeekday)
@@ -106,19 +109,6 @@ export class LedgerListComponent {
 
     //#region private methods
 
-    private addShortcuts(): void {
-        this.unlisten = this.keyboardShortcutsService.listen({
-            'Escape': () => {
-                if (document.getElementsByClassName('cdk-overlay-pane').length === 0) {
-                    this.goBack()
-                }
-            }
-        }, {
-            priority: 0,
-            inputs: true
-        })
-    }
-
     private cleanup(): void {
         this.unsubscribe.next()
         this.unsubscribe.unsubscribe()
@@ -128,6 +118,7 @@ export class LedgerListComponent {
         const listResolved = this.activatedRoute.snapshot.data[this.feature]
         if (listResolved.error === null) {
             this.records = Object.assign([], listResolved.result)
+            console.log(this.records)
         } else {
             this.modalActionResultService.open(this.messageSnackbarService.filterResponse(listResolved.error), 'error', ['ok']).subscribe(() => {
                 this.goBack()
@@ -135,18 +126,18 @@ export class LedgerListComponent {
         }
     }
 
-    private populateCriteriaFromStoredVariables(): void {
-        if (this.localStorageService.getItem('ledger-criteria')) {
-            const criteria = JSON.parse(this.localStorageService.getItem('ledger-criteria'))
-            this.ledgerCriteria = {
-                fromDate: criteria.fromDate,
-                toDate: criteria.toDate,
-                customer: criteria.customer,
-                destination: criteria.destination,
-                ship: criteria.ship
-            }
-        }
-    }
+    // private populateCriteriaFromStoredVariables(): void {
+    //     if (this.localStorageService.getItem('ledger-criteria')) {
+    //         const criteria = JSON.parse(this.localStorageService.getItem('ledger-criteria'))
+    //         this.ledgerCriteria = {
+    //             fromDate: criteria.fromDate,
+    //             toDate: criteria.toDate,
+    //             customer: criteria.customer,
+    //             destination: criteria.destination,
+    //             ship: criteria.ship
+    //         }
+    //     }
+    // }
 
     //#endregion
 

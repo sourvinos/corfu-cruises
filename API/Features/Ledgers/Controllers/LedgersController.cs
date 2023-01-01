@@ -18,7 +18,7 @@ namespace API.Features.Ledger {
         }
 
         [Authorize(Roles = "user, admin")]
-        public IEnumerable<LedgerFinalVM> Get([FromQuery(Name = "fromDate")] string fromDate, [FromQuery(Name = "toDate")] string toDate, [FromQuery(Name = "customerId")] int[] customerIds, [FromQuery(Name = "destinationId")] int[] destinationIds, [FromQuery(Name = "shipId")] int?[] shipIds) {
+        public IEnumerable<LedgerVM> Get([FromQuery(Name = "fromDate")] string fromDate, [FromQuery(Name = "toDate")] string toDate, [FromQuery(Name = "customerId")] int[] customerIds, [FromQuery(Name = "destinationId")] int[] destinationIds, [FromQuery(Name = "shipId")] int?[] shipIds) {
             return repo.Get(fromDate, toDate, customerIds, destinationIds, shipIds);
         }
 

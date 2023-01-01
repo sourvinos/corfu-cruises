@@ -8,7 +8,7 @@ import { LedgerListResolver } from '../resolvers/ledger-list.resolver'
 
 const routes: Routes = [
     { path: '', component: LedgerCriteriaComponent, canActivate: [AuthGuardService] },
-    { path: 'list', component: LedgerListComponent, canActivate: [AuthGuardService], resolve: { ledgerList: LedgerListResolver } }
+    { path: 'list', component: LedgerListComponent, canActivate: [AuthGuardService], resolve: { ledgerList: LedgerListResolver }, runGuardsAndResolvers: 'always' }
 ]
 
 @NgModule({
