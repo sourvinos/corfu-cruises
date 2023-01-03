@@ -4,6 +4,7 @@
     --font-family-logo: "Aka-Acid-CanterBold";
     --font-family-manrope: "Manrope";
     --font-family-montserrat: "Montserrat";
+    --font-family-roboto: "Roboto";
     --font-family-ubuntu: "Ubuntu Condensed";
     /* Font weights */
     --font-weight-dialog-content: 300 !important;
@@ -18,9 +19,10 @@
     /* Common sizes in all screen resolutions */
     --font-size-button: 0.8rem;
     --font-size-calendar-day: 1rem;
-    --font-size-checkbox: 1rem;
+    --font-size-checkbox: 0.80rem;
     --font-size-datepicker-header-month: 1.8rem;
     --font-size-dialog: 1.5rem;
+    --font-size-fieldset-legend: 0.75rem;
     --font-size-h1: 1.5rem;
     --font-size-loading-message: 2rem;
     --font-size-logo-loader-first-child: 8rem;

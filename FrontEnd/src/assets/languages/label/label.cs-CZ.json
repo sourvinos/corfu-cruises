@@ -1423,17 +1423,13 @@
                 "description": "Plavidlo"
             },
             {
-                "id": "todayButton",
-                "description": "DENNĚ"
-            },
-            {
                 "id": "searchButton",
                 "description": "VYHLEDÁVÁNÍ"
             }
         ]
     },
     {
-        "feature": "LedgerList",
+        "feature": "ledgerList",
         "labels": [
             {
                 "id": "header",

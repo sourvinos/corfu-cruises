@@ -1429,11 +1429,11 @@
         ]
     },
     {
-        "feature": "LedgerList",
+        "feature": "ledgerList",
         "labels": [
             {
                 "id": "header",
-                "description": "Facturation au client"
+                "description": "Registres des clients"
             },
             {
                 "id": "headerCustomer",

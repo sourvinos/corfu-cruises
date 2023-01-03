@@ -35,17 +35,17 @@ export class LedgerListComponent {
 
     public imgIsLoaded = false
     public criteria: LedgerCriteriaVM
-    public records: LedgerVM[] = []
+    public records: LedgerVM[]
 
     //#endregion
 
-    constructor(private activatedRoute: ActivatedRoute, private dateHelperService: DateHelperService, private emojiService: EmojiService, private ledgerPdfService: LedgerPDFService,  private localStorageService: LocalStorageService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private modalActionResultService: ModalActionResultService, private router: Router) { }
+    constructor(private activatedRoute: ActivatedRoute, private dateHelperService: DateHelperService, private emojiService: EmojiService, private ledgerPdfService: LedgerPDFService, private localStorageService: LocalStorageService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private modalActionResultService: ModalActionResultService, private router: Router) { }
 
     //#region lifecycle hooks
 
     ngOnInit(): void {
         this.loadRecords()
-        // this.populateCriteriaFromStoredVariables()
+        this.populateCriteriaFromStorage()
     }
 
     ngOnDestroy(): void {
@@ -61,7 +61,7 @@ export class LedgerListComponent {
         const ws: XLSX.WorkSheet = XLSX.utils.table_to_sheet(element)
         const wb: XLSX.WorkBook = XLSX.utils.book_new()
         XLSX.utils.book_append_sheet(wb, ws, 'Ledger')
-        // XLSX.writeFile(wb, 'Billings for ' + this.ledgerCriteria.fromDate + '.xlsx')
+        XLSX.writeFile(wb, 'Billings ' + '.xlsx')
     }
 
     public exportSingleCustomer(customerId: number): void {
@@ -69,9 +69,9 @@ export class LedgerListComponent {
         this.ledgerPdfService.createPDF(customerRecords)
     }
 
-    public filterRecords(event: { filteredValue: any[] }): void {
-        // this.filteredRecords.reservations = event.filteredValue
-    }
+    // public filterRecords(event: { filteredValue: any[] }): void {
+    //     this.filteredRecords.reservations = event.filteredValue
+    // }
 
     // public formatDatePeriod(): string {
     //     if (this.ledgerCriteria.fromDate == this.ledgerCriteria.toDate) {
@@ -81,8 +81,12 @@ export class LedgerListComponent {
     //     }
     // }
 
-    public formatDateToLocale(date: string, showWeekday = false): string {
-        return this.dateHelperService.formatISODateToLocale(date, showWeekday)
+    public formatDateToLocale(date: string, showWeekday = false, showYear = false): string {
+        return this.dateHelperService.formatISODateToLocale(date, showWeekday, showYear)
+    }
+
+    public getEmoji(emoji: string): string {
+        return this.emojiService.getEmoji(emoji)
     }
 
     public getIcon(filename: string): string {
@@ -91,6 +95,18 @@ export class LedgerListComponent {
 
     public getLabel(id: string): string {
         return this.messageLabelService.getDescription(this.feature, id)
+    }
+
+    public getCustomerDescriptions(): string {
+        return this.criteria.customers.map((customer) => customer.description).join(' ▪️ ')
+    }
+
+    public getDestinationDescriptions(): string {
+        return this.criteria.destinations.map((destination) => destination.description).join(' ▪️ ')
+    }
+
+    public getShipDescriptions(): string {
+        return this.criteria.ships.map((ship) => ship.description).join(' ▪️ ')
     }
 
     public goBack(): void {
@@ -123,6 +139,12 @@ export class LedgerListComponent {
             this.modalActionResultService.open(this.messageSnackbarService.filterResponse(listResolved.error), 'error', ['ok']).subscribe(() => {
                 this.goBack()
             })
+        }
+    }
+
+    private populateCriteriaFromStorage(): void {
+        if (this.localStorageService.getItem('ledger-criteria')) {
+            this.criteria = JSON.parse(this.localStorageService.getItem('ledger-criteria'))
         }
     }
 

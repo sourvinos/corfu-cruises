@@ -1404,7 +1404,7 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Δημιουργία καρτελών πελατών"
+                "description": "Καρτέλες πελατών"
             },
             {
                 "id": "date",
@@ -1429,11 +1429,11 @@
         ]
     },
     {
-        "feature": "LedgerList",
+        "feature": "ledgerList",
         "labels": [
             {
                 "id": "header",
-                "description": "Τιμολόγηση πελατών"
+                "description": "Καρτέλες πελατών"
             },
             {
                 "id": "headerCustomer",

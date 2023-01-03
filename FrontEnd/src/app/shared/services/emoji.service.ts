@@ -19,6 +19,7 @@ export class EmojiService {
             case 'red-circle': return '🔴'
             case 'yellow-circle': return '🟡'
             case 'green-circle': return '🟢'
+            case 'printer': return '🖨️'
         }
 
     }

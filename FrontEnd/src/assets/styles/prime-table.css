@@ -22,7 +22,7 @@
 
 .p-datatable-flex-scrollable .p-datatable-wrapper {
     background: none;
-    overflow-x: hidden;
+    overflow-x: hidden !important;
 }
 
 .p-datatable .p-datatable-thead > tr > th {

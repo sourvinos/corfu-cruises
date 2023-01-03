@@ -67,7 +67,7 @@ export class AccountService extends HttpDataService {
             { 'item': 'activeYearReservations', 'when': 'always' },
             // Criteria
             { 'item': 'embarkation-criteria', 'when': 'production' },
-            { 'item': 'ledger-criteria', 'when': 'always' },
+            { 'item': 'ledger-criteria', 'when': 'production' },
             { 'item': 'manifest-criteria', 'when': 'production' },
             // Table filters
             { 'item': 'coachRoute-list', 'when': 'always' },

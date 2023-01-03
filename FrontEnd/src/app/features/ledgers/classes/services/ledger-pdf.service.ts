@@ -92,13 +92,13 @@ export class LedgerPDFService {
     }
 
     private setCriteria(record: LedgerVM): any {
-        const fromDate = this.dateHelperService.formatISODateToLocale(record.fromDate)
-        const toDate = this.dateHelperService.formatISODateToLocale(record.toDate)
+        // const fromDate = this.dateHelperService.formatISODateToLocale(record.fromDate)
+        // const toDate = this.dateHelperService.formatISODateToLocale(record.toDate)
         const criteria = {
             type: 'none',
             ul: [
                 { text: 'Customer: ' + record.customer.description, alignment: 'right', color: '#0a5f91', fontSize: 11, style: 'PFHandbookPro' },
-                { text: 'Date range: ' + fromDate + ' - ' + toDate, alignment: 'right', color: '#0a5f91', fontSize: 11, style: 'PFHandbookPro' }
+                // { text: 'Date range: ' + fromDate + ' - ' + toDate, alignment: 'right', color: '#0a5f91', fontSize: 11, style: 'PFHandbookPro' }
             ]
         }
         return criteria
@@ -110,14 +110,14 @@ export class LedgerPDFService {
 
     private createSummary(ledger: LedgerVM): any {
         const columns = []
-        ledger.portGroup.forEach(x => {
-            const portGroup = {
+        ledger.ports.forEach(x => {
+            const port = {
                 layout: 'noBorders',
                 table: {
                     body: [this.createPortHasTransferGroup(x)]
                 }
             }
-            columns.push(portGroup)
+            columns.push(port)
         })
         return columns
     }
@@ -266,9 +266,9 @@ export class LedgerPDFService {
         ])
     }
 
-    private calculateBodyTotals(personIdentifier: string, record: { portGroup: any[] }): number {
+    private calculateBodyTotals(personIdentifier: string, record: { ports: any[] }): number {
         let sum = 0
-        record.portGroup.forEach(element => {
+        record.ports.forEach(element => {
             sum += element[personIdentifier]
         })
         return sum

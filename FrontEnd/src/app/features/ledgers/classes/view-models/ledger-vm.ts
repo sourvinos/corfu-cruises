@@ -7,7 +7,7 @@ export interface LedgerVM {
     fromDate: string
     toDate: string
     customer: CustomerVM
-    portGroup: LedgerPortVM[]
+    ports: LedgerPortVM[]
     reservations: LedgerReservationVM[]
 
 }

@@ -113,27 +113,27 @@
                     </th>
                 </tr>
             </ng-template>
-            <ng-template pTemplate="body" let-reservation let-expanded="expanded">
+            <ng-template pTemplate="body" let-r let-expanded="expanded">
                 <tr>
-                    <td style="max-width: 3.5rem; min-width: 3.5rem; width: 3.5rem;"><button pButton pRipple [pRowToggler]="reservation" class="p-button-text p-button-rounded p-button-plain" [icon]="expanded ? 'fas fa-angle-down' : 'fas fa-angle-right'"></button></td>
-                    <td style="max-width: 7rem; min-width: 7rem; width: 7rem; text-align: center;"><span class="remarks" *ngIf="hasRemarks(reservation.remarks)" (click)="onShowRemarks(reservation.remarks)">{{ getEmoji('remarks') }}</span></td>
-                    <td style="max-width: 10rem; min-width: 10rem; text-align: center; width: 10rem;">{{ reservation.refNo }}</td>
-                    <td style="text-align: center;">{{ reservation.ticketNo }}</td>
-                    <td style="max-width: 10rem; min-width: 10rem; width: 10rem;">{{ reservation.destination }}</td>
-                    <td style="min-width: 10rem; max-width: 10rem; width:10rem;">{{ reservation.customer }}</td>
-                    <td style="max-width: 10rem; min-width: 10rem; width: 10rem;">{{ reservation.driver }}</td>
-                    <td style="max-width: 10rem; min-width: 10rem; width: 10rem;">{{ reservation.port }}</td>
-                    <td style="max-width: 10rem; min-width: 10rem; width: 10rem;">{{ reservation.ship }}</td>
-                    <td style="max-width: 6rem; min-width: 6rem; width: 6rem; text-align: center;">{{ reservation.totalPersons }}</td>
-                    <td style="max-width: 3rem; min-width: 3rem; width: 3rem; text-align: center;">{{ calculateDifference(reservation.totalPersons, reservation.passengers.length) }}</td>
-                    <td style="max-width: 10rem; min-width: 10rem; text-align: center; width: 10rem;">{{ getStatusText(reservation.embarkationStatus) }}</td>
+                    <td style="max-width: 3.5rem; min-width: 3.5rem; width: 3.5rem;"><button pButton pRipple [pRowToggler]="r" class="p-button-text p-button-rounded p-button-plain" [icon]="expanded ? 'fas fa-angle-down' : 'fas fa-angle-right'"></button></td>
+                    <td style="max-width: 7rem; min-width: 7rem; width: 7rem; text-align: center;"><span class="remarks" *ngIf="hasRemarks(r.remarks)" (click)="onShowRemarks(r.remarks)">{{ getEmoji('remarks') }}</span></td>
+                    <td style="max-width: 10rem; min-width: 10rem; text-align: center; width: 10rem;">{{ r.refNo }}</td>
+                    <td style="text-align: center;">{{ r.ticketNo }}</td>
+                    <td style="max-width: 10rem; min-width: 10rem; width: 10rem;">{{ r.destination }}</td>
+                    <td style="min-width: 10rem; max-width: 10rem; width:10rem;">{{ r.customer }}</td>
+                    <td style="max-width: 10rem; min-width: 10rem; width: 10rem;">{{ r.driver }}</td>
+                    <td style="max-width: 10rem; min-width: 10rem; width: 10rem;">{{ r.port }}</td>
+                    <td style="max-width: 10rem; min-width: 10rem; width: 10rem;">{{ r.ship }}</td>
+                    <td style="max-width: 6rem; min-width: 6rem; width: 6rem; text-align: center;">{{ r.totalPersons }}</td>
+                    <td style="max-width: 3rem; min-width: 3rem; width: 3rem; text-align: center;">{{ calculateDifference(r.totalPersons, r.passengers.length) }}</td>
+                    <td style="max-width: 10rem; min-width: 10rem; text-align: center; width: 10rem;">{{ getStatusText(r.embarkationStatus) }}</td>
                 </tr>
             </ng-template>
-            <ng-template pTemplate="rowexpansion" let-reservation>
-                <tr *ngIf="reservation.passengerIds.length > 0">
+            <ng-template pTemplate="rowexpansion" let-w>
+                <tr *ngIf="w.passengerIds.length > 0">
                     <td colspan="7">
                         <div class="passengers-row">
-                            <p-table class="nested-table" [value]="reservation.passengers" dataKey="lastname">
+                            <p-table class="nested-table" [value]="w.passengers" dataKey="lastname">
                                 <ng-template pTemplate="header">
                                     <tr>
                                         <th style="max-width: 10rem; min-width: 10rem; width: 10rem;" pSortableColumn="lastname">{{ getLabel('headerLastname')}}<p-sortIcon field="lastname"></p-sortIcon></th>
@@ -161,7 +161,7 @@
                                 <td></td>
                                 <td></td>
                                 <td style="width: 10%; padding: 0; text-align: center;">
-                                    <button (click)="embarkAllPassengers(true, reservation.passengerIds)" [disabled]="reservation.passengerIds.length == 0" class="primary embark-all-passengers" mat-flat-button>{{ getLabel("embarkAllPassengers") }}</button>
+                                    <button (click)="embarkAllPassengers(true, w.passengerIds)" [disabled]="w.passengerIds.length == 0" class="primary embark-all-passengers" mat-flat-button>{{ getLabel("embarkAllPassengers") }}</button>
                                 </td>
                             </ng-template>
                         </p-table>

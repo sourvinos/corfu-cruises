@@ -8,7 +8,7 @@
 .styled-input-single label {
     color: var(--color-c);
     cursor: pointer;
-    font-family: var(--font-family-manrope);
+    font-family: var(--font-family-roboto);
     font-size: var(--font-size-checkbox);
 }
 

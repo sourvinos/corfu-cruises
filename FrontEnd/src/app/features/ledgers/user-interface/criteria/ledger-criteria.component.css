@@ -37,7 +37,7 @@ fieldset {
 
 fieldset legend {
     color: var(--color-c);
-    font-family: var(--font-family-handbook);
-    font-size: 0.95rem;
+    font-family: var(--font-family-roboto);
+    font-size: var(--font-size-fieldset-legend);
     padding: 0 1rem 0 1rem;
 }
