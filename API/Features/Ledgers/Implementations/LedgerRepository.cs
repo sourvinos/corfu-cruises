@@ -39,7 +39,7 @@ namespace API.Features.Ledger {
                     && destinationIds.Contains(x.DestinationId)
                     && shipIds.Contains(x.ShipId))
                 .AsEnumerable()
-                .GroupBy(x => new { x.Customer.Id, x.Customer.Description })
+                .GroupBy(x => new { x.Customer.Id, x.Customer.Description }).OrderBy(x => x.Key.Description)
                 .Select(x => new LedgerVM {
                     Customer = new SimpleEntity {
                         Id = x.Key.Id,

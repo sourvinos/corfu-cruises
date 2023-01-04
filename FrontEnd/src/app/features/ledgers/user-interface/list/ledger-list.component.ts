@@ -13,6 +13,7 @@ import { MessageLabelService } from 'src/app/shared/services/messages-label.serv
 import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
 import { ModalActionResultService } from 'src/app/shared/services/modal-action-result.service'
 import { Table } from 'primeng/table'
+import { HelperService } from 'src/app/shared/services/helper.service'
 
 @Component({
     selector: 'ledger-list',
@@ -35,16 +36,29 @@ export class LedgerListComponent {
     public imgIsLoaded = false
     public criteria: LedgerCriteriaVM
     public records: LedgerVM[]
+    public customers: any[]
+    public destinations: any[]
+    distinctDestinations = new Set()
+    distinctShips = new Set()
 
     //#endregion
 
-    constructor(private activatedRoute: ActivatedRoute, private dateHelperService: DateHelperService, private emojiService: EmojiService, private ledgerPdfService: LedgerPDFService, private localStorageService: LocalStorageService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private modalActionResultService: ModalActionResultService, private router: Router) { }
+    constructor(private activatedRoute: ActivatedRoute, private dateHelperService: DateHelperService, private emojiService: EmojiService, private helperService: HelperService, private ledgerPdfService: LedgerPDFService, private localStorageService: LocalStorageService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private modalActionResultService: ModalActionResultService, private router: Router) { }
 
     //#region lifecycle hooks
 
     ngOnInit(): void {
         this.loadRecords()
         this.populateCriteriaFromStorage()
+        this.customers = this.helperService.getDistinctRecords(this.records, 'customer')
+        for (let i = 0; i < this.records.length; i++) {
+            this.records[i].reservations.map((x) => this.distinctDestinations.add(x.destination))
+        }
+        for (let i = 0; i < this.records.length; i++) {
+            this.records[i].reservations.map((x) => this.distinctShips.add(x.ship))
+        }
+        console.log('destinations', [...this.distinctDestinations])
+        console.log('ships', [...this.distinctShips])
     }
 
     ngOnDestroy(): void {
@@ -108,6 +122,7 @@ export class LedgerListComponent {
         const listResolved = this.activatedRoute.snapshot.data[this.feature]
         if (listResolved.error === null) {
             this.records = Object.assign([], listResolved.result)
+            console.log('api', this.records)
         } else {
             this.modalActionResultService.open(this.messageSnackbarService.filterResponse(listResolved.error), 'error', ['ok']).subscribe(() => {
                 this.goBack()
