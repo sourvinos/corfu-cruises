@@ -12,6 +12,7 @@
     --color-button-background-primary-hover: #647997;
     /*  Checkboxes */
     --color-checkbox-background: #3baca3;
+    --color-checkbox-label-background-hover: #9acfca42;
     /* Reservation Form Tabs */
     --color-tab-overview: #5f80a7;
     --color-tab-passengers: #829ebe;
@@ -27,10 +28,10 @@
     --color-criteria-c-border: #f27016;
     --color-criteria-d: #e52b74;
     --color-criteria-d-border: #e52b74;
-    /* Date picker calendar */
-    --color-day-border: #3baca3;
-    --color-range-between: rgb(201 135 77 / 60%);
-    --color-day-selected: #3baca3;
+    /* Date picker */
+    --color-day-border: #ffc107;
+    --color-range-between: #ffeb3b;
+    --color-day-selected: #ffc107;
     /* Custom calendar */
     --color-background-saturday: #f29c6b;
     --color-background-sunday: #f26513;
@@ -44,11 +45,6 @@
     --color-embarkation-complete: #c8e6c9;
     --color-embarkation-pending: #feedaf;
     --color-button-do-embarkation: #3d3b57;
-    /* Ledger */
-    --color-customer: #f27016;
-    --color-icon-error: #fd99ab;
-    --color-icon-ok: #75d378;
-    --color-icon-warning: #fbc02d;
     /* Input */
     --color-input-focus: #65b4ef;
     --color-input-error: #e57b7b;

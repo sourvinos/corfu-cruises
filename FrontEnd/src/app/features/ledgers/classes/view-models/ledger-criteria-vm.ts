@@ -7,7 +7,10 @@ export interface LedgerCriteriaVM {
     fromDate: string,
     toDate: string,
     customers: CustomerActiveVM[],
+    allCustomersCheckbox: boolean
     destinations: DestinationActiveVM[],
+    allDestinationsCheckbox: boolean
     ships: ShipActiveVM[]
+    allShipsCheckbox: boolean
 
 }

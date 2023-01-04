@@ -1423,6 +1423,10 @@
                 "description": "Schiffe"
             },
             {
+                "id": "selected",
+                "description": "Ausgewählte"
+            },
+            {
                 "id": "searchButton",
                 "description": "SUCHEN"
             }

@@ -3,8 +3,8 @@ import { Router } from '@angular/router'
 import { defer, finalize, Observable, Subject } from 'rxjs'
 // Custom
 import { ModalActionResultService } from './modal-action-result.service'
-import { environment } from 'src/environments/environment'
 import { Table } from 'primeng/table'
+import { environment } from 'src/environments/environment'
 
 export function prepare<T>(callback: () => void): (source: Observable<T>) => Observable<T> {
     return (source: Observable<T>): Observable<T> => defer(() => {
@@ -110,7 +110,7 @@ export class HelperService {
             const input = <HTMLInputElement>document.getElementById(element)
             input.focus()
             input.select()
-        }, 500)
+        }, 800)
     }
 
     public toggleActiveItem(item: string, lookupArray: string[], className: string): any {

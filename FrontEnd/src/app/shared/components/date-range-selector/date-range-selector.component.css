@@ -6,3 +6,9 @@
     justify-content: space-between;
     width: 100% !important;
 }
+
+.valid-range-icon {
+    bottom: 1.7rem;
+    position: fixed;
+    right: 3rem;
+}

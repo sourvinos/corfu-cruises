@@ -1423,6 +1423,10 @@
                 "description": "Navires"
             },
             {
+                "id": "selected",
+                "description": "Sélectionné"
+            },
+            {
                 "id": "searchButton",
                 "description": "RECHERCHE"
             }

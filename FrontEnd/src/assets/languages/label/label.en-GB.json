@@ -1423,6 +1423,10 @@
                 "description": "Ships"
             },
             {
+                "id": "selected",
+                "description": "Selected"
+            },
+            {
                 "id": "searchButton",
                 "description": "SEARCH"
             }

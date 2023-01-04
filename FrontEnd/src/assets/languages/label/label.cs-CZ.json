@@ -1423,6 +1423,10 @@
                 "description": "Plavidlo"
             },
             {
+                "id": "selected",
+                "description": "Vybrané"
+            },
+            {
                 "id": "searchButton",
                 "description": "VYHLEDÁVÁNÍ"
             }

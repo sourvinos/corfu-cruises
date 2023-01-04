@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core'
 import { DateRange, MatCalendar } from '@angular/material/datepicker'
 // Custom
+import { EmojiService } from '../../services/emoji.service'
 import { MessageLabelService } from '../../services/messages-label.service'
 
 @Component({
@@ -21,9 +22,13 @@ export class DateRangeSelectorComponent {
 
     //#endregion
 
-    constructor(private messageLabelService: MessageLabelService) { }
+    constructor(private emojiService: EmojiService, private messageLabelService: MessageLabelService) { }
 
     //#region public methods
+
+    public getEmoji(emoji: string): string {
+        return this.emojiService.getEmoji(emoji)
+    }
 
     public getLabel(id: string): string {
         return this.messageLabelService.getDescription(this.feature, id)

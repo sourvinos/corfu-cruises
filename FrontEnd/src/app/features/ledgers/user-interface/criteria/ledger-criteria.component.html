@@ -17,10 +17,16 @@
             </fieldset>
             <!-- Customers -->
             <fieldset class="max-height">
-                <legend>{{ getLabel('customers') }}</legend>
+                <legend>
+                    <span>{{ getLabel('customers') }}</span>
+                    <div class="selected">
+                        <span class="selected-count">{{ getLabel("selected") }}: {{ form.value.customers.length }}</span>
+                        <span class="icon">{{ getEmoji(form.value.customers.length > 0 ? 'ok' : 'warning') }}</span>
+                    </div>
+                </legend>
                 <div class="filter">
                     <div class="styled-input-square">
-                        <div class="styled-input-single">
+                        <div class="styled-input-single no-hover">
                             <input (click)="toggleAllCheckboxes('customer', 'allCustomersCheckbox')" id="all-customers" type="checkbox" formControlName="allCustomersCheckbox">
                             <label for="all-customers"></label>
                         </div>
@@ -32,7 +38,7 @@
                 <div class="list-wrapper">
                     <div *ngFor="let customer of filteredCustomers">
                         <div class="styled-input-square">
-                            <div class="styled-input-single" (change)="onCheckboxChange($event, 'customers', customer.description)">
+                            <div class="styled-input-single" (change)="onCheckboxChange($event, 'allCustmersCheckbox', 'customers', customer.description)">
                                 <input class="customer" formArrayName="customers" type="checkbox" [value]="customer.id" [attr.id]="'customer' + customer.id" [checked]="lookup('customers', customer.id)">
                                 <label [attr.for]="'customer' + customer.id" [attr.id]="'customer-label' + customer.id">{{ customer.description }}</label>
                             </div>
@@ -42,10 +48,16 @@
             </fieldset>
             <!-- Destinations -->
             <fieldset class="max-height">
-                <legend>{{ getLabel('destinations') }}</legend>
+                <legend>
+                    <span>{{ getLabel('destinations') }}</span>
+                    <div class="selected">
+                        <span class="selected-count">{{ getLabel("selected") }}: {{ form.value.destinations.length }}</span>
+                        <span class="icon">{{ getEmoji(form.value.destinations.length > 0 ? 'ok' : 'warning') }}</span>
+                    </div>
+                </legend>
                 <div class="filter">
                     <div class="styled-input-square">
-                        <div class="styled-input-single">
+                        <div class="styled-input-single no-hover">
                             <input (click)="toggleAllCheckboxes('destination', 'allDestinationsCheckbox')" id="all-destinations" type="checkbox" formControlName="allDestinationsCheckbox">
                             <label for="all-destinations"></label>
                         </div>
@@ -57,7 +69,7 @@
                 <div class="list-wrapper">
                     <div *ngFor="let destination of filteredDestinations">
                         <div class="styled-input-square">
-                            <div class="styled-input-single" (change)="onCheckboxChange($event, 'destinations', destination.description)">
+                            <div class="styled-input-single" (change)="onCheckboxChange($event, 'allDestinationsCheckbox', 'destinations', destination.description)">
                                 <input class="destination" formArrayName="destinations" type="checkbox" [value]="destination.id" [attr.id]="'destination' + destination.id" [checked]="lookup('destinations', destination.id)">
                                 <label [attr.for]="'destination' + destination.id" [attr.id]="'destination-label' + destination.id">{{ destination.description }}</label>
                             </div>
@@ -67,10 +79,16 @@
             </fieldset>
             <!-- Ships -->
             <fieldset class="max-height">
-                <legend>{{ getLabel('ships') }}</legend>
+                <legend>
+                    <span>{{ getLabel('ships') }}</span>
+                    <div class="selected">
+                        <span class="selected-count">{{ getLabel("selected") }}: {{ form.value.ships.length }}</span>
+                        <span class="icon">{{ getEmoji(form.value.ships.length > 0 ? 'ok' : 'warning') }}</span>
+                    </div>
+                </legend>
                 <div class="filter">
                     <div class="styled-input-square">
-                        <div class="styled-input-single">
+                        <div class="styled-input-single no-hover">
                             <input (click)="toggleAllCheckboxes('ship', 'allShipsCheckbox')" id="all-ships" type="checkbox" formControlName="allShipsCheckbox">
                             <label for="all-ships"></label>
                         </div>
@@ -82,7 +100,7 @@
                 <div class="list-wrapper">
                     <div *ngFor="let ship of filteredShips">
                         <div class="styled-input-square">
-                            <div class="styled-input-single" (change)="onCheckboxChange($event, 'ships', ship.description)">
+                            <div class="styled-input-single" (change)="onCheckboxChange($event, 'allShipsCheckbox', 'ships', ship.description)">
                                 <input class="ship" formArrayName="ships" type="checkbox" [value]="ship.id" [attr.id]="'ship' + ship.id" [checked]="lookup('ships', ship.id)">
                                 <label [attr.for]="'ship' + ship.id" [attr.id]="'ship-label' + ship.id">{{ ship.description }}</label>
                             </div>

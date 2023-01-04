@@ -1,7 +1,7 @@
-import { ActivatedRoute, Router } from '@angular/router'
 import { Component, ViewChild } from '@angular/core'
 import { DateAdapter } from '@angular/material/core'
 import { FormGroup, FormBuilder, Validators, FormArray, FormControl } from '@angular/forms'
+import { Router } from '@angular/router'
 import { Subject } from 'rxjs'
 import { takeUntil } from 'rxjs/operators'
 // Custom
@@ -11,6 +11,7 @@ import { CustomerService } from 'src/app/features/customers/classes/services/cus
 import { DateHelperService } from 'src/app/shared/services/date-helper.service'
 import { DateRange, MatCalendar } from '@angular/material/datepicker'
 import { DestinationActiveVM } from 'src/app/features/destinations/classes/view-models/destination-active-vm'
+import { EmojiService } from './../../../../shared/services/emoji.service'
 import { HelperService } from 'src/app/shared/services/helper.service'
 import { InteractionService } from 'src/app/shared/services/interaction.service'
 import { LedgerCriteriaVM } from '../../classes/view-models/ledger-criteria-vm'
@@ -50,7 +51,7 @@ export class LedgerCriteriaComponent {
 
     //#endregion
 
-    constructor(private activatedRoute: ActivatedRoute, private customerService: CustomerService, private dateAdapter: DateAdapter<any>, private helperService: HelperService, private dateHelperService: DateHelperService, private formBuilder: FormBuilder, private interactionService: InteractionService, private localStorageService: LocalStorageService, private messageLabelService: MessageLabelService, private router: Router) { }
+    constructor(private customerService: CustomerService, private dateAdapter: DateAdapter<any>, private dateHelperService: DateHelperService, private emojiService: EmojiService, private formBuilder: FormBuilder, private helperService: HelperService, private interactionService: InteractionService, private localStorageService: LocalStorageService, private messageLabelService: MessageLabelService, private router: Router) { }
 
     //#region lifecycle hooks
 
@@ -71,10 +72,6 @@ export class LedgerCriteriaComponent {
 
     //#region public methods
 
-    public clearFilterText(field: string): void {
-        this.form.patchValue({ [field]: '' })
-    }
-
     public doTasks(): void {
         this.storeCriteria()
         this.navigateToList()
@@ -83,7 +80,7 @@ export class LedgerCriteriaComponent {
     public filterList(event: { target: { value: any } }, filteredList: string, list: string, listElement: string): void {
         this[filteredList] = this[list]
         const x = event.target.value
-        this[filteredList] = this[list].filter(i => i.description.toLowerCase().includes(x.toLowerCase()))
+        this[filteredList] = this[list].filter((i: { description: string }) => i.description.toLowerCase().includes(x.toLowerCase()))
         setTimeout(() => {
             const criteria = this.form.value[list]
             criteria.forEach((element: { description: any }) => {
@@ -103,6 +100,10 @@ export class LedgerCriteriaComponent {
         return this.messageLabelService.getDescription(this.feature, id)
     }
 
+    public getEmoji(emoji: string): string {
+        return this.emojiService.getEmoji(emoji)
+    }
+
     public isAdmin(): boolean {
         return ConnectedUser.isAdmin
     }
@@ -120,12 +121,13 @@ export class LedgerCriteriaComponent {
     }
 
     /**
-     * Adds/removes controls to/from the formArray
+     * Adds/removes controls to/from the formArray 
+     * Checks/unchecks the master checkbox if all checkboxes as selected/unselected
      * @param event
      * @param formControlsArray
      * @param description 
      */
-    public onCheckboxChange(event: any, formControlsArray: string, description: string): void {
+    public onCheckboxChange(event: any, allCheckbox: string, formControlsArray: string, description: string): void {
         const selected = this.form.controls[formControlsArray] as FormArray
         if (event.target.checked) {
             selected.push(this.formBuilder.group({
@@ -136,15 +138,26 @@ export class LedgerCriteriaComponent {
             const index = selected.controls.findIndex(x => x.value.id == parseInt(event.target.value))
             selected.removeAt(index)
         }
+        if (selected.length == 0) {
+            document.querySelector<HTMLInputElement>('#all-' + formControlsArray).checked = false
+            this.form.patchValue({
+                [allCheckbox]: false
+            })
+        } else {
+            if (selected.length == this[formControlsArray].length) {
+                document.querySelector<HTMLInputElement>('#all-' + formControlsArray).checked = true
+                this.form.patchValue({
+                    [allCheckbox]: true
+                })
+            }
+        }
     }
 
     public patchFormWithSelectedDates(event: any): void {
-        if (event.start != null && event.end != null) {
-            this.form.patchValue({
-                fromDate: this.dateHelperService.formatDateToIso(event.start, false),
-                toDate: this.dateHelperService.formatDateToIso(event.end, false)
-            })
-        }
+        this.form.patchValue({
+            fromDate: event.start != null ? this.dateHelperService.formatDateToIso(event.start) : '',
+            toDate: event.end != null ? this.dateHelperService.formatDateToIso(event.end) : ''
+        })
     }
 
     public selectAllText(field: string): void {
@@ -153,6 +166,7 @@ export class LedgerCriteriaComponent {
 
     public toggleAllCheckboxes(array: string, allCheckboxes: string): void {
         const selected = this.form.controls[array + 's'] as FormArray
+        selected.clear()
         const checkboxes = document.querySelectorAll<HTMLInputElement>('.' + array)
         checkboxes.forEach(checkbox => {
             checkbox.checked = !this.form.value[allCheckboxes]
@@ -161,8 +175,6 @@ export class LedgerCriteriaComponent {
                     id: [checkbox.value, Validators.required],
                     description: document.getElementById(array + '-label' + checkbox.value).innerHTML
                 }))
-            } else {
-                selected.clear()
             }
         })
     }
@@ -244,6 +256,9 @@ export class LedgerCriteriaComponent {
                 customersFilter: '',
                 destinationsFilter: '',
                 shipsFilter: '',
+                allCustomersCheckbox: this.criteria.allCustomersCheckbox,
+                allDestinationsCheckbox: this.criteria.allDestinationsCheckbox,
+                allShipsCheckbox: this.criteria.allShipsCheckbox
             })
         }
     }

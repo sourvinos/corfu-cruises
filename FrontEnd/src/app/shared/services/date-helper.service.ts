@@ -32,7 +32,7 @@ export class DateHelperService {
      * @param includeWeekday: An optional boolean whether to include the weekday in the return string
      * @returns String formatted as "YYYY-MM-DD" or "Tue YYYY-MM-DD"
     */
-    public formatDateToIso(date: Date, includeWeekday: boolean): string {
+    public formatDateToIso(date: Date, includeWeekday = false): string {
         let day = date.getDate().toString()
         let month = (date.getMonth() + 1).toString()
         const year = date.getFullYear()

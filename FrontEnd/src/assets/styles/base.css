@@ -9,10 +9,10 @@
 
 @import url("autocomplete.css");
 @import url("buttons.css");
-@import url("calendar.css");
 @import url("card.css");
 @import url("checkbox.css");
 @import url("criteria.css");
+@import url("date-picker.css");
 @import url("dialogs.css");
 @import url("headers.css");
 @import url("input-error.css");

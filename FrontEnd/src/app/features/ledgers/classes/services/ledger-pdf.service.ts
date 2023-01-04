@@ -85,7 +85,7 @@ export class LedgerPDFService {
             type: 'none',
             ul: [
                 { text: 'Corfu Cruises', alignment: 'left', color: '#0a5f91', fontSize: 20, margin: [-5, 0, 0, 0], style: 'AkaAcidCanterBold' },
-                { text: 'Billing Report', alignment: 'left', color: '#22a7f2', fontSize: 12, margin: [-4, 0, 0, 0], style: 'PFHandbookPro' }
+                { text: 'Customer ledger', alignment: 'left', color: '#22a7f2', fontSize: 12, margin: [-4, 0, 0, 0], style: 'PFHandbookPro' }
             ]
         }
         return title

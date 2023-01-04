@@ -12,7 +12,6 @@ import { LocalStorageService } from 'src/app/shared/services/local-storage.servi
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
 import { ModalActionResultService } from 'src/app/shared/services/modal-action-result.service'
-import { environment } from 'src/environments/environment'
 import { Table } from 'primeng/table'
 
 @Component({
@@ -57,8 +56,7 @@ export class LedgerListComponent {
     //#region public methods
 
     public exportAllCustomers(): void {
-        const element = document.getElementById('table-wrapper')
-        const ws: XLSX.WorkSheet = XLSX.utils.table_to_sheet(element)
+        const ws: XLSX.WorkSheet = XLSX.utils.table_to_sheet(this.table)
         const wb: XLSX.WorkBook = XLSX.utils.book_new()
         XLSX.utils.book_append_sheet(wb, ws, 'Ledger')
         XLSX.writeFile(wb, 'Billings ' + '.xlsx')
@@ -69,28 +67,12 @@ export class LedgerListComponent {
         this.ledgerPdfService.createPDF(customerRecords)
     }
 
-    // public filterRecords(event: { filteredValue: any[] }): void {
-    //     this.filteredRecords.reservations = event.filteredValue
-    // }
-
-    // public formatDatePeriod(): string {
-    //     if (this.ledgerCriteria.fromDate == this.ledgerCriteria.toDate) {
-    //         return this.formatDateToLocale(this.ledgerCriteria.fromDate, true)
-    //     } else {
-    //         return this.formatDateToLocale(this.ledgerCriteria.fromDate, true) + ' - ' + this.formatDateToLocale(this.ledgerCriteria.toDate, true)
-    //     }
-    // }
-
     public formatDateToLocale(date: string, showWeekday = false, showYear = false): string {
         return this.dateHelperService.formatISODateToLocale(date, showWeekday, showYear)
     }
 
     public getEmoji(emoji: string): string {
         return this.emojiService.getEmoji(emoji)
-    }
-
-    public getIcon(filename: string): string {
-        return environment.criteriaIconDirectory + filename + '.svg'
     }
 
     public getLabel(id: string): string {
@@ -113,14 +95,6 @@ export class LedgerListComponent {
         this.router.navigate([this.parentUrl])
     }
 
-    public replaceWildcardWithText(criteria: any): string {
-        if (criteria.description.includes(this.emojiService.getEmoji('wildcard'))) {
-            return this.emojiService.getEmoji('wildcard')
-        } else {
-            return criteria.description
-        }
-    }
-
     //#endregion
 
     //#region private methods
@@ -134,7 +108,6 @@ export class LedgerListComponent {
         const listResolved = this.activatedRoute.snapshot.data[this.feature]
         if (listResolved.error === null) {
             this.records = Object.assign([], listResolved.result)
-            console.log(this.records)
         } else {
             this.modalActionResultService.open(this.messageSnackbarService.filterResponse(listResolved.error), 'error', ['ok']).subscribe(() => {
                 this.goBack()
@@ -147,19 +120,6 @@ export class LedgerListComponent {
             this.criteria = JSON.parse(this.localStorageService.getItem('ledger-criteria'))
         }
     }
-
-    // private populateCriteriaFromStoredVariables(): void {
-    //     if (this.localStorageService.getItem('ledger-criteria')) {
-    //         const criteria = JSON.parse(this.localStorageService.getItem('ledger-criteria'))
-    //         this.ledgerCriteria = {
-    //             fromDate: criteria.fromDate,
-    //             toDate: criteria.toDate,
-    //             customer: criteria.customer,
-    //             destination: criteria.destination,
-    //             ship: criteria.ship
-    //         }
-    //     }
-    // }
 
     //#endregion
 

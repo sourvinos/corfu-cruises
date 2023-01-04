@@ -17,6 +17,7 @@
 }
 
 .filter {
+    align-items: baseline;
     display: flex;
     flex-direction: row;
 }
@@ -24,6 +25,21 @@
 .list-wrapper {
     height: 92%;
     overflow-y: scroll;
+}
+
+.selected {
+    display: flex;
+    align-items: center;
+}
+
+.selected-count {
+    font-size: 0.6875rem;
+}
+
+.icon {
+    position: relative;
+    top: -2px;
+    font-size: 15px;
 }
 
 fieldset {
@@ -36,8 +52,12 @@ fieldset {
 }
 
 fieldset legend {
+    align-items: center;
     color: var(--color-c);
+    display: flex;
     font-family: var(--font-family-roboto);
     font-size: var(--font-size-fieldset-legend);
+    justify-content: space-between;
     padding: 0 1rem 0 1rem;
+    width: 100%;
 }

@@ -1423,6 +1423,10 @@
                 "description": "Πλοία"
             },
             {
+                "id": "selected",
+                "description": "Επιλεγμένα"
+            },
+            {
                 "id": "searchButton",
                 "description": "ΑΝΑΖΗΤΗΣΗ"
             }
