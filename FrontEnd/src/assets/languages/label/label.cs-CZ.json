@@ -633,7 +633,7 @@
             },
             {
                 "id": "summaryHeaderShips",
-                "description": "Plavidlos"
+                "description": "Loďs"
             },
             {
                 "id": "assignToDriverButton",
@@ -721,7 +721,7 @@
             },
             {
                 "id": "headerShip",
-                "description": "Plavidlo"
+                "description": "Loď"
             },
             {
                 "id": "headerTime",
@@ -806,7 +806,7 @@
             },
             {
                 "id": "ship",
-                "description": "Plavidlo"
+                "description": "Loď"
             },
             {
                 "id": "email",
@@ -956,7 +956,7 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Plavidla"
+                "description": "Lodě"
             },
             {
                 "id": "headerIsActive",
@@ -981,7 +981,7 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Plavidlo"
+                "description": "Loď"
             },
             {
                 "id": "description",
@@ -1265,7 +1265,7 @@
             },
             {
                 "id": "headerShip",
-                "description": "Plavidlo"
+                "description": "Loď"
             },
             {
                 "id": "headerPersons",
@@ -1420,7 +1420,7 @@
             },
             {
                 "id": "ships",
-                "description": "Plavidlo"
+                "description": "Loď"
             },
             {
                 "id": "selected",
@@ -1453,7 +1453,7 @@
             },
             {
                 "id": "headerShip",
-                "description": "Plavidlo"
+                "description": "Loď"
             },
             {
                 "id": "headerPort",
@@ -1496,32 +1496,16 @@
                 "description": "EXPORTOVAT VŠE DO XLS"
             },
             {
-                "id": "no-results",
-                "description": "Nic jsme nenašli!"
+                "id": "criteria-customers",
+                "description": "Zákazníci"
             },
             {
-                "id": "has-transfer",
-                "description": "ANO"
-            },
-            {
-                "id": "no-transfer",
-                "description": "NE"
-            },
-            {
-                "id": "criteria-date",
-                "description": "Datum"
-            },
-            {
-                "id": "criteria-customer",
-                "description": "Zákazník"
-            },
-            {
-                "id": "criteria-destination",
+                "id": "criteria-destinations",
                 "description": "Destinace"
             },
             {
-                "id": "criteria-ship",
-                "description": "Plavidlo"
+                "id": "criteria-ships",
+                "description": "Lodě"
             }
         ]
     },
@@ -1546,7 +1530,7 @@
             },
             {
                 "id": "ship",
-                "description": "Plavidlo"
+                "description": "Loď"
             },
             {
                 "id": "shipRoute",
@@ -1583,7 +1567,7 @@
             },
             {
                 "id": "criteriaShip",
-                "description": "Plavidlo"
+                "description": "Loď"
             },
             {
                 "id": "criteriaShipRoute",
@@ -1636,7 +1620,7 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Majitelé plavidel"
+                "description": "Majitelé lodí"
             },
             {
                 "id": "headerIsActive",
@@ -1665,7 +1649,7 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Plavidloowner"
+                "description": "Loďowner"
             },
             {
                 "id": "description",
@@ -1808,7 +1792,7 @@
             },
             {
                 "id": "headerShipDescription",
-                "description": "Plavidlo"
+                "description": "Loď"
             },
             {
                 "id": "newRecord",
@@ -1829,7 +1813,7 @@
             },
             {
                 "id": "ship",
-                "description": "Plavidlo"
+                "description": "Loď"
             },
             {
                 "id": "phones",
@@ -1878,7 +1862,7 @@
             },
             {
                 "id": "headerShipDescription",
-                "description": "Plavidlo"
+                "description": "Loď"
             },
             {
                 "id": "headerLastname",
@@ -1919,7 +1903,7 @@
             },
             {
                 "id": "ship",
-                "description": "Plavidlo"
+                "description": "Loď"
             },
             {
                 "id": "nationality",
@@ -2102,7 +2086,7 @@
             },
             {
                 "id": "headerShip",
-                "description": "Plavidlo"
+                "description": "Loď"
             },
             {
                 "id": "headerPort",

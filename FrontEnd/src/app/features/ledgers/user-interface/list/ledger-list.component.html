@@ -2,23 +2,53 @@
 
     <div id="header">
         <home-button-and-title [feature]="feature" [featureIcon]="featureIcon" [icon]="icon" [parentUrl]="parentUrl"></home-button-and-title>
+        <div id="criteria">
+            <div class="pill date">
+                <img width="20px" [src]="getIcon('calendar')">
+                <div class="description">{{ formatDateToLocale(criteria.fromDate, true, true) }} - {{ formatDateToLocale(criteria.toDate, true, true) }}</div>
+            </div>
+        </div>
     </div>
 
     <div id="content">
         <div id="criteria-panel">
-            <div id="customers">
-                <div *ngFor="let customer of customers" class="customer">
-                    {{ customer.value.description }}
+            <div class="panel" id="customers">
+                <div class="panel-header">
+                    <img width="20px" [src]="getIcon('customers')">
+                    <span>{{ getLabel('criteria-customers') }}</span>
+                </div>
+                <div class="panel-content">
+                    <div class="list">
+                        <div *ngFor="let customer of customers" class="description">
+                            ▪️ {{ customer.value.description }}
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div id="destinations">
-                <div *ngFor="let destination of distinctDestinations" class="customer">
-                    {{ destination }}
+            <div class="panel" id="destinations">
+                <div class="panel-header">
+                    <img width="20px" [src]="getIcon('destinations')">
+                    <span>{{ getLabel('criteria-destinations') }}</span>
+                </div>
+                <div class="panel-content">
+                    <div class="list">
+                        <div *ngFor="let destination of distinctDestinations" class="description">
+                            ▪️ {{ destination }}
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div id="ships">
-                <div *ngFor="let ship of distinctShips" class="customer">
-                    {{ ship }}
+            <div class="panel" id="ships">
+                <div class="panel-header">
+                    <img width="20px" [src]="getIcon('ships')">
+                    <span> {{ getLabel('criteria-ships') }}</span>
+                </div>
+                <div class="panel-content">
+                    <div class="list">
+                        <div *ngFor="let ship of distinctShips" class="description">
+                            ▪️ {{ ship }}
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -44,107 +74,106 @@
                             <div>
                                 <p-table class="nested-table" [value]="r.reservations" dataKey="lastname">
                                     <ng-template pTemplate="header">
-                                        <tr>
-                                            <th style="max-width: 6rem; min-width: 6rem; width: 6rem;">{{ getLabel('headerDate') }}</th>
-                                            <th style="max-width: 10rem; min-width: 10rem; width: 10rem;">{{ getLabel('headerDestination') }}</th>
-                                            <th style="max-width: 10rem; min-width: 10rem; width: 10rem;">{{ getLabel('headerShip') }}</th>
-                                            <th style="max-width: 10rem; min-width: 10rem; width: 10rem;">{{ getLabel('headerPort') }}</th>
-                                            <th style="max-width: 10rem; min-width: 10rem; width: 10rem;">{{ getLabel('headerRefNo') }}</th>
-                                            <th style="max-width: 10rem; min-width: 10rem; width: 10rem;">{{ getLabel('headerTicketNo') }}</th>
-                                            <th style="max-width: 6rem; min-width: 0rem; width: 0rem;">{{ getLabel('headerHasTransfer') }}</th>
-                                            <th style="max-width: 0rem; min-width: 0rem; width: 0rem;">{{ getLabel('headerAdults') }}</th>
-                                            <th style="max-width: 0rem; min-width: 0rem; width: 0rem;">{{ getLabel('headerKids') }}</th>
-                                            <th style="max-width: 0rem; min-width: 0rem; width: 0rem;">{{ getLabel('headerFree') }}</th>
-                                            <th style="max-width: 0rem; min-width: 0rem; width: 0rem;">Σ</th>
-                                            <th style="min-width: 0rem; max-width: 0rem; width: 0rem;">Σ<span class="subscript">1</span></th>
-                                            <th style="max-width: 6rem; min-width: 6rem; width: 6rem;">+/-</th>
-                                            <th>{{ getLabel('headerRemarks') }}</th>
-                                        </tr>
-                                    </ng-template>
-                                    <ng-template pTemplate="body" let-reservation>
-                                        <tr class="passenger-row">
-                                            <td style="min-width: 6rem; max-width: 6rem; width:6rem; text-align: center;">{{ formatDateToLocale(reservation.date) }}</td>
-                                            <td style="max-width: 10rem; min-width: 10rem; width: 10rem;">{{ reservation.destination }}</td>
-                                            <td style="max-width: 10rem; min-width: 10rem; width: 10rem;">{{ reservation.ship }}</td>
-                                            <td style="max-width: 10rem; min-width: 10rem; width: 10rem;">{{ reservation.port }}</td>
-                                            <td style="max-width: 10rem; min-width: 10rem; width: 10rem;">{{ reservation.refNo }}</td>
-                                            <td style="max-width: 10rem; min-width: 10rem; width: 10rem;">{{ reservation.ticketNo }}</td>
-                                            <td [ngClass]="reservation.hasTransfer ? 'has-transfer' : 'no-transfer'" style="max-width: 6rem; min-width: 6rem; width:6rem; text-align: center;">
-                                                <span *ngIf="reservation.hasTransfer">{{ getEmoji('green-circle') }} </span>
-                                                <span *ngIf="!reservation.hasTransfer">{{ getEmoji('red-circle') }}</span>
-                                            </td>
-                                            <td style="min-width: 4rem; max-width: 4rem; width: 4rem; text-align: center;">{{ reservation.adults }}</td>
-                                            <td style="min-width: 4rem; max-width: 4rem; width: 4rem; text-align: center;">{{ reservation.kids }}</td>
-                                            <td style="min-width: 4rem; max-width: 4rem; width: 4rem; text-align: center;">{{ reservation.free }}</td>
-                                            <td style="min-width: 4rem; max-width: 4rem; width: 4rem; text-align: center;">{{ reservation.totalPersons }}</td>
-                                            <td style="min-width: 4rem; max-width: 4rem; width: 4rem; text-align: center;">{{ reservation.embarkedPassengers }}</td>
-                                            <td style="min-width: 4rem; max-width: 4rem; width: 4rem; text-align: right;">
-                                                <span>{{ reservation.totalPersons - reservation.embarkedPassengers }}</span>
-                                                <span style="margin-left: 0.5rem; font-size: 15px;" *ngIf="reservation.totalPersons - reservation.embarkedPassengers == 0">{{ getEmoji('ok') }}</span>
-                                                <span style="margin-left: 0.5rem; font-size: 15px;" *ngIf="reservation.totalPersons - reservation.embarkedPassengers != 0">{{ getEmoji('warning') }}</span>
-                                            </td>
-                                            <td>{{ reservation.remarks }}</td>
-                                        </tr>
-                                    </ng-template>
-                                </p-table>
-                            </div>
-                        </td>
+                    <tr>
+                        <th style="max-width: 6rem; min-width: 6rem; width: 6rem;">{{ getLabel('headerDate') }}</th>
+                        <th style="max-width: 10rem; min-width: 10rem; width: 10rem;">{{ getLabel('headerDestination') }}</th>
+                        <th style="max-width: 10rem; min-width: 10rem; width: 10rem;">{{ getLabel('headerShip') }}</th>
+                        <th style="max-width: 10rem; min-width: 10rem; width: 10rem;">{{ getLabel('headerPort') }}</th>
+                        <th style="max-width: 10rem; min-width: 10rem; width: 10rem;">{{ getLabel('headerRefNo') }}</th>
+                        <th style="max-width: 10rem; min-width: 10rem; width: 10rem;">{{ getLabel('headerTicketNo') }}</th>
+                        <th style="max-width: 6rem; min-width: 0rem; width: 0rem;">{{ getLabel('headerHasTransfer') }}</th>
+                        <th style="max-width: 0rem; min-width: 0rem; width: 0rem;">{{ getLabel('headerAdults') }}</th>
+                        <th style="max-width: 0rem; min-width: 0rem; width: 0rem;">{{ getLabel('headerKids') }}</th>
+                        <th style="max-width: 0rem; min-width: 0rem; width: 0rem;">{{ getLabel('headerFree') }}</th>
+                        <th style="max-width: 0rem; min-width: 0rem; width: 0rem;">Σ</th>
+                        <th style="min-width: 0rem; max-width: 0rem; width: 0rem;">Σ<span class="subscript">1</span></th>
+                        <th style="max-width: 6rem; min-width: 6rem; width: 6rem;">+/-</th>
+                        <th>{{ getLabel('headerRemarks') }}</th>
                     </tr>
-                <tr class="group-row">
-                    <td colspan="3">
-                        <div class="pivot">
-                            <div class="port-panel" *ngFor="let port of r.ports, let i = index">
-                                <table class="port-group">
-                                    <thead>
-                                        <tr>
-                                            <th class="port"></th>
-                                            <th class="header number">A</th>
-                                            <th class="header number">K</th>
-                                            <th class="header number">F</th>
-                                            <th class="header number">Σ</th>
-                                            <th class="header number">Σ<span class="subscript">1</span></th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr *ngFor="let hasTransfer of r.ports[i].hasTransferGroup, let z = index">
-                                            <td></td>
-                                            <td class="number">{{ r.ports[i].hasTransferGroup[z].adults }}</td>
-                                            <td class="number">{{ r.ports[i].hasTransferGroup[z].kids }}</td>
-                                            <td class="number">{{ r.ports[i].hasTransferGroup[z].free }}</td>
-                                            <td class="number">{{ r.ports[i].hasTransferGroup[z].totalPersons }}</td>
-                                            <td class="number">{{ r.ports[i].hasTransferGroup[z].totalPassengers }}</td>
-                                            <td class="number no-border">
-                                                <span *ngIf="r.ports[i].hasTransferGroup[z].hasTransfer">{{ getEmoji('green-circle') }}</span>
-                                                <span *ngIf="!r.ports[i].hasTransferGroup[z].hasTransfer">{{ getEmoji('red-circle') }}</span>
-                                            </td>
-                                            <td class="number no-border fix-padding">
-                                                <span *ngIf="r.ports[i].hasTransferGroup[z].totalPersons == r.ports[i].hasTransferGroup[z].totalPassengers">{{ getEmoji('ok') }}</span>
-                                                <span *ngIf="r.ports[i].hasTransferGroup[z].totalPersons != r.ports[i].hasTransferGroup[z].totalPassengers">{{ getEmoji('warning') }}</span>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td class="port footer">{{ r.ports[i].port }}</td>
-                                            <td class="number footer">{{ r.ports[i].adults }}</td>
-                                            <td class="number footer">{{ r.ports[i].kids }}</td>
-                                            <td class="number footer">{{ r.ports[i].free }}</td>
-                                            <td class="number footer">{{ r.ports[i].totalPersons }}</td>
-                                            <td class="number footer">{{ r.ports[i].totalPassengers }}</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </td>
-                </tr>
-            </ng-template>
+                </ng-template>
+                <ng-template pTemplate="body" let-reservation>
+                    <tr class="passenger-row">
+                        <td style="min-width: 6rem; max-width: 6rem; width:6rem; text-align: center;">{{ formatDateToLocale(reservation.date) }}</td>
+                        <td style="max-width: 10rem; min-width: 10rem; width: 10rem;">{{ reservation.destination }}</td>
+                        <td style="max-width: 10rem; min-width: 10rem; width: 10rem;">{{ reservation.ship }}</td>
+                        <td style="max-width: 10rem; min-width: 10rem; width: 10rem;">{{ reservation.port }}</td>
+                        <td style="max-width: 10rem; min-width: 10rem; width: 10rem;">{{ reservation.refNo }}</td>
+                        <td style="max-width: 10rem; min-width: 10rem; width: 10rem;">{{ reservation.ticketNo }}</td>
+                        <td [ngClass]="reservation.hasTransfer ? 'has-transfer' : 'no-transfer'" style="max-width: 6rem; min-width: 6rem; width:6rem; text-align: center;">
+                            <span *ngIf="reservation.hasTransfer">{{ getEmoji('green-circle') }} </span>
+                            <span *ngIf="!reservation.hasTransfer">{{ getEmoji('red-circle') }}</span>
+                        </td>
+                        <td style="min-width: 4rem; max-width: 4rem; width: 4rem; text-align: center;">{{ reservation.adults }}</td>
+                        <td style="min-width: 4rem; max-width: 4rem; width: 4rem; text-align: center;">{{ reservation.kids }}</td>
+                        <td style="min-width: 4rem; max-width: 4rem; width: 4rem; text-align: center;">{{ reservation.free }}</td>
+                        <td style="min-width: 4rem; max-width: 4rem; width: 4rem; text-align: center;">{{ reservation.totalPersons }}</td>
+                        <td style="min-width: 4rem; max-width: 4rem; width: 4rem; text-align: center;">{{ reservation.embarkedPassengers }}</td>
+                        <td style="min-width: 4rem; max-width: 4rem; width: 4rem; text-align: right;">
+                            <span>{{ reservation.totalPersons - reservation.embarkedPassengers }}</span>
+                            <span style="margin-left: 0.5rem; font-size: 15px;" *ngIf="reservation.totalPersons - reservation.embarkedPassengers == 0">{{ getEmoji('ok') }}</span>
+                            <span style="margin-left: 0.5rem; font-size: 15px;" *ngIf="reservation.totalPersons - reservation.embarkedPassengers != 0">{{ getEmoji('warning') }}</span>
+                        </td>
+                        <td>{{ reservation.remarks }}</td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+        </td>
+        </tr>
+        <tr class="group-row">
+            <td colspan="3">
+                <div class="pivot">
+                    <div class="port-panel" *ngFor="let port of r.ports, let i = index">
+                        <table class="port-group">
+                            <thead>
+                                <tr>
+                                    <th class="port"></th>
+                                    <th class="header number">A</th>
+                                    <th class="header number">K</th>
+                                    <th class="header number">F</th>
+                                    <th class="header number">Σ</th>
+                                    <th class="header number">Σ<span class="subscript">1</span></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let hasTransfer of r.ports[i].hasTransferGroup, let z = index">
+                                    <td></td>
+                                    <td class="number">{{ r.ports[i].hasTransferGroup[z].adults }}</td>
+                                    <td class="number">{{ r.ports[i].hasTransferGroup[z].kids }}</td>
+                                    <td class="number">{{ r.ports[i].hasTransferGroup[z].free }}</td>
+                                    <td class="number">{{ r.ports[i].hasTransferGroup[z].totalPersons }}</td>
+                                    <td class="number">{{ r.ports[i].hasTransferGroup[z].totalPassengers }}</td>
+                                    <td class="number no-border">
+                                        <span *ngIf="r.ports[i].hasTransferGroup[z].hasTransfer">{{ getEmoji('green-circle') }}</span>
+                                        <span *ngIf="!r.ports[i].hasTransferGroup[z].hasTransfer">{{ getEmoji('red-circle') }}</span>
+                                    </td>
+                                    <td class="number no-border fix-padding">
+                                        <span *ngIf="r.ports[i].hasTransferGroup[z].totalPersons == r.ports[i].hasTransferGroup[z].totalPassengers">{{ getEmoji('ok') }}</span>
+                                        <span *ngIf="r.ports[i].hasTransferGroup[z].totalPersons != r.ports[i].hasTransferGroup[z].totalPassengers">{{ getEmoji('warning') }}</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="port footer">{{ r.ports[i].port }}</td>
+                                    <td class="number footer">{{ r.ports[i].adults }}</td>
+                                    <td class="number footer">{{ r.ports[i].kids }}</td>
+                                    <td class="number footer">{{ r.ports[i].free }}</td>
+                                    <td class="number footer">{{ r.ports[i].totalPersons }}</td>
+                                    <td class="number footer">{{ r.ports[i].totalPassengers }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </td>
+        </tr>
+        </ng-template>
         </p-table>
     </div>
+
 </div>
 
 <div id="footer">
     <div class="button-group-right">
         <button mat-flat-button class="primary" (click)="exportAllCustomers()">{{ getLabel("exportAllButton") }}</button>
     </div>
-</div>
-
 </div>

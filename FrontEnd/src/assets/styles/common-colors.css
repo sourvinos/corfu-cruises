@@ -20,14 +20,10 @@
     /* Loader */
     --color-loader: #d94040;
     /* Criteria & Totals */
-    --color-criteria-a: #1786cb;
-    --color-criteria-a-border: #1786cb;
-    --color-criteria-b: #709524;
-    --color-criteria-b-border: #709524;
-    --color-criteria-c: #f27016;
-    --color-criteria-c-border: #f27016;
-    --color-criteria-d: #e52b74;
-    --color-criteria-d-border: #e52b74;
+    --color-criteria-a: #5f80a7;
+    --color-criteria-b: #698984;
+    --color-criteria-c: #ca874c;
+    --color-criteria-d: #cf6755;
     /* Date picker */
     --color-day-border: #ffc107;
     --color-range-between: #ffeb3b;

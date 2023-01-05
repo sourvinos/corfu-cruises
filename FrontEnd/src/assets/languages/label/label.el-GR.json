@@ -1496,32 +1496,16 @@
                 "description": "ΕΞΑΓΩΓΗ ΟΛΩΝ ΣΕ XLS"
             },
             {
-                "id": "no-results",
-                "description": "Δεν βρήκαμε τίποτα!"
+                "id": "criteria-customers",
+                "description": "Πελάτες"
             },
             {
-                "id": "has-transfer",
-                "description": "ΝΑΙ"
+                "id": "criteria-destinations",
+                "description": "Προορισμοί"
             },
             {
-                "id": "no-transfer",
-                "description": "ΟΧΙ"
-            },
-            {
-                "id": "criteria-date",
-                "description": "Ημερομηνία"
-            },
-            {
-                "id": "criteria-customer",
-                "description": "Πελάτης"
-            },
-            {
-                "id": "criteria-destination",
-                "description": "Προορισμός"
-            },
-            {
-                "id": "criteria-ship",
-                "description": "Πλοίο"
+                "id": "criteria-ships",
+                "description": "Πλοία"
             }
         ]
     },

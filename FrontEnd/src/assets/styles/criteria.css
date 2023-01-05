@@ -16,7 +16,6 @@
 #criteria > div, #filters > div, #overbookings > div {
     align-items: center;
     border-radius: 0.3125rem;
-    border: 0.0625rem solid;
     display: flex;
     flex-direction: row;
     gap: 0.8rem;
@@ -36,23 +35,19 @@
 }
 
 .pill:nth-child(1) {
-    background-color: var(--color-criteria-a);
-    border-color: var(--color-criteria-a-border) !important;
+    background-color: var(--color-criteria-a) !important;
 }
 
 .pill:nth-child(2) {
-    background-color: var(--color-criteria-b);
-    border-color: var(--color-criteria-b-border) !important;
+    background-color: var(--color-criteria-b) !important;
 }
 
 .pill:nth-child(3) {
-    background-color: var(--color-criteria-c);
-    border-color: var(--color-criteria-c-border) !important;
+    background-color: var(--color-criteria-c) !important;
 }
 
 .pill:nth-child(4) {
-    background-color: var(--color-criteria-d);
-    border-color: var(--color-criteria-d-border) !important;
+    background-color: var(--color-criteria-d) !important;
 }
 
 #criteria .label, #criteria .description, #filters .label, #filters .description, #overbookings .label, #overbookings .description {

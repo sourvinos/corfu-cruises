@@ -1496,32 +1496,16 @@
                 "description": "EXPORT ALL TO XLS"
             },
             {
-                "id": "no-results",
-                "description": "We found nothing!"
+                "id": "criteria-customers",
+                "description": "Customers"
             },
             {
-                "id": "has-transfer",
-                "description": "YES"
+                "id": "criteria-destinations",
+                "description": "Destinations"
             },
             {
-                "id": "no-transfer",
-                "description": "NO"
-            },
-            {
-                "id": "criteria-date",
-                "description": "Date"
-            },
-            {
-                "id": "criteria-customer",
-                "description": "Customer"
-            },
-            {
-                "id": "criteria-destination",
-                "description": "Destination"
-            },
-            {
-                "id": "criteria-ship",
-                "description": "Ship"
+                "id": "criteria-ships",
+                "description": "Ships"
             }
         ]
     },

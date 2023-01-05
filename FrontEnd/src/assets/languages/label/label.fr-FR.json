@@ -1496,32 +1496,16 @@
                 "description": "EXPORTER TOUT AU FORMAT XLS"
             },
             {
-                "id": "no-results",
-                "description": "Nous n'avons rien trouvé !"
+                "id": "criteria-customers",
+                "description": "Clients"
             },
             {
-                "id": "has-transfer",
-                "description": "OUI"
+                "id": "criteria-destinations",
+                "description": "Destinations"
             },
             {
-                "id": "no-transfer",
-                "description": "NON"
-            },
-            {
-                "id": "criteria-date",
-                "description": "Date"
-            },
-            {
-                "id": "criteria-customer",
-                "description": "Client"
-            },
-            {
-                "id": "criteria-destination",
-                "description": "Destination"
-            },
-            {
-                "id": "criteria-ship",
-                "description": "Bateau"
+                "id": "criteria-ships",
+                "description": "Navires"
             }
         ]
     },
@@ -1665,7 +1649,7 @@
         "labels": [
             {
                 "id": "header",
-                "description": "(FR) Shipowner"
+                "description": "Armateur"
             },
             {
                 "id": "description",

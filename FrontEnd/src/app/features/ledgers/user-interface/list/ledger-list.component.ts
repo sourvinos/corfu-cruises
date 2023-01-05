@@ -14,6 +14,7 @@ import { MessageSnackbarService } from 'src/app/shared/services/messages-snackba
 import { ModalActionResultService } from 'src/app/shared/services/modal-action-result.service'
 import { Table } from 'primeng/table'
 import { HelperService } from 'src/app/shared/services/helper.service'
+import { environment } from 'src/environments/environment'
 
 @Component({
     selector: 'ledger-list',
@@ -103,6 +104,10 @@ export class LedgerListComponent {
 
     public getShipDescriptions(): string {
         return this.criteria.ships.map((ship) => ship.description).join(' ▪️ ')
+    }
+
+    public getIcon(filename: string): string {
+        return environment.menuIconDirectory + filename + '.svg'
     }
 
     public goBack(): void {
