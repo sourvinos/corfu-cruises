@@ -1,4 +1,5 @@
 using System;
+using API.Infrastructure.Classes;
 
 namespace API.Features.Ledger {
 
@@ -7,9 +8,9 @@ namespace API.Features.Ledger {
         public string Date { get; set; }
         public string RefNo { get; set; }
         public Guid ReservationId { get; set; }
-        public string Destination { get; set; }
+        public SimpleEntity Destination { get; set; }
         public string Port { get; set; }
-        public string Ship { get; set; }
+        public SimpleEntity Ship { get; set; }
         public string TicketNo { get; set; }
         public int Adults { get; set; }
         public int Kids { get; set; }

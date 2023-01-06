@@ -5,6 +5,7 @@ import { Subject } from 'rxjs'
 // Custom
 import { DateHelperService } from 'src/app/shared/services/date-helper.service'
 import { EmojiService } from 'src/app/shared/services/emoji.service'
+import { HelperService } from 'src/app/shared/services/helper.service'
 import { LedgerCriteriaVM } from '../../classes/view-models/ledger-criteria-vm'
 import { LedgerPDFService } from '../../classes/services/ledger-pdf.service'
 import { LedgerVM } from '../../classes/view-models/ledger-vm'
@@ -13,7 +14,6 @@ import { MessageLabelService } from 'src/app/shared/services/messages-label.serv
 import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
 import { ModalActionResultService } from 'src/app/shared/services/modal-action-result.service'
 import { Table } from 'primeng/table'
-import { HelperService } from 'src/app/shared/services/helper.service'
 import { environment } from 'src/environments/environment'
 
 @Component({
@@ -37,10 +37,9 @@ export class LedgerListComponent {
     public imgIsLoaded = false
     public criteria: LedgerCriteriaVM
     public records: LedgerVM[]
-    public customers: any[]
-    public destinations: any[]
-    distinctDestinations = new Set()
-    distinctShips = new Set()
+    public distinctCustomers: any[]
+    public distinctDestinations: any[]
+    public distinctShips: any[]
 
     //#endregion
 
@@ -51,15 +50,7 @@ export class LedgerListComponent {
     ngOnInit(): void {
         this.loadRecords()
         this.populateCriteriaFromStorage()
-        this.customers = this.helperService.getDistinctRecords(this.records, 'customer')
-        for (let i = 0; i < this.records.length; i++) {
-            this.records[i].reservations.map((x) => this.distinctDestinations.add(x.destination))
-        }
-        for (let i = 0; i < this.records.length; i++) {
-            this.records[i].reservations.map((x) => this.distinctShips.add(x.ship))
-        }
-        console.log('destinations', [...this.distinctDestinations])
-        console.log('ships', [...this.distinctShips])
+        this.getDistinctCriteria()
     }
 
     ngOnDestroy(): void {
@@ -123,11 +114,19 @@ export class LedgerListComponent {
         this.unsubscribe.unsubscribe()
     }
 
+    private getDistinctCriteria(): void {
+        this.distinctCustomers = this.helperService.getDistinctRecords(this.records.flat(), 'customer')
+        this.distinctDestinations = this.helperService.getDistinctRecords(this.records.map(x => x.reservations).flat(), 'destination')
+        this.distinctShips = this.helperService.getDistinctRecords(this.records.map(x => x.reservations).flat(), 'ship')
+        console.log(this.distinctCustomers)
+        console.log(this.distinctDestinations)
+    }
+
     private loadRecords(): void {
         const listResolved = this.activatedRoute.snapshot.data[this.feature]
         if (listResolved.error === null) {
             this.records = Object.assign([], listResolved.result)
-            console.log('api', this.records)
+            console.log(this.records)
         } else {
             this.modalActionResultService.open(this.messageSnackbarService.filterResponse(listResolved.error), 'error', ['ok']).subscribe(() => {
                 this.goBack()

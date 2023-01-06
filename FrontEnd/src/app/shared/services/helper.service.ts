@@ -71,11 +71,11 @@ export class HelperService {
     }
 
     public getDistinctRecords(records: any[], field: string): any[] {
-        let unique = []
         const array: any[] = []
-        unique = [... new Set(records.map(x => x[field]))]
-        unique.forEach(element => {
-            array.push({ label: element, value: element })
+        const key = field
+        const distinctRecords = [...new Map(records.map(item => [item[key].id, item])).values()]
+        distinctRecords.forEach(element => {
+            array.push({ id: element[field].id, description: element[field].description })
         })
         array.sort((a, b) => {
             if (a.value < b.value) {
@@ -160,14 +160,6 @@ export class HelperService {
             evt.preventDefault()
             element.scrollLeft += evt.deltaY
         })
-    }
-
-    public dontScrollToTop(table: Table): void {
-        if (table != null) {
-            table.resetScrollTop = (): void => {
-                // 
-            }
-        }
     }
 
     //#endregion

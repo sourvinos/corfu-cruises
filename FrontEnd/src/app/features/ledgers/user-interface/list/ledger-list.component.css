@@ -1,5 +1,5 @@
 #table-wrapper {
-    margin-left: 2rem;
+    margin-left: 1rem;
     width: 100%;
 }
 
@@ -17,16 +17,6 @@
     margin: 0 0 0 3rem;
 }
 
-#criteria-panel .panel {
-    background: url("../../../../../assets/images/background/anchor.svg") no-repeat bottom right;
-    border-radius: 0.4rem;
-    display: flex;
-    flex-direction: column;
-    height: calc(100% / 3);
-    padding: 0.75rem 0.5rem 0.90rem 1rem;
-    width: 11rem;
-}
-
 #criteria-panel .panel:nth-child(1) {
     background-color: var(--color-criteria-a) !important;
 }
@@ -41,39 +31,6 @@
 
 #criteria-panel .panel:nth-child(4) {
     background-color: var(--color-criteria-d) !important;
-}
-
-#criteria-panel .panel-header {
-    align-items: center;
-    color: rgb(255 255 255 / 100%);
-    display: flex;
-    font-family: var(--font-family-handbook);
-    font-size: 1rem;
-    transform: scale(1, 1.4);
-}
-
-#criteria-panel .panel-header span {
-    margin-left: 0.5rem;
-}
-
-#criteria-panel .panel-content {
-    color: rgb(255 255 255 / 70%);
-    display: flex;
-    flex-direction: column;
-    font-family: var(--font-family-roboto);
-    font-size: 0.7rem;
-    margin-top: 0.7rem;
-    overflow-x: hidden;
-    overflow-y: scroll;
-}
-
-#criteria-panel .panel-content .list {
-    margin-right: 0.5rem;
-    overflow-x: clip;
-}
-
-#criteria-panel .panel-content .description {
-    white-space: nowrap;
 }
 
 .customer-description {

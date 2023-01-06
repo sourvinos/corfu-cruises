@@ -1,10 +1,13 @@
+import { DestinationVM } from './destination-vm'
+import { ShipVM } from './ship-vm'
+
 export interface LedgerReservationVM {
 
     date: string
     refNo: string
     reservationId: string
-    destination: string
-    ship: string
+    destination: DestinationVM
+    ship: ShipVM
     port: string
     ticketNo: string
     adults: number

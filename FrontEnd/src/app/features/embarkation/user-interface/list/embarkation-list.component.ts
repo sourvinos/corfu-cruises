@@ -85,7 +85,6 @@ export class EmbarkationListComponent {
 
     ngAfterViewInit(): void {
         this.enableDisableFilters()
-        this.dontScrollToTop()
     }
 
     ngOnDestroy(): void {
@@ -230,10 +229,6 @@ export class EmbarkationListComponent {
     private cleanup(): void {
         this.unsubscribe.next()
         this.unsubscribe.unsubscribe()
-    }
-
-    private dontScrollToTop(): void {
-        this.helperService.dontScrollToTop(this.table)
     }
 
     private enableDisableFilters(): void {

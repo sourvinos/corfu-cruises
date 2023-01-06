@@ -69,9 +69,15 @@ namespace API.Features.Ledger {
                         Date = DateHelpers.DateToISOString(x.Date),
                         RefNo = x.RefNo,
                         ReservationId = x.ReservationId,
-                        Destination = x.Destination.Description,
+                        Destination = new SimpleEntity {
+                            Id = x.Destination.Id,
+                            Description = x.Destination.Description
+                        },
                         Port = x.Port.Description,
-                        Ship = x.Ship.Description,
+                        Ship = new SimpleEntity {
+                            Id = x.Ship.Id,
+                            Description = x.Ship.Description
+                        },
                         TicketNo = x.TicketNo,
                         Adults = x.Adults,
                         Kids = x.Kids,
