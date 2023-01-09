@@ -1,4 +1,4 @@
-export interface LedgerPortVM {
+export interface LedgerDestinationVM {
 
     id: number
     description: string

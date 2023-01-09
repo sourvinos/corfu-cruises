@@ -6,6 +6,7 @@ import { DropdownModule } from 'primeng/dropdown'
 import { FieldsetModule } from 'primeng/fieldset'
 import { ListboxModule } from 'primeng/listbox'
 import { TableModule } from 'primeng/table'
+import { TreeTableModule } from 'primeng/treetable'
 
 @NgModule({
     exports: [
@@ -14,7 +15,8 @@ import { TableModule } from 'primeng/table'
         DropdownModule,
         FieldsetModule,
         ListboxModule,
-        TableModule
+        TableModule,
+        TreeTableModule
     ]
 })
 

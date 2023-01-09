@@ -1,4 +1,4 @@
-import * as XLSX from 'xlsx'
+import * as FileSaver from 'file-saver'
 import { ActivatedRoute, Router } from '@angular/router'
 import { Component, ViewChild } from '@angular/core'
 import { Subject } from 'rxjs'
@@ -6,26 +6,31 @@ import { Subject } from 'rxjs'
 import { DateHelperService } from 'src/app/shared/services/date-helper.service'
 import { EmojiService } from 'src/app/shared/services/emoji.service'
 import { HelperService } from 'src/app/shared/services/helper.service'
-import { LedgerCriteriaVM } from '../../classes/view-models/ledger-criteria-vm'
-import { LedgerPDFService } from '../../classes/services/ledger-pdf.service'
-import { LedgerVM } from '../../classes/view-models/ledger-vm'
+import { LedgerCriteriaVM } from '../../../classes/view-models/ledger-criteria-vm'
+import { LedgerPDFService } from '../../../classes/services/ledger-pdf.service'
+import { LedgerVM } from '../../../classes/view-models/ledger-vm'
 import { LocalStorageService } from 'src/app/shared/services/local-storage.service'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
 import { ModalActionResultService } from 'src/app/shared/services/modal-action-result.service'
 import { Table } from 'primeng/table'
 import { environment } from 'src/environments/environment'
+import { DialogService } from 'src/app/shared/services/dialog.service'
+import { SecondaryLedgerListComponent } from '../secondary/secondary-ledger-list.component'
+import { MatDialog } from '@angular/material/dialog'
 
 @Component({
-    selector: 'ledger-list',
-    templateUrl: './ledger-list.component.html',
-    styleUrls: ['../../../../../assets/styles/lists.css', './ledger-list.component.css']
+    selector: 'primary-ledger-list',
+    templateUrl: './primary-ledger-list.component.html',
+    styleUrls: ['../../../../../../assets/styles/lists.css', './primary-ledger-list.component.css']
 })
 
-export class LedgerListComponent {
+export class PrimaryLedgerListComponent {
 
     //#region variables
 
+    private EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8'
+    private EXCEL_EXTENSION = '.xlsx'
     @ViewChild('table') table: Table | undefined
 
     private unsubscribe = new Subject<void>()
@@ -40,10 +45,24 @@ export class LedgerListComponent {
     public distinctCustomers: any[]
     public distinctDestinations: any[]
     public distinctShips: any[]
+    fileType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8'
 
     //#endregion
 
-    constructor(private activatedRoute: ActivatedRoute, private dateHelperService: DateHelperService, private emojiService: EmojiService, private helperService: HelperService, private ledgerPdfService: LedgerPDFService, private localStorageService: LocalStorageService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private modalActionResultService: ModalActionResultService, private router: Router) { }
+    constructor(
+        private activatedRoute: ActivatedRoute,
+        private dateHelperService: DateHelperService,
+        private emojiService: EmojiService,
+        private helperService: HelperService,
+        private ledgerPdfService: LedgerPDFService,
+        private localStorageService: LocalStorageService,
+        private messageLabelService: MessageLabelService,
+        private messageSnackbarService: MessageSnackbarService,
+        private modalActionResultService: ModalActionResultService,
+        private dialogService: DialogService,
+        private router: Router,
+        public dialog: MatDialog
+    ) { }
 
     //#region lifecycle hooks
 
@@ -61,16 +80,19 @@ export class LedgerListComponent {
 
     //#region public methods
 
-    public exportAllCustomers(): void {
-        const ws: XLSX.WorkSheet = XLSX.utils.table_to_sheet(this.table)
-        const wb: XLSX.WorkBook = XLSX.utils.book_new()
-        XLSX.utils.book_append_sheet(wb, ws, 'Ledger')
-        XLSX.writeFile(wb, 'Billings ' + '.xlsx')
-    }
 
     public exportSingleCustomer(customerId: number): void {
         const customerRecords = this.records.find(x => x.customer.id == customerId)
         this.ledgerPdfService.createPDF(customerRecords)
+    }
+
+    public exportAll(): void {
+        // this.ledgerPdfService.createPDF(this.records)
+    }
+
+    private saveExcelFile(buffer: any, fileName: string): void {
+        const data: Blob = new Blob([buffer], { type: this.fileType })
+        FileSaver.saveAs(data, fileName + '.xlsx')
     }
 
     public formatDateToLocale(date: string, showWeekday = false, showYear = false): string {
@@ -105,6 +127,19 @@ export class LedgerListComponent {
         this.router.navigate([this.parentUrl])
     }
 
+    public showCustomerReservations(customer: LedgerVM): void {
+        this.dialog.open(SecondaryLedgerListComponent, {
+            height: '600px',
+            width: '1400px',
+            data: {
+                customer: customer,
+                actions: ['abort', 'ok']
+            },
+            panelClass: 'dialog'
+        })
+
+
+    }
     //#endregion
 
     //#region private methods
@@ -118,15 +153,13 @@ export class LedgerListComponent {
         this.distinctCustomers = this.helperService.getDistinctRecords(this.records.flat(), 'customer')
         this.distinctDestinations = this.helperService.getDistinctRecords(this.records.map(x => x.reservations).flat(), 'destination')
         this.distinctShips = this.helperService.getDistinctRecords(this.records.map(x => x.reservations).flat(), 'ship')
-        console.log(this.distinctCustomers)
-        console.log(this.distinctDestinations)
     }
 
     private loadRecords(): void {
         const listResolved = this.activatedRoute.snapshot.data[this.feature]
         if (listResolved.error === null) {
             this.records = Object.assign([], listResolved.result)
-            console.log(this.records)
+            console.log('All', this.records)
         } else {
             this.modalActionResultService.open(this.messageSnackbarService.filterResponse(listResolved.error), 'error', ['ok']).subscribe(() => {
                 this.goBack()

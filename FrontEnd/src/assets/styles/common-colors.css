@@ -53,4 +53,9 @@
     --color-dropdown-menu-border: #ff7a7a;
     /* Dialog headers (assign passengers to driver, create pre-boarding list) */
     --color-dialog-header: #ff7a7a;
+    /* Customer ledger summary table */
+    --color-persons: #2196f312;
+    --color-total-persons: #2196f32b;
+    /* Tabs */
+    --color-active-tab: #fbc02d24;
 }

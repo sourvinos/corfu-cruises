@@ -94,8 +94,7 @@ ul {
 }
 
 .no-border {
-    border-left: 0.0625rem solid transparent !important;
-    border-right: 0.0625rem solid transparent !important;
+    border: none !important;
 }
 
 .subscript {

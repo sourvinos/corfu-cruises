@@ -1,5 +1,5 @@
 import { CustomerVM } from './customer-vm'
-import { LedgerPortVM } from './ledger-port-vm'
+import { LedgerPortVM } from './ledger-port-group-vm'
 import { LedgerReservationVM } from './ledger-reservation-vm'
 
 export interface LedgerVM {

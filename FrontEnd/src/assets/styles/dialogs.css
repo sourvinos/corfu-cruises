@@ -23,7 +23,7 @@
     align-items: left;
     display: flex;
     flex-direction: column;
-    padding-bottom: 1.5rem;
+    padding: 0 0 1rem 1rem;
 }
 
 #dialog-header #navigation {
@@ -50,7 +50,7 @@
 
 #dialog-footer {
     margin-top: auto;
-    padding-top: 1.5rem;
+    padding: 1.5rem 1rem 0 0;
     text-align: end;
 }
 

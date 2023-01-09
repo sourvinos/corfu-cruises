@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core'
 // Custom
 import { DateHelperService } from 'src/app/shared/services/date-helper.service'
-import { LedgerPortVM } from '../view-models/ledger-port-vm'
+import { LedgerPortVM } from '../view-models/ledger-port-group-vm'
 import { LedgerVM } from '../view-models/ledger-vm'
 import { LogoService } from 'src/app/features/reservations/classes/services/logo.service'
 // Fonts
@@ -328,7 +328,7 @@ export class LedgerPDFService {
 
     private setPageInfo(customerDescription: string): any {
         const pageInfo = {
-            title: 'Customer Billing for ' + customerDescription
+            title: 'Customer Ledger for ' + customerDescription
         }
         return pageInfo
     }

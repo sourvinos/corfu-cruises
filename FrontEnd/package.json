@@ -46,8 +46,6 @@
         "@types/pdfmake": "0.2.2",
         "@typescript-eslint/eslint-plugin": "5.43.0",
         "@typescript-eslint/parser": "5.43.0",
-        "cypress": "10.8.0",
-        "cypress-localstorage-commands": "2.2.1",
         "eslint": "8.28.0",
         "eslint-plugin-cypress": "2.12.1",
         "stylelint-config-standard": "29.0.0",

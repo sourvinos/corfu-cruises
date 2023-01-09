@@ -8,8 +8,8 @@ namespace API.Features.Ledger {
         public string Date { get; set; }
         public string RefNo { get; set; }
         public Guid ReservationId { get; set; }
-        public SimpleEntity Destination { get; set; }
-        public string Port { get; set; }
+        public LedgerSimpleEntityVM Destination { get; set; }
+        public LedgerSimpleEntityVM Port { get; set; }
         public SimpleEntity Ship { get; set; }
         public string TicketNo { get; set; }
         public int Adults { get; set; }

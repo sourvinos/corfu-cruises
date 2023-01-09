@@ -1506,6 +1506,10 @@
             {
                 "id": "criteria-ships",
                 "description": "Ships"
+            },
+            {
+                "id": "ok-button",
+                "description": "OK"
             }
         ]
     },

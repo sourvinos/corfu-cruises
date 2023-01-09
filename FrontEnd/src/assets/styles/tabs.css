@@ -12,16 +12,16 @@
 }
 
 .mat-tab-label-container {
-    padding: 2rem 1rem 0 0 !important;
+    padding: 0 !important;
 }
 
 .mat-ink-bar {
-    height: 0.125rem !important;
+    height: 0 !important;
 }
 
 .mat-tab-body-wrapper {
     flex: 1 !important;
-    margin: var(--gap) 0 var(--gap) 0;
+    margin-top: 1rem;
 }
 
 .mat-tab-nav-bar, .mat-tab-header {
@@ -29,9 +29,14 @@
 }
 
 .mat-tab-label-content {
-    font-family: var(--font-family-handbook) !important;
+    color: var(--color-c) !important;
+    font-family: var(--font-family-roboto) !important;
     font-size: var(--font-size-tab-label) !important;
     font-weight: var(--font-weight-button) !important;
+}
+
+.mat-tab-label-active {
+    background-color: var(--color-active-tab) !important;
 }
 
 .mat-tab-group {

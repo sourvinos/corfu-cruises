@@ -69,11 +69,16 @@ namespace API.Features.Ledger {
                         Date = DateHelpers.DateToISOString(x.Date),
                         RefNo = x.RefNo,
                         ReservationId = x.ReservationId,
-                        Destination = new SimpleEntity {
+                        Destination = new LedgerSimpleEntityVM {
                             Id = x.Destination.Id,
-                            Description = x.Destination.Description
+                            Description = x.Destination.Description,
+                            Abbreviation = x.Destination.Abbreviation
                         },
-                        Port = x.Port.Description,
+                        Port = new LedgerSimpleEntityVM {
+                            Id = x.Port.Id,
+                            Description = x.Port.Description,
+                            Abbreviation = x.Port.Abbreviation
+                        },
                         Ship = new SimpleEntity {
                             Id = x.Ship.Id,
                             Description = x.Ship.Description
