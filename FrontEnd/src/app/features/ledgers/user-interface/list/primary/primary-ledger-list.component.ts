@@ -1,23 +1,22 @@
-import * as FileSaver from 'file-saver'
 import { ActivatedRoute, Router } from '@angular/router'
 import { Component, ViewChild } from '@angular/core'
 import { Subject } from 'rxjs'
 // Custom
 import { DateHelperService } from 'src/app/shared/services/date-helper.service'
+import { DialogService } from 'src/app/shared/services/dialog.service'
 import { EmojiService } from 'src/app/shared/services/emoji.service'
 import { HelperService } from 'src/app/shared/services/helper.service'
 import { LedgerCriteriaVM } from '../../../classes/view-models/ledger-criteria-vm'
 import { LedgerPDFService } from '../../../classes/services/ledger-pdf.service'
 import { LedgerVM } from '../../../classes/view-models/ledger-vm'
 import { LocalStorageService } from 'src/app/shared/services/local-storage.service'
+import { MatDialog } from '@angular/material/dialog'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
 import { ModalActionResultService } from 'src/app/shared/services/modal-action-result.service'
+import { SecondaryLedgerListComponent } from '../secondary/secondary-ledger-list.component'
 import { Table } from 'primeng/table'
 import { environment } from 'src/environments/environment'
-import { DialogService } from 'src/app/shared/services/dialog.service'
-import { SecondaryLedgerListComponent } from '../secondary/secondary-ledger-list.component'
-import { MatDialog } from '@angular/material/dialog'
 
 @Component({
     selector: 'primary-ledger-list',
@@ -29,8 +28,6 @@ export class PrimaryLedgerListComponent {
 
     //#region variables
 
-    private EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8'
-    private EXCEL_EXTENSION = '.xlsx'
     @ViewChild('table') table: Table | undefined
 
     private unsubscribe = new Subject<void>()
@@ -45,7 +42,6 @@ export class PrimaryLedgerListComponent {
     public distinctCustomers: any[]
     public distinctDestinations: any[]
     public distinctShips: any[]
-    fileType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8'
 
     //#endregion
 
@@ -82,17 +78,13 @@ export class PrimaryLedgerListComponent {
 
 
     public exportSingleCustomer(customerId: number): void {
-        const customerRecords = this.records.find(x => x.customer.id == customerId)
-        this.ledgerPdfService.createPDF(customerRecords)
+        console.log(customerId)
+        // const customerRecords = this.records.find(x => x.customer.id == customerId)
+        // this.ledgerPdfService.createPDF(customerRecords)
     }
 
     public exportAll(): void {
-        // this.ledgerPdfService.createPDF(this.records)
-    }
-
-    private saveExcelFile(buffer: any, fileName: string): void {
-        const data: Blob = new Blob([buffer], { type: this.fileType })
-        FileSaver.saveAs(data, fileName + '.xlsx')
+        this.ledgerPdfService.createPDF(this.records,this.criteria)
     }
 
     public formatDateToLocale(date: string, showWeekday = false, showYear = false): string {
