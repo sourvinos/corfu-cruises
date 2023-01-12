@@ -1492,8 +1492,8 @@
                 "description": "Σ"
             },
             {
-                "id": "exportAllButton",
-                "description": "EXPORTOVAT VŠE DO XLS"
+                "id": "createPdfButton",
+                "description": "VYTVOŘIT PDF"
             },
             {
                 "id": "criteria-customers",

@@ -16,6 +16,8 @@
     display: flex;
     font-family: var(--font-family-roboto);
     font-size: var(--font-size-checkbox);
+    max-height: var(--font-size-checkbox) !important;
+    overflow: hidden;
 }
 
 .styled-input-single label::before, .styled-input-single label::after {

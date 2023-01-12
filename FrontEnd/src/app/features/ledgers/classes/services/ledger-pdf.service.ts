@@ -19,11 +19,12 @@ pdfMake.vfs = pdfFonts.pdfMake.vfs
 
 export class LedgerPDFService {
 
-    private rows = []
+    private rows: LedgerVM[]
 
     constructor(private dateHelperService: DateHelperService, private logoService: LogoService) { }
 
     public createPDF(customers: LedgerVM[], criteria: LedgerCriteriaVM): void {
+        this.rows = []
         this.setFonts()
         this.createReport(customers, criteria)
         const dd = {
@@ -45,9 +46,6 @@ export class LedgerPDFService {
             styles: {
                 AkaAcidCanterBold: {
                     font: 'AkaAcidCanterBold',
-                },
-                PFHandbookPro: {
-                    font: 'PFHandbookPro',
                 },
                 UbuntuCondensed: {
                     font: 'UbuntuCondensed',
@@ -92,7 +90,7 @@ export class LedgerPDFService {
         pdfMake.createPdf(document).open()
     }
 
-    private calculateBodyTotals(personIdentifier: string, record): number {
+    private calculateBodyTotals(personIdentifier: string, record: any[]): number {
         let sum = 0
         record.forEach(element => {
             sum += element[personIdentifier]

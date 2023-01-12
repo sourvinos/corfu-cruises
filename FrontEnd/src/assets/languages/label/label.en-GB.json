@@ -1492,8 +1492,8 @@
                 "description": "Σ"
             },
             {
-                "id": "exportAllButton",
-                "description": "EXPORT ALL TO XLS"
+                "id": "createPdfButton",
+                "description": "CREATE PDF"
             },
             {
                 "id": "criteria-customers",

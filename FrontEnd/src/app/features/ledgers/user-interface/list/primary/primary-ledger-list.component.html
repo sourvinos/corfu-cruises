@@ -17,17 +17,26 @@
             <criteria-panel [backgroundColor]="'var(--color-criteria-c)'" [header]="'criteria-ships'" [records]="distinctShips" [feature]="feature" [icon]="'ships'"></criteria-panel>
         </div>
         <div id="table-wrapper">
-            <p-table #table [scrollable]="true" [value]="records" [virtualScrollItemSize]="33" [virtualScroll]="true" dataKey="customer.description" scrollHeight="flex" selectionMode="single" sortMode="multiple">
+            <p-table #table [(selection)]="selectedRecords" [scrollable]="true" [value]="records" [virtualScrollItemSize]="33" [virtualScroll]="true" dataKey="customer.description" scrollHeight="flex" selectionMode="single" sortMode="multiple">
                 <ng-template pTemplate="header">
                     <tr>
-                        <th>{{ getLabel("headerCustomer") }}</th>
+                        <th style="width: 3rem;"></th>
+                        <th pSortableColumn="customer.description">{{ getLabel("headerCustomer") }}<p-sortIcon field="customer.description"></p-sortIcon></th>
+                        <th></th>
+                    </tr>
+                    <tr>
+                        <th style="width: 3rem;"><p-tableHeaderCheckbox></p-tableHeaderCheckbox></th>
+                        <th><input (input)="table.filter($event.target.value, 'customer.description', 'contains')" [value]="$any(table).filters['customer.description']?.value" class="p-inputtext" type="text"></th>
                         <th></th>
                     </tr>
                 </ng-template>
                 <ng-template let-rowData pTemplate="body">
                     <tr (dblclick)="showCustomerReservations(rowData)" style="height:33px">
+                        <td style="min-width: 3rem; max-width: 6rem; text-align: center;"><p-tableCheckbox [value]="rowData"></p-tableCheckbox></td>
                         <td>{{ rowData.customer.description }}</td>
-                        <td style="min-width: 3.5rem; width: 3.5rem; text-align: center;" (click)="exportSingleCustomer(rowData.customer.id)" class="clickable">{{ getEmoji('printer') }}</td>
+                        <td style="min-width: 3.5rem; width: 3.5rem; text-align: center;" (click)="exportSingleCustomer(rowData.customer.id)" class="clickable">
+                            <img src="/assets/images/tables/pdf.svg">
+                        </td>
                     </tr>
                 </ng-template>
             </p-table>
@@ -36,7 +45,10 @@
 
     <div id="footer">
         <div class="button-group-right">
-            <button mat-flat-button class="primary" (click)="exportAll()">{{ getLabel("exportAllButton") }}</button>
+            <button (click)="exportSelected()" class="primary" mat-flat-button>
+                <span>{{ getLabel("createPdfButton") }}</span>
+            </button>
         </div>
     </div>
+
 </div>

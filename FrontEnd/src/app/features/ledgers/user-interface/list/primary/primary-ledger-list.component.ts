@@ -3,8 +3,6 @@ import { Component, ViewChild } from '@angular/core'
 import { Subject } from 'rxjs'
 // Custom
 import { DateHelperService } from 'src/app/shared/services/date-helper.service'
-import { DialogService } from 'src/app/shared/services/dialog.service'
-import { EmojiService } from 'src/app/shared/services/emoji.service'
 import { HelperService } from 'src/app/shared/services/helper.service'
 import { LedgerCriteriaVM } from '../../../classes/view-models/ledger-criteria-vm'
 import { LedgerPDFService } from '../../../classes/services/ledger-pdf.service'
@@ -42,23 +40,11 @@ export class PrimaryLedgerListComponent {
     public distinctCustomers: any[]
     public distinctDestinations: any[]
     public distinctShips: any[]
+    public selectedRecords: LedgerVM[] = []
 
     //#endregion
 
-    constructor(
-        private activatedRoute: ActivatedRoute,
-        private dateHelperService: DateHelperService,
-        private emojiService: EmojiService,
-        private helperService: HelperService,
-        private ledgerPdfService: LedgerPDFService,
-        private localStorageService: LocalStorageService,
-        private messageLabelService: MessageLabelService,
-        private messageSnackbarService: MessageSnackbarService,
-        private modalActionResultService: ModalActionResultService,
-        private dialogService: DialogService,
-        private router: Router,
-        public dialog: MatDialog
-    ) { }
+    constructor(private activatedRoute: ActivatedRoute, private dateHelperService: DateHelperService, private helperService: HelperService, private ledgerPdfService: LedgerPDFService, private localStorageService: LocalStorageService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private modalActionResultService: ModalActionResultService, private router: Router, public dialog: MatDialog) { }
 
     //#region lifecycle hooks
 
@@ -76,39 +62,24 @@ export class PrimaryLedgerListComponent {
 
     //#region public methods
 
-
     public exportSingleCustomer(customerId: number): void {
-        console.log(customerId)
-        // const customerRecords = this.records.find(x => x.customer.id == customerId)
-        // this.ledgerPdfService.createPDF(customerRecords)
+        this.selectedRecords = []
+        this.selectedRecords.push(this.records.find(x => x.customer.id == customerId))
+        this.ledgerPdfService.createPDF(this.selectedRecords, this.criteria)
     }
 
-    public exportAll(): void {
-        this.ledgerPdfService.createPDF(this.records,this.criteria)
+    public exportSelected(): void {
+        if (this.isAnyRowSelected()) {
+            this.ledgerPdfService.createPDF(this.selectedRecords, this.criteria)
+        }
     }
 
     public formatDateToLocale(date: string, showWeekday = false, showYear = false): string {
         return this.dateHelperService.formatISODateToLocale(date, showWeekday, showYear)
     }
 
-    public getEmoji(emoji: string): string {
-        return this.emojiService.getEmoji(emoji)
-    }
-
     public getLabel(id: string): string {
         return this.messageLabelService.getDescription(this.feature, id)
-    }
-
-    public getCustomerDescriptions(): string {
-        return this.criteria.customers.map((customer) => customer.description).join(' ▪️ ')
-    }
-
-    public getDestinationDescriptions(): string {
-        return this.criteria.destinations.map((destination) => destination.description).join(' ▪️ ')
-    }
-
-    public getShipDescriptions(): string {
-        return this.criteria.ships.map((ship) => ship.description).join(' ▪️ ')
     }
 
     public getIcon(filename: string): string {
@@ -132,6 +103,7 @@ export class PrimaryLedgerListComponent {
 
 
     }
+
     //#endregion
 
     //#region private methods
@@ -147,11 +119,18 @@ export class PrimaryLedgerListComponent {
         this.distinctShips = this.helperService.getDistinctRecords(this.records.map(x => x.reservations).flat(), 'ship')
     }
 
+    private isAnyRowSelected(): boolean {
+        if (this.selectedRecords.length == 0) {
+            this.modalActionResultService.open(this.messageSnackbarService.noRecordsSelected(), 'error', ['ok'])
+            return false
+        }
+        return true
+    }
+
     private loadRecords(): void {
         const listResolved = this.activatedRoute.snapshot.data[this.feature]
         if (listResolved.error === null) {
             this.records = Object.assign([], listResolved.result)
-            console.log('All', this.records)
         } else {
             this.modalActionResultService.open(this.messageSnackbarService.filterResponse(listResolved.error), 'error', ['ok']).subscribe(() => {
                 this.goBack()

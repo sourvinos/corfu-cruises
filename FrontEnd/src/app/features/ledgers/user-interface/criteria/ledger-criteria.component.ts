@@ -12,7 +12,6 @@ import { DateHelperService } from 'src/app/shared/services/date-helper.service'
 import { DateRange, MatCalendar } from '@angular/material/datepicker'
 import { DestinationActiveVM } from 'src/app/features/destinations/classes/view-models/destination-active-vm'
 import { EmojiService } from './../../../../shared/services/emoji.service'
-import { HelperService } from 'src/app/shared/services/helper.service'
 import { InteractionService } from 'src/app/shared/services/interaction.service'
 import { LedgerCriteriaVM } from '../../classes/view-models/ledger-criteria-vm'
 import { LocalStorageService } from 'src/app/shared/services/local-storage.service'
@@ -51,7 +50,7 @@ export class LedgerCriteriaComponent {
 
     //#endregion
 
-    constructor(private customerService: CustomerService, private dateAdapter: DateAdapter<any>, private dateHelperService: DateHelperService, private emojiService: EmojiService, private formBuilder: FormBuilder, private helperService: HelperService, private interactionService: InteractionService, private localStorageService: LocalStorageService, private messageLabelService: MessageLabelService, private router: Router) { }
+    constructor(private customerService: CustomerService, private dateAdapter: DateAdapter<any>, private dateHelperService: DateHelperService, private emojiService: EmojiService, private formBuilder: FormBuilder, private interactionService: InteractionService, private localStorageService: LocalStorageService, private messageLabelService: MessageLabelService, private router: Router) { }
 
     //#region lifecycle hooks
 
@@ -92,7 +91,7 @@ export class LedgerCriteriaComponent {
                         }
                     }
                 })
-            }, 500)
+            }, 1000)
         })
     }
 
@@ -158,10 +157,6 @@ export class LedgerCriteriaComponent {
             fromDate: event.start != null ? this.dateHelperService.formatDateToIso(event.start) : '',
             toDate: event.end != null ? this.dateHelperService.formatDateToIso(event.end) : ''
         })
-    }
-
-    public selectAllText(field: string): void {
-        this.helperService.focusOnField(field)
     }
 
     public toggleAllCheckboxes(array: string, allCheckboxes: string): void {

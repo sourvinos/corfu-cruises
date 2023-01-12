@@ -76,7 +76,7 @@
 }
 
 .p-datatable .p-datatable-tbody > tr > td > img {
-    width: 1.5rem;
+    width: 1rem;
 }
 
 .p-datatable .p-datatable-tfoot {
@@ -122,7 +122,7 @@
 }
 
 .p-datatable .p-datatable-tbody > tr:not(.group-row):hover {
-    background-color: var(--color-d) !important;
+    background-color: var(--color-row-hover) !important;
 }
 
 .p-button.p-button-text:enabled:focus, .p-button.p-button-outlined:enabled:focus {
@@ -136,7 +136,7 @@
 }
 
 div:not(.p-column-filter).p-column-filter-row:hover {
-    background-color: var(--color-d) !important;
+    background-color: var(--color-row-hover) !important;
 }
 
 .row-group {

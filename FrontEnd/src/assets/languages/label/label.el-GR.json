@@ -1492,8 +1492,8 @@
                 "description": "Σ"
             },
             {
-                "id": "exportAllButton",
-                "description": "ΕΞΑΓΩΓΗ ΟΛΩΝ ΣΕ XLS"
+                "id": "createPdfButton",
+                "description": "ΔΗΜΙΟΥΡΓΙΑ PDF"
             },
             {
                 "id": "criteria-customers",
