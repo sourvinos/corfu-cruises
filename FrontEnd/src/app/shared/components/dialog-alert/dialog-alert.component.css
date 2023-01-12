@@ -85,10 +85,11 @@ svg {
 #dialog-header {
     display: flex;
     justify-content: center;
+    padding: 0;
 }
 
 #dialog-footer {
-    padding-top: 2rem;
+    padding: 0;
     text-align: center;
 }
 
