@@ -15,7 +15,7 @@ button:hover:not([disabled]) {
 
 button.primary {
     background-color: var(--color-button-background-primary) !important;
-    color: var(--color-button-text) !important;
+    color: var(--color-button-text-primary) !important;
 }
 
 button.secondary {

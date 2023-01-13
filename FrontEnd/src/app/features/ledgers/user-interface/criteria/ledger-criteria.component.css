@@ -12,19 +12,21 @@
     height: fit-content;
 }
 
-.max-height {
+.fieldset {
     height: 100%;
+    width: 20rem;
 }
 
 .filter {
-    align-items: baseline;
+    align-items: flex-start;
     display: flex;
     flex-direction: row;
 }
 
 .list-wrapper {
-    height: 92%;
+    height: 90%;
     overflow-y: scroll;
+    width: 18.5rem;
 }
 
 .selected {
@@ -40,24 +42,4 @@
     position: relative;
     top: -2px;
     font-size: 15px;
-}
-
-fieldset {
-    backdrop-filter: blur(var(--blur));
-    background-color: #cddc3905 !important;
-    border-radius: 0.625rem;
-    border: 0.0625rem solid var(--color-b);
-    padding: 1rem 0 1rem 0;
-    width: 20rem;
-}
-
-fieldset legend {
-    align-items: center;
-    color: var(--color-c);
-    display: flex;
-    font-family: var(--font-family-roboto);
-    font-size: var(--font-size-fieldset-legend);
-    justify-content: space-between;
-    padding: 0 1rem 0 1rem;
-    width: 100%;
 }

@@ -1408,7 +1408,7 @@
             },
             {
                 "id": "date",
-                "description": "Ημερομηνία"
+                "description": "Εύρος ημερομηνίας"
             },
             {
                 "id": "customers",
@@ -1529,8 +1529,8 @@
                 "description": "Προορισμός"
             },
             {
-                "id": "port",
-                "description": "Λιμάνι"
+                "id": "ports",
+                "description": "Λιμάνια"
             },
             {
                 "id": "ship",
@@ -1541,12 +1541,12 @@
                 "description": "Δρομολόγιο"
             },
             {
-                "id": "searchButton",
-                "description": "ΑΝΑΖΗΤΗΣΗ"
+                "id": "selected",
+                "description": "Επιλεγμένα"
             },
             {
-                "id": "todayButton",
-                "description": "ΣΗΜΕΡΑ"
+                "id": "searchButton",
+                "description": "ΑΝΑΖΗΤΗΣΗ"
             }
         ]
     },

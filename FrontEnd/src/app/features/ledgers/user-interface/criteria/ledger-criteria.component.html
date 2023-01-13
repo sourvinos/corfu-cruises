@@ -16,7 +16,7 @@
                 </div>
             </fieldset>
             <!-- Customers -->
-            <fieldset class="max-height">
+            <fieldset class="fieldset">
                 <legend>
                     <span>{{ getLabel('customers') }}</span>
                     <div class="selected">
@@ -28,7 +28,7 @@
                     <div class="styled-input-square">
                         <div class="styled-input-single no-hover">
                             <input (click)="toggleAllCheckboxes('customer', 'allCustomersCheckbox')" id="all-customers" type="checkbox" formControlName="allCustomersCheckbox">
-                            <label for="all-customers"></label>
+                            <label class="no-label" for="all-customers"></label>
                         </div>
                     </div>
                     <mat-form-field class="list-filter">
@@ -40,14 +40,14 @@
                         <div class="styled-input-square">
                             <div class="styled-input-single" (change)="onCheckboxChange($event, 'allCustmersCheckbox', 'customers', customer.description)">
                                 <input class="customer" formArrayName="customers" type="checkbox" [value]="customer.id" [attr.id]="'customer' + customer.id" [checked]="lookup('customers', customer.id)">
-                                <label [attr.for]="'customer' + customer.id" [attr.id]="'customer-label' + customer.id">{{ customer.description }}</label>
+                                <label [attr.for]="'customer' + customer.id" [attr.id]="'customer-label' + customer.id">{{ customer.description | trimString:33 }}</label>
                             </div>
                         </div>
                     </div>
                 </div>
             </fieldset>
             <!-- Destinations -->
-            <fieldset class="max-height">
+            <fieldset class="fieldset">
                 <legend>
                     <span>{{ getLabel('destinations') }}</span>
                     <div class="selected">
@@ -59,7 +59,7 @@
                     <div class="styled-input-square">
                         <div class="styled-input-single no-hover">
                             <input (click)="toggleAllCheckboxes('destination', 'allDestinationsCheckbox')" id="all-destinations" type="checkbox" formControlName="allDestinationsCheckbox">
-                            <label for="all-destinations"></label>
+                            <label class="no-label" for="all-destinations"></label>
                         </div>
                     </div>
                     <mat-form-field class="list-filter">
@@ -71,14 +71,14 @@
                         <div class="styled-input-square">
                             <div class="styled-input-single" (change)="onCheckboxChange($event, 'allDestinationsCheckbox', 'destinations', destination.description)">
                                 <input class="destination" formArrayName="destinations" type="checkbox" [value]="destination.id" [attr.id]="'destination' + destination.id" [checked]="lookup('destinations', destination.id)">
-                                <label [attr.for]="'destination' + destination.id" [attr.id]="'destination-label' + destination.id">{{ destination.description }}</label>
+                                <label [attr.for]="'destination' + destination.id" [attr.id]="'destination-label' + destination.id">{{ destination.description | trimString:33 }}</label>
                             </div>
                         </div>
                     </div>
                 </div>
             </fieldset>
             <!-- Ships -->
-            <fieldset class="max-height">
+            <fieldset class="fieldset">
                 <legend>
                     <span>{{ getLabel('ships') }}</span>
                     <div class="selected">
@@ -90,7 +90,7 @@
                     <div class="styled-input-square">
                         <div class="styled-input-single no-hover">
                             <input (click)="toggleAllCheckboxes('ship', 'allShipsCheckbox')" id="all-ships" type="checkbox" formControlName="allShipsCheckbox">
-                            <label for="all-ships"></label>
+                            <label class="no-label" for="all-ships"></label>
                         </div>
                     </div>
                     <mat-form-field class="list-filter">
@@ -102,7 +102,7 @@
                         <div class="styled-input-square">
                             <div class="styled-input-single" (change)="onCheckboxChange($event, 'allShipsCheckbox', 'ships', ship.description)">
                                 <input class="ship" formArrayName="ships" type="checkbox" [value]="ship.id" [attr.id]="'ship' + ship.id" [checked]="lookup('ships', ship.id)">
-                                <label [attr.for]="'ship' + ship.id" [attr.id]="'ship-label' + ship.id">{{ ship.description }}</label>
+                                <label [attr.for]="'ship' + ship.id" [attr.id]="'ship-label' + ship.id">{{ ship.description | trimString:33 }}</label>
                             </div>
                         </div>
                     </div>

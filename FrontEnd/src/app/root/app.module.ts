@@ -45,8 +45,7 @@ import { InterceptorService } from '../shared/services/interceptor.service'
         PrimeNgModule,
         ReactiveFormsModule,
         ScrollingModule,
-        SharedModule,
-
+        SharedModule
     ],
     providers: [
         {

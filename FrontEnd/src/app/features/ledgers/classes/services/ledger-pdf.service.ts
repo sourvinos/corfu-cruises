@@ -34,7 +34,7 @@ export class LedgerPDFService {
             content: [
                 {
                     table: {
-                        widths: ['auto', 'auto', 'auto', 'auto', 'auto', 'auto', 'auto', 'auto', 'auto', 'auto', 'auto', 'auto', 'auto', '*'],
+                        widths: ['auto', 'auto', 'auto', 'auto', 'auto', 'auto', 'auto', 'auto', 'auto', 'auto', 'auto', 20, 'auto', '*'],
                         body: this.rows,
                         heights: 5
                     },
@@ -288,7 +288,7 @@ export class LedgerPDFService {
             { text: 'Free' },
             { text: 'Total' },
             { text: 'Actual' },
-            { text: 'N/S' },
+            { text: 'N/S', alignment: 'center' },
             { text: 'Transfer' },
             { text: '', border: [false, false, false, false] }
         ]

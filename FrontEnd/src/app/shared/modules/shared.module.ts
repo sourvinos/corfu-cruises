@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { NgModule } from '@angular/core'
+import { PrimeNgModule } from './primeng.module'
 import { RouterModule } from '@angular/router'
 import { ZXingScannerModule } from '@zxing/ngx-scanner'
 // Custom
@@ -17,17 +18,17 @@ import { LoginLogoComponent } from 'src/app/features/login/user-interface/login-
 import { MaterialModule } from './material.module'
 import { ModalActionResultComponent } from '../components/modal-action-result/modal-action-result.component'
 import { MonthSelectorComponent } from '../components/month-selector/month-selector.component'
-import { PrimeNgModule } from './primeng.module'
 import { SafeStylePipe } from '../pipes/safeStyle.pipe'
 import { SnackbarComponent } from '../components/snackbar/snackbar.component'
 import { TableTotalFilteredRecordsComponent } from '../components/table-total-filtered-records/table-total-filtered-records.component'
 import { ThemeMenuComponent } from './../components/top-bar-wrapper/theme-menu/theme-menu.component'
+import { TrimStringPipe } from './../pipes/string-trim.pipe'
 import { YearSelectorComponent } from '../components/year-selector/year-selector.component'
 
 @NgModule({
     declarations: [
-        DateRangeSelectorComponent,
         CriteriaPanelComponent,
+        DateRangeSelectorComponent,
         DialogAlertComponent,
         DisableToogleDirective,
         HomeButtonAndTitleComponent,
@@ -42,6 +43,7 @@ import { YearSelectorComponent } from '../components/year-selector/year-selector
         SnackbarComponent,
         TableTotalFilteredRecordsComponent,
         ThemeMenuComponent,
+        TrimStringPipe,
         YearSelectorComponent,
     ],
     imports: [
@@ -73,6 +75,7 @@ import { YearSelectorComponent } from '../components/year-selector/year-selector
         RouterModule,
         TableTotalFilteredRecordsComponent,
         ThemeMenuComponent,
+        TrimStringPipe,
         YearSelectorComponent,
         ZXingScannerModule
     ],

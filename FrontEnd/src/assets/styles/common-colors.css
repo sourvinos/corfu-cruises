@@ -7,9 +7,10 @@
     --color-scrollbar-thumb: #d94040;
     /*  Buttons */
     --color-button-text: #ffffff;
+    --color-button-text-primary: #000000;
     --color-button-background-delete: #d94040;
     --color-button-background-delete-hover: #af3c3c;
-    --color-button-background-primary: #86a2cb;
+    --color-button-background-primary: #9ee22e;
     --color-button-background-primary-hover: #647997;
     /*  Checkboxes */
     --color-checkbox-background: #3baca3;

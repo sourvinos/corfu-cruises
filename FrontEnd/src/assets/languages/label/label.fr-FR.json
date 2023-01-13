@@ -1408,7 +1408,7 @@
             },
             {
                 "id": "date",
-                "description": "Date"
+                "description": "Plage de dates"
             },
             {
                 "id": "customers",
@@ -1529,8 +1529,8 @@
                 "description": "Destination"
             },
             {
-                "id": "port",
-                "description": "Port"
+                "id": "ports",
+                "description": "Ports"
             },
             {
                 "id": "ship",
@@ -1541,12 +1541,12 @@
                 "description": "Route"
             },
             {
-                "id": "searchButton",
-                "description": "RECHERCHE"
+                "id": "selected",
+                "description": "Sélectionné"
             },
             {
-                "id": "todayButton",
-                "description": "AUJOURD'HUI"
+                "id": "searchButton",
+                "description": "RECHERCHE"
             }
         ]
     },

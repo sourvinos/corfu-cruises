@@ -1,8 +1,9 @@
 .styled-input-single {
-    margin: 0 1.5rem;
-    padding: 0.5rem 0.1875rem 0.5rem 2.5rem;
+    margin: 0;
+    overflow: hidden;
+    padding: 0;
     position: relative;
-    text-align: left;
+    white-space: nowrap;
 }
 
 .styled-input-single:not(.no-hover):hover {
@@ -11,6 +12,7 @@
 }
 
 .styled-input-single label {
+    align-items: center;
     color: var(--color-c);
     cursor: pointer;
     display: flex;
@@ -18,6 +20,11 @@
     font-size: var(--font-size-checkbox);
     max-height: var(--font-size-checkbox) !important;
     overflow: hidden;
+    padding: 1rem 2.5rem;
+}
+
+.styled-input-single label.no-label {
+    padding: 1rem;
 }
 
 .styled-input-single label::before, .styled-input-single label::after {
