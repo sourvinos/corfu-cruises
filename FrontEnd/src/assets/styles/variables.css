@@ -6,6 +6,7 @@
     --font-family-montserrat: "Montserrat";
     --font-family-roboto: "Roboto";
     --font-family-ubuntu: "Ubuntu Condensed";
+    --font-family-asty: "Asty CF Std";
     /* Font weights */
     --font-weight-dialog-content: 300 !important;
     --font-weight-header: 300 !important;
@@ -22,8 +23,8 @@
     --font-size-checkbox: 0.75rem;
     --font-size-datepicker-header-month: 1.8rem;
     --font-size-dialog: 1.5rem;
-    --font-size-fieldset-legend: 0.75rem;
-    --font-size-h1: 1.5rem;
+    --font-size-fieldset-legend: 0.8rem;
+    --font-size-h1: 1.12rem;
     --font-size-loading-message: 2rem;
     --font-size-logo-loader-first-child: 8rem;
     --font-size-logo-loader-second-child: 4.5rem;

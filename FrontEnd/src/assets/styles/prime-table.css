@@ -4,6 +4,7 @@
 
 .p-datatable-tbody {
     backdrop-filter: blur(var(--blur));
+    font-family: var(--font-family-asty) !important;
     height: 100% !important;
     top: 0 !important;
 }
@@ -30,7 +31,7 @@
     border-right: 0.0625rem solid var(--color-a) !important;
     border-width: 0 0.0625rem 0 0 !important;
     color: var(--color-c) !important;
-    font-family: var(--font-family-roboto) !important;
+    font-family: var(--font-family-asty) !important;
     font-size: var(--font-size-table-header) !important;
     font-weight: var(--font-weight-table-header) !important;
     justify-content: center;
@@ -68,6 +69,7 @@
 .p-datatable .p-datatable-tbody > tr > td {
     border-bottom: 1px solid var(--color-d) !important;
     color: var(--color-c);
+    font-family: var(--font-family-asty) !important;
     font-size: var(--font-size-table-row);
     overflow: hidden !important;
     padding: 0.375rem 0.5rem !important;

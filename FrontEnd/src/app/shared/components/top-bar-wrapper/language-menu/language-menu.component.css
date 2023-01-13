@@ -51,6 +51,7 @@ li:hover .sub-menu {
     animation: enter 0.1s ease forwards;
     background-color: var(--color-b);
     color: var(--color-c);
+    font-family: var(--font-family-asty) !important;
     justify-content: flex-start;
     opacity: 0;
     padding: 0.8rem 1rem !important;
