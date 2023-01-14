@@ -1510,6 +1510,14 @@
             {
                 "id": "ok-button",
                 "description": "OK"
+            },
+            {
+                "id": "summary-tab",
+                "description": "Shrnutí"
+            },
+            {
+                "id": "reservations-tab",
+                "description": "Rezervace"
             }
         ]
     },

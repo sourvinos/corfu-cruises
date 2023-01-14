@@ -10,7 +10,7 @@ import { MessageSnackbarService } from 'src/app/shared/services/messages-snackba
 @Component({
     selector: 'language-menu',
     templateUrl: './language-menu.component.html',
-    styleUrls: ['./language-menu.component.css']
+    styleUrls: ['../../../../../assets/styles/dropdown-menu.css']
 })
 
 export class LanguageMenuComponent {

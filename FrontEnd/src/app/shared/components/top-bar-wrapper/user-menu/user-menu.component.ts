@@ -13,7 +13,7 @@ import { environment } from 'src/environments/environment'
 @Component({
     selector: 'user-menu',
     templateUrl: './user-menu.component.html',
-    styleUrls: ['./user-menu.component.css']
+    styleUrls: ['../../../../../assets/styles/dropdown-menu.css']
 })
 
 export class UserMenuComponent {

@@ -12,7 +12,7 @@ import { environment } from 'src/environments/environment'
 @Component({
     selector: 'reservations-menu',
     templateUrl: './reservations-menu.component.html',
-    styleUrls: ['./reservations-menu.component.css']
+    styleUrls: ['../../../../../assets/styles/dropdown-menu.css']
 })
 
 export class ReservationsMenuComponent {

@@ -22,7 +22,9 @@ input.mat-input-element {
 input[type="text"], input[type="email"], input[type="number"], input[type="password"], input:-webkit-autofill, input:-webkit-autofill:active {
     background-clip: content-box;
     cursor: text !important;
+    font-family: var(--font-family-asty);
     font-size: var(--font-size-input) !important;
+    font-weight: 300;
     outline: none;
 }
 

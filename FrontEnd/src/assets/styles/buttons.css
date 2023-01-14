@@ -2,8 +2,9 @@ button {
     align-items: center;
     border: none;
     cursor: default !important;
-    font-family: sans-serif !important;
+    font-family: var(--font-family-asty) !important;
     font-size: var(--font-size-button) !important;
+    font-weight: 300 !important;
     min-width: 0 !important;
     outline: 0 !important;
     padding-top: 0.0625rem !important;

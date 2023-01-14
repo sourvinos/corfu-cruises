@@ -2,22 +2,8 @@ h1 {
     color: var(--color-c) !important;
     font-family: var(--font-family-asty) !important;
     font-size: var(--font-size-h1) !important;
-    font-weight: var(--font-weight-header) !important;
+    font-weight: 300 !important;
     padding: 0 !important;
     transform: scale(1.4, 1);
     transform-origin: left;
-}
-
-h5 {
-    color: var(--color-c) !important;
-    margin: 0 !important;
-    padding: 0 !important;
-}
-
-h6 {
-    color: var(--color-c) !important;
-    font-family: var(--font-family-handbook) !important;
-    font-weight: var(--font-weight-header) !important;
-    margin: 0 !important;
-    padding: 0 !important;
 }

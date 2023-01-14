@@ -4,7 +4,6 @@
 
 .p-datatable-tbody {
     backdrop-filter: blur(var(--blur));
-    font-family: var(--font-family-asty) !important;
     height: 100% !important;
     top: 0 !important;
 }
@@ -33,11 +32,9 @@
     color: var(--color-c) !important;
     font-family: var(--font-family-asty) !important;
     font-size: var(--font-size-table-header) !important;
-    font-weight: var(--font-weight-table-header) !important;
-    justify-content: center;
+    font-weight: 300 !important;
     padding: 0.5rem !important;
     text-align: center !important;
-    top: 0.0625rem;
 }
 
 .p-datatable .p-datatable-thead > tr > th:last-child {
@@ -71,6 +68,7 @@
     color: var(--color-c);
     font-family: var(--font-family-asty) !important;
     font-size: var(--font-size-table-row);
+    font-weight: 300;
     overflow: hidden !important;
     padding: 0.375rem 0.5rem !important;
     text-overflow: ellipsis !important;
