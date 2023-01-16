@@ -1,16 +1,20 @@
 import { NgModule } from '@angular/core'
 // Custom
 import { LedgerCriteriaComponent } from '../../user-interface/criteria/ledger-criteria.component'
+import { LedgerCustomerListComponent } from '../../user-interface/list/customers/customers.component'
+import { LedgerCustomerReservationListComponent } from '../../user-interface/list/reservations/reservations.component'
+import { LedgerCustomerSummaryAndReservationsComponent } from '../../user-interface/list/summary-and-reservations/summary-and-reservations.component'
+import { LedgerCustomerSummaryComponent } from '../../user-interface/list/summary/summary.component'
 import { LedgerRoutingModule } from './ledger.routing.module'
-import { PrimaryLedgerListComponent } from '../../user-interface/list/primary/primary-ledger-list.component'
-import { SecondaryLedgerListComponent } from '../../user-interface/list/secondary/secondary-ledger-list.component'
 import { SharedModule } from 'src/app/shared/modules/shared.module'
 
 @NgModule({
     declarations: [
         LedgerCriteriaComponent,
-        PrimaryLedgerListComponent,
-        SecondaryLedgerListComponent
+        LedgerCustomerListComponent,
+        LedgerCustomerSummaryAndReservationsComponent,
+        LedgerCustomerReservationListComponent,
+        LedgerCustomerSummaryComponent
     ],
     imports: [
         SharedModule,

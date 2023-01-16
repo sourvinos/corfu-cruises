@@ -43,7 +43,3 @@
 .embarkation-status span {
     color: var(--color-button-do-embarkation);
 }
-
-.p-button.p-button-icon-only.p-button-rounded {
-    height: 20px !important;
-}

@@ -2,12 +2,13 @@
     /* Lists and tables */
     --color-list-active-item: #7bc3b8;
     --color-list-inactive-item: #fd99ab;
-    --color-row-hover: #5b7a9f40;
+    --color-row-hover: #5b7a9f14;
     --color-row-seperator: #bebebe;
     --color-scrollbar-thumb: #d94040;
     /*  Buttons */
     --color-button-text: #ffffff;
     --color-button-text-primary: #000000;
+    --color-button-background-secondary: #5f80a7;
     --color-button-background-delete: #d94040;
     --color-button-background-delete-hover: #af3c3c;
     --color-button-background-primary: #9ee22e;
@@ -53,11 +54,11 @@
     --color-day-selected-weekday: #ff7a7a;
     /* Dropdown menus */
     --color-dropdown-menu-border: #ff7a7a;
-    /* Dialog headers (assign passengers to driver, create pre-boarding list) */
+    /* Dialog headers */
     --color-dialog-header: #ff7a7a;
-    /* Customer ledger summary table */
-    --color-persons: #2196f312;
-    --color-total-persons: #2196f32b;
     /* Tabs */
     --color-active-tab: #5f80a7;
+    /* Ledger totals */
+    --color-total: #474560;
+    --color-detail: #4c4a64;
 }

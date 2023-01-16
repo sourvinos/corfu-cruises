@@ -5,6 +5,7 @@ import { Subject } from 'rxjs'
 import { DateHelperService } from 'src/app/shared/services/date-helper.service'
 import { HelperService } from 'src/app/shared/services/helper.service'
 import { LedgerCriteriaVM } from '../../../classes/view-models/ledger-criteria-vm'
+import { LedgerCustomerSummaryAndReservationsComponent } from '../summary-and-reservations/summary-and-reservations.component'
 import { LedgerPDFService } from '../../../classes/services/ledger-pdf.service'
 import { LedgerVM } from '../../../classes/view-models/ledger-vm'
 import { LocalStorageService } from 'src/app/shared/services/local-storage.service'
@@ -12,17 +13,16 @@ import { MatDialog } from '@angular/material/dialog'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
 import { ModalActionResultService } from 'src/app/shared/services/modal-action-result.service'
-import { SecondaryLedgerListComponent } from '../secondary/secondary-ledger-list.component'
 import { Table } from 'primeng/table'
 import { environment } from 'src/environments/environment'
 
 @Component({
-    selector: 'primary-ledger-list',
-    templateUrl: './primary-ledger-list.component.html',
-    styleUrls: ['../../../../../../assets/styles/lists.css', './primary-ledger-list.component.css']
+    selector: 'ledger-customer-list',
+    templateUrl: './customers.component.html',
+    styleUrls: ['../../../../../../assets/styles/lists.css', './customers.component.css']
 })
 
-export class PrimaryLedgerListComponent {
+export class LedgerCustomerListComponent {
 
     //#region variables
 
@@ -91,7 +91,7 @@ export class PrimaryLedgerListComponent {
     }
 
     public showCustomerReservations(customer: LedgerVM): void {
-        this.dialog.open(SecondaryLedgerListComponent, {
+        this.dialog.open(LedgerCustomerSummaryAndReservationsComponent, {
             height: '600px',
             width: '1400px',
             data: {
@@ -100,8 +100,6 @@ export class PrimaryLedgerListComponent {
             },
             panelClass: 'dialog'
         })
-
-
     }
 
     //#endregion

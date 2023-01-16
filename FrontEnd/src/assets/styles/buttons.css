@@ -20,11 +20,11 @@ button.primary {
 }
 
 button.secondary {
-    background-color: var(--color-b) !important;
+    background-color: var(--color-button-background-secondary) !important;
     color: var(--color-c) !important;
 }
 
-button.primary:hover:not([disabled]), button.secondary:hover:not([disabled]) {
+button.primary:hover:not([disabled]) {
     background-color: var(--color-button-background-primary-hover) !important;
 }
 
@@ -67,8 +67,8 @@ button.tab:first-child {
     margin-right: 1rem;
 }
 
-.mat-fab .mat-button-wrapper {
-    line-height: 0 !important;
+button .mat-button-wrapper img {
+    margin-top: -0.1875rem !important;
 }
 
 button.mat-mini-fab {
@@ -77,6 +77,18 @@ button.mat-mini-fab {
     color: var(--color-a) !important;
     margin: 0 !important;
     outline: 0 !important;
+}
+
+button.mat-mini-fab .mat-button-wrapper {
+    color: var(--color-c);
+    line-height: 1.4375rem !important;
+    margin: 0 auto;
+    padding: 0 !important;
+    transition: color 0.2s ease-in;
+}
+
+button.mat-mini-fab .mat-button-wrapper .material-icons {
+    margin-top: -0.25rem !important;
 }
 
 button.mat-mini-fab:hover {
@@ -92,20 +104,8 @@ button:not(:disabled) {
     cursor: pointer !important;
 }
 
-button.mat-mini-fab .mat-button-wrapper {
-    color: var(--color-c);
-    line-height: 1.4375rem !important;
-    margin: 0 auto;
-    padding: 0 !important;
-    transition: color 0.2s ease-in;
-}
-
 button.mat-button-toggle-label-content {
     line-height: 2.5rem !important;
-}
-
-button.mat-mini-fab .mat-button-wrapper .material-icons {
-    margin-top: -0.25rem !important;
 }
 
 .button-icon {

@@ -95,10 +95,6 @@ ul {
     width: 1000px;
 }
 
-.no-border {
-    border: none !important;
-}
-
 .subscript {
     font-size: 0.6875rem;
     padding-top: 0.25rem;
