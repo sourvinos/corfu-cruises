@@ -22,6 +22,7 @@
     max-height: var(--font-size-checkbox) !important;
     overflow: hidden;
     padding: 1rem 2.5rem;
+    transition: all var(--theme-change-delay) ease-in;
 }
 
 .styled-input-single label.no-label {

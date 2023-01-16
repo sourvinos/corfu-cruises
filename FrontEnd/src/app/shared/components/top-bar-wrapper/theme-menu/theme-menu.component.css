@@ -30,12 +30,12 @@ label:hover {
 
 .fa-sun {
     color: var(--color-sun);
-    transition: var(--delay);
+    transition: var(--theme-change-delay);
 }
 
 .fa-moon {
     color: var(--color-moon);
-    transition: var(--delay);
+    transition: var(--theme-change-delay);
 }
 
 #switch-button:checked ~ label > .fa-moon {

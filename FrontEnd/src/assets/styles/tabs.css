@@ -37,7 +37,15 @@
 }
 
 .mat-tab-label-active {
-    background-color: var(--color-active-tab) !important;
+    background-color: var(--color-active-tab-background) !important;
+}
+
+.mat-tab-label-active:not(.cdk-focused), .mat-tab-label-active:not(.cdk-mouse-focused) {
+    background-color: var(--color-active-tab-background) !important;
+}
+
+.mat-tab-label-active .mat-tab-label-content {
+    color: var(--color-active-tab-text) !important;
 }
 
 .mat-tab-group {

@@ -1,8 +1,8 @@
 .mat-card {
-    box-shadow: none !important;
     background-color: transparent;
+    box-shadow: none !important;
     height: 100%;
-    transition: all var(--delay) ease-in !important;
+    transition: all var(--theme-change-delay) ease-in !important;
 }
 
 .mat-card-content {

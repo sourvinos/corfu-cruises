@@ -9,6 +9,7 @@
     box-shadow: none;
     display: flex;
     margin-right: 1rem !important;
+    transition: all var(--theme-change-delay) ease-in;
 }
 
 #title {

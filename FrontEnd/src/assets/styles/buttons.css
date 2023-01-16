@@ -8,10 +8,11 @@ button {
     min-width: 0 !important;
     outline: 0 !important;
     padding-top: 0.0625rem !important;
+    transition: all var(--hover-change-delay) ease-in;
 }
 
 button:hover:not([disabled]) {
-    transition: all 0.15s ease-in;
+    transition: all var(--hover-change-delay) ease-in;
 }
 
 button.primary {
@@ -53,10 +54,6 @@ button.transparent {
 button.transparent:hover {
     background-color: var(--color-button-background-primary) !important;
     color: var(--color-button-text) !important;
-}
-
-.mat-menu-item:hover:not([disabled]), .mat-menu-item.cdk-program-focused:not([disabled]), .mat-menu-item-highlighted:not([disabled]):hover {
-    background-color: var(--color-a) !important;
 }
 
 button.tab {
@@ -122,4 +119,8 @@ button.square {
 
 button.square.primary {
     background-color: var(--color-button-background-primary) !important;
+}
+
+.mat-menu-item:hover:not([disabled]), .mat-menu-item.cdk-program-focused:not([disabled]), .mat-menu-item-highlighted:not([disabled]):hover {
+    background-color: var(--color-a) !important;
 }

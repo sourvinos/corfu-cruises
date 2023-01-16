@@ -6,7 +6,7 @@
     flex-direction: row;
     height: 100%;
     width: 100vw;
-    transition: all var(--delay) ease-in;
+    transition: all var(--theme-change-delay) ease-in;
 }
 
 #main {
@@ -15,7 +15,7 @@
     height: 100%;
     overflow: hidden;
     width: 100%;
-    transition: all var(--delay) ease-in;
+    transition: all var(--theme-change-delay) ease-in;
 }
 
 #content {

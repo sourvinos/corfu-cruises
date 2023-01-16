@@ -57,8 +57,6 @@
     /* Dialog headers */
     --color-dialog-header: #ff7a7a;
     /* Tabs */
-    --color-active-tab: #5f80a7;
-    /* Ledger totals */
-    --color-total: #474560;
-    --color-detail: #4c4a64;
+    --color-active-tab-text: #ffffff;
+    --color-active-tab-background: #5f80a7;
 }

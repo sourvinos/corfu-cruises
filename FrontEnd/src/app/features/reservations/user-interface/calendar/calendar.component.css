@@ -65,7 +65,7 @@
 .day.has-schedule:hover {
     border: 1px solid var(--color-c);
     filter: brightness(1.1);
-    transition: all 0.1s ease-in;
+    transition: all var(--theme-change-delay) ease-in;
 }
 
 .no-reservation-data {

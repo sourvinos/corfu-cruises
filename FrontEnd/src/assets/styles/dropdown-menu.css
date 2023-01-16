@@ -23,8 +23,13 @@ button {
     padding: 0.25rem 0 0.25rem 1rem !important;
 }
 
+button.show-sub-menu {
+    transition: all var(--theme-change-delay) ease-in;
+}
+
 button.hoverable:hover {
-    background-color: var(--color-e) !important;
+    background-color: var(--color-d) !important;
+    /* transition: all var(--hover-change-delay) ease-in; */
 }
 
 span {

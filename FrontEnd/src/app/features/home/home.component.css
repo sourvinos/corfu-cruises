@@ -20,5 +20,5 @@ a:link, a:visited {
 
 a:link:hover {
     color: var(--color-link);
-    transition: all 0.2s ease-in;
+    transition: all var(--theme-change-delay) ease-in;
 }
