@@ -1,17 +1,16 @@
 <div id="form-wrapper">
 
-    <div id="header">
-        <home-button-and-title [feature]="feature" [featureIcon]="featureIcon" [icon]="icon" [parentUrl]="parentUrl"></home-button-and-title>
-    </div>
-
     <div id="content">
+        <div id="header">
+            <home-button-and-title [feature]="feature" [featureIcon]="featureIcon" [icon]="icon" [parentUrl]="parentUrl"></home-button-and-title>
+        </div>
         <form id="form" [formGroup]="form" autocomplete="off">
             <!-- Date -->
             <fieldset class="fit-content">
                 <legend>{{ getLabel('date') }}</legend>
                 <div id="calendar-wrapper">
                     <mat-card id="calendar-card">
-                        <date-range-selector [selectedRangeValue]="selectedRangeValue" (selectedRangeValueChange)="patchFormWithSelectedDates($event)"></date-range-selector>
+                        <date-range-selector [allowSingleDate]=false [selectedRangeValue]="selectedRangeValue" (selectedRangeValueChange)="patchFormWithSelectedDates($event)"></date-range-selector>
                     </mat-card>
                 </div>
             </fieldset>
@@ -26,7 +25,7 @@
                 </legend>
                 <div class="filter">
                     <div class="styled-input-square">
-                        <div class="styled-input-single no-hover">
+                        <div class="styled-input-single">
                             <input (click)="toggleAllCheckboxes('customer', 'allCustomersCheckbox')" id="all-customers" type="checkbox" formControlName="allCustomersCheckbox">
                             <label class="no-label" for="all-customers"></label>
                         </div>
@@ -57,7 +56,7 @@
                 </legend>
                 <div class="filter">
                     <div class="styled-input-square">
-                        <div class="styled-input-single no-hover">
+                        <div class="styled-input-single">
                             <input (click)="toggleAllCheckboxes('destination', 'allDestinationsCheckbox')" id="all-destinations" type="checkbox" formControlName="allDestinationsCheckbox">
                             <label class="no-label" for="all-destinations"></label>
                         </div>
@@ -88,7 +87,7 @@
                 </legend>
                 <div class="filter">
                     <div class="styled-input-square">
-                        <div class="styled-input-single no-hover">
+                        <div class="styled-input-single">
                             <input (click)="toggleAllCheckboxes('ship', 'allShipsCheckbox')" id="all-ships" type="checkbox" formControlName="allShipsCheckbox">
                             <label class="no-label" for="all-ships"></label>
                         </div>
@@ -109,16 +108,15 @@
                 </div>
             </fieldset>
         </form>
-        <p class="instructions" [class.hidden]=true>{{ form.value | json }} {{ form.valid }}</p>
     </div>
 
-</div>
-
-<div id="footer">
-    <div class="button-group-right">
-        <button (click)="doTasks()" [disabled]="!form.valid" class="primary" mat-flat-button>
-            <mat-icon *ngIf="!form.valid" class="button-icon">lock</mat-icon>
-            <span>{{ getLabel("searchButton") }}</span>
-        </button>
+    <div id="footer">
+        <div class="button-group-right">
+            <button (click)="doTasks()" [disabled]="!form.valid" class="primary" mat-flat-button>
+                <mat-icon *ngIf="!form.valid" class="button-icon">lock</mat-icon>
+                <span>{{ getLabel("searchButton") }}</span>
+            </button>
+        </div>
     </div>
+
 </div>

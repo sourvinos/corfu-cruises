@@ -15,6 +15,7 @@ export class DateRangeSelectorComponent {
     //#region variables
 
     @ViewChild('calendar', { static: false }) calendar: MatCalendar<Date>
+    @Input() allowSingleDate: boolean
     @Input() selectedRangeValue: DateRange<Date>
     @Output() selectedRangeValueChange = new EventEmitter<DateRange<Date>>()
 
@@ -41,6 +42,15 @@ export class DateRangeSelectorComponent {
     }
 
     public selectedChange(m: any): void {
+        this.allowSingleDate ? this.processSingleDate(m) : this.processDateRange(m)
+    }
+
+    private processSingleDate(m: any): void {
+        this.selectedRangeValue = new DateRange<Date>(m, m)
+        this.selectedRangeValueChange.emit(this.selectedRangeValue)
+    }
+
+    private processDateRange(m: any): void {
         if (!this.selectedRangeValue?.start || this.selectedRangeValue?.end) {
             this.selectedRangeValue = new DateRange<Date>(m, null)
         } else {

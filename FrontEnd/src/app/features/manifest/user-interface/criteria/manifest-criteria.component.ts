@@ -1,25 +1,25 @@
 import { Component, ViewChild } from '@angular/core'
 import { DateAdapter } from '@angular/material/core'
+import { DateRange, MatCalendar } from '@angular/material/datepicker'
 import { FormGroup, FormBuilder, Validators, FormArray, FormControl } from '@angular/forms'
-import { MatCalendar } from '@angular/material/datepicker'
 import { Router } from '@angular/router'
 import { Subject } from 'rxjs'
 import { takeUntil } from 'rxjs/operators'
 // Custom
 import { DateHelperService } from 'src/app/shared/services/date-helper.service'
 import { DestinationActiveVM } from '../../../destinations/classes/view-models/destination-active-vm'
+import { EmojiService } from 'src/app/shared/services/emoji.service'
 import { InteractionService } from 'src/app/shared/services/interaction.service'
 import { LocalStorageService } from 'src/app/shared/services/local-storage.service'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { PortActiveVM } from './../../../ports/classes/view-models/port-active-vm'
 import { ShipActiveVM } from 'src/app/features/ships/classes/view-models/ship-active-vm'
 import { ShipRouteActiveVM } from 'src/app/features/shipRoutes/classes/view-models/shipRoute-active-vm'
-import { ValidationService } from 'src/app/shared/services/validation.service'
 
 @Component({
     selector: 'manifest-criteria',
     templateUrl: './manifest-criteria.component.html',
-    styleUrls: ['../../../../../assets/styles/forms.css', './manifest-criteria.component.css']
+    styleUrls: ['../../../../../assets/styles/forms.css']
 })
 
 export class ManifestCriteriaComponent {
@@ -35,16 +35,22 @@ export class ManifestCriteriaComponent {
     public icon = 'home'
     public parentUrl = null
 
-    public selectedDate = new Date()
     private criteria: any
+    public selectedFromDate = new Date()
+    public selectedRangeValue: DateRange<Date>
+    public selectedToDate = new Date()
     public destinations: DestinationActiveVM[] = []
+    public filteredDestinations: DestinationActiveVM[] = []
     public ports: PortActiveVM[] = []
+    public filteredPorts: PortActiveVM[] = []
     public ships: ShipActiveVM[] = []
-    public shipRoutes: ShipRouteActiveVM[] = []
+    public filteredShips: ShipActiveVM[] = []
+    public shipRoutes: ShipRouteActiveVM[]
+    public filteredShipRoutes: ShipRouteActiveVM[]
 
     //#endregion
 
-    constructor(private dateAdapter: DateAdapter<any>, private dateHelperService: DateHelperService, private formBuilder: FormBuilder, private interactionService: InteractionService, private localStorageService: LocalStorageService, private messageLabelService: MessageLabelService, private router: Router) { }
+    constructor(private dateAdapter: DateAdapter<any>, private dateHelperService: DateHelperService, private emojiService: EmojiService, private formBuilder: FormBuilder, private interactionService: InteractionService, private localStorageService: LocalStorageService, private messageLabelService: MessageLabelService, private router: Router) { }
 
     //#region lifecycle hooks
 
@@ -52,7 +58,7 @@ export class ManifestCriteriaComponent {
         this.initForm()
         this.populateDropdowns()
         this.populateFieldsFromStoredVariables()
-        this.setSelectedDate()
+        this.setSelectedDates()
         this.setLocale()
         this.subscribeToInteractionService()
     }
@@ -65,41 +71,62 @@ export class ManifestCriteriaComponent {
 
     //#region public methods
 
+    public filterList(event: { target: { value: any } }, filteredList: string, list: string, listElement: string): void {
+        this[filteredList] = this[list]
+        const x = event.target.value
+        this[filteredList] = this[list].filter((i: { description: string }) => i.description.toLowerCase().includes(x.toLowerCase()))
+        setTimeout(() => {
+            const criteria = this.form.value[list]
+            criteria.forEach((element: { description: any }) => {
+                this[filteredList].forEach((x: { description: any; id: string }) => {
+                    if (element.description == x.description) {
+                        const input = document.getElementById(listElement + x.id) as HTMLInputElement
+                        if (input != null) {
+                            input.checked = true
+                        }
+                    }
+                })
+            }, 1000)
+        })
+    }
+
+    public getEmoji(emoji: string): string {
+        return this.emojiService.getEmoji(emoji)
+    }
+
     public getLabel(id: string): string {
         return this.messageLabelService.getDescription(this.feature, id)
     }
 
-    public gotoToday(): void {
-        this.selectedDate = new Date()
-        this.form.patchValue({ date: this.selectedDate.toISOString().substring(0, 10) })
-        this.calendar._goToDateInView(this.selectedDate, 'month')
-    }
-
-    /**
-     * @param portId 
-     * @returns True or false so that the checkbox can be checked or left empty
-     */
-    public lookupPort(portId: number): boolean {
+    public lookup(arrayName: string, arrayId: number): boolean {
         if (this.criteria) {
-            return this.criteria.ports.filter((port: any) => port.id == portId).length != 0 ? true : false
+            return this.criteria[arrayName].filter((x: { id: number }) => x.id == arrayId).length != 0 ? true : false
         }
     }
 
-    /**
-     * Adds/removes controls to/from the formArray
-     * @param event 
-     * @param description 
-     */
-    public onCheckboxChange(event: any, description: string): void {
-        const selectedPorts = this.form.controls['ports'] as FormArray
+    public onCheckboxChange(event: any, allCheckbox: string, formControlsArray: string, description: string): void {
+        const selected = this.form.controls[formControlsArray] as FormArray
         if (event.target.checked) {
-            selectedPorts.push(this.formBuilder.group({
+            selected.push(this.formBuilder.group({
                 id: [parseInt(event.target.value), Validators.required],
                 description: [description]
             }))
         } else {
-            const index = selectedPorts.controls.findIndex(x => x.value.id == parseInt(event.target.value))
-            selectedPorts.removeAt(index)
+            const index = selected.controls.findIndex(x => x.value.id == parseInt(event.target.value))
+            selected.removeAt(index)
+        }
+        if (selected.length == 0) {
+            document.querySelector<HTMLInputElement>('#all-' + formControlsArray).checked = false
+            this.form.patchValue({
+                [allCheckbox]: false
+            })
+        } else {
+            if (selected.length == this[formControlsArray].length) {
+                document.querySelector<HTMLInputElement>('#all-' + formControlsArray).checked = true
+                this.form.patchValue({
+                    [allCheckbox]: true
+                })
+            }
         }
     }
 
@@ -108,46 +135,53 @@ export class ManifestCriteriaComponent {
         this.navigateToList()
     }
 
-    public selectDate(selected: Date): void {
+    public patchFormWithSelectedDates(event: any): void {
         this.form.patchValue({
-            date: this.dateHelperService.formatDateToIso(selected, false)
+            fromDate: event.start != null ? this.dateHelperService.formatDateToIso(event.start) : '',
+            toDate: event.start != null ? this.dateHelperService.formatDateToIso(event.start) : ''
         })
     }
 
-    /**
-     * Clears all radio buttons for the selected group and checks only the selected
-     * @param classname: The radio group
-     * @param id: The selected item id
-     * @param description: The selected description
-     */
-    public updateRadioButtons(classname: any, id: any, description: any): void {
+    public toggleAllCheckboxes(array: string, allCheckboxes: string): void {
+        const selected = this.form.controls[array + 's'] as FormArray
+        selected.clear()
+        const checkboxes = document.querySelectorAll<HTMLInputElement>('.' + array)
+        checkboxes.forEach(checkbox => {
+            checkbox.checked = !this.form.value[allCheckboxes]
+            if (checkbox.checked) {
+                selected.push(this.formBuilder.group({
+                    id: [checkbox.value, Validators.required],
+                    description: document.getElementById(array + '-label' + checkbox.value).innerHTML
+                }))
+            }
+        })
+    }
+
+    public updateRadioButtons(classname: any, idName: any, id: any, description: any): void {
         const radios = document.getElementsByClassName(classname) as HTMLCollectionOf<HTMLInputElement>
         for (let i = 0; i < radios.length; i++) {
             radios[i].checked = false
         }
-        const radio = document.getElementById(classname + id) as HTMLInputElement
+        const radio = document.getElementById(idName + id) as HTMLInputElement
         radio.checked = true
-        this.form.patchValue({
-            [classname]: {
-                'description': description
-            }
-        })
+        const x = this.form.controls[classname] as FormArray
+        x.clear()
+        x.push(new FormControl({
+            'id': id,
+            'description': description
+        }))
     }
 
     //#endregion
 
     //#region private methods
 
-    /**
-     * Adds all the stored ports from the localstorage to the form.
-     * Called on every page load (when called from the menu or when returning from the manifest list)
-     */
-    private addPortsFromStorage(): void {
-        const selectedPorts = this.form.controls['ports'] as FormArray
-        this.criteria.ports.forEach((port: any) => {
-            selectedPorts.push(new FormControl({
-                'id': port.id,
-                'description': port.description
+    private addSelectedCriteriaFromStorage(arrayName: string): void {
+        const x = this.form.controls[arrayName] as FormArray
+        this.criteria[arrayName].forEach((element: any) => {
+            x.push(new FormControl({
+                'id': element.id,
+                'description': element.description
             }))
         })
     }
@@ -159,20 +193,20 @@ export class ManifestCriteriaComponent {
 
     private initForm(): void {
         this.form = this.formBuilder.group({
-            date: ['', [Validators.required, ValidationService.RequireDate]],
-            destination: this.formBuilder.group({
-                id: ['', [Validators.required]],
-                description: []
-            }),
+            fromDate: ['', [Validators.required]],
+            toDate: ['', [Validators.required]],
+            destinations: this.formBuilder.array([], Validators.required),
             ports: this.formBuilder.array([], Validators.required),
-            ship: this.formBuilder.group({
-                id: ['', [Validators.required]],
-                description: []
-            }),
-            shipRoute: this.formBuilder.group({
-                id: ['', [Validators.required]],
-                description: []
-            })
+            ships: this.formBuilder.array([], Validators.required),
+            shipRoutes: this.formBuilder.array([], Validators.required),
+            destinationsFilter: '',
+            portsFilter: '',
+            shipsFilter: '',
+            shipRoutesFilter: '',
+            allDestinationsCheckbox: '',
+            allPortsCheckbox: '',
+            allShipsCheckbox: '',
+            allShipRoutesCheckbox: ''
         })
     }
 
@@ -185,6 +219,10 @@ export class ManifestCriteriaComponent {
         this.populateDropdownFromLocalStorage('ships')
         this.populateDropdownFromLocalStorage('ports')
         this.populateDropdownFromLocalStorage('shipRoutes')
+        this.filteredDestinations = this.destinations
+        this.filteredPorts = this.ports
+        this.filteredShips = this.ships
+        this.filteredShipRoutes = this.shipRoutes
     }
 
     private populateDropdownFromLocalStorage(table: string): void {
@@ -195,20 +233,12 @@ export class ManifestCriteriaComponent {
         if (this.localStorageService.getItem('manifest-criteria')) {
             this.criteria = JSON.parse(this.localStorageService.getItem('manifest-criteria'))
             this.form.patchValue({
-                date: this.criteria.date,
-                destination: {
-                    'id': this.criteria.destination.id,
-                    'description': this.criteria.destination.description
-                },
-                ports: this.addPortsFromStorage(),
-                ship: {
-                    'id': this.criteria.ship.id,
-                    'description': this.criteria.ship.description
-                },
-                shipRoute: {
-                    'id': this.criteria.shipRoute.id,
-                    'description': this.criteria.shipRoute.description
-                }
+                fromDate: this.criteria.fromDate,
+                toDate: this.criteria.toDate,
+                destinations: this.addSelectedCriteriaFromStorage('destinations'),
+                ports: this.addSelectedCriteriaFromStorage('ports'),
+                ships: this.addSelectedCriteriaFromStorage('ships'),
+                shipRoutes: this.addSelectedCriteriaFromStorage('shipRoutes')
             })
         }
     }
@@ -217,16 +247,14 @@ export class ManifestCriteriaComponent {
         this.dateAdapter.setLocale(this.localStorageService.getLanguage())
     }
 
-    /**
-     * Sets the selected date to today or whatever is stored
-     */
-    private setSelectedDate(): void {
+    private setSelectedDates(): void {
         if (this.criteria != undefined) {
-            this.selectedDate = new Date(this.criteria.date)
+            this.selectedRangeValue = new DateRange(new Date(this.criteria.fromDate), new Date(this.criteria.toDate))
         } else {
-            this.selectedDate = new Date()
+            this.selectedRangeValue = new DateRange(new Date(), new Date())
             this.form.patchValue({
-                date: this.dateHelperService.formatDateToIso(this.selectedDate, false)
+                fromDate: this.dateHelperService.formatDateToIso(new Date(), false),
+                toDate: this.dateHelperService.formatDateToIso(new Date(), false),
             })
         }
     }

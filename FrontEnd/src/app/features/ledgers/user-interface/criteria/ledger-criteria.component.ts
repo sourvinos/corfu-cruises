@@ -21,7 +21,7 @@ import { ShipActiveVM } from 'src/app/features/ships/classes/view-models/ship-ac
 @Component({
     selector: 'ledger-criteria',
     templateUrl: './ledger-criteria.component.html',
-    styleUrls: ['../../../../../assets/styles/forms.css', './ledger-criteria.component.css']
+    styleUrls: ['../../../../../assets/styles/forms.css']
 })
 
 export class LedgerCriteriaComponent {

@@ -7,6 +7,7 @@
     display: flex;
     flex-direction: column;
     height: 400px;
+    margin-bottom: 1rem;
     max-height: 400px;
     max-width: 350px;
     min-height: 400px;
@@ -57,14 +58,14 @@
 
 .mat-calendar-table-header {
     color: var(--color-c);
-    transition: all var(--theme-change-delay) ease-in;
+    transition: all var(--hover-change-delay) ease-in;
 }
 
 .mat-calendar-controls .mat-button .mat-button-wrapper {
     color: var(--color-c);
     font-family: var(--font-family-ubuntu);
     font-size: var(--font-size-datepicker-header-month);
-    transition: all var(--theme-change-delay) ease-in;
+    transition: all var(--hover-change-delay) ease-in;
 }
 
 .mat-calendar-body-cell {
@@ -103,12 +104,11 @@
     color: var(--color-c);
     flex-direction: column;
     font-size: var(--font-size-calendar-day);
-    transition: all var(--theme-change-delay) ease-in;
+    transition: all var(--hover-change-delay) ease-in;
 }
 
 .mat-calendar-body-today {
-    /* border: none; */
-    font-weight: bold !important;
+    border: 1px solid var(--color-day-selected) !important;
 }
 
 .mat-calendar-body-selected {

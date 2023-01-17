@@ -1,8 +1,8 @@
-:host {
+/* :host {
     display: flex;
     flex-direction: column;
     height: inherit;
-}
+} */
 
 #form {
     flex-direction: row !important;
@@ -14,7 +14,7 @@
 
 .fieldset {
     height: 100%;
-    width: 20rem;
+    width: 15rem;
 }
 
 .filter {
@@ -26,7 +26,7 @@
 .list-wrapper {
     height: 90%;
     overflow-y: scroll;
-    width: 18.5rem;
+    width: 13.5rem;
 }
 
 .selected {
