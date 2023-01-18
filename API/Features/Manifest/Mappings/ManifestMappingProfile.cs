@@ -1,4 +1,5 @@
 using System.Linq;
+using API.Infrastructure.Classes;
 using API.Infrastructure.Helpers;
 using AutoMapper;
 
@@ -42,10 +43,19 @@ namespace API.Features.Manifest {
                             Lastname = crew.Lastname.ToUpper(),
                             Firstname = crew.Firstname.ToUpper(),
                             Birthdate = DateHelpers.DateToISOString(crew.Birthdate),
-                            Gender = crew.Gender.Description,
-                            NationalityCode = crew.Nationality.Code.ToUpper(),
-                            NationalityDescription = crew.Nationality.Description,
-                            Occupant = crew.Occupant.Description,
+                            Gender = new SimpleEntity {
+                                Id = crew.Gender.Id,
+                                Description = crew.Gender.Description
+                            },
+                            Nationality = new ManifestNationalityVM {
+                                Id = crew.Nationality.Id,
+                                Code = crew.Nationality.Code,
+                                Description = crew.Nationality.Description
+                            },
+                            Occupant = new SimpleEntity {
+                                Id = crew.Occupant.Id,
+                                Description = crew.Occupant.Description
+                            }
                         })
                         .OrderBy(x => x.Lastname).ThenBy(x => x.Firstname)
                         .ToList()
@@ -65,10 +75,19 @@ namespace API.Features.Manifest {
                     Birthdate = DateHelpers.DateToISOString(passenger.Birthdate),
                     Remarks = passenger.Remarks,
                     SpecialCare = passenger.SpecialCare,
-                    NationalityCode = passenger.Nationality.Code.ToUpper(),
-                    Gender = passenger.Gender.Description,
-                    NationalityDescription = passenger.Nationality.Description,
-                    Occupant = passenger.Occupant.Description
+                    Gender = new SimpleEntity {
+                        Id = passenger.Gender.Id,
+                        Description = passenger.Gender.Description
+                    },
+                    Nationality = new ManifestNationalityVM {
+                        Id = passenger.Nationality.Id,
+                        Code = passenger.Nationality.Code,
+                        Description = passenger.Nationality.Description
+                    },
+                    Occupant = new SimpleEntity {
+                        Id = passenger.Occupant.Id,
+                        Description = passenger.Occupant.Description
+                    }
                 }).OrderBy(x => x.Lastname).ThenBy(x => x.Firstname).ThenBy(x => x.Birthdate)));
         }
 

@@ -14,14 +14,27 @@ export class ManifestListResolver {
 
     resolve(): Observable<ManifestListResolved> {
         const criteria = JSON.parse(this.localStorageService.getItem('manifest-criteria'))
+        const date = criteria.fromDate
+        const destinationId = criteria.destinations[0].id
+        const portIds = this.buildPorts(criteria)
+        // const portIds = []
+        // criteria.ports.forEach((port: { id: any }) => {
+        //     portIds.push(port.id)
+        // })
+        const shipId = criteria.ships[0].id
+        const shipRouteId = criteria.shipRoutes[0].id
+        return this.manifestService.get(date, destinationId, shipId, shipRouteId, portIds).pipe(
+            map((manifestList) => new ManifestListResolved(manifestList)),
+            catchError((err: any) => of(new ManifestListResolved(null, err)))
+        )
+    }
+
+    private buildPorts(criteria): number[] {
         const portIds = []
         criteria.ports.forEach((port: { id: any }) => {
             portIds.push(port.id)
         })
-        return this.manifestService.get(criteria.date, criteria.destination.id, criteria.ship.id, criteria.shipRoute.id, portIds).pipe(
-            map((manifestList) => new ManifestListResolved(manifestList)),
-            catchError((err: any) => of(new ManifestListResolved(null, err)))
-        )
+        return portIds
     }
 
 }

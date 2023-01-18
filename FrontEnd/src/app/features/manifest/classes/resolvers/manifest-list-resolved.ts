@@ -1,4 +1,4 @@
-import { ManifestVM } from '../view-models/manifest-vm'
+import { ManifestVM } from '../view-models/list/manifest-vm'
 
 export class ManifestListResolved {
 

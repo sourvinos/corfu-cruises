@@ -1586,7 +1586,7 @@
                 "description": "Διαδρομή"
             },
             {
-                "id": "headerOccupantDescription",
+                "id": "headerOccupant",
                 "description": "Ιδιότητα"
             },
             {

@@ -77,7 +77,8 @@
 }
 
 .p-datatable .p-datatable-tbody > tr > td > img {
-    width: 1rem;
+    height: 1.25rem;
+    width: 1.25rem;
 }
 
 .p-datatable .p-datatable-tfoot {

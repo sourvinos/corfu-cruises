@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core'
 // Custom
 import { DateHelperService } from 'src/app/shared/services/date-helper.service'
 import { LogoService } from 'src/app/features/reservations/classes/services/logo.service'
-import { ManifestPassengerVM } from '../view-models/manifest-passenger-vm'
-import { ManifestVM } from '../view-models/manifest-vm'
+import { ManifestPassengerVM } from '../view-models/list/manifest-passenger-vm'
+import { ManifestVM } from '../view-models/list/manifest-vm'
 // Fonts
 import pdfFonts from 'pdfmake/build/vfs_fonts'
 import pdfMake from 'pdfmake/build/pdfmake'

@@ -1,23 +1,27 @@
 import { ActivatedRoute, Router } from '@angular/router'
 import { Component, ViewChild } from '@angular/core'
 import { Subject } from 'rxjs'
+import { Table } from 'primeng/table'
 // Custom
 import { DateHelperService } from 'src/app/shared/services/date-helper.service'
 import { HelperService } from 'src/app/shared/services/helper.service'
 import { ListResolved } from 'src/app/shared/classes/list-resolved'
 import { LocalStorageService } from './../../../../shared/services/local-storage.service'
+import { ManifestCriteriaVM } from '../../classes/view-models/criteria/manifest-criteria-vm'
+import { ManifestGenderVM } from '../../classes/view-models/list/manifest-gender-vm'
+import { ManifestNationalityVM } from '../../classes/view-models/list/manifest-nationality-vm'
+import { ManifestOccupantVM } from '../../classes/view-models/list/manifest-occupant-vm'
 import { ManifestPdfService } from '../../classes/services/manifest-pdf.service'
-import { ManifestVM } from '../../classes/view-models/manifest-vm'
+import { ManifestVM } from '../../classes/view-models/list/manifest-vm'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { MessageSnackbarService } from '../../../../shared/services/messages-snackbar.service'
 import { ModalActionResultService } from 'src/app/shared/services/modal-action-result.service'
-import { Table } from 'primeng/table'
 import { environment } from 'src/environments/environment'
 
 @Component({
     selector: 'manifest-list',
     templateUrl: './manifest-list.component.html',
-    styleUrls: ['../../../../../assets/styles/lists.css']
+    styleUrls: ['../../../../../assets/styles/lists.css', './manifest-list.component.css']
 })
 
 export class ManifestListComponent {
@@ -34,11 +38,13 @@ export class ManifestListComponent {
 
     public imgIsLoaded = false
     public criteria: any
+    public criteriaPanels: ManifestCriteriaVM
     public manifest: ManifestVM
     public totals: number[] = [0, 0, 0, 0]
 
-    public dropdownGenders = []
-    public dropdownNationalities = []
+    public dropdownGenders: ManifestGenderVM[]
+    public dropdownNationalities: ManifestNationalityVM[]
+    public dropdownOccupants: ManifestOccupantVM[]
 
     //#endregion
 
@@ -50,7 +56,7 @@ export class ManifestListComponent {
         this.loadRecords()
         this.addCrewToPassengers()
         this.populateDropdownFilters()
-        this.populateCriteriaFromStorage()
+        // this.populateCriteriaPanelsFromStorage()
         this.updateTotals()
     }
 
@@ -75,8 +81,8 @@ export class ManifestListComponent {
         this.totals[3] = event.filteredValue.reduce((sum: number) => sum + 1, 0)
     }
 
-    public formatDateToLocale(date: string, showWeekday: boolean): string {
-        return this.dateHelperService.formatISODateToLocale(date, showWeekday, true)
+    public formatDateToLocale(date: string, showWeekday = false, showYear = false): string {
+        return this.dateHelperService.formatISODateToLocale(date, showWeekday, showYear)
     }
 
     public getIcon(filename: string): string {
@@ -89,10 +95,6 @@ export class ManifestListComponent {
 
     public getNationalityIcon(nationalityCode: string): any {
         return environment.nationalitiesIconDirectory + nationalityCode.toLowerCase() + '.png'
-    }
-
-    public getPortDescriptions(): string {
-        return this.criteria.ports.map((port: { description: any }) => port.description).join(' ▪️ ')
     }
 
     public goBack(): void {
@@ -148,6 +150,7 @@ export class ManifestListComponent {
             if (listResolved.error === null) {
                 this.manifest = listResolved.list
                 resolve(this.manifest)
+                console.log(this.manifest)
             } else {
                 this.goBack()
                 this.modalActionResultService.open(this.messageSnackbarService.filterResponse(new Error('500')), 'error', ['ok'])
@@ -156,23 +159,26 @@ export class ManifestListComponent {
         return promise
     }
 
-    private populateCriteriaFromStorage(): void {
+    private populateCriteriaPanelsFromStorage(): void {
         if (this.localStorageService.getItem('manifest-criteria')) {
-            this.criteria = JSON.parse(this.localStorageService.getItem('manifest-criteria'))
+            const criteria = JSON.parse(this.localStorageService.getItem('manifest-criteria'))
+            this.criteriaPanels.destinations = this.helperService.getDistinctRecords(criteria, 'destinations')
+            console.log('Criteria', this.criteria)
         }
     }
 
     private populateDropdownFilters(): void {
-        if (this.manifest != null) {
+        if (this.manifest.passengers.length > 0) {
             this.dropdownGenders = this.helperService.getDistinctRecords(this.manifest.passengers, 'gender')
-            this.dropdownNationalities = this.helperService.getDistinctRecords(this.manifest.passengers, 'nationalityDescription')
+            this.dropdownNationalities = this.helperService.getDistinctRecords(this.manifest.passengers, 'nationality')
+            this.dropdownOccupants = this.helperService.getDistinctRecords(this.manifest.passengers, 'occupant')
         }
     }
 
     private updateTotals(): void {
         this.totals[0] = this.manifest.passengers.length
-        this.totals[1] = this.manifest.passengers.filter(x => x.occupant == 'PASSENGER').length
-        this.totals[2] = this.manifest.passengers.filter(x => x.occupant == 'CREW').length
+        this.totals[1] = this.manifest.passengers.filter(x => x.occupant.description == 'PASSENGER').length
+        this.totals[2] = this.manifest.passengers.filter(x => x.occupant.description == 'CREW').length
         this.totals[3] = this.manifest.passengers.reduce((sum: number) => sum + 1, 0)
     }
 

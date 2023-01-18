@@ -129,6 +129,7 @@ export class LedgerCustomerListComponent {
         const listResolved = this.activatedRoute.snapshot.data[this.feature]
         if (listResolved.error === null) {
             this.records = Object.assign([], listResolved.result)
+            console.log(this.records)
         } else {
             this.modalActionResultService.open(this.messageSnackbarService.filterResponse(listResolved.error), 'error', ['ok']).subscribe(() => {
                 this.goBack()

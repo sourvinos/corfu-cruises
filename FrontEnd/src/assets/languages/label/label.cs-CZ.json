@@ -1586,8 +1586,8 @@
                 "description": "Route"
             },
             {
-                "id": "headerOccupantDescription",
-                "description": "Property"
+                "id": "headerOccupant",
+                "description": "Majetek"
             },
             {
                 "id": "headerLastname",
