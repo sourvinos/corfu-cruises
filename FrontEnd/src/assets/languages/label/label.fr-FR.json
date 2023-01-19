@@ -1574,16 +1574,12 @@
                 "description": "Destination"
             },
             {
-                "id": "criteriaPort",
-                "description": "Port"
+                "id": "criteriaPorts",
+                "description": "Ports"
             },
             {
                 "id": "criteriaShip",
                 "description": "Navire"
-            },
-            {
-                "id": "criteriaShipRoute",
-                "description": "Route"
             },
             {
                 "id": "headerOccupant",
@@ -1604,14 +1600,6 @@
             {
                 "id": "headerGender",
                 "description": "Genre"
-            },
-            {
-                "id": "headerBirthdate",
-                "description": "Date de naissance"
-            },
-            {
-                "id": "headerRemarks",
-                "description": "Remarques"
             },
             {
                 "id": "countPassengers",
@@ -2099,10 +2087,6 @@
             {
                 "id": "headerShip",
                 "description": "Navire"
-            },
-            {
-                "id": "headerPort",
-                "description": "Port"
             },
             {
                 "id": "headerTicketNo",

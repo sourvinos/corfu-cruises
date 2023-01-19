@@ -1574,16 +1574,12 @@
                 "description": "Προορισμός"
             },
             {
-                "id": "criteriaPort",
-                "description": "Λιμάνι"
+                "id": "criteriaPorts",
+                "description": "Λιμάνια"
             },
             {
                 "id": "criteriaShip",
                 "description": "Πλοίο"
-            },
-            {
-                "id": "criteriaShipRoute",
-                "description": "Διαδρομή"
             },
             {
                 "id": "headerOccupant",
@@ -1604,14 +1600,6 @@
             {
                 "id": "headerGender",
                 "description": "Φύλο"
-            },
-            {
-                "id": "headerBirthdate",
-                "description": "Ημερ/νία γέννησης"
-            },
-            {
-                "id": "headerRemarks",
-                "description": "Σχόλια"
             },
             {
                 "id": "countPassengers",

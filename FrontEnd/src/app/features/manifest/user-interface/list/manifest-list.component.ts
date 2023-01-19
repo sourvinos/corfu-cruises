@@ -36,10 +36,8 @@ export class ManifestListComponent {
     public icon = 'arrow_back'
     public parentUrl = '/manifest'
 
-    public imgIsLoaded = false
-    public criteria: any
     public criteriaPanels: ManifestCriteriaVM
-    public manifest: ManifestVM
+    public records: ManifestVM
     public totals: number[] = [0, 0, 0, 0]
 
     public dropdownGenders: ManifestGenderVM[]
@@ -56,7 +54,7 @@ export class ManifestListComponent {
         this.loadRecords()
         this.addCrewToPassengers()
         this.populateDropdownFilters()
-        // this.populateCriteriaPanelsFromStorage()
+        this.populateCriteriaPanelsFromStorage()
         this.updateTotals()
     }
 
@@ -74,10 +72,10 @@ export class ManifestListComponent {
     //#region public methods
 
     public createPdf(): void {
-        this.manifestPdfService.createReport(this.manifest)
+        this.manifestPdfService.createReport(this.records)
     }
 
-    public filterManifest(event: { filteredValue: any[] }): void {
+    public filterRecords(event: { filteredValue: any[] }): void {
         this.totals[3] = event.filteredValue.reduce((sum: number) => sum + 1, 0)
     }
 
@@ -101,17 +99,8 @@ export class ManifestListComponent {
         this.router.navigate([this.parentUrl])
     }
 
-    public imageIsLoading(): any {
-        return this.imgIsLoaded ? '' : 'skeleton'
-    }
-
-    public loadImage(): void {
-        this.imgIsLoaded = true
-    }
-
-    public resetTableFilters(table: any): void {
-        this.clearTableFilters(table)
-        this.updateTotals()
+    public resetTableFilters(): void {
+        this.helperService.clearTableTextFilters(this.table, ['lastname', 'firstname'])
     }
 
     //#endregion
@@ -119,26 +108,15 @@ export class ManifestListComponent {
     //#region private methods
 
     private addCrewToPassengers(): void {
-        if (this.manifest.passengers.length > 0) {
-            this.manifest.ship.crew.forEach(crew => {
-                this.manifest.passengers.push(crew)
+        if (this.records.passengers.length > 0) {
+            this.records.ship.crew.forEach(crew => {
+                this.records.passengers.push(crew)
             })
         }
     }
 
-    private clearTableFilters(table: { clear: () => void }): void {
-        table.clear()
-        this.table.filter('', 'lastname', 'contains')
-        this.table.filter('', 'firstname', 'contains')
-        this.table.filter('', 'birthdate', 'contains')
-        const inputs = document.querySelectorAll<HTMLInputElement>('.p-inputtext[type="text"]')
-        inputs.forEach(box => {
-            box.value = ''
-        })
-    }
-
     private enableDisableFilters(): void {
-        if (this.manifest == null) {
+        if (this.records.passengers.length == 0) {
             this.helperService.disableTableDropdownFilters()
             this.helperService.disableTableTextFilters()
         }
@@ -148,9 +126,8 @@ export class ManifestListComponent {
         const promise = new Promise((resolve) => {
             const listResolved: ListResolved = this.activatedRoute.snapshot.data[this.feature]
             if (listResolved.error === null) {
-                this.manifest = listResolved.list
-                resolve(this.manifest)
-                console.log(this.manifest)
+                this.records = listResolved.list
+                resolve(this.records)
             } else {
                 this.goBack()
                 this.modalActionResultService.open(this.messageSnackbarService.filterResponse(new Error('500')), 'error', ['ok'])
@@ -160,26 +137,24 @@ export class ManifestListComponent {
     }
 
     private populateCriteriaPanelsFromStorage(): void {
-        if (this.localStorageService.getItem('manifest-criteria')) {
-            const criteria = JSON.parse(this.localStorageService.getItem('manifest-criteria'))
-            this.criteriaPanels.destinations = this.helperService.getDistinctRecords(criteria, 'destinations')
-            console.log('Criteria', this.criteria)
+        if (this.localStorageService.getItem('manifest-criteria-panel')) {
+            this.criteriaPanels = JSON.parse(this.localStorageService.getItem('manifest-criteria-panel'))
         }
     }
 
     private populateDropdownFilters(): void {
-        if (this.manifest.passengers.length > 0) {
-            this.dropdownGenders = this.helperService.getDistinctRecords(this.manifest.passengers, 'gender')
-            this.dropdownNationalities = this.helperService.getDistinctRecords(this.manifest.passengers, 'nationality')
-            this.dropdownOccupants = this.helperService.getDistinctRecords(this.manifest.passengers, 'occupant')
+        if (this.records.passengers.length > 0) {
+            this.dropdownGenders = this.helperService.getDistinctRecords(this.records.passengers, 'gender')
+            this.dropdownNationalities = this.helperService.getDistinctRecords(this.records.passengers, 'nationality')
+            this.dropdownOccupants = this.helperService.getDistinctRecords(this.records.passengers, 'occupant')
         }
     }
 
     private updateTotals(): void {
-        this.totals[0] = this.manifest.passengers.length
-        this.totals[1] = this.manifest.passengers.filter(x => x.occupant.description == 'PASSENGER').length
-        this.totals[2] = this.manifest.passengers.filter(x => x.occupant.description == 'CREW').length
-        this.totals[3] = this.manifest.passengers.reduce((sum: number) => sum + 1, 0)
+        this.totals[0] = this.records.passengers.length
+        this.totals[1] = this.records.passengers.filter(x => x.occupant.description == 'PASSENGER').length
+        this.totals[2] = this.records.passengers.filter(x => x.occupant.description == 'CREW').length
+        this.totals[3] = this.records.passengers.reduce((sum: number) => sum + 1, 0)
     }
 
     //#endregion

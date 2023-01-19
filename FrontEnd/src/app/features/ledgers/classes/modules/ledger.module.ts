@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core'
 // Custom
 import { LedgerCriteriaComponent } from '../../user-interface/criteria/ledger-criteria.component'
-import { LedgerCustomerListComponent } from '../../user-interface/list/customers/customers.component'
+import { LedgerCustomerListComponent } from '../../user-interface/list/customers/ledger-customer-list.component'
 import { LedgerCustomerReservationListComponent } from '../../user-interface/list/reservations/reservations.component'
 import { LedgerCustomerSummaryAndReservationsComponent } from '../../user-interface/list/summary-and-reservations/summary-and-reservations.component'
 import { LedgerCustomerSummaryComponent } from '../../user-interface/list/summary/summary.component'

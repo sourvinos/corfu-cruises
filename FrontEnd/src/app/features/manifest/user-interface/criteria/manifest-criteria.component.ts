@@ -261,6 +261,7 @@ export class ManifestCriteriaComponent {
 
     private storeCriteria(): void {
         this.localStorageService.saveItem('manifest-criteria', JSON.stringify(this.form.value))
+        this.localStorageService.saveItem('manifest-criteria-panel', JSON.stringify(this.form.value))
     }
 
     private subscribeToInteractionService(): void {

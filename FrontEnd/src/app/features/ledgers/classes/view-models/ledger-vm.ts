@@ -1,13 +1,11 @@
 import { CustomerVM } from './customer-vm'
-import { LedgerPortVM } from './ledger-port-group-vm'
+import { LedgerPortGroupVM } from './ledger-port-group-vm'
 import { LedgerReservationVM } from './ledger-reservation-vm'
 
 export interface LedgerVM {
 
-    fromDate: string
-    toDate: string
     customer: CustomerVM
-    ports: LedgerPortVM[]
+    ports: LedgerPortGroupVM[]
     reservations: LedgerReservationVM[]
 
 }

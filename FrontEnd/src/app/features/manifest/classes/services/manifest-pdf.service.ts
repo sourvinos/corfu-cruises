@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core'
 // Custom
 import { DateHelperService } from 'src/app/shared/services/date-helper.service'
+import { HelperService } from 'src/app/shared/services/helper.service'
 import { LogoService } from 'src/app/features/reservations/classes/services/logo.service'
 import { ManifestPassengerVM } from '../view-models/list/manifest-passenger-vm'
 import { ManifestVM } from '../view-models/list/manifest-vm'
@@ -22,11 +23,13 @@ export class ManifestPdfService {
 
     //#endregion
 
-    constructor(private dateHelperService: DateHelperService, private logoService: LogoService) { }
+    constructor(private dateHelperService: DateHelperService, private helperService: HelperService, private logoService: LogoService) { }
 
     //#region public methods
 
     public createReport(manifest: ManifestVM): void {
+        const passengers = this.flattedPassengers(manifest.passengers)
+        manifest.passengers = passengers
         this.setFonts()
         this.rowCount = 0
         const dd = {
@@ -51,7 +54,7 @@ export class ManifestPdfService {
                     [
                         this.createTable(manifest,
                             ['', '', '', 'date', '', '', '', '', ''],
-                            ['', 'lastname', 'firstname', 'birthdate', 'nationalityCode', 'occupant', 'gender', 'specialCare', 'remarks'],
+                            ['', 'lastname', 'firstname', 'birthdate', 'nationality', 'occupant', 'gender', 'specialCare', 'remarks'],
                             ['right', 'left', 'left', 'center', 'center', 'left', 'left', 'left', 'left'])
                     ],
                     {
@@ -223,7 +226,7 @@ export class ManifestPdfService {
         }
     }
 
-    private createTableRows(data: ManifestVM, columnTypes: any[], columns: any[], align: any[]): void {
+    private createTableRows(data: any, columnTypes: any[], columns: any[], align: any[]): void {
         const body: any = []
         body.push(this.createTableHeaders())
         data.passengers.forEach((row) => {
@@ -287,8 +290,8 @@ export class ManifestPdfService {
         }
     }
 
-    private processRow(columnTypes: any[], columns: any[], row: ManifestPassengerVM, dataRow: any[], align: any[]): any {
-        columns.forEach((element, index) => {
+    private processRow(columnTypes: any[], columns: any[], row: any, dataRow: any[], align: any[]): any {
+        columns.forEach((element: any, index) => {
             if (element != undefined) {
                 if (index == 0) {
                     dataRow.push({ text: ++this.rowCount, alignment: 'right', color: '#000000', noWrap: false })
@@ -315,6 +318,18 @@ export class ManifestPdfService {
         } else {
             return '-'
         }
+    }
+
+    private flattedPassengers(passengers: any): any {
+        passengers.forEach(passenger => {
+            const nationality = this.helperService.flattenObject(passenger.nationality)
+            passenger.nationality = nationality.code
+            const gender = this.helperService.flattenObject(passenger.gender)
+            passenger.gender = gender.description
+            const occupant = this.helperService.flattenObject(passenger.occupant)
+            passenger.occupant = occupant.description
+        })
+        return passengers
     }
 
     //#endregion

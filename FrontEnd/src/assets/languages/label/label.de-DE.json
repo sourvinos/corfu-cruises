@@ -1582,10 +1582,6 @@
                 "description": "Schiff"
             },
             {
-                "id": "criteriaShipRoute",
-                "description": "Route"
-            },
-            {
                 "id": "headerOccupant",
                 "description": "Eigentum"
             },
@@ -1604,14 +1600,6 @@
             {
                 "id": "headerGender",
                 "description": "Geschlecht"
-            },
-            {
-                "id": "headerBirthdate",
-                "description": "Geburtsdatum"
-            },
-            {
-                "id": "headerRemarks",
-                "description": "Kommentare"
             },
             {
                 "id": "countPassengers",

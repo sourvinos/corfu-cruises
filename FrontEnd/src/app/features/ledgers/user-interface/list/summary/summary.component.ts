@@ -4,7 +4,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog'
 import { EmojiService } from 'src/app/shared/services/emoji.service'
 import { LedgerVM } from '../../../classes/view-models/ledger-vm'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
-import { LedgerPortVM } from '../../../classes/view-models/ledger-port-group-vm'
+import { LedgerPortGroupVM } from '../../../classes/view-models/ledger-port-group-vm'
 
 @Component({
     selector: 'ledger-customer-summary',
@@ -16,17 +16,13 @@ export class LedgerCustomerSummaryComponent {
 
     //#region variables
 
-    @Input() ports: LedgerPortVM
+    @Input() portGroup: LedgerPortGroupVM
     private feature = 'ledgerList'
     public customerReservations: LedgerVM
 
     //#endregion
 
-    constructor(@Inject(MAT_DIALOG_DATA) public data: any, private dialogRef: MatDialogRef<LedgerCustomerSummaryComponent>, private emojiService: EmojiService, private messageLabelService: MessageLabelService) {
-        // setTimeout(() => {
-        //     document.getElementById('boo').click()
-        // }, 500)
-    }
+    constructor(@Inject(MAT_DIALOG_DATA) public data: any, private dialogRef: MatDialogRef<LedgerCustomerSummaryComponent>, private emojiService: EmojiService, private messageLabelService: MessageLabelService) { }
 
     //#region public methods
 

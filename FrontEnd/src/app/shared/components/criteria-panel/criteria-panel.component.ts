@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core'
 // Custom
+import { HelperService } from '../../services/helper.service'
 import { MessageLabelService } from '../../services/messages-label.service'
 import { environment } from 'src/environments/environment'
 
@@ -16,8 +17,13 @@ export class CriteriaPanelComponent {
     @Input() header: string
     @Input() icon: string
     @Input() records: any[]
+    @Input() sortField: string
 
-    constructor(private messageLabelService: MessageLabelService) { }
+    constructor(private helperService: HelperService, private messageLabelService: MessageLabelService) { }
+
+    ngOnInit(): void {
+        this.helperService.sortArray(this.records, this.sortField)
+    }
 
     public getIcon(filename: string): string {
         return environment.menuIconDirectory + filename + '.svg'

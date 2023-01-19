@@ -1,25 +1,25 @@
 import { ActivatedRoute, Router } from '@angular/router'
 import { Component, ViewChild } from '@angular/core'
+import { MatDialog } from '@angular/material/dialog'
 import { Subject } from 'rxjs'
+import { Table } from 'primeng/table'
 // Custom
 import { DateHelperService } from 'src/app/shared/services/date-helper.service'
 import { HelperService } from 'src/app/shared/services/helper.service'
-import { LedgerCriteriaVM } from '../../../classes/view-models/ledger-criteria-vm'
+import { LedgerCriteriaVM } from '../../../classes/view-models/criteria/ledger-criteria-vm'
 import { LedgerCustomerSummaryAndReservationsComponent } from '../summary-and-reservations/summary-and-reservations.component'
 import { LedgerPDFService } from '../../../classes/services/ledger-pdf.service'
 import { LedgerVM } from '../../../classes/view-models/ledger-vm'
 import { LocalStorageService } from 'src/app/shared/services/local-storage.service'
-import { MatDialog } from '@angular/material/dialog'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
 import { ModalActionResultService } from 'src/app/shared/services/modal-action-result.service'
-import { Table } from 'primeng/table'
 import { environment } from 'src/environments/environment'
 
 @Component({
     selector: 'ledger-customer-list',
-    templateUrl: './customers.component.html',
-    styleUrls: ['../../../../../../assets/styles/lists.css', './customers.component.css']
+    templateUrl: './ledger-customer-list.component.html',
+    styleUrls: ['../../../../../../assets/styles/lists.css', './ledger-customer-list.component.css']
 })
 
 export class LedgerCustomerListComponent {
@@ -34,13 +34,16 @@ export class LedgerCustomerListComponent {
     public icon = 'arrow_back'
     public parentUrl = '/ledgers'
 
-    public imgIsLoaded = false
-    public criteria: LedgerCriteriaVM
-    public records: LedgerVM[]
+    public criteriaPanels: LedgerCriteriaVM
+
+    public records: LedgerVM[] = []
+    public recordsFiltered: LedgerVM[] = []
+    public selectedRecords: LedgerVM[] = []
+
     public distinctCustomers: any[]
     public distinctDestinations: any[]
     public distinctShips: any[]
-    public selectedRecords: LedgerVM[] = []
+
 
     //#endregion
 
@@ -50,8 +53,7 @@ export class LedgerCustomerListComponent {
 
     ngOnInit(): void {
         this.loadRecords()
-        this.populateCriteriaFromStorage()
-        this.getDistinctCriteria()
+        this.populateCriteriaPanelsFromStorage()
     }
 
     ngOnDestroy(): void {
@@ -65,13 +67,18 @@ export class LedgerCustomerListComponent {
     public exportSingleCustomer(customerId: number): void {
         this.selectedRecords = []
         this.selectedRecords.push(this.records.find(x => x.customer.id == customerId))
-        this.ledgerPdfService.createPDF(this.selectedRecords, this.criteria)
+        this.ledgerPdfService.createPDF(this.selectedRecords, this.criteriaPanels)
     }
 
     public exportSelected(): void {
         if (this.isAnyRowSelected()) {
-            this.ledgerPdfService.createPDF(this.selectedRecords, this.criteria)
+            this.ledgerPdfService.createPDF(this.selectedRecords, this.criteriaPanels)
         }
+    }
+
+    public filterRecords(event: { filteredValue: any[] }): void {
+        this.recordsFiltered = event.filteredValue
+        this.localStorageService.saveItem(this.feature, JSON.stringify(this.table.filters))
     }
 
     public formatDateToLocale(date: string, showWeekday = false, showYear = false): string {
@@ -88,6 +95,10 @@ export class LedgerCustomerListComponent {
 
     public goBack(): void {
         this.router.navigate([this.parentUrl])
+    }
+
+    public resetTableFilters(): void {
+        this.helperService.clearTableTextFilters(this.table, ['customer.description'])
     }
 
     public showCustomerReservations(customer: LedgerVM): void {
@@ -111,14 +122,8 @@ export class LedgerCustomerListComponent {
         this.unsubscribe.unsubscribe()
     }
 
-    private getDistinctCriteria(): void {
-        this.distinctCustomers = this.helperService.getDistinctRecords(this.records.flat(), 'customer')
-        this.distinctDestinations = this.helperService.getDistinctRecords(this.records.map(x => x.reservations).flat(), 'destination')
-        this.distinctShips = this.helperService.getDistinctRecords(this.records.map(x => x.reservations).flat(), 'ship')
-    }
-
     private isAnyRowSelected(): boolean {
-        if (this.selectedRecords.length == 0) {
+        if (this.selectedRecords == undefined || this.selectedRecords.length == 0) {
             this.modalActionResultService.open(this.messageSnackbarService.noRecordsSelected(), 'error', ['ok'])
             return false
         }
@@ -129,7 +134,7 @@ export class LedgerCustomerListComponent {
         const listResolved = this.activatedRoute.snapshot.data[this.feature]
         if (listResolved.error === null) {
             this.records = Object.assign([], listResolved.result)
-            console.log(this.records)
+            this.recordsFiltered = this.records
         } else {
             this.modalActionResultService.open(this.messageSnackbarService.filterResponse(listResolved.error), 'error', ['ok']).subscribe(() => {
                 this.goBack()
@@ -137,9 +142,9 @@ export class LedgerCustomerListComponent {
         }
     }
 
-    private populateCriteriaFromStorage(): void {
+    private populateCriteriaPanelsFromStorage(): void {
         if (this.localStorageService.getItem('ledger-criteria')) {
-            this.criteria = JSON.parse(this.localStorageService.getItem('ledger-criteria'))
+            this.criteriaPanels = JSON.parse(this.localStorageService.getItem('ledger-criteria'))
         }
     }
 

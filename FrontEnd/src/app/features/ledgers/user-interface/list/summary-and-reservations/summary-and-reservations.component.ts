@@ -19,9 +19,7 @@ export class LedgerCustomerSummaryAndReservationsComponent {
 
     //#endregion
 
-    constructor(@Inject(MAT_DIALOG_DATA) public data: any, private dialogRef: MatDialogRef<LedgerCustomerSummaryAndReservationsComponent>, private messageLabelService: MessageLabelService, public dialog: MatDialog) {
-        console.log(data)
-    }
+    constructor(@Inject(MAT_DIALOG_DATA) public data: any, private dialogRef: MatDialogRef<LedgerCustomerSummaryAndReservationsComponent>, private messageLabelService: MessageLabelService, public dialog: MatDialog) { }
 
     //#region public methods
 

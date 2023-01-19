@@ -1,6 +1,8 @@
-export interface LedgerPortVM {
+import { LedgerPortVM } from './ledger-port-vm'
 
-    port: string,
+export interface LedgerPortGroupVM {
+
+    port: LedgerPortVM,
     hasTransferGroup: HasTransferGroupVM[],
     adults: number,
     kids: number,

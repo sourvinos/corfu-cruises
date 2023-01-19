@@ -78,10 +78,10 @@ export class HelperService {
             array.push(element[field].description)
         })
         array.sort((a, b) => {
-            if (a.value < b.value) {
+            if (a < b) {
                 return -1
             }
-            if (a.value > b.value) {
+            if (a > b) {
                 return 1
             }
             return 0
@@ -159,6 +159,34 @@ export class HelperService {
         element.addEventListener('wheel', (evt: WheelEvent) => {
             evt.preventDefault()
             element.scrollLeft += evt.deltaY
+        })
+    }
+
+    public flattenObject(object: any): any {
+        const result = {}
+        for (const i in object) {
+            if ((typeof object[i]) === 'object' && !Array.isArray(object[i])) {
+                const temp = this.flattenObject(object[i])
+                for (const j in temp) {
+                    result[i + '.' + j] = temp[j]
+                }
+            }
+            else {
+                result[i] = object[i]
+            }
+        }
+        return result
+    }
+
+    public sortArray(array: any, field: string): any {
+        array.sort((a: any, b: any) => {
+            if (a[field] < b[field]) {
+                return -1
+            }
+            if (a[field] > b[field]) {
+                return 1
+            }
+            return 0
         })
     }
 

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core'
 import { Observable, of } from 'rxjs'
 import { catchError, map } from 'rxjs/operators'
 // Custom
-import { LedgerCriteriaVM } from '../view-models/ledger-criteria-vm'
+import { LedgerCriteriaVM } from '../view-models/criteria/ledger-criteria-vm'
 import { LedgerListResolved } from './ledger-list-resolved'
 import { LedgerService } from '../services/ledger.service'
 import { LocalStorageService } from 'src/app/shared/services/local-storage.service'

@@ -1574,16 +1574,12 @@
                 "description": "Destinace"
             },
             {
-                "id": "criteriaPort",
+                "id": "criteriaPorts",
                 "description": "Přístavt"
             },
             {
                 "id": "criteriaShip",
                 "description": "Loď"
-            },
-            {
-                "id": "criteriaShipRoute",
-                "description": "Route"
             },
             {
                 "id": "headerOccupant",
@@ -1604,14 +1600,6 @@
             {
                 "id": "headerGender",
                 "description": "Rod"
-            },
-            {
-                "id": "headerBirthdate",
-                "description": "Datum narození"
-            },
-            {
-                "id": "headerRemarks",
-                "description": "Komentáře"
             },
             {
                 "id": "countPassengers",

@@ -46,7 +46,10 @@ namespace API.Features.Ledger {
                         Description = x.Key.Description
                     },
                     Ports = x.GroupBy(x => new { x.Port.Id, x.Port.Description, x.Port.StopOrder }).OrderBy(x => x.Key.StopOrder).Select(x => new LedgerPortVM {
-                        Port = x.Key.Description,
+                        Port = new SimpleEntity {
+                            Id = x.Key.Id,
+                            Description = x.Key.Description
+                        },
                         HasTransferGroup = x.GroupBy(x => x.PickupPoint.CoachRoute.HasTransfer).Select(x => new LedgerPortGroupVM {
                             HasTransfer = x.Key,
                             Adults = x.Sum(x => x.Adults),

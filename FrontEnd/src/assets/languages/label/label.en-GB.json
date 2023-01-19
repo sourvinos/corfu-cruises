@@ -1574,16 +1574,12 @@
                 "description": "Destination"
             },
             {
-                "id": "criteriaPort",
-                "description": "Port"
+                "id": "criteriaPorts",
+                "description": "Ports"
             },
             {
                 "id": "criteriaShip",
                 "description": "Ship"
-            },
-            {
-                "id": "criteriaShipRoute",
-                "description": "Route"
             },
             {
                 "id": "headerOccupant",
@@ -1604,14 +1600,6 @@
             {
                 "id": "headerGender",
                 "description": "Gender"
-            },
-            {
-                "id": "headerBirthdate",
-                "description": "Birthdate"
-            },
-            {
-                "id": "headerRemarks",
-                "description": "Remarks"
             },
             {
                 "id": "countPassengers",

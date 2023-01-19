@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core'
 // Custom
 import { DateHelperService } from 'src/app/shared/services/date-helper.service'
 import { HasTransferGroupVM } from '../view-models/ledger-port-group-vm'
-import { LedgerCriteriaVM } from './../view-models/ledger-criteria-vm'
+import { LedgerCriteriaVM } from '../view-models/criteria/ledger-criteria-vm'
 import { LedgerReservationVM } from '../view-models/ledger-reservation-vm'
 import { LedgerVM } from '../view-models/ledger-vm'
 import { LogoService } from 'src/app/features/reservations/classes/services/logo.service'

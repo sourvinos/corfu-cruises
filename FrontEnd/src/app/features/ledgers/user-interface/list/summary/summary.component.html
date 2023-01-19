@@ -16,7 +16,7 @@
             <ng-template pTemplate="body" let-port let-expanded="true">
                 <tr class="port-total">
                     <td class="total"><button pButton pRipple [pRowToggler]="port" id="boo" class="p-button-text p-button-rounded p-button-plain" [icon]="expanded ? 'fas fa-angle-down' : 'fas fa-angle-right'"></button></td>
-                    <td class="total">{{ port.port }}</td>
+                    <td class="total">{{ port.port.description }}</td>
                     <td class="number total">{{ port.adults }}</td>
                     <td class="number total">{{ port.kids }}</td>
                     <td class="number total">{{ port.free }}</td>
