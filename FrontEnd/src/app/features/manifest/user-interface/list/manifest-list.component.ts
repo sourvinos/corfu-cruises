@@ -21,7 +21,7 @@ import { environment } from 'src/environments/environment'
 @Component({
     selector: 'manifest-list',
     templateUrl: './manifest-list.component.html',
-    styleUrls: ['../../../../../assets/styles/lists.css', './manifest-list.component.css']
+    styleUrls: ['../../../../../assets/styles/lists.css', './manifest-list.component.css', '../../../../../assets/styles/criteria-panel.css']
 })
 
 export class ManifestListComponent {

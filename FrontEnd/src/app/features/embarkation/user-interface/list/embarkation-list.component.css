@@ -8,16 +8,3 @@
     flex-direction: row;
     height: 100%;
 }
-
-.description {
-    display: flex;
-}
-
-.pi-filter {
-    font-size: 8px;
-    margin-top: 6px;
-}
-
-.pi-filter::before {
-    margin: 0 0.2rem 0 0.2rem;
-}
