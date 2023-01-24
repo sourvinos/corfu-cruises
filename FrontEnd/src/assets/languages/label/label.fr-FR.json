@@ -1219,12 +1219,12 @@
                 "description": "Navires"
             },
             {
-                "id": "searchButton",
-                "description": "RECHERCHE"
+                "id": "selected",
+                "description": "Sélectionné"
             },
             {
-                "id": "todayButton",
-                "description": "AUJOURD'HUI"
+                "id": "searchButton",
+                "description": "RECHERCHE"
             }
         ]
     },
@@ -1276,8 +1276,8 @@
                 "description": "+/-"
             },
             {
-                "id": "headerEmbarkationStatus",
-                "description": "Statut"
+                "id": "headerEmbarkationState",
+                "description": "Embarquement"
             },
             {
                 "id": "headerLastname",
@@ -1300,8 +1300,16 @@
                 "description": "Nous n'avons rien trouvé !"
             },
             {
-                "id": "criteriaTotalPersons",
-                "description": "Total"
+                "id": "criteria-destinations",
+                "description": "Destinations"
+            },
+            {
+                "id": "criteria-ports",
+                "description": "Λιμάνια"
+            },
+            {
+                "id": "criteria-ships",
+                "description": "Navires"
             },
             {
                 "id": "criteriaEmbarkedPassengers",
@@ -2066,75 +2074,6 @@
             {
                 "id": "searchButton",
                 "description": "RECHERCHER"
-            }
-        ]
-    },
-    {
-        "feature": "totalsList",
-        "labels": [
-            {
-                "id": "header",
-                "description": "Totaux de la période"
-            },
-            {
-                "id": "headerCustomer",
-                "description": "Client"
-            },
-            {
-                "id": "headerDestination",
-                "description": "Destination"
-            },
-            {
-                "id": "headerShip",
-                "description": "Navire"
-            },
-            {
-                "id": "headerTicketNo",
-                "description": "Billet"
-            },
-            {
-                "id": "headerHasTransfer",
-                "description": "Transfert"
-            },
-            {
-                "id": "headerAdults",
-                "description": "A"
-            },
-            {
-                "id": "headerKids",
-                "description": "G"
-            },
-            {
-                "id": "headerFree",
-                "description": "L"
-            },
-            {
-                "id": "headerRemarks",
-                "description": "Remarques"
-            },
-            {
-                "id": "headerTotalPersons",
-                "description": "Σ"
-            },
-            {
-                "id": "exportAllButton",
-                "description": "EXPORTER VERS XLS"
-            },
-            {
-                "id": "no-results",
-                "description": "Nous n'avons rien trouvé !"
-            },
-            {
-                "id": "has-transfer",
-                "description": "OUI"
-            },
-            {
-                "id": "no-transfer",
-                "description": "NON"
-            },
-            {
-                "id": "criteria-date-range",
-                "description": "Intervalle de calendrier"
             }
         ]
     },

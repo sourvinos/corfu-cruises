@@ -1,4 +1,4 @@
-import { LedgerVM } from '../view-models/ledger-vm'
+import { LedgerVM } from '../view-models/list/ledger-vm'
 
 export class LedgerListResolved {
 

@@ -5,7 +5,6 @@ import { Router } from '@angular/router'
 import { Subject } from 'rxjs'
 import { takeUntil } from 'rxjs/operators'
 // Custom
-import { ConnectedUser } from 'src/app/shared/classes/connected-user'
 import { CustomerActiveVM } from 'src/app/features/customers/classes/view-models/customer-active-vm'
 import { CustomerService } from 'src/app/features/customers/classes/services/customer.service'
 import { DateHelperService } from 'src/app/shared/services/date-helper.service'
@@ -71,11 +70,6 @@ export class LedgerCriteriaComponent {
 
     //#region public methods
 
-    public doTasks(): void {
-        this.storeCriteria()
-        this.navigateToList()
-    }
-
     public filterList(event: { target: { value: any } }, filteredList: string, list: string, listElement: string): void {
         this[filteredList] = this[list]
         const x = event.target.value
@@ -95,37 +89,20 @@ export class LedgerCriteriaComponent {
         })
     }
 
-    public getLabel(id: string): string {
-        return this.messageLabelService.getDescription(this.feature, id)
-    }
-
     public getEmoji(emoji: string): string {
         return this.emojiService.getEmoji(emoji)
     }
 
-    public isAdmin(): boolean {
-        return ConnectedUser.isAdmin
+    public getLabel(id: string): string {
+        return this.messageLabelService.getDescription(this.feature, id)
     }
 
-    /**
-     * Scans the criteria which are loaded from the storage
-     * @param arrayName 
-     * @param arrayId 
-     * @returns True or false so that the checkbox can be checked or left empty
-     */
     public lookup(arrayName: string, arrayId: number): boolean {
         if (this.criteria) {
             return this.criteria[arrayName].filter((x: { id: number }) => x.id == arrayId).length != 0 ? true : false
         }
     }
 
-    /**
-     * Adds/removes controls to/from the formArray 
-     * Checks/unchecks the master checkbox if all checkboxes as selected/unselected
-     * @param event
-     * @param formControlsArray
-     * @param description 
-     */
     public onCheckboxChange(event: any, allCheckbox: string, formControlsArray: string, description: string): void {
         const selected = this.form.controls[formControlsArray] as FormArray
         if (event.target.checked) {
@@ -150,6 +127,11 @@ export class LedgerCriteriaComponent {
                 })
             }
         }
+    }
+
+    public onDoTasks(): void {
+        this.storeCriteria()
+        this.navigateToList()
     }
 
     public patchFormWithSelectedDates(event: any): void {
@@ -191,19 +173,6 @@ export class LedgerCriteriaComponent {
     private cleanup(): void {
         this.unsubscribe.next()
         this.unsubscribe.unsubscribe()
-    }
-
-    private getCustomer(): void {
-        if (ConnectedUser.customerId != undefined) {
-            this.customerService.getSingle(ConnectedUser.customerId).subscribe(response => {
-                this.form.patchValue({
-                    customer: {
-                        'id': response.body.Id,
-                        'description': response.body.description
-                    }
-                })
-            })
-        }
     }
 
     private initForm(): void {
@@ -262,16 +231,6 @@ export class LedgerCriteriaComponent {
         this.dateAdapter.setLocale(this.localStorageService.getLanguage())
     }
 
-    private storeCriteria(): void {
-        this.localStorageService.saveItem('ledger-criteria', JSON.stringify(this.form.value))
-    }
-
-    private subscribeToInteractionService(): void {
-        this.interactionService.refreshDateAdapter.pipe(takeUntil(this.unsubscribe)).subscribe(() => {
-            this.setLocale()
-        })
-    }
-
     private setSelectedDates(): void {
         if (this.criteria != undefined) {
             this.selectedRangeValue = new DateRange(new Date(this.criteria.fromDate), new Date(this.criteria.toDate))
@@ -282,6 +241,16 @@ export class LedgerCriteriaComponent {
                 toDate: this.dateHelperService.formatDateToIso(new Date(), false),
             })
         }
+    }
+
+    private storeCriteria(): void {
+        this.localStorageService.saveItem('ledger-criteria', JSON.stringify(this.form.value))
+    }
+
+    private subscribeToInteractionService(): void {
+        this.interactionService.refreshDateAdapter.pipe(takeUntil(this.unsubscribe)).subscribe(() => {
+            this.setLocale()
+        })
     }
 
     //#endregion

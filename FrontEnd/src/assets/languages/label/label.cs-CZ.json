@@ -1219,12 +1219,12 @@
                 "description": "Lodě"
             },
             {
-                "id": "searchButton",
-                "description": "HLEDAT"
+                "id": "selected",
+                "description": "Vybrané"
             },
             {
-                "id": "todayButton",
-                "description": "DENNĚ"
+                "id": "searchButton",
+                "description": "HLEDAT"
             }
         ]
     },
@@ -1276,8 +1276,8 @@
                 "description": "+/-"
             },
             {
-                "id": "headerEmbarkationStatus",
-                "description": "Stav"
+                "id": "headerEmbarkationState",
+                "description": "Nalodění"
             },
             {
                 "id": "headerLastname",
@@ -1300,8 +1300,16 @@
                 "description": "Nic jsme nenašli!"
             },
             {
-                "id": "criteriaTotalPersons",
-                "description": "Celkem"
+                "id": "criteria-destinations",
+                "description": "Προορισμοί"
+            },
+            {
+                "id": "criteria-ports",
+                "description": "Λιμάνια"
+            },
+            {
+                "id": "criteria-ships",
+                "description": "Πλοία"
             },
             {
                 "id": "criteriaEmbarkedPassengers",
@@ -2066,79 +2074,6 @@
             {
                 "id": "searchButton",
                 "description": "VYHLEDÁVÁNÍ"
-            }
-        ]
-    },
-    {
-        "feature": "totalsList",
-        "labels": [
-            {
-                "id": "header",
-                "description": "Celkové součty za období"
-            },
-            {
-                "id": "headerCustomer",
-                "description": "Zákazník"
-            },
-            {
-                "id": "headerDestination",
-                "description": "Destinace"
-            },
-            {
-                "id": "headerShip",
-                "description": "Loď"
-            },
-            {
-                "id": "headerPort",
-                "description": "Přístavt"
-            },
-            {
-                "id": "headerTicketNo",
-                "description": "Číslo lístku"
-            },
-            {
-                "id": "headerHasTransfer",
-                "description": "Převod"
-            },
-            {
-                "id": "headerAdults",
-                "description": "Do"
-            },
-            {
-                "id": "headerKids",
-                "description": "Dí"
-            },
-            {
-                "id": "headerFree",
-                "description": "Z"
-            },
-            {
-                "id": "headerRemarks",
-                "description": "Komentáře"
-            },
-            {
-                "id": "headerTotalPersons",
-                "description": "Σ"
-            },
-            {
-                "id": "exportAllButton",
-                "description": "EXPORT DO XLS"
-            },
-            {
-                "id": "no-results",
-                "description": "Nic jsme nenašli!"
-            },
-            {
-                "id": "has-transfer",
-                "description": "ANO"
-            },
-            {
-                "id": "no-transfer",
-                "description": "NE"
-            },
-            {
-                "id": "criteria-date-range",
-                "description": "Kalendářní interval"
             }
         ]
     },

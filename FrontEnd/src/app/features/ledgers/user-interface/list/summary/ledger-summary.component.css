@@ -1,0 +1,11 @@
+#table-wrapper {
+    margin: 0 !important;
+}
+
+.total {
+    background-color: var(--color-f) !important;
+}
+
+.detail {
+    background-color: var(--color-g) !important;
+}

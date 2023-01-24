@@ -1,45 +1,23 @@
-#scan-close-button {
-    background-color: var(--color-button-background-primary) !important;
-    left: 89.3%;
-    position: absolute;
-    top: 9.5%;
+#table-wrapper {
+    margin-left: 1rem;
+    width: 100%;
 }
 
-#video {
-    background-color: var(--color-a);
-    display: none;
-    padding: 1rem;
-    position: fixed;
-    z-index: 1;
+#content {
+    display: flex;
+    flex-direction: row;
+    height: 100%;
 }
 
-.embark-all-passengers {
-    margin: 1rem 0 1rem 0;
+.description {
+    display: flex;
 }
 
-.remarks:hover {
-    cursor: pointer;
+.pi-filter {
+    font-size: 8px;
+    margin-top: 6px;
 }
 
-.embarkation-status:hover {
-    cursor: pointer;
-}
-
-.pending {
-    background-color: var(--color-embarkation-pending);
-}
-
-.complete {
-    background-color: var(--color-embarkation-complete);
-}
-
-.passengers-row {
-    background-color: var(--color-passenger-table);
-    border-radius: 10px;
-    margin: 0 10rem;
-    padding: 1rem;
-}
-
-.embarkation-status span {
-    color: var(--color-button-do-embarkation);
+.pi-filter::before {
+    margin: 0 0.2rem 0 0.2rem;
 }

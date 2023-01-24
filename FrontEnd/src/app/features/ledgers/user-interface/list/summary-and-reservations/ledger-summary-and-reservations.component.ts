@@ -1,12 +1,12 @@
 import { Component, Inject } from '@angular/core'
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog'
 // Custom
-import { LedgerVM } from '../../../classes/view-models/ledger-vm'
+import { LedgerVM } from '../../../classes/view-models/list/ledger-vm'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 
 @Component({
     selector: 'ledger-customer-summary-and-reservations',
-    templateUrl: './summary-and-reservations.component.html',
+    templateUrl: './ledger-summary-and-reservations.component.html',
     styleUrls: ['../../../../../../assets/styles/dialogs.css']
 })
 

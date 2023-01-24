@@ -1,25 +1,23 @@
 import { Component, ViewChild } from '@angular/core'
 import { DateAdapter } from '@angular/material/core'
+import { DateRange, MatCalendar } from '@angular/material/datepicker'
 import { FormGroup, FormBuilder, Validators, FormArray, FormControl } from '@angular/forms'
-import { MatCalendar } from '@angular/material/datepicker'
 import { Router } from '@angular/router'
 import { Subject } from 'rxjs'
 import { takeUntil } from 'rxjs/operators'
 // Custom
 import { DateHelperService } from 'src/app/shared/services/date-helper.service'
-import { DestinationActiveVM } from '../../../destinations/classes/view-models/destination-active-vm'
-import { EmbarkationCriteriaVM } from '../../classes/view-models/embarkation-criteria-vm'
+import { EmbarkationCriteriaVM } from '../../classes/view-models/criteria/embarkation-criteria-vm'
+import { EmojiService } from 'src/app/shared/services/emoji.service'
 import { InteractionService } from 'src/app/shared/services/interaction.service'
 import { LocalStorageService } from 'src/app/shared/services/local-storage.service'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
-import { PortActiveVM } from 'src/app/features/ports/classes/view-models/port-active-vm'
-import { ShipActiveVM } from '../../../ships/classes/view-models/ship-active-vm'
-import { ValidationService } from 'src/app/shared/services/validation.service'
+import { SimpleEntity } from 'src/app/shared/classes/simple-entity'
 
 @Component({
     selector: 'embarkation-criteria',
     templateUrl: './embarkation-criteria.component.html',
-    styleUrls: ['../../../../../assets/styles/forms.css', './embarkation-criteria.component.css']
+    styleUrls: ['../../../../../assets/styles/forms.css']
 })
 
 export class EmbarkationCriteriaComponent {
@@ -35,15 +33,20 @@ export class EmbarkationCriteriaComponent {
     public icon = 'home'
     public parentUrl = null
 
-    public selectedDate = new Date()
     private criteria: EmbarkationCriteriaVM
-    public destinations: DestinationActiveVM[] = []
-    public ports: PortActiveVM[] = []
-    public ships: ShipActiveVM[] = []
+    public selectedFromDate = new Date()
+    public selectedRangeValue: DateRange<Date>
+    public selectedToDate = new Date()
+    public destinations: SimpleEntity[] = []
+    public filteredDestinations: SimpleEntity[] = []
+    public ports: SimpleEntity[] = []
+    public filteredPorts: SimpleEntity[] = []
+    public ships: SimpleEntity[] = []
+    public filteredShips: SimpleEntity[] = []
 
     //#endregion
 
-    constructor(private dateAdapter: DateAdapter<any>, private dateHelperService: DateHelperService, private formBuilder: FormBuilder, private interactionService: InteractionService, private localStorageService: LocalStorageService, private messageLabelService: MessageLabelService, private router: Router,) { }
+    constructor(private dateAdapter: DateAdapter<any>, private dateHelperService: DateHelperService, private emojiService: EmojiService, private formBuilder: FormBuilder, private interactionService: InteractionService, private localStorageService: LocalStorageService, private messageLabelService: MessageLabelService, private router: Router) { }
 
     //#region lifecycle hooks
 
@@ -51,7 +54,7 @@ export class EmbarkationCriteriaComponent {
         this.initForm()
         this.populateDropdowns()
         this.populateFieldsFromStoredVariables()
-        this.setSelectedDate()
+        this.setSelectedDates()
         this.setLocale()
         this.subscribeToInteractionService()
     }
@@ -64,35 +67,40 @@ export class EmbarkationCriteriaComponent {
 
     //#region public methods
 
+    public filterList(event: { target: { value: any } }, filteredList: string, list: string, listElement: string): void {
+        this[filteredList] = this[list]
+        const x = event.target.value
+        this[filteredList] = this[list].filter((i: { description: string }) => i.description.toLowerCase().includes(x.toLowerCase()))
+        setTimeout(() => {
+            const criteria = this.form.value[list]
+            criteria.forEach((element: { description: any }) => {
+                this[filteredList].forEach((x: { description: any; id: string }) => {
+                    if (element.description == x.description) {
+                        const input = document.getElementById(listElement + x.id) as HTMLInputElement
+                        if (input != null) {
+                            input.checked = true
+                        }
+                    }
+                })
+            }, 1000)
+        })
+    }
+
+    public getEmoji(emoji: string): string {
+        return this.emojiService.getEmoji(emoji)
+    }
+
     public getLabel(id: string): string {
         return this.messageLabelService.getDescription(this.feature, id)
     }
 
-    public gotoToday(): void {
-        this.selectedDate = new Date()
-        this.form.patchValue({ date: this.selectedDate.toISOString().substring(0, 10) })
-        this.calendar._goToDateInView(this.selectedDate, 'month')
-    }
-
-    /**
-     * Scans the criteria which are loaded from the storage
-     * @param arrayName 
-     * @param arrayId 
-     * @returns True or false so that the checkbox can be checked or left empty
-     */
     public lookup(arrayName: string, arrayId: number): boolean {
         if (this.criteria) {
             return this.criteria[arrayName].filter((x: { id: number }) => x.id == arrayId).length != 0 ? true : false
         }
     }
 
-    /**
-     * Adds/removes controls to/from the formArray
-     * @param event
-     * @param formControlsArray
-     * @param description 
-     */
-    public onCheckboxChange(event: any, formControlsArray: string, description: string): void {
+    public onCheckboxChange(event: any, allCheckbox: string, formControlsArray: string, description: string): void {
         const selected = this.form.controls[formControlsArray] as FormArray
         if (event.target.checked) {
             selected.push(this.formBuilder.group({
@@ -103,6 +111,19 @@ export class EmbarkationCriteriaComponent {
             const index = selected.controls.findIndex(x => x.value.id == parseInt(event.target.value))
             selected.removeAt(index)
         }
+        if (selected.length == 0) {
+            document.querySelector<HTMLInputElement>('#all-' + formControlsArray).checked = false
+            this.form.patchValue({
+                [allCheckbox]: false
+            })
+        } else {
+            if (selected.length == this[formControlsArray].length) {
+                document.querySelector<HTMLInputElement>('#all-' + formControlsArray).checked = true
+                this.form.patchValue({
+                    [allCheckbox]: true
+                })
+            }
+        }
     }
 
     public onDoTasks(): void {
@@ -110,20 +131,47 @@ export class EmbarkationCriteriaComponent {
         this.navigateToList()
     }
 
-    public selectDateFromCalendar(selected: Date): void {
+    public patchFormWithSelectedDates(event: any): void {
         this.form.patchValue({
-            date: this.dateHelperService.formatDateToIso(selected, false)
+            fromDate: event.start != null ? this.dateHelperService.formatDateToIso(event.start) : '',
+            toDate: event.start != null ? this.dateHelperService.formatDateToIso(event.start) : ''
         })
+    }
+
+    public toggleAllCheckboxes(array: string, allCheckboxes: string): void {
+        const selected = this.form.controls[array + 's'] as FormArray
+        selected.clear()
+        const checkboxes = document.querySelectorAll<HTMLInputElement>('.' + array)
+        checkboxes.forEach(checkbox => {
+            checkbox.checked = !this.form.value[allCheckboxes]
+            if (checkbox.checked) {
+                selected.push(this.formBuilder.group({
+                    id: [checkbox.value, Validators.required],
+                    description: document.getElementById(array + '-label' + checkbox.value).innerHTML
+                }))
+            }
+        })
+    }
+
+    public updateRadioButtons(classname: any, idName: any, id: any, description: any): void {
+        const radios = document.getElementsByClassName(classname) as HTMLCollectionOf<HTMLInputElement>
+        for (let i = 0; i < radios.length; i++) {
+            radios[i].checked = false
+        }
+        const radio = document.getElementById(idName + id) as HTMLInputElement
+        radio.checked = true
+        const x = this.form.controls[classname] as FormArray
+        x.clear()
+        x.push(new FormControl({
+            'id': id,
+            'description': description
+        }))
     }
 
     //#endregion
 
     //#region private methods
 
-    /**
-     * Adds all the stored criteria from the storage to the form.
-     * Called on every page load (when called from the menu or when returning from the embarkation list)
-     */
     private addSelectedCriteriaFromStorage(arrayName: string): void {
         const x = this.form.controls[arrayName] as FormArray
         this.criteria[arrayName].forEach((element: any) => {
@@ -141,10 +189,17 @@ export class EmbarkationCriteriaComponent {
 
     private initForm(): void {
         this.form = this.formBuilder.group({
-            date: ['', [Validators.required, ValidationService.RequireDate]],
+            fromDate: ['', [Validators.required]],
+            toDate: ['', [Validators.required]],
             destinations: this.formBuilder.array([], Validators.required),
             ports: this.formBuilder.array([], Validators.required),
-            ships: this.formBuilder.array([], Validators.required)
+            ships: this.formBuilder.array([], Validators.required),
+            destinationsFilter: '',
+            portsFilter: '',
+            shipsFilter: '',
+            allDestinationsCheckbox: '',
+            allPortsCheckbox: '',
+            allShipsCheckbox: ''
         })
     }
 
@@ -152,21 +207,26 @@ export class EmbarkationCriteriaComponent {
         this.router.navigate(['embarkation/list'])
     }
 
+    private populateDropdownFromLocalStorage(table: string): void {
+        this[table] = JSON.parse(this.localStorageService.getItem(table))
+    }
+
     private populateDropdowns(): void {
         this.populateDropdownFromLocalStorage('destinations')
         this.populateDropdownFromLocalStorage('ports')
         this.populateDropdownFromLocalStorage('ships')
+        this.filteredDestinations = this.destinations
+        this.filteredPorts = this.ports
+        this.filteredShips = this.ships
     }
 
-    private populateDropdownFromLocalStorage(table: string): void {
-        this[table] = JSON.parse(this.localStorageService.getItem(table))
-    }
 
     private populateFieldsFromStoredVariables(): void {
         if (this.localStorageService.getItem('embarkation-criteria')) {
             this.criteria = JSON.parse(this.localStorageService.getItem('embarkation-criteria'))
             this.form.patchValue({
-                date: this.criteria.date,
+                fromDate: this.criteria.fromDate,
+                toDate: this.criteria.toDate,
                 destinations: this.addSelectedCriteriaFromStorage('destinations'),
                 ports: this.addSelectedCriteriaFromStorage('ports'),
                 ships: this.addSelectedCriteriaFromStorage('ships'),
@@ -178,16 +238,14 @@ export class EmbarkationCriteriaComponent {
         this.dateAdapter.setLocale(this.localStorageService.getLanguage())
     }
 
-    /**
-     * Sets the selected date to today or whatever is stored
-     */
-    private setSelectedDate(): void {
+    private setSelectedDates(): void {
         if (this.criteria != undefined) {
-            this.selectedDate = new Date(this.criteria.date)
+            this.selectedRangeValue = new DateRange(new Date(this.criteria.fromDate), new Date(this.criteria.toDate))
         } else {
-            this.selectedDate = new Date()
+            this.selectedRangeValue = new DateRange(new Date(), new Date())
             this.form.patchValue({
-                date: this.dateHelperService.formatDateToIso(this.selectedDate, false)
+                fromDate: this.dateHelperService.formatDateToIso(new Date(), false),
+                toDate: this.dateHelperService.formatDateToIso(new Date(), false),
             })
         }
     }

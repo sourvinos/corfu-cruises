@@ -37,7 +37,7 @@
 }
 
 #dialog-content {
-    color: var(--color-button-text);
+    color: var(--color-c);
     flex: 1;
     font-family: var(--font-family-handbook) !important;
     font-size: var(--font-size-dialog) !important;

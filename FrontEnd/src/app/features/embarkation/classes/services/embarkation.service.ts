@@ -2,7 +2,7 @@ import { HttpClient, HttpParams } from '@angular/common/http'
 import { Injectable } from '@angular/core'
 import { Observable } from 'rxjs'
 // Custom
-import { EmbarkationVM } from '../view-models/embarkation-vm'
+import { EmbarkationVM } from '../view-models/list/embarkation-vm'
 import { HttpDataService } from 'src/app/shared/services/http-data.service'
 import { environment } from 'src/environments/environment'
 
@@ -14,8 +14,9 @@ export class EmbarkationService extends HttpDataService {
         super(httpClient, environment.apiUrl + '/embarkation')
     }
 
-    get(date: string, destinationIds: number[], portIds: number[], shipIds: number[]): Observable<EmbarkationVM> {
-        return this.http.get<any>(this.url + '?date=' + date
+    get(fromDate: string, toDate: string, destinationIds: number[], portIds: number[], shipIds: number[]): Observable<EmbarkationVM> {
+        return this.http.get<any>(
+            this.url + '?fromDate=' + fromDate + '&toDate=' + toDate
             + this.buildDestinationsQuery(destinationIds)
             + this.buildPortsQuery(portIds)
             + this.buildShipsQuery(shipIds))

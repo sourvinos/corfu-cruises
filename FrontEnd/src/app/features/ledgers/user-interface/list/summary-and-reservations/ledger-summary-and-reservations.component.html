@@ -5,11 +5,11 @@
     </div>
 
     <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="start">
-        <mat-tab label="Reservations">
-            <ledger-customer-reservations [customerReservations]="data.customer.reservations"></ledger-customer-reservations>
-        </mat-tab>
-        <mat-tab label="Summary">
+        <mat-tab label="{{ getLabel('summary-tab') }}">
             <ledger-customer-summary [portGroup]="data.customer.ports"></ledger-customer-summary>
+        </mat-tab>
+        <mat-tab label="{{ getLabel('reservations-tab') }}">
+            <ledger-customer-reservations [customerReservations]="data.customer.reservations"></ledger-customer-reservations>
         </mat-tab>
     </mat-tab-group>
 

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core'
 // Custom
 import { DateHelperService } from 'src/app/shared/services/date-helper.service'
 import { EmbarkationCriteriaComponent } from './../../user-interface/criteria/embarkation-criteria.component'
-import { EmbarkationVM } from '../view-models/embarkation-vm'
+import { EmbarkationVM } from '../view-models/list/embarkation-vm'
 import { LocalStorageService } from 'src/app/shared/services/local-storage.service'
 import { LogoService } from 'src/app/features/reservations/classes/services/logo.service'
 // Fonts
@@ -108,11 +108,11 @@ export class EmbarkationPDFService {
             rows.push([
                 { text: reservation.refNo, fontSize: 5, margin: [0, 0, 0, 0] },
                 { text: reservation.ticketNo, fontSize: 5 },
-                { text: reservation.destination, fontSize: 5 },
-                { text: reservation.customer, fontSize: 5 },
-                { text: reservation.driver, fontSize: 5 },
-                { text: reservation.port, fontSize: 5 },
-                { text: reservation.ship, fontSize: 5 },
+                { text: reservation.customerDescription, fontSize: 5 },
+                { text: reservation.destinationDescription, fontSize: 5 },
+                { text: reservation.driverDescription, fontSize: 5 },
+                { text: reservation.portDescription, fontSize: 5 },
+                { text: reservation.shipDescription, fontSize: 5 },
                 { text: reservation.remarks, fontSize: 5 },
                 { text: reservation.totalPersons, alignment: 'right', fontSize: 5 }
             ])

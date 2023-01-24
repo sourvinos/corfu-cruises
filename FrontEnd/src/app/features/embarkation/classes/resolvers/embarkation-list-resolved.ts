@@ -1,4 +1,4 @@
-import { EmbarkationVM } from '../view-models/embarkation-vm'
+import { EmbarkationVM } from '../view-models/list/embarkation-vm'
 
 export class EmbarkationListResolved {
 

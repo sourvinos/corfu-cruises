@@ -4,14 +4,14 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dial
 import { DateHelperService } from 'src/app/shared/services/date-helper.service'
 import { DialogService } from 'src/app/shared/services/dialog.service'
 import { EmojiService } from 'src/app/shared/services/emoji.service'
-import { LedgerVM } from '../../../classes/view-models/ledger-vm'
+import { LedgerVM } from '../../../classes/view-models/list/ledger-vm'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { environment } from 'src/environments/environment'
 
 @Component({
     selector: 'ledger-customer-reservations',
-    templateUrl: './reservations.component.html',
-    styleUrls: ['../../../../../../assets/styles/dialogs.css', './reservations.component.css']
+    templateUrl: './ledger-reservations.component.html',
+    styleUrls: ['../../../../../../assets/styles/dialogs.css', './ledger-reservations.component.css']
 })
 
 export class LedgerCustomerReservationListComponent {

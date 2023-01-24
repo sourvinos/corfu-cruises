@@ -40,7 +40,7 @@
                     <span style="font-size: 0.9rem;" *ngIf="r.totalPersons - r.embarkedPassengers != 0">{{ getEmoji('warning') }}</span>
                 </td>
                 <td style="text-align: center; width: 6rem;">
-                    <span (click)="onShowRemarks(r.remarks)" *ngIf="hasRemarks(r.remarks)" class="remarks">{{ getEmoji('remarks') }}</span>
+                    <span (click)="onShowRemarks(r.remarks)" [ngClass]="hasRemarks(r.remarks)?'clickable':''" *ngIf="hasRemarks(r.remarks)" class="remarks">{{ getEmoji('remarks') }}</span>
                 </td>
             </tr>
         </ng-template>

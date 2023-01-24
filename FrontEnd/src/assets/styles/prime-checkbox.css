@@ -1,3 +1,7 @@
+.p-checkbox {
+    width: 1.1875rem;
+    height: 1.1875rem;
+}
 .p-checkbox-focused {
     box-shadow: none !important;
 }

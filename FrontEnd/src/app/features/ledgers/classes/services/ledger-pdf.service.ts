@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core'
 // Custom
 import { DateHelperService } from 'src/app/shared/services/date-helper.service'
-import { HasTransferGroupVM } from '../view-models/ledger-port-group-vm'
+import { HasTransferGroupVM } from '../view-models/list/ledger-port-group-vm'
 import { LedgerCriteriaVM } from '../view-models/criteria/ledger-criteria-vm'
-import { LedgerReservationVM } from '../view-models/ledger-reservation-vm'
-import { LedgerVM } from '../view-models/ledger-vm'
+import { LedgerReservationVM } from '../view-models/list/ledger-reservation-vm'
+import { LedgerVM } from '../view-models/list/ledger-vm'
 import { LogoService } from 'src/app/features/reservations/classes/services/logo.service'
 import { environment } from './../../../../../environments/environment'
 // Fonts

@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core'
 import { Observable } from 'rxjs'
 // Custom
 import { HttpDataService } from 'src/app/shared/services/http-data.service'
-import { LedgerVM } from '../view-models/ledger-vm'
+import { LedgerVM } from '../view-models/list/ledger-vm'
 import { environment } from 'src/environments/environment'
 
 @Injectable({ providedIn: 'root' })
@@ -16,7 +16,11 @@ export class LedgerService extends HttpDataService {
 
 
     get(fromDate: string, toDate: string, customerIds: number[], destinationIds: number[], shipIds: number[]): Observable<LedgerVM> {
-        return this.http.get<LedgerVM>(this.url + '?fromDate=' + fromDate + '&toDate=' + toDate + this.buildCustomersQuery(customerIds) + this.buildDestinationsQuery(destinationIds) + this.buildShipsQuery(shipIds))
+        return this.http.get<LedgerVM>(
+            this.url + '?fromDate=' + fromDate + '&toDate=' + toDate +
+            this.buildCustomersQuery(customerIds) +
+            this.buildDestinationsQuery(destinationIds) +
+            this.buildShipsQuery(shipIds))
     }
 
     private buildCustomersQuery(customerIds: number[]): string {

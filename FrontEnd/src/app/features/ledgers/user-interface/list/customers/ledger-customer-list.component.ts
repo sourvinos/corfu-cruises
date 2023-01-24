@@ -7,9 +7,9 @@ import { Table } from 'primeng/table'
 import { DateHelperService } from 'src/app/shared/services/date-helper.service'
 import { HelperService } from 'src/app/shared/services/helper.service'
 import { LedgerCriteriaVM } from '../../../classes/view-models/criteria/ledger-criteria-vm'
-import { LedgerCustomerSummaryAndReservationsComponent } from '../summary-and-reservations/summary-and-reservations.component'
+import { LedgerCustomerSummaryAndReservationsComponent } from '../summary-and-reservations/ledger-summary-and-reservations.component'
 import { LedgerPDFService } from '../../../classes/services/ledger-pdf.service'
-import { LedgerVM } from '../../../classes/view-models/ledger-vm'
+import { LedgerVM } from '../../../classes/view-models/list/ledger-vm'
 import { LocalStorageService } from 'src/app/shared/services/local-storage.service'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
@@ -43,7 +43,6 @@ export class LedgerCustomerListComponent {
     public distinctCustomers: any[]
     public distinctDestinations: any[]
     public distinctShips: any[]
-
 
     //#endregion
 

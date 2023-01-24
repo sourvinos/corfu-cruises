@@ -73,9 +73,9 @@ export class HelperService {
     public getDistinctRecords(records: any[], field: string): any[] {
         const array: any[] = []
         const key = field
-        const distinctRecords = [...new Map(records.map(item => [item[key].id, item])).values()]
+        const distinctRecords = [...new Map(records.map(item => [item[key], item])).values()]
         distinctRecords.forEach(element => {
-            array.push(element[field].description)
+            array.push(element[field])
         })
         array.sort((a, b) => {
             if (a < b) {

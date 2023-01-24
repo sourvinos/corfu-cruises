@@ -11,6 +11,7 @@ import { DestinationActiveVM } from '../../../destinations/classes/view-models/d
 import { EmojiService } from 'src/app/shared/services/emoji.service'
 import { InteractionService } from 'src/app/shared/services/interaction.service'
 import { LocalStorageService } from 'src/app/shared/services/local-storage.service'
+import { ManifestCriteriaVM } from '../../classes/view-models/criteria/manifest-criteria-vm'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { PortActiveVM } from './../../../ports/classes/view-models/port-active-vm'
 import { ShipActiveVM } from 'src/app/features/ships/classes/view-models/ship-active-vm'
@@ -35,7 +36,7 @@ export class ManifestCriteriaComponent {
     public icon = 'home'
     public parentUrl = null
 
-    private criteria: any
+    private criteria: ManifestCriteriaVM
     public selectedFromDate = new Date()
     public selectedRangeValue: DateRange<Date>
     public selectedToDate = new Date()
@@ -214,6 +215,10 @@ export class ManifestCriteriaComponent {
         this.router.navigate(['manifest/list'])
     }
 
+    private populateDropdownFromLocalStorage(table: string): void {
+        this[table] = JSON.parse(this.localStorageService.getItem(table))
+    }
+
     private populateDropdowns(): void {
         this.populateDropdownFromLocalStorage('destinations')
         this.populateDropdownFromLocalStorage('ships')
@@ -223,10 +228,6 @@ export class ManifestCriteriaComponent {
         this.filteredPorts = this.ports
         this.filteredShips = this.ships
         this.filteredShipRoutes = this.shipRoutes
-    }
-
-    private populateDropdownFromLocalStorage(table: string): void {
-        this[table] = JSON.parse(this.localStorageService.getItem(table))
     }
 
     private populateFieldsFromStoredVariables(): void {
@@ -261,7 +262,6 @@ export class ManifestCriteriaComponent {
 
     private storeCriteria(): void {
         this.localStorageService.saveItem('manifest-criteria', JSON.stringify(this.form.value))
-        this.localStorageService.saveItem('manifest-criteria-panel', JSON.stringify(this.form.value))
     }
 
     private subscribeToInteractionService(): void {

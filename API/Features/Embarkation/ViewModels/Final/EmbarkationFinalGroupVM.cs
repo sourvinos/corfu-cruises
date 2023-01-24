@@ -2,8 +2,6 @@ using System.Collections.Generic;
 
 namespace API.Features.Embarkation {
 
-    // Level 1 of 3
-
     public class EmbarkationFinalGroupVM {
 
         public int TotalPersons { get; set; }

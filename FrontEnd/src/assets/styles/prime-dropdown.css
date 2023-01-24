@@ -37,6 +37,7 @@
     margin-bottom: 0;
     padding: 0.3125rem 0.375rem 0.1875rem 0.375rem !important;
     text-align: left;
+    width: 10rem !important;
 }
 
 .p-fluid .p-dropdown {

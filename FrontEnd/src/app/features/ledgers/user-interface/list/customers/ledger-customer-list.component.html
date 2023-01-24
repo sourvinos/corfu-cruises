@@ -25,7 +25,7 @@
                     <tr>
                         <th style="width: 3rem;"></th>
                         <th pSortableColumn="customer.description">{{ getLabel("headerCustomer") }}<p-sortIcon field="customer.description"></p-sortIcon></th>
-                        <th></th>
+                        <th style="width: 3rem;"></th>
                     </tr>
                     <tr>
                         <th style="width: 3rem;"><p-tableHeaderCheckbox></p-tableHeaderCheckbox></th>
@@ -35,9 +35,9 @@
                 </ng-template>
                 <ng-template let-rowData pTemplate="body">
                     <tr (dblclick)="showCustomerReservations(rowData)" style="height:33px">
-                        <td style="min-width: 3rem; max-width: 6rem; text-align: center;"><p-tableCheckbox [value]="rowData"></p-tableCheckbox></td>
+                        <td style="min-width: 3rem; max-width: 6rem; padding: 0; text-align: center;"><p-tableCheckbox [value]="rowData"></p-tableCheckbox></td>
                         <td>{{ rowData.customer.description }}</td>
-                        <td style="min-width: 3.5rem; width: 3.5rem; text-align: center;" (click)="exportSingleCustomer(rowData.customer.id)" class="clickable">
+                        <td style="display: flex; justify-content: center; max-width: 3.5rem; min-width: 3.5rem; padding: 5px; text-align: center; width: 3.5rem;" (click)="exportSingleCustomer(rowData.customer.id)" class="clickable">
                             <img src="/assets/images/tables/pdf.svg">
                         </td>
                     </tr>

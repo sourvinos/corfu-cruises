@@ -14,24 +14,26 @@ export class LedgerListResolver {
     constructor(private ledgerService: LedgerService, private localStorageService: LocalStorageService) { }
 
     resolve(): Observable<LedgerListResolved> {
-        let criteria: LedgerCriteriaVM = null
-        criteria = JSON.parse(this.localStorageService.getItem('ledger-criteria'))
-        const customerIds = []
-        const destinationIds = []
-        const shipIds = []
-        criteria.customers.forEach((customer: { id: any }) => {
-            customerIds.push(customer.id)
-        })
-        criteria.destinations.forEach((destination: { id: any }) => {
-            destinationIds.push(destination.id)
-        })
-        criteria.ships.forEach((ship: { id: any }) => {
-            shipIds.push(ship.id)
-        })
-        return this.ledgerService.get(criteria.fromDate, criteria.toDate, customerIds, destinationIds, shipIds).pipe(
+        const criteria: LedgerCriteriaVM = JSON.parse(this.localStorageService.getItem('ledger-criteria'))
+        return this.ledgerService.get(
+            criteria.fromDate,
+            criteria.toDate,
+            this.buildIds(criteria, 'customers'),
+            this.buildIds(criteria, 'destinations'),
+            this.buildIds(criteria, 'ships')
+        ).pipe(
             map((ledgerList) => new LedgerListResolved(ledgerList)),
             catchError((err: any) => of(new LedgerListResolved(null, err)))
         )
     }
+
+    private buildIds(criteria: any, array: string): number[] {
+        const ids = []
+        criteria[array].forEach((element: { id: any }) => {
+            ids.push(element.id)
+        })
+        return ids
+    }
+
 
 }

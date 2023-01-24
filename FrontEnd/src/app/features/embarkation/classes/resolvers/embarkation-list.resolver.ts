@@ -2,20 +2,22 @@ import { Injectable } from '@angular/core'
 import { Observable, of } from 'rxjs'
 import { catchError, map } from 'rxjs/operators'
 // Custom
+import { EmbarkationCriteriaVM } from '../view-models/criteria/embarkation-criteria-vm'
 import { EmbarkationListResolved } from './embarkation-list-resolved'
-import { EmbarkationService } from '../services/embarkation-display.service'
+import { EmbarkationService } from '../services/embarkation.service'
 import { LocalStorageService } from 'src/app/shared/services/local-storage.service'
 
 @Injectable({ providedIn: 'root' })
 
 export class EmbarkationListResolver {
 
-    constructor(private embarkationDisplayService: EmbarkationService, private localStorageService: LocalStorageService) { }
+    constructor(private embarkationService: EmbarkationService, private localStorageService: LocalStorageService) { }
 
     resolve(): Observable<EmbarkationListResolved> {
-        const criteria = JSON.parse(this.localStorageService.getItem('embarkation-criteria'))
-        return this.embarkationDisplayService.get(
-            criteria.date,
+        const criteria: EmbarkationCriteriaVM = JSON.parse(this.localStorageService.getItem('embarkation-criteria'))
+        return this.embarkationService.get(
+            criteria.fromDate,
+            criteria.toDate,
             this.buildIds(criteria, 'destinations'),
             this.buildIds(criteria, 'ports'),
             this.buildIds(criteria, 'ships')).pipe(
