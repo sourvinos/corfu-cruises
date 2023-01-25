@@ -1301,15 +1301,15 @@
             },
             {
                 "id": "criteria-destinations",
-                "description": "Προορισμοί"
+                "description": "Reiseziele"
             },
             {
                 "id": "criteria-ports",
-                "description": "Λιμάνια"
+                "description": "Häfen"
             },
             {
                 "id": "criteria-ships",
-                "description": "Πλοία"
+                "description": "Schiffe"
             },
             {
                 "id": "criteriaEmbarkedPassengers",
@@ -1572,10 +1572,6 @@
             {
                 "id": "header",
                 "description": "Passagiermanifest"
-            },
-            {
-                "id": "criteriaDate",
-                "description": "Datum"
             },
             {
                 "id": "criteriaDestination",

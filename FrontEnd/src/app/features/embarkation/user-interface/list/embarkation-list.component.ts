@@ -84,8 +84,7 @@ export class EmbarkationListComponent {
     }
 
     ngOnDestroy(): void {
-        this.unsubscribe.next()
-        this.unsubscribe.unsubscribe()
+        this.cleanup()
     }
 
     //#endregion
@@ -104,8 +103,9 @@ export class EmbarkationListComponent {
 
     public filterRecords(event: { filteredValue: any[] }): void {
         this.recordsFiltered.reservations = event.filteredValue
-        this.countFilteredPersons()
+        // this.countFilteredPersons()
         this.localStorageService.saveItem(this.feature, JSON.stringify(this.table.filters))
+        // console.log(this.recordsFiltered)
     }
 
     public formatDateToLocale(date: string, showWeekday = false, showYear = false): string {
@@ -247,9 +247,8 @@ export class EmbarkationListComponent {
             const listResolved = this.activatedRoute.snapshot.data[this.feature]
             if (listResolved.error === null) {
                 this.records = listResolved.result
-                this.recordsFiltered = Object.assign([], this.records)
+                this.recordsFiltered = this.records
                 resolve(this.records)
-                console.log(this.records)
             } else {
                 this.goBack()
                 this.modalActionResultService.open(this.messageSnackbarService.filterResponse(new Error('500')), 'error', ['ok'])

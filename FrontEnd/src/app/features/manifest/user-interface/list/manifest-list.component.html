@@ -7,7 +7,7 @@
                 <img width="20px" [src]="getIcon('calendar')">
                 <div class="description">{{ formatDateToLocale(records.date, true, true) }}</div>
             </div>
-            <button (click)="resetTableFilters()" [disabled]="totals[0]==totals[3]" class="primary" mat-flat-button>
+            <button (click)="resetTableFilters()" [disabled]="totals[0]==totalsFiltered[0]" class="primary" mat-flat-button>
                 <i class="pi pi-filter-slash"></i>
             </button>
         </div>
@@ -20,20 +20,20 @@
             <criteria-panel [backgroundColor]="'var(--color-criteria-c)'" [feature]="feature" [header]="'criteriaShip'" [icon]="'ships'" [records]="criteriaPanels.ships"></criteria-panel>
         </div>
         <div id="table-wrapper">
-            <p-table #table (onFilter)="filterRecords($event)" [scrollable]="true" [value]="records.passengers" [virtualScrollItemSize]="33" [virtualScroll]="true" dataKey="id" scrollHeight="flex" selectionMode="single" sortMode="multiple">
+            <p-table #table (onFilter)="filterRecords($event)" [scrollable]="true" [value]="records.passengers" [virtualScrollItemSize]="32" [virtualScroll]="true" dataKey="id" scrollHeight="flex" selectionMode="single" sortMode="multiple">
                 <ng-template pTemplate="header">
                     <tr>
-                        <th pSortableColumn="occupant.description">{{ getLabel("headerOccupant") }}<p-sortIcon field="occupant.description"></p-sortIcon></th>
-                        <th pSortableColumn="nationality.description">{{ getLabel("headerCountry") }}<p-sortIcon field="nationality.description"></p-sortIcon></th>
-                        <th pSortableColumn="gender.description">{{ getLabel("headerGender") }}<p-sortIcon field="gender.description"></p-sortIcon></th>
+                        <th class="width-10" pSortableColumn="occupantDescription">{{ getLabel("headerOccupant") }}<p-sortIcon field="occupantDescription"></p-sortIcon></th>
+                        <th class="width-15" pSortableColumn="nationalityDescription">{{ getLabel("headerCountry") }}<p-sortIcon field="nationalityDescription"></p-sortIcon></th>
+                        <th class="width-10" pSortableColumn="genderDescription">{{ getLabel("headerGender") }}<p-sortIcon field="genderDescription"></p-sortIcon></th>
                         <th pSortableColumn="lastname">{{ getLabel('headerLastname') }}<p-sortIcon field="lastname"></p-sortIcon></th>
                         <th pSortableColumn="firstname">{{ getLabel('headerFirstname') }}<p-sortIcon field="firstname"></p-sortIcon></th>
                     </tr>
                     <tr>
-                        <th>
-                            <p-columnFilter style="width: 100%;" field="occupant.description" matchMode="equals" [showMenu]="false">
+                        <th class="width-10">
+                            <p-columnFilter field="occupantDescription" matchMode="equals" [showMenu]="false">
                                 <ng-template pTemplate="filter" let-value let-filter="filterCallback">
-                                    <p-dropdown [disabled]="records.passengers.length==0" [ngModel]="value" [options]="dropdownOccupants" (onChange)="filter($event.value)" placeholder="⭐" [showClear]="true">
+                                    <p-dropdown [disabled]="records.passengers.length==0" [ngModel]="value" [options]="distinctOccupants" (onChange)="filter($event.value)" placeholder="⭐" [showClear]="true">
                                         <ng-template let-option pTemplate="item">
                                             <span>{{ option }}</span>
                                         </ng-template>
@@ -41,10 +41,10 @@
                                 </ng-template>
                             </p-columnFilter>
                         </th>
-                        <th>
-                            <p-columnFilter style="width: 100%;" field="nationality.description" matchMode="equals" [showMenu]="false">
+                        <th class="width-15">
+                            <p-columnFilter field="nationalityDescription" matchMode="equals" [showMenu]="false">
                                 <ng-template pTemplate="filter" let-value let-filter="filterCallback">
-                                    <p-dropdown [disabled]="records.passengers.length==0" [ngModel]="value" [options]="dropdownNationalities" (onChange)="filter($event.value)" placeholder="⭐" [showClear]="true">
+                                    <p-dropdown [disabled]="records.passengers.length==0" [ngModel]="value" [options]="distinctNationalities" (onChange)="filter($event.value)" placeholder="⭐" [showClear]="true">
                                         <ng-template let-option pTemplate="item">
                                             <span>{{ option }}</span>
                                         </ng-template>
@@ -52,10 +52,10 @@
                                 </ng-template>
                             </p-columnFilter>
                         </th>
-                        <th>
-                            <p-columnFilter style="width: 100%;" field="gender.description" matchMode="equals" [showMenu]="false">
+                        <th class="width-10">
+                            <p-columnFilter field="genderDescription" matchMode="equals" [showMenu]="false">
                                 <ng-template pTemplate="filter" let-value let-filter="filterCallback">
-                                    <p-dropdown [disabled]="records.passengers.length==0" [ngModel]="value" [options]="dropdownGenders" (onChange)="filter($event.value)" placeholder="⭐" [showClear]="true">
+                                    <p-dropdown [disabled]="records.passengers.length==0" [ngModel]="value" [options]="distinctGenders" (onChange)="filter($event.value)" placeholder="⭐" [showClear]="true">
                                         <ng-template let-option pTemplate="item">
                                             <span>{{ option }}</span>
                                         </ng-template>
@@ -64,17 +64,17 @@
                             </p-columnFilter>
                         </th>
                         <th><input (input)="table.filter($event.target.value, 'lastname', 'contains')" [disabled]="records.passengers.length==0" [value]="$any(table).filters['lastname']?.value" class="p-inputtext"></th>
-                        <th><input (input)="table.filter($event.target.value, 'firstname', 'contains')" [disabled]="records.passengers.length==0" [value]="$any(table).filters['firsttname']?.value" class="p-inputtext"></th>
+                        <th><input (input)="table.filter($event.target.value, 'firstname', 'contains')" [disabled]="records.passengers.length==0" [value]="$any(table).filters['firstname']?.value" class="p-inputtext"></th>
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="body" let-rowData>
-                    <tr [pSelectableRow]="rowData" style="height:33px">
-                        <td>{{ rowData.occupant.description }}</td>
-                        <td style="align-items: center; display: flex;">
-                            <img [src]="getNationalityIcon(rowData.nationality.code)" style="vertical-align: middle" />
-                            <span style="overflow: hidden;">&nbsp;&nbsp;{{ rowData.nationality.description }}</span>
+                    <tr [pSelectableRow]="rowData" style="height:32px">
+                        <td class="width-10">{{ rowData.occupantDescription }}</td>
+                        <td class="width-15" style="align-items: center; display: flex;">
+                            <img [src]="getNationalityIcon(rowData.nationalityCode)" style="vertical-align: middle" />
+                            <span style="overflow: hidden;">&nbsp;&nbsp;{{ rowData.nationalityDescription }}</span>
                         </td>
-                        <td>{{ rowData.gender.description }}</td>
+                        <td class="width-10">{{ rowData.genderDescription }}</td>
                         <td>{{ rowData.lastname }}</td>
                         <td>{{ rowData.firstname }}</td>
                     </tr>
@@ -87,11 +87,25 @@
         <div id="filters">
             <div class="pill">
                 <img [src]="getIcon('total')">
-                <div class="number description">{{ totals[0] || 0 }} ( {{ getLabel('countPassengers') }} {{ totals[1] || 0}} / {{ getLabel('countCrew') }} {{ totals[2] || 0}} ) </div>
+                <div class="number description">
+                    <span class="monotype">{{ totals[0] | padNumber : 3 : ' ' }}&nbsp;</span>
+                    <span class="monotype">({{ totals[1] | padNumber : 3 : ' ' }}</span>
+                    <span>{{ getLabel('countPassengers') }}</span>
+                    <span>&nbsp;/&nbsp;</span>
+                    <span class="monotype">{{ totals[2] | padNumber : 3 : ' ' }}</span>
+                    <span>{{ getLabel('countCrew') }}&nbsp;)</span>
+                </div>
             </div>
             <div class="pill">
                 <img [src]="getIcon('filter')">
-                <div class="number description">{{ totals[3] || 0}}</div>
+                <div class="number description">
+                    <span class="monotype">{{ totalsFiltered[0] | padNumber : 3 : ' ' }}&nbsp;</span>
+                    <span class="monotype">({{ totalsFiltered[1] | padNumber : 3 : ' ' }}</span>
+                    <span>{{ getLabel('countPassengers') }}</span>
+                    <span>&nbsp;/&nbsp;</span>
+                    <span class="monotype">{{ totalsFiltered[2] | padNumber : 3 : ' ' }}</span>
+                    <span>{{ getLabel('countCrew') }}&nbsp;)</span>
+                </div>
             </div>
         </div>
         <div class="button-group-right">

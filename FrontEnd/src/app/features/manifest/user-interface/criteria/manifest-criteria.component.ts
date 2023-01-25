@@ -64,6 +64,10 @@ export class ManifestCriteriaComponent {
         this.subscribeToInteractionService()
     }
 
+    ngAfterViewInit(): void {
+        this.checkGroupCheckbox('allPortsCheckbox', 'ports')
+    }
+
     ngOnDestroy(): void {
         this.cleanup()
     }
@@ -116,7 +120,7 @@ export class ManifestCriteriaComponent {
             const index = selected.controls.findIndex(x => x.value.id == parseInt(event.target.value))
             selected.removeAt(index)
         }
-        if (selected.length == 0) {
+        if (selected.length == 0 || selected.length != this[formControlsArray].length) {
             document.querySelector<HTMLInputElement>('#all-' + formControlsArray).checked = false
             this.form.patchValue({
                 [allCheckbox]: false
@@ -185,6 +189,16 @@ export class ManifestCriteriaComponent {
                 'description': element.description
             }))
         })
+    }
+
+    private checkGroupCheckbox(allCheckbox: string, formControlsArray: string): void {
+        const selected = this.form.controls[formControlsArray] as FormArray
+        if (selected.length == this[formControlsArray].length) {
+            document.querySelector<HTMLInputElement>('#all-' + formControlsArray).checked = true
+            this.form.patchValue({
+                [allCheckbox]: true
+            })
+        }
     }
 
     private cleanup(): void {

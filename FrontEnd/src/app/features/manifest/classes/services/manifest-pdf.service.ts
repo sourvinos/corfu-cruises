@@ -3,7 +3,6 @@ import { Injectable } from '@angular/core'
 import { DateHelperService } from 'src/app/shared/services/date-helper.service'
 import { HelperService } from 'src/app/shared/services/helper.service'
 import { LogoService } from 'src/app/features/reservations/classes/services/logo.service'
-import { ManifestPassengerVM } from '../view-models/list/manifest-passenger-vm'
 import { ManifestVM } from '../view-models/list/manifest-vm'
 // Fonts
 import pdfFonts from 'pdfmake/build/vfs_fonts'
@@ -54,7 +53,7 @@ export class ManifestPdfService {
                     [
                         this.createTable(manifest,
                             ['', '', '', 'date', '', '', '', '', ''],
-                            ['', 'lastname', 'firstname', 'birthdate', 'nationality', 'occupant', 'gender', 'specialCare', 'remarks'],
+                            ['', 'lastname', 'firstname', 'birthdate', 'nationalityCode', 'occupantDescription', 'genderDescription', 'specialCare', 'remarks'],
                             ['right', 'left', 'left', 'center', 'center', 'left', 'left', 'left', 'left'])
                     ],
                     {

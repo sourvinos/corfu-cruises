@@ -52,7 +52,6 @@
 
 #criteria .label, #criteria .description, #filters .label, #filters .description, #overbookings .label, #overbookings .description {
     color: var(--color-button-text);
-    font-weight: bold;
     margin-left: auto;
 }
 
@@ -67,4 +66,11 @@
 
 .pi-filter::before {
     margin: 0 0.2rem 0 0.2rem;
+}
+
+.monotype {
+    font-family: var(--font-family-inconsolata);
+}
+.normal {
+    font-family: var(--font-family-handbook);
 }

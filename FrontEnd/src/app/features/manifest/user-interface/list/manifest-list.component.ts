@@ -8,14 +8,12 @@ import { HelperService } from 'src/app/shared/services/helper.service'
 import { ListResolved } from 'src/app/shared/classes/list-resolved'
 import { LocalStorageService } from './../../../../shared/services/local-storage.service'
 import { ManifestCriteriaVM } from '../../classes/view-models/criteria/manifest-criteria-vm'
-import { ManifestGenderVM } from '../../classes/view-models/list/manifest-gender-vm'
-import { ManifestNationalityVM } from '../../classes/view-models/list/manifest-nationality-vm'
-import { ManifestOccupantVM } from '../../classes/view-models/list/manifest-occupant-vm'
 import { ManifestPdfService } from '../../classes/services/manifest-pdf.service'
 import { ManifestVM } from '../../classes/view-models/list/manifest-vm'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { MessageSnackbarService } from '../../../../shared/services/messages-snackbar.service'
 import { ModalActionResultService } from 'src/app/shared/services/modal-action-result.service'
+import { SimpleEntity } from 'src/app/shared/classes/simple-entity'
 import { environment } from 'src/environments/environment'
 
 @Component({
@@ -37,12 +35,14 @@ export class ManifestListComponent {
     public parentUrl = '/manifest'
 
     public criteriaPanels: ManifestCriteriaVM
-    public records: ManifestVM
-    public totals: number[] = [0, 0, 0, 0]
 
-    public dropdownGenders: ManifestGenderVM[]
-    public dropdownNationalities: ManifestNationalityVM[]
-    public dropdownOccupants: ManifestOccupantVM[]
+    public records: ManifestVM
+    public totals = [0, 0, 0]
+    public totalsFiltered = [0, 0, 0]
+
+    public distinctGenders: SimpleEntity[]
+    public distinctNationalities: SimpleEntity[]
+    public distinctOccupants: SimpleEntity[]
 
     //#endregion
 
@@ -51,20 +51,19 @@ export class ManifestListComponent {
     //#region lifecycle hooks
 
     ngOnInit(): void {
-        this.loadRecords()
-        this.addCrewToPassengers()
-        this.populateDropdownFilters()
+        this.loadRecords().then(() => {
+            this.addCrewToPassengers().then(() => {
+                this.populateDropdownFilters()
+                this.enableDisableFilters()
+                this.updateTotals(this.totals, this.records.passengers)
+                this.updateTotals(this.totalsFiltered, this.records.passengers)
+            })
+        })
         this.populateCriteriaPanelsFromStorage()
-        this.updateTotals()
-    }
-
-    ngAfterViewInit(): void {
-        this.enableDisableFilters()
     }
 
     ngOnDestroy(): void {
-        this.unsubscribe.next()
-        this.unsubscribe.unsubscribe()
+        this.cleanup()
     }
 
     //#endregion
@@ -76,7 +75,7 @@ export class ManifestListComponent {
     }
 
     public filterRecords(event: { filteredValue: any[] }): void {
-        this.totals[3] = event.filteredValue.reduce((sum: number) => sum + 1, 0)
+        this.updateTotals(this.totalsFiltered, event.filteredValue)
     }
 
     public formatDateToLocale(date: string, showWeekday = false, showYear = false): string {
@@ -107,12 +106,21 @@ export class ManifestListComponent {
 
     //#region private methods
 
-    private addCrewToPassengers(): void {
-        if (this.records.passengers.length > 0) {
-            this.records.ship.crew.forEach(crew => {
-                this.records.passengers.push(crew)
-            })
-        }
+    private addCrewToPassengers(): Promise<any> {
+        const promise = new Promise((resolve) => {
+            if (this.records.passengers.length > 0) {
+                this.records.ship.crew.forEach(crew => {
+                    this.records.passengers.push(crew)
+                    resolve(this.records)
+                })
+            }
+        })
+        return promise
+    }
+
+    private cleanup(): void {
+        this.unsubscribe.next()
+        this.unsubscribe.unsubscribe()
     }
 
     private enableDisableFilters(): void {
@@ -120,7 +128,7 @@ export class ManifestListComponent {
             this.helperService.disableTableDropdownFilters()
             this.helperService.disableTableTextFilters()
         }
-    }
+     }
 
     private loadRecords(): Promise<any> {
         const promise = new Promise((resolve) => {
@@ -129,32 +137,32 @@ export class ManifestListComponent {
                 this.records = listResolved.list
                 resolve(this.records)
             } else {
-                this.goBack()
-                this.modalActionResultService.open(this.messageSnackbarService.filterResponse(new Error('500')), 'error', ['ok'])
+                this.modalActionResultService.open(this.messageSnackbarService.filterResponse(listResolved.error), 'error', ['ok']).subscribe(() => {
+                    this.goBack()
+                })
             }
         })
         return promise
     }
 
     private populateCriteriaPanelsFromStorage(): void {
-        if (this.localStorageService.getItem('manifest-criteria-panel')) {
-            this.criteriaPanels = JSON.parse(this.localStorageService.getItem('manifest-criteria-panel'))
+        if (this.localStorageService.getItem('manifest-criteria')) {
+            this.criteriaPanels = JSON.parse(this.localStorageService.getItem('manifest-criteria'))
         }
     }
 
     private populateDropdownFilters(): void {
         if (this.records.passengers.length > 0) {
-            this.dropdownGenders = this.helperService.getDistinctRecords(this.records.passengers, 'gender')
-            this.dropdownNationalities = this.helperService.getDistinctRecords(this.records.passengers, 'nationality')
-            this.dropdownOccupants = this.helperService.getDistinctRecords(this.records.passengers, 'occupant')
+            this.distinctGenders = this.helperService.getDistinctRecords(this.records.passengers, 'genderDescription')
+            this.distinctNationalities = this.helperService.getDistinctRecords(this.records.passengers, 'nationalityDescription')
+            this.distinctOccupants = this.helperService.getDistinctRecords(this.records.passengers, 'occupantDescription')
         }
     }
 
-    private updateTotals(): void {
-        this.totals[0] = this.records.passengers.length
-        this.totals[1] = this.records.passengers.filter(x => x.occupant.description == 'PASSENGER').length
-        this.totals[2] = this.records.passengers.filter(x => x.occupant.description == 'CREW').length
-        this.totals[3] = this.records.passengers.reduce((sum: number) => sum + 1, 0)
+    private updateTotals(totals: number[], filteredVelue: any[]): void {
+        totals[0] = filteredVelue.length
+        totals[1] = filteredVelue.filter(x => x.occupantDescription == 'PASSENGER').length
+        totals[2] = filteredVelue.filter(x => x.occupantDescription == 'CREW').length
     }
 
     //#endregion

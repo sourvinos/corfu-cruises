@@ -17,10 +17,6 @@ export class ManifestListResolver {
         const date = criteria.fromDate
         const destinationId = criteria.destinations[0].id
         const portIds = this.buildPorts(criteria)
-        // const portIds = []
-        // criteria.ports.forEach((port: { id: any }) => {
-        //     portIds.push(port.id)
-        // })
         const shipId = criteria.ships[0].id
         const shipRouteId = criteria.shipRoutes[0].id
         return this.manifestService.get(date, destinationId, shipId, shipRouteId, portIds).pipe(

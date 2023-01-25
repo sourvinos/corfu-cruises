@@ -1,12 +1,13 @@
 * {
     /* Font names */
+    --font-family-asty: "Asty CF Std";
     --font-family-handbook: "PF-Handbook-Pro";
+    --font-family-inconsolata: "Inconsolata";
     --font-family-logo: "Aka-Acid-CanterBold";
     --font-family-manrope: "Manrope";
     --font-family-montserrat: "Montserrat";
     --font-family-roboto: "Roboto";
     --font-family-ubuntu: "Ubuntu Condensed";
-    --font-family-asty: "Asty CF Std";
     /* Font weights */
     --font-weight-dialog-content: 300 !important;
     --font-weight-header: 300 !important;

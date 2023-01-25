@@ -1301,15 +1301,15 @@
             },
             {
                 "id": "criteria-destinations",
-                "description": "Προορισμοί"
+                "description": "Destinace"
             },
             {
                 "id": "criteria-ports",
-                "description": "Λιμάνια"
+                "description": "Přístavy"
             },
             {
                 "id": "criteria-ships",
-                "description": "Πλοία"
+                "description": "Lodě"
             },
             {
                 "id": "criteriaEmbarkedPassengers",
@@ -1572,10 +1572,6 @@
             {
                 "id": "header",
                 "description": "Seznam cestujících"
-            },
-            {
-                "id": "criteriaDate",
-                "description": "Datum"
             },
             {
                 "id": "criteriaDestination",

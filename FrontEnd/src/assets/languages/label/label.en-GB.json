@@ -1301,11 +1301,11 @@
             },
             {
                 "id": "criteria-destinations",
-                "description": "Προορισμοί"
+                "description": "Destinations"
             },
             {
                 "id": "criteria-ports",
-                "description": "Λιμάνια"
+                "description": "Ports"
             },
             {
                 "id": "criteria-ships",
@@ -1572,10 +1572,6 @@
             {
                 "id": "header",
                 "description": "Passenger manifest"
-            },
-            {
-                "id": "criteriaDate",
-                "description": "Date"
             },
             {
                 "id": "criteriaDestination",

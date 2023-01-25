@@ -18,6 +18,7 @@ import { LoginLogoComponent } from 'src/app/features/login/user-interface/login-
 import { MaterialModule } from './material.module'
 import { ModalActionResultComponent } from '../components/modal-action-result/modal-action-result.component'
 import { MonthSelectorComponent } from '../components/month-selector/month-selector.component'
+import { PadNumberPipe } from '../pipes/pad-number.pipe'
 import { SafeStylePipe } from '../pipes/safeStyle.pipe'
 import { SnackbarComponent } from '../components/snackbar/snackbar.component'
 import { TableTotalFilteredRecordsComponent } from '../components/table-total-filtered-records/table-total-filtered-records.component'
@@ -39,6 +40,7 @@ import { YearSelectorComponent } from '../components/year-selector/year-selector
         LoginLogoComponent,
         ModalActionResultComponent,
         MonthSelectorComponent,
+        PadNumberPipe,
         SafeStylePipe,
         SnackbarComponent,
         TableTotalFilteredRecordsComponent,
@@ -68,6 +70,7 @@ import { YearSelectorComponent } from '../components/year-selector/year-selector
         LoginLogoComponent,
         MaterialModule,
         MonthSelectorComponent,
+        PadNumberPipe,
         PrimeNgModule,
         PrimeNgModule,
         ReactiveFormsModule,

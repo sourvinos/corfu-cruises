@@ -5,7 +5,7 @@
         <div id="criteria">
             <div class="pill date">
                 <img width="20px" [src]="getIcon('calendar')">
-                <div class="description">{{ formatDateToLocale(criteriaPanels.fromDate, true, true) }} - {{ formatDateToLocale(criteriaPanels.toDate, true, true) }}</div>
+                <div class="description">{{ formatDateToLocale(criteriaPanels.fromDate, true, true) }}</div>
             </div>
             <button (click)="resetTableFilters()" [disabled]="records.reservations.length==recordsFiltered.reservations.length" class="primary" mat-flat-button>
                 <i class="pi pi-filter-slash"></i>
@@ -20,7 +20,7 @@
             <criteria-panel [backgroundColor]="'var(--color-criteria-c)'" [feature]="feature" [header]="'criteria-ships'" [icon]="'ships'" [records]="criteriaPanels.ships" [sortField]="'description'"></criteria-panel>
         </div>
         <div id="table-wrapper">
-            <p-table #table (onFilter)="filterRecords($event)" [globalFilterFields]="['ticketNo']" [scrollable]="true" [value]="records.reservations" [virtualScrollItemSize]="33" [virtualScroll]="true" dataKey="ticketNo" scrollHeight="flex" selectionMode="single" sortMode="multiple">
+            <p-table #table (onFilter)="filterRecords($event)" [globalFilterFields]="['ticketNo']" [scrollable]="true" [value]="records.reservations" [virtualScrollItemSize]="32" [virtualScroll]="true" dataKey="ticketNo" scrollHeight="flex" selectionMode="single" sortMode="multiple">
                 <ng-template pTemplate="header">
                     <tr>
                         <th class="width-7" pSortableColumn="refNo">{{ getLabel('headerRefNo') }}<p-sortIcon field="refNo"></p-sortIcon></th>
@@ -110,7 +110,7 @@
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="body" let-reservation>
-                    <tr>
+                    <tr [pSelectableRow]="reservation" style="height:32px">
                         <td class="width-7" style="text-align: center;">{{ reservation.refNo }}</td>
                         <td style="text-align: center;">{{ reservation.ticketNo }}</td>
                         <td class="width-10">{{ reservation.destinationDescription }}</td>

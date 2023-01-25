@@ -1,5 +1,3 @@
-using API.Infrastructure.Classes;
-
 namespace API.Features.Manifest {
 
     public class ManifestFinalCrewVM {
@@ -9,9 +7,10 @@ namespace API.Features.Manifest {
         public string Birthdate { get; set; }
         public string Remarks { get; set; }
         public string SpecialCare { get; set; }
-        public SimpleEntity Gender { get; set; }
-        public ManifestNationalityVM Nationality { get; set; }
-        public SimpleEntity Occupant { get; set; }
+        public string GenderDescription { get; set; }
+        public string NationalityCode { get; set; }
+        public string NationalityDescription { get; set; }
+        public string OccupantDescription { get; set; }
 
     }
 

@@ -1305,7 +1305,7 @@
             },
             {
                 "id": "criteria-ports",
-                "description": "Λιμάνια"
+                "description": "Ports"
             },
             {
                 "id": "criteria-ships",
@@ -1572,10 +1572,6 @@
             {
                 "id": "header",
                 "description": "Manifeste des passagers"
-            },
-            {
-                "id": "criteriaDate",
-                "description": "Date"
             },
             {
                 "id": "criteriaDestination",
