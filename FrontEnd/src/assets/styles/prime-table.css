@@ -49,24 +49,19 @@
     background-color: var(--color-b) !important;
 }
 
-.p-datatable .p-datatable-thead > tr > th:last-child {
-    border-right: 11px !important;
+.p-datatable .p-datatable-tbody > tr.p-highlight {
+    background-color: var(--color-f) !important;
+}
+
+.p-datatable .p-datatable-tbody > tr:hover {
+    background-color: var(--color-f) !important;
 }
 
 .p-datatable .p-datatable-tbody > tr {
     background-color: transparent !important;
 }
 
-.p-datatable .p-datatable-tbody > tr.ui-state-highlight {
-    background-color: var(--color-d) !important;
-    outline: none !important;
-}
-
 .p-datatable .p-datatable-tbody > tr:focus {
-    outline: none !important;
-}
-
-.p-datatable .p-datatable-tbody > tr:focus-visible {
     outline: none !important;
 }
 
@@ -133,10 +128,6 @@
     background-color: transparent !important;
 }
 
-.p-datatable .p-datatable-tbody > tr:not(.group-row):hover {
-    background-color: var(--color-row-hover) !important;
-}
-
 .p-button.p-button-text:enabled:focus, .p-button.p-button-outlined:enabled:focus {
     background-color: transparent;
     box-shadow: none;
@@ -148,12 +139,7 @@
 }
 
 div:not(.p-column-filter).p-column-filter-row:hover {
-    background-color: var(--color-row-hover) !important;
-}
-
-.row-group {
-    color: var(--color-c) !important;
-    font-weight: bold;
+    background-color: var(--color-f) !important;
 }
 
 .p-checkbox {

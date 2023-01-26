@@ -20,7 +20,7 @@
             <criteria-panel [backgroundColor]="'var(--color-criteria-c)'" [feature]="feature" [header]="'criteria-ships'" [icon]="'ships'" [records]="criteriaPanels.ships" [sortField]="'description'"></criteria-panel>
         </div>
         <div id="table-wrapper">
-            <p-table #table (onFilter)="filterRecords($event)" [(selection)]="selectedRecords" [scrollable]="true" [value]="records" [virtualScrollItemSize]="33" [virtualScroll]="true" dataKey="customer.description" scrollHeight="flex" selectionMode="single" sortMode="multiple">
+            <p-table #table (onFilter)="filterRecords($event)" [(selection)]="selectedRecords" [scrollable]="true" [value]="records" [virtualScrollItemSize]="32" [virtualScroll]="true" dataKey="customer.description" scrollHeight="flex" selectionMode="single" sortMode="multiple">
                 <ng-template pTemplate="header">
                     <tr>
                         <th class="width-3"></th>
@@ -32,7 +32,7 @@
                     </tr>
                 </ng-template>
                 <ng-template let-rowData pTemplate="body">
-                    <tr (dblclick)="showCustomerReservations(rowData)" style="height:33px">
+                    <tr (dblclick)="showCustomerReservations(rowData)" style="height:32px">
                         <td class="center width-3"><p-tableCheckbox [value]="rowData"></p-tableCheckbox></td>
                         <td>{{ rowData.customer.description }}</td>
                     </tr>
