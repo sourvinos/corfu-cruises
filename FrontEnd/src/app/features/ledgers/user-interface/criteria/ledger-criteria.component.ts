@@ -58,9 +58,9 @@ export class LedgerCriteriaComponent {
     }
 
     ngAfterViewInit(): void {
-        this.checkGroupCheckbox('allCustomersCheckbox', 'customers')
-        this.checkGroupCheckbox('allDestinationsCheckbox', 'destinations')
-        this.checkGroupCheckbox('allShipsCheckbox', 'ships')
+        this.checkGroupCheckbox('all-customers', this.customers, 'customers')
+        this.checkGroupCheckbox('all-destinations', this.destinations, 'destinations')
+        this.checkGroupCheckbox('all-ships', this.ships, 'ships')
     }
 
     ngOnDestroy(): void {
@@ -70,6 +70,15 @@ export class LedgerCriteriaComponent {
     //#endregion
 
     //#region public methods
+
+    public checkboxChange(event: any, allCheckbox: string, formControlsArray: string, array: any[], description: string): void {
+        this.fieldsetCriteriaService.checkboxChange(this.form, event, allCheckbox, formControlsArray, array, description)
+    }
+
+    public doTasks(): void {
+        this.storeCriteria()
+        this.navigateToList()
+    }
 
     public filterList(event: { target: { value: any } }, list: string | number): void {
         this.fieldsetCriteriaService.filterList(event.target.value, this[list])
@@ -87,15 +96,6 @@ export class LedgerCriteriaComponent {
         if (this.criteria) {
             return this.criteria[arrayName].filter((x: { id: number }) => x.id == arrayId).length != 0 ? true : false
         }
-    }
-
-    public onCheckboxChange(event: any, allCheckbox: string, formControlsArray: string, array: any[], description: string): void {
-        this.fieldsetCriteriaService.checkboxChange(this.form, event, allCheckbox, formControlsArray, array, description)
-    }
-
-    public onDoTasks(): void {
-        this.storeCriteria()
-        this.navigateToList()
     }
 
     public patchFormWithSelectedDates(event: any): void {
@@ -123,10 +123,8 @@ export class LedgerCriteriaComponent {
         })
     }
 
-    private checkGroupCheckbox(allCheckbox: string, formControlsArray: string): void {
-        this.fieldsetCriteriaService.checkGroupCheckbox(this.form, 'all-customers', this.customers, formControlsArray)
-        this.fieldsetCriteriaService.checkGroupCheckbox(this.form, 'all-destinations', this.destinations, formControlsArray)
-        this.fieldsetCriteriaService.checkGroupCheckbox(this.form, 'all-ships', this.ships, formControlsArray)
+    private checkGroupCheckbox(allCheckbox: string, array: SimpleEntity[], formControlsArray: string): void {
+        this.fieldsetCriteriaService.checkGroupCheckbox(this.form, allCheckbox, array, formControlsArray)
     }
 
     private cleanup(): void {
@@ -173,6 +171,9 @@ export class LedgerCriteriaComponent {
                 customers: this.addSelectedCriteriaFromStorage('customers'),
                 destinations: this.addSelectedCriteriaFromStorage('destinations'),
                 ships: this.addSelectedCriteriaFromStorage('ships'),
+                allCustomersCheckbox: this.criteria.allCustomersCheckbox,
+                allDestinationsCheckbox: this.criteria.allDestinationsCheckbox,
+                allShipsCheckbox: this.criteria.allShipsCheckbox
             })
         }
     }

@@ -37,7 +37,7 @@
                 <div class="list-wrapper">
                     <div *ngFor="let customer of customers" [attr.id]=customer.description>
                         <div class="styled-input-square">
-                            <div class="styled-input-single" (change)="onCheckboxChange($event, 'allCustomersCheckbox', 'customers', customers, customer.description)">
+                            <div class="styled-input-single" (change)="checkboxChange($event, 'allCustomersCheckbox', 'customers', customers, customer.description)">
                                 <input class="customer" formArrayName="customers" type="checkbox" [value]="customer.id" [attr.id]="'customer' + customer.id" [checked]="lookup('customers', customer.id)">
                                 <label [attr.for]="'customer' + customer.id" [attr.id]="'customer-label' + customer.id">{{ customer.description | trimString:33 }}</label>
                             </div>
@@ -68,7 +68,7 @@
                 <div class="list-wrapper">
                     <div *ngFor="let destination of destinations" [attr.id]=destination.description>
                         <div class="styled-input-square">
-                            <div class="styled-input-single" (change)="onCheckboxChange($event, 'allDestinationsCheckbox', 'destinations', destinations, destination.description)">
+                            <div class="styled-input-single" (change)="checkboxChange($event, 'allDestinationsCheckbox', 'destinations', destinations, destination.description)">
                                 <input class="destination" formArrayName="destinations" type="checkbox" [value]="destination.id" [attr.id]="'destination' + destination.id" [checked]="lookup('destinations', destination.id)">
                                 <label [attr.for]="'destination' + destination.id" [attr.id]="'destination-label' + destination.id">{{ destination.description | trimString:33 }}</label>
                             </div>
@@ -99,7 +99,7 @@
                 <div class="list-wrapper">
                     <div *ngFor="let ship of ships" [attr.id]=ship.description>
                         <div class="styled-input-square">
-                            <div class="styled-input-single" (change)="onCheckboxChange($event, 'allShipsCheckbox', 'ships', ships, ship.description)">
+                            <div class="styled-input-single" (change)="checkboxChange($event, 'allShipsCheckbox', 'ships', ships, ship.description)">
                                 <input class="ship" formArrayName="ships" type="checkbox" [value]="ship.id" [attr.id]="'ship' + ship.id" [checked]="lookup('ships', ship.id)">
                                 <label [attr.for]="'ship' + ship.id" [attr.id]="'ship-label' + ship.id">{{ ship.description | trimString:33 }}</label>
                             </div>
@@ -112,7 +112,7 @@
 
     <div id="footer">
         <div class="button-group-right">
-            <button (click)="onDoTasks()" [disabled]="!form.valid" class="primary" mat-flat-button>
+            <button (click)="doTasks()" [disabled]="!form.valid" class="primary" mat-flat-button>
                 <mat-icon *ngIf="!form.valid" class="button-icon">lock</mat-icon>
                 <span>{{ getLabel("searchButton") }}</span>
             </button>

@@ -7,5 +7,8 @@ export interface LedgerCriteriaVM {
     customers: SimpleEntity[]
     destinations: SimpleEntity[]
     ships: SimpleEntity[]
+    allCustomersCheckbox: boolean
+    allDestinationsCheckbox: boolean
+    allShipsCheckbox: boolean
 
 }

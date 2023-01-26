@@ -177,7 +177,6 @@ export class EmbarkationCriteriaComponent {
         this.populateDropdownFromLocalStorage('ships')
     }
 
-
     private populateFieldsFromStoredVariables(): void {
         if (this.localStorageService.getItem('embarkation-criteria')) {
             this.criteria = JSON.parse(this.localStorageService.getItem('embarkation-criteria'))
