@@ -82,18 +82,22 @@ ul {
 }
 
 .center {
-    text-align: center;
+    text-align: center !important;
 }
 
 .hidden {
     visibility: hidden !important;
 }
 
+.no-display {
+    display: none;
+}
+
 .instructions {
     color: var(--color-c);
     font-family: var(--font-family-ubuntu);
     font-size: 1rem;
-    height: 200px;
+    overflow-y: scroll;
     width: 1000px;
 }
 

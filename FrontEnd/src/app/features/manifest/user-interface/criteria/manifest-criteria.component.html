@@ -31,14 +31,14 @@
                         </div>
                     </div>
                     <mat-form-field class="list-filter">
-                        <input (keyup)="filterList($event, 'filteredDestinations', 'destinations', 'destination')" formControlName="destinationsFilter" id="destinationsFilter" matInput>
+                        <input (keyup)="filterList($event, 'destinations')" formControlName="destinationsFilter" id="destinationsFilter" matInput>
                     </mat-form-field>
                 </div>
                 <div class="list-wrapper">
-                    <div *ngFor="let destination of filteredDestinations">
+                    <div *ngFor="let destination of destinations" [attr.id]=destination.description>
                         <div class="styled-input-rounded">
                             <div class="styled-input-single rounded">
-                                <input (click)="updateRadioButtons('destinations', 'destination', destination.id, destination.description)" class="destinations" formArrayName="destinations" type="radio" [value]="destination.id" [attr.id]="'destination' + destination.id" [checked]="lookup('destinations', destination.id)">
+                                <input (click)="updateRadioButtons(form, 'destinations', 'destination', destination.id, destination.description)" class="destinations" formArrayName="destinations" type="radio" [value]="destination.id" [attr.id]="'destination' + destination.id" [checked]="lookup('destinations', destination.id)">
                                 <label [attr.for]="'destination' + destination.id" [attr.id]="'destination-label' + destination.id">{{ destination.description }}</label>
                             </div>
                         </div>
@@ -57,18 +57,18 @@
                 <div class="filter">
                     <div class="styled-input-square">
                         <div class="styled-input-single">
-                            <input (click)="toggleAllCheckboxes('port', 'allPortsCheckbox')" id="all-ports" type="checkbox" formControlName="allPortsCheckbox">
+                            <input (click)="toggleAllCheckboxes(form, 'port', 'allPortsCheckbox')" id="all-ports" type="checkbox" formControlName="allPortsCheckbox">
                             <label class="no-label" for="all-ports"></label>
                         </div>
                     </div>
                     <mat-form-field class="list-filter">
-                        <input (keyup)="filterList($event, 'filteredPorts', 'ports', 'port')" formControlName="portsFilter" id="portsFilter" matInput>
+                        <input (keyup)="filterList($event, 'ports')" formControlName="portsFilter" id="portsFilter" matInput>
                     </mat-form-field>
                 </div>
                 <div class="list-wrapper">
-                    <div *ngFor="let port of filteredPorts">
+                    <div *ngFor="let port of ports" [attr.id]=port.description>
                         <div class="styled-input-square">
-                            <div class="styled-input-single" (change)="onCheckboxChange($event, 'allPortsCheckbox', 'ports', port.description)">
+                            <div class="styled-input-single" (change)="onCheckboxChange($event, 'allPortsCheckbox', 'ports', ports, port.description)">
                                 <input class="port" formArrayName="ports" type="checkbox" [value]="port.id" [attr.id]="'port' + port.id" [checked]="lookup('ports', port.id)">
                                 <label [attr.for]="'port' + port.id" [attr.id]="'port-label' + port.id">{{ port.description | trimString:33 }}</label>
                             </div>
@@ -93,15 +93,15 @@
                         </div>
                     </div>
                     <mat-form-field class="list-filter">
-                        <input (keyup)="filterList($event, 'filteredShips', 'ships', 'ship')" formControlName="shipsFilter" id="shipsFilter" matInput>
+                        <input (keyup)="filterList($event, 'ships')" formControlName="shipsFilter" id="shipsFilter" matInput>
                     </mat-form-field>
                 </div>
                 <div class="list-wrapper">
-                    <div *ngFor="let ship of filteredShips">
+                    <div *ngFor="let ship of ships" [attr.id]=ship.description>
                         <div class="styled-input-rounded">
                             <div class="styled-input-single rounded">
-                                <input (click)="updateRadioButtons('ships', 'ship', ship.id, ship.description)" class="ships" formArrayName="ships" type="radio" [value]="ship.id" [attr.id]="'ship' + ship.id" [checked]="lookup('ships', ship.id)">
-                                <label [attr.for]="'ship' + ship.id" [attr.id]="'ship-label' + ship.id">{{ ship.description  }}</label>
+                                <input (click)="updateRadioButtons(form, 'ships', 'ship', ship.id, ship.description)" class="ships" formArrayName="ships" type="radio" [value]="ship.id" [attr.id]="'ship' + ship.id" [checked]="lookup('ships', ship.id)">
+                                <label [attr.for]="'ship' + ship.id" [attr.id]="'ship-label' + ship.id">{{ ship.description }}</label>
                             </div>
                         </div>
                     </div>
@@ -124,14 +124,14 @@
                         </div>
                     </div>
                     <mat-form-field class="list-filter">
-                        <input (keyup)="filterList($event, 'filteredShipRoutes', 'shipRoutes', 'shipRoute')" formControlName="shipRoutesFilter" id="shipRoutesFilter" matInput>
+                        <input (keyup)="filterList($event, 'shipRoutes')" formControlName="shipRoutesFilter" id="shipRoutesFilter" matInput>
                     </mat-form-field>
                 </div>
                 <div class="list-wrapper">
-                    <div *ngFor="let shipRoute of filteredShipRoutes">
+                    <div *ngFor="let shipRoute of shipRoutes" [attr.id]=shipRoute.description>
                         <div class="styled-input-rounded">
                             <div class="styled-input-single rounded">
-                                <input (click)="updateRadioButtons('shipRoutes', 'shipRoute', shipRoute.id, shipRoute.description)" class="shipRoutes" formArrayName="shipRoutes" type="radio" [value]="shipRoute.id" [attr.id]="'shipRoute' + shipRoute.id" [checked]="lookup('ships', shipRoute.id)">
+                                <input (click)="updateRadioButtons(form, 'shipRoutes', 'shipRoute', shipRoute.id, shipRoute.description)" class="shipRoutes" formArrayName="shipRoutes" type="radio" [value]="shipRoute.id" [attr.id]="'shipRoute' + shipRoute.id" [checked]="lookup('ships', shipRoute.id)">
                                 <label [attr.for]="'shipRoute' + shipRoute.id" [attr.id]="'shipRoute-label' + shipRoute.id">{{ shipRoute.description }}</label>
                             </div>
                         </div>

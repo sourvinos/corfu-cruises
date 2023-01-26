@@ -63,12 +63,6 @@ export class LedgerCustomerListComponent {
 
     //#region public methods
 
-    public exportSingleCustomer(customerId: number): void {
-        this.selectedRecords = []
-        this.selectedRecords.push(this.records.find(x => x.customer.id == customerId))
-        this.ledgerPdfService.createPDF(this.selectedRecords, this.criteriaPanels)
-    }
-
     public exportSelected(): void {
         if (this.isAnyRowSelected()) {
             this.ledgerPdfService.createPDF(this.selectedRecords, this.criteriaPanels)

@@ -35,7 +35,7 @@ input:disabled {
 
 input:-internal-autofill-previewed, input:-internal-autofill-selected {
     -webkit-text-fill-color: var(--color-c) !important;
-    transition: background-color 5000s ease-in-out 0s !important;
+    transition: background-color var(--hover-change-delay) ease-in-out 0s !important;
 }
 
 .mat-form-field {

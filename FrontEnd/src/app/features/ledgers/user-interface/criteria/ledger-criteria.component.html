@@ -37,7 +37,7 @@
                 <div class="list-wrapper">
                     <div *ngFor="let customer of filteredCustomers">
                         <div class="styled-input-square">
-                            <div class="styled-input-single" (change)="onCheckboxChange($event, 'allCustmersCheckbox', 'customers', customer.description)">
+                            <div class="styled-input-single" (change)="onCheckboxChange($event, 'allCustomersCheckbox', 'customers', customer.description)">
                                 <input class="customer" formArrayName="customers" type="checkbox" [value]="customer.id" [attr.id]="'customer' + customer.id" [checked]="lookup('customers', customer.id)">
                                 <label [attr.for]="'customer' + customer.id" [attr.id]="'customer-label' + customer.id">{{ customer.description | trimString:33 }}</label>
                             </div>

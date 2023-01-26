@@ -9,6 +9,7 @@ import { takeUntil } from 'rxjs/operators'
 import { DateHelperService } from 'src/app/shared/services/date-helper.service'
 import { DestinationActiveVM } from '../../../destinations/classes/view-models/destination-active-vm'
 import { EmojiService } from 'src/app/shared/services/emoji.service'
+import { FieldsetCriteriaService } from 'src/app/shared/services/fieldset-criteria.service'
 import { InteractionService } from 'src/app/shared/services/interaction.service'
 import { LocalStorageService } from 'src/app/shared/services/local-storage.service'
 import { ManifestCriteriaVM } from '../../classes/view-models/criteria/manifest-criteria-vm'
@@ -41,17 +42,13 @@ export class ManifestCriteriaComponent {
     public selectedRangeValue: DateRange<Date>
     public selectedToDate = new Date()
     public destinations: DestinationActiveVM[] = []
-    public filteredDestinations: DestinationActiveVM[] = []
     public ports: PortActiveVM[] = []
-    public filteredPorts: PortActiveVM[] = []
     public ships: ShipActiveVM[] = []
-    public filteredShips: ShipActiveVM[] = []
     public shipRoutes: ShipRouteActiveVM[]
-    public filteredShipRoutes: ShipRouteActiveVM[]
 
     //#endregion
 
-    constructor(private dateAdapter: DateAdapter<any>, private dateHelperService: DateHelperService, private emojiService: EmojiService, private formBuilder: FormBuilder, private interactionService: InteractionService, private localStorageService: LocalStorageService, private messageLabelService: MessageLabelService, private router: Router) { }
+    constructor(private dateAdapter: DateAdapter<any>, private dateHelperService: DateHelperService, private emojiService: EmojiService, private fieldsetCriteriaService: FieldsetCriteriaService, private formBuilder: FormBuilder, private interactionService: InteractionService, private localStorageService: LocalStorageService, private messageLabelService: MessageLabelService, private router: Router) { }
 
     //#region lifecycle hooks
 
@@ -76,23 +73,8 @@ export class ManifestCriteriaComponent {
 
     //#region public methods
 
-    public filterList(event: { target: { value: any } }, filteredList: string, list: string, listElement: string): void {
-        this[filteredList] = this[list]
-        const x = event.target.value
-        this[filteredList] = this[list].filter((i: { description: string }) => i.description.toLowerCase().includes(x.toLowerCase()))
-        setTimeout(() => {
-            const criteria = this.form.value[list]
-            criteria.forEach((element: { description: any }) => {
-                this[filteredList].forEach((x: { description: any; id: string }) => {
-                    if (element.description == x.description) {
-                        const input = document.getElementById(listElement + x.id) as HTMLInputElement
-                        if (input != null) {
-                            input.checked = true
-                        }
-                    }
-                })
-            }, 1000)
-        })
+    public filterList(event: { target: { value: any } }, list: string | number): void {
+        this.fieldsetCriteriaService.filterList(event.target.value, this[list])
     }
 
     public getEmoji(emoji: string): string {
@@ -103,36 +85,14 @@ export class ManifestCriteriaComponent {
         return this.messageLabelService.getDescription(this.feature, id)
     }
 
-    public lookup(arrayName: string, arrayId: number): boolean {
+    public lookup(array: string, arrayId: number): boolean {
         if (this.criteria) {
-            return this.criteria[arrayName].filter((x: { id: number }) => x.id == arrayId).length != 0 ? true : false
+            return this.criteria[array].filter((x: { id: number }) => x.id == arrayId).length != 0 ? true : false
         }
     }
 
-    public onCheckboxChange(event: any, allCheckbox: string, formControlsArray: string, description: string): void {
-        const selected = this.form.controls[formControlsArray] as FormArray
-        if (event.target.checked) {
-            selected.push(this.formBuilder.group({
-                id: [parseInt(event.target.value), Validators.required],
-                description: [description]
-            }))
-        } else {
-            const index = selected.controls.findIndex(x => x.value.id == parseInt(event.target.value))
-            selected.removeAt(index)
-        }
-        if (selected.length == 0 || selected.length != this[formControlsArray].length) {
-            document.querySelector<HTMLInputElement>('#all-' + formControlsArray).checked = false
-            this.form.patchValue({
-                [allCheckbox]: false
-            })
-        } else {
-            if (selected.length == this[formControlsArray].length) {
-                document.querySelector<HTMLInputElement>('#all-' + formControlsArray).checked = true
-                this.form.patchValue({
-                    [allCheckbox]: true
-                })
-            }
-        }
+    public onCheckboxChange(event: any, allCheckbox: string, formControlsArray: string, array: any[], description: string): void {
+        this.fieldsetCriteriaService.checkboxChange(this.form, event, allCheckbox, formControlsArray, array, description)
     }
 
     public onDoTasks(): void {
@@ -147,34 +107,12 @@ export class ManifestCriteriaComponent {
         })
     }
 
-    public toggleAllCheckboxes(array: string, allCheckboxes: string): void {
-        const selected = this.form.controls[array + 's'] as FormArray
-        selected.clear()
-        const checkboxes = document.querySelectorAll<HTMLInputElement>('.' + array)
-        checkboxes.forEach(checkbox => {
-            checkbox.checked = !this.form.value[allCheckboxes]
-            if (checkbox.checked) {
-                selected.push(this.formBuilder.group({
-                    id: [checkbox.value, Validators.required],
-                    description: document.getElementById(array + '-label' + checkbox.value).innerHTML
-                }))
-            }
-        })
+    public toggleAllCheckboxes(form: FormGroup, array: string, allCheckboxes: string): void {
+        this.fieldsetCriteriaService.toggleAllCheckboxes(form, array, allCheckboxes)
     }
 
-    public updateRadioButtons(classname: any, idName: any, id: any, description: any): void {
-        const radios = document.getElementsByClassName(classname) as HTMLCollectionOf<HTMLInputElement>
-        for (let i = 0; i < radios.length; i++) {
-            radios[i].checked = false
-        }
-        const radio = document.getElementById(idName + id) as HTMLInputElement
-        radio.checked = true
-        const x = this.form.controls[classname] as FormArray
-        x.clear()
-        x.push(new FormControl({
-            'id': id,
-            'description': description
-        }))
+    public updateRadioButtons(form: FormGroup, classname: any, idName: any, id: any, description: any): void {
+        this.fieldsetCriteriaService.updateRadioButtons(form, classname, idName, id, description)
     }
 
     //#endregion
@@ -192,13 +130,7 @@ export class ManifestCriteriaComponent {
     }
 
     private checkGroupCheckbox(allCheckbox: string, formControlsArray: string): void {
-        const selected = this.form.controls[formControlsArray] as FormArray
-        if (selected.length == this[formControlsArray].length) {
-            document.querySelector<HTMLInputElement>('#all-' + formControlsArray).checked = true
-            this.form.patchValue({
-                [allCheckbox]: true
-            })
-        }
+        this.fieldsetCriteriaService.checkGroupCheckbox(this.form, 'all-ports', this.ports, formControlsArray)
     }
 
     private cleanup(): void {
@@ -238,10 +170,6 @@ export class ManifestCriteriaComponent {
         this.populateDropdownFromLocalStorage('ships')
         this.populateDropdownFromLocalStorage('ports')
         this.populateDropdownFromLocalStorage('shipRoutes')
-        this.filteredDestinations = this.destinations
-        this.filteredPorts = this.ports
-        this.filteredShips = this.ships
-        this.filteredShipRoutes = this.shipRoutes
     }
 
     private populateFieldsFromStoredVariables(): void {

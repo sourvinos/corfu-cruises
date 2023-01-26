@@ -19,7 +19,7 @@
 
 .mat-form-field-wrapper .mat-form-field-underline {
     background-color: var(--color-c) !important;
-    transition: all var(--theme-change-delay) ease-in;
+    transition: all var(--hover-change-delay) ease-in;
 }
 
 .mat-form-field-wrapper .mat-form-field-subscript-wrapper div .mat-hint {

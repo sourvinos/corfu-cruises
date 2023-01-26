@@ -17,7 +17,7 @@
 
 .mat-form-field-appearance-legacy.mat-form-field-invalid .mat-form-field-ripple {
     background-color: var(--color-input-error);
-    transition: all var(--theme-change-delay) ease-in;
+    transition: all var(--hover-change-delay) ease-in;
 }
 
 .mat-form-field-appearance-legacy.mat-form-field-invalid:not(.mat-focused) .mat-form-field-ripple {

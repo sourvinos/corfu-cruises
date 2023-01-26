@@ -62,6 +62,12 @@ export class LedgerCriteriaComponent {
         this.subscribeToInteractionService()
     }
 
+    ngAfterViewInit(): void {
+        this.checkGroupCheckbox('allCustomersCheckbox', 'customers')
+        this.checkGroupCheckbox('allDestinationsCheckbox', 'destinations')
+        this.checkGroupCheckbox('allShipsCheckbox', 'ships')
+    }
+
     ngOnDestroy(): void {
         this.cleanup()
     }
@@ -74,19 +80,29 @@ export class LedgerCriteriaComponent {
         this[filteredList] = this[list]
         const x = event.target.value
         this[filteredList] = this[list].filter((i: { description: string }) => i.description.toLowerCase().includes(x.toLowerCase()))
-        setTimeout(() => {
-            const criteria = this.form.value[list]
-            criteria.forEach((element: { description: any }) => {
-                this[filteredList].forEach((x: { description: any; id: string }) => {
-                    if (element.description == x.description) {
-                        const input = document.getElementById(listElement + x.id) as HTMLInputElement
-                        if (input != null) {
-                            input.checked = true
-                        }
+        console.clear()
+        console.log('List', list)
+        console.log('FilteredList', filteredList)
+        console.log('List', this[list])
+        console.log('Filtered list', this[filteredList])
+        // setTimeout(() => {
+        const criteria = this.form.value['destinationsFilter']
+        console.log('criteria', criteria)
+        criteria.forEach((element: { description: any }) => {
+            this[filteredList].forEach((x: { description: any; id: string }) => {
+                if (element.description == x.description) {
+                    const input = document.getElementById(listElement + x.id) as HTMLInputElement
+                    if (input != null) {
+                        console.log('input checked')
+                        input.checked = true
+                    } else {
+                        console.log('input NOT checked')
+                        input.checked = false
                     }
-                })
-            }, 1000)
+                }
+            })
         })
+        // })
     }
 
     public getEmoji(emoji: string): string {
@@ -114,7 +130,7 @@ export class LedgerCriteriaComponent {
             const index = selected.controls.findIndex(x => x.value.id == parseInt(event.target.value))
             selected.removeAt(index)
         }
-        if (selected.length == 0) {
+        if (selected.length == 0 || selected.length != this[formControlsArray].length) {
             document.querySelector<HTMLInputElement>('#all-' + formControlsArray).checked = false
             this.form.patchValue({
                 [allCheckbox]: false
@@ -168,6 +184,16 @@ export class LedgerCriteriaComponent {
                 'description': element.description
             }))
         })
+    }
+
+    private checkGroupCheckbox(allCheckbox: string, formControlsArray: string): void {
+        const selected = this.form.controls[formControlsArray] as FormArray
+        if (selected.length == this[formControlsArray].length) {
+            document.querySelector<HTMLInputElement>('#all-' + formControlsArray).checked = true
+            this.form.patchValue({
+                [allCheckbox]: true
+            })
+        }
     }
 
     private cleanup(): void {
