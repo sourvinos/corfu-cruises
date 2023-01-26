@@ -5,7 +5,7 @@ export interface ManifestCriteriaVM {
     fromDate: string
     toDate: string
     destinations: SimpleEntity[]
-    ships: SimpleEntity[]
     ports: SimpleEntity[]
+    ships: SimpleEntity[]
 
 }

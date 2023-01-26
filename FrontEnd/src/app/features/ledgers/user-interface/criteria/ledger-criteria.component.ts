@@ -1,21 +1,19 @@
 import { Component, ViewChild } from '@angular/core'
 import { DateAdapter } from '@angular/material/core'
+import { DateRange, MatCalendar } from '@angular/material/datepicker'
 import { FormGroup, FormBuilder, Validators, FormArray, FormControl } from '@angular/forms'
 import { Router } from '@angular/router'
 import { Subject } from 'rxjs'
 import { takeUntil } from 'rxjs/operators'
 // Custom
-import { CustomerActiveVM } from 'src/app/features/customers/classes/view-models/customer-active-vm'
 import { DateHelperService } from 'src/app/shared/services/date-helper.service'
-import { DateRange, MatCalendar } from '@angular/material/datepicker'
-import { DestinationActiveVM } from 'src/app/features/destinations/classes/view-models/destination-active-vm'
 import { EmojiService } from './../../../../shared/services/emoji.service'
 import { FieldsetCriteriaService } from 'src/app/shared/services/fieldset-criteria.service'
 import { InteractionService } from 'src/app/shared/services/interaction.service'
 import { LedgerCriteriaVM } from '../../classes/view-models/criteria/ledger-criteria-vm'
 import { LocalStorageService } from 'src/app/shared/services/local-storage.service'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
-import { ShipActiveVM } from 'src/app/features/ships/classes/view-models/ship-active-vm'
+import { SimpleEntity } from './../../../../shared/classes/simple-entity'
 
 @Component({
     selector: 'ledger-criteria',
@@ -40,9 +38,9 @@ export class LedgerCriteriaComponent {
     public selectedFromDate = new Date()
     public selectedRangeValue: DateRange<Date>
     public selectedToDate = new Date()
-    public customers: CustomerActiveVM[] = []
-    public destinations: DestinationActiveVM[] = []
-    public ships: ShipActiveVM[] = []
+    public customers: SimpleEntity[] = []
+    public destinations: SimpleEntity[] = []
+    public ships: SimpleEntity[] = []
 
     //#endregion
 

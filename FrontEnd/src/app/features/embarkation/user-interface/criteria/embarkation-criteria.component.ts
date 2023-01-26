@@ -9,6 +9,7 @@ import { takeUntil } from 'rxjs/operators'
 import { DateHelperService } from 'src/app/shared/services/date-helper.service'
 import { EmbarkationCriteriaVM } from '../../classes/view-models/criteria/embarkation-criteria-vm'
 import { EmojiService } from 'src/app/shared/services/emoji.service'
+import { FieldsetCriteriaService } from 'src/app/shared/services/fieldset-criteria.service'
 import { InteractionService } from 'src/app/shared/services/interaction.service'
 import { LocalStorageService } from 'src/app/shared/services/local-storage.service'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
@@ -38,15 +39,12 @@ export class EmbarkationCriteriaComponent {
     public selectedRangeValue: DateRange<Date>
     public selectedToDate = new Date()
     public destinations: SimpleEntity[] = []
-    public filteredDestinations: SimpleEntity[] = []
     public ports: SimpleEntity[] = []
-    public filteredPorts: SimpleEntity[] = []
     public ships: SimpleEntity[] = []
-    public filteredShips: SimpleEntity[] = []
 
     //#endregion
 
-    constructor(private dateAdapter: DateAdapter<any>, private dateHelperService: DateHelperService, private emojiService: EmojiService, private formBuilder: FormBuilder, private interactionService: InteractionService, private localStorageService: LocalStorageService, private messageLabelService: MessageLabelService, private router: Router) { }
+    constructor(private dateAdapter: DateAdapter<any>, private dateHelperService: DateHelperService, private emojiService: EmojiService, private fieldsetCriteriaService: FieldsetCriteriaService, private formBuilder: FormBuilder, private interactionService: InteractionService, private localStorageService: LocalStorageService, private messageLabelService: MessageLabelService, private router: Router) { }
 
     //#region lifecycle hooks
 
@@ -59,6 +57,12 @@ export class EmbarkationCriteriaComponent {
         this.subscribeToInteractionService()
     }
 
+    ngAfterViewInit(): void {
+        this.checkGroupCheckbox('allDestinationsCheckbox', 'destinations')
+        this.checkGroupCheckbox('allPortsCheckbox', 'ports')
+        this.checkGroupCheckbox('allShipsCheckbox', 'ships')
+    }
+
     ngOnDestroy(): void {
         this.cleanup()
     }
@@ -67,23 +71,8 @@ export class EmbarkationCriteriaComponent {
 
     //#region public methods
 
-    public filterList(event: { target: { value: any } }, filteredList: string, list: string, listElement: string): void {
-        this[filteredList] = this[list]
-        const x = event.target.value
-        this[filteredList] = this[list].filter((i: { description: string }) => i.description.toLowerCase().includes(x.toLowerCase()))
-        setTimeout(() => {
-            const criteria = this.form.value[list]
-            criteria.forEach((element: { description: any }) => {
-                this[filteredList].forEach((x: { description: any; id: string }) => {
-                    if (element.description == x.description) {
-                        const input = document.getElementById(listElement + x.id) as HTMLInputElement
-                        if (input != null) {
-                            input.checked = true
-                        }
-                    }
-                })
-            }, 1000)
-        })
+    public filterList(event: { target: { value: any } }, list: string | number): void {
+        this.fieldsetCriteriaService.filterList(event.target.value, this[list])
     }
 
     public getEmoji(emoji: string): string {
@@ -100,30 +89,8 @@ export class EmbarkationCriteriaComponent {
         }
     }
 
-    public onCheckboxChange(event: any, allCheckbox: string, formControlsArray: string, description: string): void {
-        const selected = this.form.controls[formControlsArray] as FormArray
-        if (event.target.checked) {
-            selected.push(this.formBuilder.group({
-                id: [parseInt(event.target.value), Validators.required],
-                description: [description]
-            }))
-        } else {
-            const index = selected.controls.findIndex(x => x.value.id == parseInt(event.target.value))
-            selected.removeAt(index)
-        }
-        if (selected.length == 0) {
-            document.querySelector<HTMLInputElement>('#all-' + formControlsArray).checked = false
-            this.form.patchValue({
-                [allCheckbox]: false
-            })
-        } else {
-            if (selected.length == this[formControlsArray].length) {
-                document.querySelector<HTMLInputElement>('#all-' + formControlsArray).checked = true
-                this.form.patchValue({
-                    [allCheckbox]: true
-                })
-            }
-        }
+    public onCheckboxChange(event: any, allCheckbox: string, formControlsArray: string, array: any[], description: string): void {
+        this.fieldsetCriteriaService.checkboxChange(this.form, event, allCheckbox, formControlsArray, array, description)
     }
 
     public onDoTasks(): void {
@@ -138,19 +105,8 @@ export class EmbarkationCriteriaComponent {
         })
     }
 
-    public toggleAllCheckboxes(array: string, allCheckboxes: string): void {
-        const selected = this.form.controls[array + 's'] as FormArray
-        selected.clear()
-        const checkboxes = document.querySelectorAll<HTMLInputElement>('.' + array)
-        checkboxes.forEach(checkbox => {
-            checkbox.checked = !this.form.value[allCheckboxes]
-            if (checkbox.checked) {
-                selected.push(this.formBuilder.group({
-                    id: [checkbox.value, Validators.required],
-                    description: document.getElementById(array + '-label' + checkbox.value).innerHTML
-                }))
-            }
-        })
+    public toggleAllCheckboxes(form: FormGroup, array: string, allCheckboxes: string): void {
+        this.fieldsetCriteriaService.toggleAllCheckboxes(form, array, allCheckboxes)
     }
 
     public updateRadioButtons(classname: any, idName: any, id: any, description: any): void {
@@ -180,6 +136,12 @@ export class EmbarkationCriteriaComponent {
                 'description': element.description
             }))
         })
+    }
+
+    private checkGroupCheckbox(allCheckbox: string, formControlsArray: string): void {
+        this.fieldsetCriteriaService.checkGroupCheckbox(this.form, 'all-destinations', this.destinations, formControlsArray)
+        this.fieldsetCriteriaService.checkGroupCheckbox(this.form, 'all-ports', this.ports, formControlsArray)
+        this.fieldsetCriteriaService.checkGroupCheckbox(this.form, 'all-ships', this.ships, formControlsArray)
     }
 
     private cleanup(): void {
@@ -215,9 +177,6 @@ export class EmbarkationCriteriaComponent {
         this.populateDropdownFromLocalStorage('destinations')
         this.populateDropdownFromLocalStorage('ports')
         this.populateDropdownFromLocalStorage('ships')
-        this.filteredDestinations = this.destinations
-        this.filteredPorts = this.ports
-        this.filteredShips = this.ships
     }
 
 

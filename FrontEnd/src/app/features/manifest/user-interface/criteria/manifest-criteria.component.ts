@@ -7,16 +7,13 @@ import { Subject } from 'rxjs'
 import { takeUntil } from 'rxjs/operators'
 // Custom
 import { DateHelperService } from 'src/app/shared/services/date-helper.service'
-import { DestinationActiveVM } from '../../../destinations/classes/view-models/destination-active-vm'
 import { EmojiService } from 'src/app/shared/services/emoji.service'
 import { FieldsetCriteriaService } from 'src/app/shared/services/fieldset-criteria.service'
 import { InteractionService } from 'src/app/shared/services/interaction.service'
 import { LocalStorageService } from 'src/app/shared/services/local-storage.service'
 import { ManifestCriteriaVM } from '../../classes/view-models/criteria/manifest-criteria-vm'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
-import { PortActiveVM } from './../../../ports/classes/view-models/port-active-vm'
-import { ShipActiveVM } from 'src/app/features/ships/classes/view-models/ship-active-vm'
-import { ShipRouteActiveVM } from 'src/app/features/shipRoutes/classes/view-models/shipRoute-active-vm'
+import { SimpleEntity } from 'src/app/shared/classes/simple-entity'
 
 @Component({
     selector: 'manifest-criteria',
@@ -41,10 +38,10 @@ export class ManifestCriteriaComponent {
     public selectedFromDate = new Date()
     public selectedRangeValue: DateRange<Date>
     public selectedToDate = new Date()
-    public destinations: DestinationActiveVM[] = []
-    public ports: PortActiveVM[] = []
-    public ships: ShipActiveVM[] = []
-    public shipRoutes: ShipRouteActiveVM[]
+    public destinations: SimpleEntity[] = []
+    public ports: SimpleEntity[] = []
+    public ships: SimpleEntity[] = []
+    public shipRoutes: SimpleEntity[]
 
     //#endregion
 

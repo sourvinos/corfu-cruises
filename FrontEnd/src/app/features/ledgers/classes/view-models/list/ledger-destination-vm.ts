@@ -1,7 +1,7 @@
-export interface LedgerDestinationVM {
+import { SimpleEntity } from 'src/app/shared/classes/simple-entity'
 
-    id: number
-    description: string
+export interface LedgerDestinationVM extends SimpleEntity {
+
     abbreviation: string
 
 }

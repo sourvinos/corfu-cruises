@@ -26,18 +26,18 @@
                 <div class="filter">
                     <div class="styled-input-square">
                         <div class="styled-input-single">
-                            <input (click)="toggleAllCheckboxes('destination', 'allDestinationsCheckbox')" id="all-destinations" type="checkbox" formControlName="allDestinationsCheckbox">
+                            <input (click)="toggleAllCheckboxes(form, 'destination', 'allDestinationsCheckbox')" id="all-destinations" type="checkbox" formControlName="allDestinationsCheckbox">
                             <label class="no-label" for="all-destinations"></label>
                         </div>
                     </div>
                     <mat-form-field class="list-filter">
-                        <input (keyup)="filterList($event, 'filteredDestinations', 'destinations', 'destination')" formControlName="destinationsFilter" id="destinationsFilter" matInput>
+                        <input (keyup)="filterList($event, 'destinations')" formControlName="destinationsFilter" id="destinationsFilter" matInput>
                     </mat-form-field>
                 </div>
                 <div class="list-wrapper">
-                    <div *ngFor="let destination of filteredDestinations">
+                    <div *ngFor="let destination of destinations" [attr.id]=destination.description>
                         <div class="styled-input-square">
-                            <div class="styled-input-single" (change)="onCheckboxChange($event, 'allDestinationsCheckbox', 'destinations', destination.description)">
+                            <div class="styled-input-single" (change)="onCheckboxChange($event, 'allDestinationsCheckbox', 'destinations', destinations, destination.description)">
                                 <input class="destination" formArrayName="destinations" type="checkbox" [value]="destination.id" [attr.id]="'destination' + destination.id" [checked]="lookup('destinations', destination.id)">
                                 <label [attr.for]="'destination' + destination.id" [attr.id]="'destination-label' + destination.id">{{ destination.description | trimString:33 }}</label>
                             </div>
@@ -57,18 +57,18 @@
                 <div class="filter">
                     <div class="styled-input-square">
                         <div class="styled-input-single">
-                            <input (click)="toggleAllCheckboxes('port', 'allPortsCheckbox')" id="all-ports" type="checkbox" formControlName="allPortsCheckbox">
+                            <input (click)="toggleAllCheckboxes(form, 'port', 'allPortsCheckbox')" id="all-ports" type="checkbox" formControlName="allPortsCheckbox">
                             <label class="no-label" for="all-ports"></label>
                         </div>
                     </div>
                     <mat-form-field class="list-filter">
-                        <input (keyup)="filterList($event, 'filteredPorts', 'ports', 'port')" formControlName="portsFilter" id="portsFilter" matInput>
+                        <input (keyup)="filterList($event, 'ports')" formControlName="portsFilter" id="portsFilter" matInput>
                     </mat-form-field>
                 </div>
                 <div class="list-wrapper">
-                    <div *ngFor="let port of filteredPorts">
+                    <div *ngFor="let port of ports" [attr.id]=port.description>
                         <div class="styled-input-square">
-                            <div class="styled-input-single" (change)="onCheckboxChange($event, 'allPortsCheckbox', 'ports', port.description)">
+                            <div class="styled-input-single" (change)="onCheckboxChange($event, 'allPortsCheckbox', 'ports', ports, port.description)">
                                 <input class="port" formArrayName="ports" type="checkbox" [value]="port.id" [attr.id]="'port' + port.id" [checked]="lookup('ports', port.id)">
                                 <label [attr.for]="'port' + port.id" [attr.id]="'port-label' + port.id">{{ port.description | trimString:33 }}</label>
                             </div>
@@ -88,18 +88,18 @@
                 <div class="filter">
                     <div class="styled-input-square">
                         <div class="styled-input-single">
-                            <input (click)="toggleAllCheckboxes('ship', 'allShipsCheckbox')" id="all-ships" type="checkbox" formControlName="allShipsCheckbox">
+                            <input (click)="toggleAllCheckboxes(form, 'ship', 'allShipsCheckbox')" id="all-ships" type="checkbox" formControlName="allShipsCheckbox">
                             <label class="no-label" for="all-ships"></label>
                         </div>
                     </div>
                     <mat-form-field class="list-filter">
-                        <input (keyup)="filterList($event, 'filteredShips', 'ships', 'ship')" formControlName="shipsFilter" id="shipsFilter" matInput>
+                        <input (keyup)="filterList($event, 'ships')" formControlName="shipsFilter" id="shipsFilter" matInput>
                     </mat-form-field>
                 </div>
                 <div class="list-wrapper">
-                    <div *ngFor="let ship of filteredShips">
+                    <div *ngFor="let ship of ships" [attr.id]=ship.description>
                         <div class="styled-input-square">
-                            <div class="styled-input-single" (change)="onCheckboxChange($event, 'allShipsCheckbox', 'ships', ship.description)">
+                            <div class="styled-input-single" (change)="onCheckboxChange($event, 'allShipsCheckbox', 'ships', ships, ship.description)">
                                 <input class="ship" formArrayName="ships" type="checkbox" [value]="ship.id" [attr.id]="'ship' + ship.id" [checked]="lookup('ships', ship.id)">
                                 <label [attr.for]="'ship' + ship.id" [attr.id]="'ship-label' + ship.id">{{ ship.description | trimString:33 }}</label>
                             </div>
@@ -120,4 +120,3 @@
     </div>
 
 </div>
-

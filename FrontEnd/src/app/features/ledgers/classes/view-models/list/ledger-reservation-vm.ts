@@ -1,6 +1,6 @@
+import { SimpleEntity } from 'src/app/shared/classes/simple-entity'
 import { LedgerDestinationVM } from './ledger-destination-vm'
 import { LedgerPortVM } from './ledger-port-vm'
-import { LedgerShipVM } from './ledger-ship-vm'
 
 export interface LedgerReservationVM {
 
@@ -8,7 +8,7 @@ export interface LedgerReservationVM {
     refNo: string
     reservationId: string
     destination: LedgerDestinationVM
-    ship: LedgerShipVM
+    ship: SimpleEntity
     port: LedgerPortVM
     ticketNo: string
     adults: number

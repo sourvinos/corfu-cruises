@@ -14,7 +14,6 @@ export class LedgerService extends HttpDataService {
         super(httpClient, environment.apiUrl + '/ledgers')
     }
 
-
     get(fromDate: string, toDate: string, customerIds: number[], destinationIds: number[], shipIds: number[]): Observable<LedgerVM> {
         return this.http.get<LedgerVM>(
             this.url + '?fromDate=' + fromDate + '&toDate=' + toDate +
