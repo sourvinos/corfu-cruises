@@ -31,6 +31,7 @@
 }
 
 .pill .description {
+    margin-top: -0.125rem;
     transform: scale(1, 2.0);
 }
 

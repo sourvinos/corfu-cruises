@@ -7,7 +7,7 @@
                 <img width="20px" [src]="getIcon('calendar')">
                 <div class="description">{{ formatDateToLocale(criteriaPanels.fromDate, true, true) }}</div>
             </div>
-            <button (click)="resetTableFilters()" [disabled]="records.reservations.length==recordsFiltered.reservations.length" class="primary" mat-flat-button>
+            <button (click)="resetTableFilters()" [disabled]="totals[0]==totalsFiltered[0]" class="primary" mat-flat-button>
                 <i class="pi pi-filter-slash"></i>
             </button>
         </div>
@@ -15,8 +15,8 @@
 
     <div id="content">
         <div id="criteria-panel">
-            <criteria-panel [backgroundColor]="'var(--color-criteria-b)'" [feature]="feature" [header]="'criteria-destinations'" [icon]="'destinations'" [records]="criteriaPanels.destinations" [sortField]="'description'"></criteria-panel>
-            <criteria-panel [backgroundColor]="'var(--color-criteria-a)'" [feature]="feature" [header]="'criteria-ports'" [icon]="'ports'" [records]="criteriaPanels.ports" [sortField]="'description'"></criteria-panel>
+            <criteria-panel [backgroundColor]="'var(--color-criteria-a)'" [feature]="feature" [header]="'criteria-destinations'" [icon]="'destinations'" [records]="criteriaPanels.destinations" [sortField]="'description'"></criteria-panel>
+            <criteria-panel [backgroundColor]="'var(--color-criteria-b)'" [feature]="feature" [header]="'criteria-ports'" [icon]="'ports'" [records]="criteriaPanels.ports" [sortField]="'description'"></criteria-panel>
             <criteria-panel [backgroundColor]="'var(--color-criteria-c)'" [feature]="feature" [header]="'criteria-ships'" [icon]="'ships'" [records]="criteriaPanels.ships" [sortField]="'description'"></criteria-panel>
         </div>
         <div id="table-wrapper">
@@ -25,11 +25,12 @@
                     <tr>
                         <th class="width-7" pSortableColumn="refNo">{{ getLabel('headerRefNo') }}<p-sortIcon field="refNo"></p-sortIcon></th>
                         <th pSortableColumn="ticketNo">{{ getLabel('headerTicketNo') }}<p-sortIcon field="ticketNo"></p-sortIcon></th>
-                        <th class="width-10" pSortableColumn="destination">{{ getLabel('headerDestination') }}<p-sortIcon field="destination"></p-sortIcon></th>
-                        <th class="width-10" pSortableColumn="customer">{{ getLabel('headerCustomer') }}<p-sortIcon field="customer"></p-sortIcon></th>
-                        <th class="width-10" pSortableColumn="driver">{{ getLabel('headerDriver') }}<p-sortIcon field="driver"></p-sortIcon></th>
-                        <th class="width-10" pSortableColumn="port">{{ getLabel('headerPort') }}<p-sortIcon field="port"></p-sortIcon></th>
-                        <th class="width-10" pSortableColumn="ship">{{ getLabel('headerShip') }}<p-sortIcon field="ship"></p-sortIcon></th>
+                        <th class="width-10" pSortableColumn="destinationDescription">{{ getLabel('headerDestination') }}<p-sortIcon field="destinationDescription"></p-sortIcon></th>
+                        <th class="width-10" pSortableColumn="customerDescription">{{ getLabel('headerCustomer') }}<p-sortIcon field="customerDescription"></p-sortIcon></th>
+                        <th class="width-10" pSortableColumn="pickupPointDescription">{{ getLabel('headerPickupPoint') }}<p-sortIcon field="pickupPointDescription"></p-sortIcon></th>
+                        <th class="width-10" pSortableColumn="driverDescription">{{ getLabel('headerDriver') }}<p-sortIcon field="driverDescription"></p-sortIcon></th>
+                        <th class="width-10" pSortableColumn="portDescription">{{ getLabel('headerPort') }}<p-sortIcon field="portDescription"></p-sortIcon></th>
+                        <th class="width-10" pSortableColumn="shipDescription">{{ getLabel('headerShip') }}<p-sortIcon field="shipDescription"></p-sortIcon></th>
                         <th class="width-5">{{ getLabel('headerPersons') }}</th>
                         <th class="width-3">{{ getLabel('headerPlusMinus') }}</th>
                         <th class="width-10" pSortableColumn="embarkationStatus">{{ getLabel('headerEmbarkationState') }}<p-sortIcon field="embarkationStatus"></p-sortIcon></th>
@@ -53,6 +54,17 @@
                             <p-columnFilter field="customerDescription" matchMode="equals" [showMenu]="true">
                                 <ng-template pTemplate="filter" let-value let-filter="filterCallback">
                                     <p-dropdown [disabled]="records.reservations.length==0" [ngModel]="value" [options]="distinctCustomers" (onChange)="filter($event.value)" placeholder="⭐" [showClear]="true">
+                                        <ng-template let-option pTemplate="item">
+                                            <span>{{ option }}</span>
+                                        </ng-template>
+                                    </p-dropdown>
+                                </ng-template>
+                            </p-columnFilter>
+                        </th>
+                        <th class="width-10">
+                            <p-columnFilter field="pickupPointDescription" matchMode="equals" [showMenu]="false">
+                                <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+                                    <p-dropdown [disabled]="records.reservations.length==0" [ngModel]="value" [options]="distinctPickupPoints" (onChange)="filter($event.value)" placeholder="⭐" [showClear]="true">
                                         <ng-template let-option pTemplate="item">
                                             <span>{{ option }}</span>
                                         </ng-template>
@@ -115,6 +127,7 @@
                         <td style="text-align: center;">{{ reservation.ticketNo }}</td>
                         <td class="width-10">{{ reservation.destinationDescription }}</td>
                         <td class="width-10">{{ reservation.customerDescription }}</td>
+                        <td class="width-10">{{ reservation.pickupPointDescription }}</td>
                         <td class="width-10">{{ reservation.driverDescription }}</td>
                         <td class="width-10">{{ reservation.portDescription }}</td>
                         <td class="width-10">{{ reservation.shipDescription }}</td>
@@ -174,19 +187,25 @@
         <div id="filters">
             <div class="pill">
                 <img [src]="getIcon('total')">
-                <div class="number description">{{ records.totalPersons }} / <i class="pi pi-filter"></i>{{ recordsFiltered.totalPersons }}</div>
+                <div class="number description">
+                    <span class="monotype">{{ totals[0] | padNumber : 3 : ' ' }}&nbsp;</span><i class="pi pi-filter"></i><span class="monotype">{{ totalsFiltered[0] | padNumber : 3 : ' ' }}</span>
+                </div>
             </div>
             <div class="pill">
                 <img [src]="getIcon('boarded')">
-                <div class="number description">{{ records.embarkedPassengers }} / <i class="pi pi-filter"></i>{{ recordsFiltered.embarkedPassengers }} </div>
+                <div class="number description">
+                    <span class="monotype">{{ totals[1] | padNumber : 3 : ' ' }}&nbsp;</span><i class="pi pi-filter"></i><span class="monotype">{{ totalsFiltered[1] | padNumber : 3 : ' ' }}</span>
+                </div>
             </div>
             <div class="pill">
                 <img [src]="getIcon('pending')">
-                <div class="number description">{{ records.pendingPersons }} / <i class="pi pi-filter"></i>{{ recordsFiltered.pendingPersons }}</div>
+                <div class="number description">
+                    <span class="monotype">{{ totals[2] | padNumber : 3 : ' ' }}&nbsp;</span><i class="pi pi-filter"></i><span class="monotype">{{ totalsFiltered[2] | padNumber : 3 : ' ' }}</span>
+                </div>
             </div>
         </div>
         <div class="button-group-right">
-            <button (click)="doReportTasks()" [disabled]="records.reservations.length == 0" class="secondary" mat-flat-button>
+            <button (click)="createPdf()" [disabled]="records.reservations.length == 0" class="secondary" mat-flat-button>
                 <mat-icon *ngIf="records.reservations.length == 0" class="button-icon">lock</mat-icon>
                 <span>{{ getLabel("createPDF") }}</span>
             </button>

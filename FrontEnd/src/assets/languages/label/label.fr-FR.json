@@ -693,7 +693,7 @@
             },
             {
                 "id": "headerPickupPoint",
-                "description": "point de collecte"
+                "description": "Point de collecte"
             },
             {
                 "id": "headerAdults",
@@ -1254,6 +1254,10 @@
             {
                 "id": "headerCustomer",
                 "description": "Cliente"
+            },
+            {
+                "id": "headerPickupPoint",
+                "description": "Point de collecte"
             },
             {
                 "id": "headerDriver",

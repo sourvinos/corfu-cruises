@@ -693,7 +693,7 @@
             },
             {
                 "id": "headerPickupPoint",
-                "description": "Nástupní zastávka"
+                "description": "Místo vyzvednutí"
             },
             {
                 "id": "headerAdults",
@@ -766,7 +766,7 @@
             },
             {
                 "id": "pickupPoint",
-                "description": "Nástupní místo"
+                "description": "Místo vyzvednutí"
             },
             {
                 "id": "exactPoint",
@@ -1254,6 +1254,10 @@
             {
                 "id": "headerCustomer",
                 "description": "Zákazník"
+            },
+            {
+                "id": "headerPickupPoint",
+                "description": "Místo vyzvednutí"
             },
             {
                 "id": "headerDriver",

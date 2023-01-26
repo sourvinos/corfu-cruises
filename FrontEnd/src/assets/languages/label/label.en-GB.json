@@ -1256,6 +1256,10 @@
                 "description": "Customer"
             },
             {
+                "id": "headerPickupPoint",
+                "description": "Pickup point"
+            },
+            {
                 "id": "headerDriver",
                 "description": "Driver"
             },

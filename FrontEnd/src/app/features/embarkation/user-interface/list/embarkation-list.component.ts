@@ -12,6 +12,7 @@ import { EmbarkationPDFService } from '../../classes/services/embarkation-pdf.se
 import { EmbarkationService } from '../../classes/services/embarkation.service'
 import { EmojiService } from 'src/app/shared/services/emoji.service'
 import { HelperService, indicate } from 'src/app/shared/services/helper.service'
+import { ListResolved } from 'src/app/shared/classes/list-resolved'
 import { LocalStorageService } from 'src/app/shared/services/local-storage.service'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { MessageSnackbarService } from '../../../../shared/services/messages-snackbar.service'
@@ -39,11 +40,13 @@ export class EmbarkationListComponent {
     public criteriaPanels: EmbarkationCriteriaVM
 
     public records: EmbarkationGroupVM
-    public recordsFiltered: EmbarkationGroupVM
+    public totals = [0, 0, 0]
+    public totalsFiltered = [0, 0, 0]
 
     public distinctCustomers: string[]
     public distinctDestinations: string[]
     public distinctDrivers: string[]
+    public distinctPickupPoints: string[]
     public distinctPorts: string[]
     public distinctShips: string[]
     public distinctEmbarkationStates: any[]
@@ -59,28 +62,22 @@ export class EmbarkationListComponent {
         this.router.events.subscribe((navigation) => {
             if (navigation instanceof NavigationEnd) {
                 this.url = navigation.url
-                this.loadRecords()
-                this.updatePassengerStatusPills()
+                this.loadRecords().then(() => {
+                    this.populateDropdownFilters()
+                    this.enableDisableFilters()
+                    this.updateTotals(this.totals, this.records.reservations)
+                    this.updateTotals(this.totalsFiltered, this.records.reservations)
+                })
+                this.populateCriteriaPanelsFromStorage()
+                this.getLocale()
             }
         })
     }
 
     //#region lifecycle hooks
 
-    ngOnInit(): void {
-        // this.loadRecords()
-        // this.updatePassengerStatusPills()
-        this.populateCriteriaPanelsFromStorage()
-        this.populateDropdownFilters()
-        this.getLocale()
-    }
-
     ngAfterContentChecked(): void {
         this.cd.detectChanges()
-    }
-
-    ngAfterViewInit(): void {
-        this.enableDisableFilters()
     }
 
     ngOnDestroy(): void {
@@ -102,10 +99,7 @@ export class EmbarkationListComponent {
     }
 
     public filterRecords(event: { filteredValue: any[] }): void {
-        this.recordsFiltered.reservations = event.filteredValue
-        // this.countFilteredPersons()
-        this.localStorageService.saveItem(this.feature, JSON.stringify(this.table.filters))
-        // console.log(this.recordsFiltered)
+        this.updateTotals(this.totalsFiltered, event.filteredValue)
     }
 
     public formatDateToLocale(date: string, showWeekday = false, showYear = false): string {
@@ -151,8 +145,8 @@ export class EmbarkationListComponent {
         return remarks.length > 0 ? true : false
     }
 
-    public doReportTasks(): void {
-        this.embarkationPDFService.createPDF(this.recordsFiltered.reservations)
+    public createPdf(): void {
+        this.embarkationPDFService.createPDF(this.records.reservations)
     }
 
     public embarkPassenger(id: number): void {
@@ -209,10 +203,6 @@ export class EmbarkationListComponent {
         return embarkationStatus ? this.emojiService.getEmoji('ok') : this.emojiService.getEmoji('warning')
     }
 
-    public shouldDisableResetFiltersButton(): any {
-        return this.records.reservations.length == 0 || this.recordsFiltered.reservations.length == this.records.reservations.length
-    }
-
     //#endregion
 
     //#region private methods
@@ -230,12 +220,13 @@ export class EmbarkationListComponent {
     }
 
     private filterByTicketNo(query: string): void {
-        this.recordsFiltered.reservations = []
-        this.records.reservations.forEach((record) => {
-            if (record.ticketNo.toLowerCase().startsWith(query.toLowerCase())) {
-                this.recordsFiltered.reservations.push(record)
-            }
-        })
+        console.log(query)
+        // this.recordsFiltered.reservations = []
+        // this.records.reservations.forEach((record) => {
+        //     if (record.ticketNo.toLowerCase().startsWith(query.toLowerCase())) {
+        //         this.recordsFiltered.reservations.push(record)
+        //     }
+        // })
     }
 
     private getLocale(): void {
@@ -244,14 +235,14 @@ export class EmbarkationListComponent {
 
     private loadRecords(): Promise<any> {
         const promise = new Promise((resolve) => {
-            const listResolved = this.activatedRoute.snapshot.data[this.feature]
+            const listResolved: ListResolved = this.activatedRoute.snapshot.data[this.feature]
             if (listResolved.error === null) {
-                this.records = listResolved.result
-                this.recordsFiltered = this.records
+                this.records = listResolved.list
                 resolve(this.records)
             } else {
-                this.goBack()
-                this.modalActionResultService.open(this.messageSnackbarService.filterResponse(new Error('500')), 'error', ['ok'])
+                this.modalActionResultService.open(this.messageSnackbarService.filterResponse(listResolved.error), 'error', ['ok']).subscribe(() => {
+                    this.goBack()
+                })
             }
         })
         return promise
@@ -267,6 +258,7 @@ export class EmbarkationListComponent {
         this.distinctCustomers = this.helperService.getDistinctRecords(this.records.reservations, 'customerDescription')
         this.distinctDestinations = this.helperService.getDistinctRecords(this.records.reservations, 'destinationDescription')
         this.distinctDrivers = this.helperService.getDistinctRecords(this.records.reservations, 'driverDescription')
+        this.distinctPickupPoints = this.helperService.getDistinctRecords(this.records.reservations, 'pickupPointDescription')
         this.distinctPorts = this.helperService.getDistinctRecords(this.records.reservations, 'portDescription')
         this.distinctShips = this.helperService.getDistinctRecords(this.records.reservations, 'shipDescription')
         this.distinctEmbarkationStates = [
@@ -285,34 +277,19 @@ export class EmbarkationListComponent {
         this.router.navigate([this.url])
     }
 
-    private updatePassengerStatusPills(): void {
-        this.records.reservations.forEach(record => {
-            if (record.passengers.filter(x => x.isCheckedIn).length == record.passengers.length) {
-                record.isCheckedIn = this.getLabel('boarded').toUpperCase()
-            }
-            if (record.passengers.filter(x => !x.isCheckedIn).length == record.passengers.length) {
-                record.isCheckedIn = this.getLabel('pending').toUpperCase()
-            }
-            if (record.passengers.filter(x => x.isCheckedIn).length != record.passengers.length && record.passengers.filter(x => !x.isCheckedIn).length != record.passengers.length) {
-                record.isCheckedIn = 'MIX'
+    private updateTotals(totals: number[], filteredValue: any[]): void {
+        totals[0] = 0
+        totals[1] = 0
+        totals[2] = 0
+        filteredValue.forEach(reservation => {
+            totals[0] += reservation.totalPersons
+            if (reservation.passengers && reservation.passengers.length > 0) {
+                totals[1] += reservation.passengers.filter((x: { isCheckedIn: any }) => x.isCheckedIn).length
             }
         })
+        totals[2] = totals[0] - totals[1]
     }
 
     //#endregion
-
-    public countFilteredPersons(): void {
-        this.recordsFiltered.totalPersons = 0
-        this.recordsFiltered.embarkedPassengers = 0
-        this.recordsFiltered.pendingPersons = 0
-        this.recordsFiltered.reservations.forEach((x) => {
-            if (x.passengers && x.passengers.length > 0) {
-                this.recordsFiltered.totalPersons += x.passengers.filter(Boolean).length
-                x.passengers.forEach(element => {
-                    element.isCheckedIn ? this.recordsFiltered.embarkedPassengers++ : this.recordsFiltered.pendingPersons++
-                })
-            }
-        })
-    }
 
 }

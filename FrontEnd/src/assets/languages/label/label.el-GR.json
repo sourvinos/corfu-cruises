@@ -1256,6 +1256,10 @@
                 "description": "Πελάτης"
             },
             {
+                "id": "headerPickupPoint",
+                "description": "Σημείο παραλαβής"
+            },
+            {
                 "id": "headerDriver",
                 "description": "Οδηγός"
             },

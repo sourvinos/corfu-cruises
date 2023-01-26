@@ -4,9 +4,9 @@ export interface EmbarkationVM {
 
     refNo: string
     ticketNo: string
-    remarks: string
     customerDescription: string
     destinationDescription: string
+    pickupPointDescription: string
     driverDescription: string
     portDescription: string
     shipDescription: string
@@ -14,6 +14,7 @@ export interface EmbarkationVM {
     embarkedPassengers: number
     embarkationStatus: boolean
     isCheckedIn: string
+    remarks: string
     passengerIds: number[]
 
     passengers: EmbarkationPassenger[]

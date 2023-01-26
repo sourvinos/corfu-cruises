@@ -7,5 +7,8 @@ export interface EmbarkationCriteriaVM {
     destinations: SimpleEntity[]
     ports: SimpleEntity[]
     ships: SimpleEntity[]
+    allDestinationsCheckbox: boolean
+    allPortsCheckbox: boolean
+    allShipsCheckbox: boolean
 
 }

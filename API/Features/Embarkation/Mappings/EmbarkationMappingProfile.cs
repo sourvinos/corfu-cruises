@@ -11,6 +11,7 @@ namespace API.Features.Embarkation {
                 .ForMember(x => x.CustomerDescription, x => x.MapFrom(x => x.Customer.Description))
                 .ForMember(x => x.DestinationDescription, x => x.MapFrom(x => x.Destination.Description))
                 .ForMember(x => x.DriverDescription, x => x.NullSubstitute("(EMPTY)"))
+                .ForMember(x => x.PickupPointDescription, x => x.MapFrom(x => x.PickupPoint.Description))
                 .ForMember(x => x.PortDescription, x => x.MapFrom(x => x.Port.Description))
                 .ForMember(x => x.ShipDescription, x => x.MapFrom(x => x.Ship.Description))
                 .ForMember(x => x.TotalPersons, x => x.MapFrom(x => x.TotalPersons))

@@ -29,8 +29,9 @@ namespace API.Features.Embarkation {
                 .Include(x => x.Customer)
                 .Include(x => x.Destination)
                 .Include(x => x.Driver)
-                .Include(x => x.Ship)
+                .Include(x => x.PickupPoint)
                 .Include(x => x.Port)
+                .Include(x => x.Ship)
                 .Include(x => x.Passengers).ThenInclude(x => x.Nationality)
                 .Where(x => x.Date >= Convert.ToDateTime(fromDate) && x.Date <= Convert.ToDateTime(toDate) &&
                     destinationIds.Contains(x.DestinationId) &&

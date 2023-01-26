@@ -58,9 +58,9 @@ export class EmbarkationCriteriaComponent {
     }
 
     ngAfterViewInit(): void {
-        this.checkGroupCheckbox('allDestinationsCheckbox', 'destinations')
-        this.checkGroupCheckbox('allPortsCheckbox', 'ports')
-        this.checkGroupCheckbox('allShipsCheckbox', 'ships')
+        this.checkGroupCheckbox('all-destinations', this.destinations, 'destinations')
+        this.checkGroupCheckbox('all-ports', this.ports, 'ports')
+        this.checkGroupCheckbox('all-ships', this.ships, 'ships')
     }
 
     ngOnDestroy(): void {
@@ -70,6 +70,15 @@ export class EmbarkationCriteriaComponent {
     //#endregion
 
     //#region public methods
+
+    public checkboxChange(event: any, allCheckbox: string, formControlsArray: string, array: any[], description: string): void {
+        this.fieldsetCriteriaService.checkboxChange(this.form, event, allCheckbox, formControlsArray, array, description)
+    }
+
+    public doTasks(): void {
+        this.storeCriteria()
+        this.navigateToList()
+    }
 
     public filterList(event: { target: { value: any } }, list: string | number): void {
         this.fieldsetCriteriaService.filterList(event.target.value, this[list])
@@ -87,15 +96,6 @@ export class EmbarkationCriteriaComponent {
         if (this.criteria) {
             return this.criteria[arrayName].filter((x: { id: number }) => x.id == arrayId).length != 0 ? true : false
         }
-    }
-
-    public onCheckboxChange(event: any, allCheckbox: string, formControlsArray: string, array: any[], description: string): void {
-        this.fieldsetCriteriaService.checkboxChange(this.form, event, allCheckbox, formControlsArray, array, description)
-    }
-
-    public onDoTasks(): void {
-        this.storeCriteria()
-        this.navigateToList()
     }
 
     public patchFormWithSelectedDates(event: any): void {
@@ -138,10 +138,8 @@ export class EmbarkationCriteriaComponent {
         })
     }
 
-    private checkGroupCheckbox(allCheckbox: string, formControlsArray: string): void {
-        this.fieldsetCriteriaService.checkGroupCheckbox(this.form, 'all-destinations', this.destinations, formControlsArray)
-        this.fieldsetCriteriaService.checkGroupCheckbox(this.form, 'all-ports', this.ports, formControlsArray)
-        this.fieldsetCriteriaService.checkGroupCheckbox(this.form, 'all-ships', this.ships, formControlsArray)
+    private checkGroupCheckbox(allCheckbox: string, array: SimpleEntity[], formControlsArray: string): void {
+        this.fieldsetCriteriaService.checkGroupCheckbox(this.form, allCheckbox, array, formControlsArray)
     }
 
     private cleanup(): void {
@@ -189,6 +187,9 @@ export class EmbarkationCriteriaComponent {
                 destinations: this.addSelectedCriteriaFromStorage('destinations'),
                 ports: this.addSelectedCriteriaFromStorage('ports'),
                 ships: this.addSelectedCriteriaFromStorage('ships'),
+                allDestinationsCheckbox: this.criteria.allDestinationsCheckbox,
+                allPortsCheckbox: this.criteria.allPortsCheckbox,
+                allShipsCheckbox: this.criteria.allShipsCheckbox
             })
         }
     }
