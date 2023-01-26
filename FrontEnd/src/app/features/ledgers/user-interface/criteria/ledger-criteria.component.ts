@@ -6,11 +6,11 @@ import { Subject } from 'rxjs'
 import { takeUntil } from 'rxjs/operators'
 // Custom
 import { CustomerActiveVM } from 'src/app/features/customers/classes/view-models/customer-active-vm'
-import { CustomerService } from 'src/app/features/customers/classes/services/customer.service'
 import { DateHelperService } from 'src/app/shared/services/date-helper.service'
 import { DateRange, MatCalendar } from '@angular/material/datepicker'
 import { DestinationActiveVM } from 'src/app/features/destinations/classes/view-models/destination-active-vm'
 import { EmojiService } from './../../../../shared/services/emoji.service'
+import { FieldsetCriteriaService } from 'src/app/shared/services/fieldset-criteria.service'
 import { InteractionService } from 'src/app/shared/services/interaction.service'
 import { LedgerCriteriaVM } from '../../classes/view-models/criteria/ledger-criteria-vm'
 import { LocalStorageService } from 'src/app/shared/services/local-storage.service'
@@ -41,15 +41,12 @@ export class LedgerCriteriaComponent {
     public selectedRangeValue: DateRange<Date>
     public selectedToDate = new Date()
     public customers: CustomerActiveVM[] = []
-    public filteredCustomers: CustomerActiveVM[] = []
     public destinations: DestinationActiveVM[] = []
-    public filteredDestinations: DestinationActiveVM[] = []
     public ships: ShipActiveVM[] = []
-    public filteredShips: ShipActiveVM[] = []
 
     //#endregion
 
-    constructor(private customerService: CustomerService, private dateAdapter: DateAdapter<any>, private dateHelperService: DateHelperService, private emojiService: EmojiService, private formBuilder: FormBuilder, private interactionService: InteractionService, private localStorageService: LocalStorageService, private messageLabelService: MessageLabelService, private router: Router) { }
+    constructor(private dateAdapter: DateAdapter<any>, private dateHelperService: DateHelperService, private emojiService: EmojiService, private fieldsetCriteriaService: FieldsetCriteriaService, private formBuilder: FormBuilder, private interactionService: InteractionService, private localStorageService: LocalStorageService, private messageLabelService: MessageLabelService, private router: Router) { }
 
     //#region lifecycle hooks
 
@@ -76,33 +73,8 @@ export class LedgerCriteriaComponent {
 
     //#region public methods
 
-    public filterList(event: { target: { value: any } }, filteredList: string, list: string, listElement: string): void {
-        this[filteredList] = this[list]
-        const x = event.target.value
-        this[filteredList] = this[list].filter((i: { description: string }) => i.description.toLowerCase().includes(x.toLowerCase()))
-        console.clear()
-        console.log('List', list)
-        console.log('FilteredList', filteredList)
-        console.log('List', this[list])
-        console.log('Filtered list', this[filteredList])
-        // setTimeout(() => {
-        const criteria = this.form.value['destinationsFilter']
-        console.log('criteria', criteria)
-        criteria.forEach((element: { description: any }) => {
-            this[filteredList].forEach((x: { description: any; id: string }) => {
-                if (element.description == x.description) {
-                    const input = document.getElementById(listElement + x.id) as HTMLInputElement
-                    if (input != null) {
-                        console.log('input checked')
-                        input.checked = true
-                    } else {
-                        console.log('input NOT checked')
-                        input.checked = false
-                    }
-                }
-            })
-        })
-        // })
+    public filterList(event: { target: { value: any } }, list: string | number): void {
+        this.fieldsetCriteriaService.filterList(event.target.value, this[list])
     }
 
     public getEmoji(emoji: string): string {
@@ -119,30 +91,8 @@ export class LedgerCriteriaComponent {
         }
     }
 
-    public onCheckboxChange(event: any, allCheckbox: string, formControlsArray: string, description: string): void {
-        const selected = this.form.controls[formControlsArray] as FormArray
-        if (event.target.checked) {
-            selected.push(this.formBuilder.group({
-                id: [parseInt(event.target.value), Validators.required],
-                description: [description]
-            }))
-        } else {
-            const index = selected.controls.findIndex(x => x.value.id == parseInt(event.target.value))
-            selected.removeAt(index)
-        }
-        if (selected.length == 0 || selected.length != this[formControlsArray].length) {
-            document.querySelector<HTMLInputElement>('#all-' + formControlsArray).checked = false
-            this.form.patchValue({
-                [allCheckbox]: false
-            })
-        } else {
-            if (selected.length == this[formControlsArray].length) {
-                document.querySelector<HTMLInputElement>('#all-' + formControlsArray).checked = true
-                this.form.patchValue({
-                    [allCheckbox]: true
-                })
-            }
-        }
+    public onCheckboxChange(event: any, allCheckbox: string, formControlsArray: string, array: any[], description: string): void {
+        this.fieldsetCriteriaService.checkboxChange(this.form, event, allCheckbox, formControlsArray, array, description)
     }
 
     public onDoTasks(): void {
@@ -157,19 +107,8 @@ export class LedgerCriteriaComponent {
         })
     }
 
-    public toggleAllCheckboxes(array: string, allCheckboxes: string): void {
-        const selected = this.form.controls[array + 's'] as FormArray
-        selected.clear()
-        const checkboxes = document.querySelectorAll<HTMLInputElement>('.' + array)
-        checkboxes.forEach(checkbox => {
-            checkbox.checked = !this.form.value[allCheckboxes]
-            if (checkbox.checked) {
-                selected.push(this.formBuilder.group({
-                    id: [checkbox.value, Validators.required],
-                    description: document.getElementById(array + '-label' + checkbox.value).innerHTML
-                }))
-            }
-        })
+    public toggleAllCheckboxes(form: FormGroup, array: string, allCheckboxes: string): void {
+        this.fieldsetCriteriaService.toggleAllCheckboxes(form, array, allCheckboxes)
     }
 
     //#endregion
@@ -187,13 +126,9 @@ export class LedgerCriteriaComponent {
     }
 
     private checkGroupCheckbox(allCheckbox: string, formControlsArray: string): void {
-        const selected = this.form.controls[formControlsArray] as FormArray
-        if (selected.length == this[formControlsArray].length) {
-            document.querySelector<HTMLInputElement>('#all-' + formControlsArray).checked = true
-            this.form.patchValue({
-                [allCheckbox]: true
-            })
-        }
+        this.fieldsetCriteriaService.checkGroupCheckbox(this.form, 'all-customers', this.customers, formControlsArray)
+        this.fieldsetCriteriaService.checkGroupCheckbox(this.form, 'all-destinations', this.destinations, formControlsArray)
+        this.fieldsetCriteriaService.checkGroupCheckbox(this.form, 'all-ships', this.ships, formControlsArray)
     }
 
     private cleanup(): void {
@@ -229,9 +164,6 @@ export class LedgerCriteriaComponent {
         this.populateDropdownFromLocalStorage('customers')
         this.populateDropdownFromLocalStorage('destinations')
         this.populateDropdownFromLocalStorage('ships')
-        this.filteredCustomers = this.customers
-        this.filteredDestinations = this.destinations
-        this.filteredShips = this.ships
     }
 
     private populateFieldsFromStoredVariables(): void {
@@ -243,12 +175,6 @@ export class LedgerCriteriaComponent {
                 customers: this.addSelectedCriteriaFromStorage('customers'),
                 destinations: this.addSelectedCriteriaFromStorage('destinations'),
                 ships: this.addSelectedCriteriaFromStorage('ships'),
-                customersFilter: '',
-                destinationsFilter: '',
-                shipsFilter: '',
-                allCustomersCheckbox: this.criteria.allCustomersCheckbox,
-                allDestinationsCheckbox: this.criteria.allDestinationsCheckbox,
-                allShipsCheckbox: this.criteria.allShipsCheckbox
             })
         }
     }
