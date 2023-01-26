@@ -7,5 +7,6 @@ export interface ManifestCriteriaVM {
     destinations: SimpleEntity[]
     ports: SimpleEntity[]
     ships: SimpleEntity[]
+    allPortsCheckbox: boolean
 
 }

@@ -59,7 +59,7 @@ export class ManifestCriteriaComponent {
     }
 
     ngAfterViewInit(): void {
-        this.checkGroupCheckbox('allPortsCheckbox', 'ports')
+        this.checkGroupCheckbox('all-ports', this.ports, 'ports')
     }
 
     ngOnDestroy(): void {
@@ -69,6 +69,15 @@ export class ManifestCriteriaComponent {
     //#endregion
 
     //#region public methods
+
+    public checkboxChange(event: any, allCheckbox: string, formControlsArray: string, array: any[], description: string): void {
+        this.fieldsetCriteriaService.checkboxChange(this.form, event, allCheckbox, formControlsArray, array, description)
+    }
+
+    public doTasks(): void {
+        this.storeCriteria()
+        this.navigateToList()
+    }
 
     public filterList(event: { target: { value: any } }, list: string | number): void {
         this.fieldsetCriteriaService.filterList(event.target.value, this[list])
@@ -86,15 +95,6 @@ export class ManifestCriteriaComponent {
         if (this.criteria) {
             return this.criteria[array].filter((x: { id: number }) => x.id == arrayId).length != 0 ? true : false
         }
-    }
-
-    public onCheckboxChange(event: any, allCheckbox: string, formControlsArray: string, array: any[], description: string): void {
-        this.fieldsetCriteriaService.checkboxChange(this.form, event, allCheckbox, formControlsArray, array, description)
-    }
-
-    public onDoTasks(): void {
-        this.storeCriteria()
-        this.navigateToList()
     }
 
     public patchFormWithSelectedDates(event: any): void {
@@ -126,8 +126,8 @@ export class ManifestCriteriaComponent {
         })
     }
 
-    private checkGroupCheckbox(allCheckbox: string, formControlsArray: string): void {
-        this.fieldsetCriteriaService.checkGroupCheckbox(this.form, 'all-ports', this.ports, formControlsArray)
+    private checkGroupCheckbox(allCheckbox: string, array: SimpleEntity[], formControlsArray: string): void {
+        this.fieldsetCriteriaService.checkGroupCheckbox(this.form, allCheckbox, array, formControlsArray)
     }
 
     private cleanup(): void {
@@ -178,7 +178,8 @@ export class ManifestCriteriaComponent {
                 destinations: this.addSelectedCriteriaFromStorage('destinations'),
                 ports: this.addSelectedCriteriaFromStorage('ports'),
                 ships: this.addSelectedCriteriaFromStorage('ships'),
-                shipRoutes: this.addSelectedCriteriaFromStorage('shipRoutes')
+                shipRoutes: this.addSelectedCriteriaFromStorage('shipRoutes'),
+                allPortsCheckbox: this.criteria.allPortsCheckbox,
             })
         }
     }
