@@ -1,10 +1,10 @@
 import { Component, Inject, Input } from '@angular/core'
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog'
+import { MAT_DIALOG_DATA } from '@angular/material/dialog'
 // Custom
 import { EmojiService } from 'src/app/shared/services/emoji.service'
+import { LedgerPortGroupVM } from '../../../classes/view-models/list/ledger-port-group-vm'
 import { LedgerVM } from '../../../classes/view-models/list/ledger-vm'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
-import { LedgerPortGroupVM } from '../../../classes/view-models/list/ledger-port-group-vm'
 
 @Component({
     selector: 'ledger-customer-summary',
@@ -22,7 +22,15 @@ export class LedgerCustomerSummaryComponent {
 
     //#endregion
 
-    constructor(@Inject(MAT_DIALOG_DATA) public data: any, private dialogRef: MatDialogRef<LedgerCustomerSummaryComponent>, private emojiService: EmojiService, private messageLabelService: MessageLabelService) { }
+    constructor(@Inject(MAT_DIALOG_DATA) public data: any, private emojiService: EmojiService, private messageLabelService: MessageLabelService) { }
+
+    //#region lifecycle hooks
+
+    ngAfterViewInit(): void {
+        this.expandAllPorts()
+    }
+
+    //#endregion
 
     //#region public methods
 
@@ -34,8 +42,17 @@ export class LedgerCustomerSummaryComponent {
         return this.messageLabelService.getDescription(this.feature, id)
     }
 
-    public onClose(): void {
-        this.dialogRef.close()
+    //#endregion
+
+    //#region private methods
+
+    private expandAllPorts(): void {
+        setTimeout(() => {
+            const buttons = document.querySelectorAll<HTMLElement>('.p-button-icon-only')
+            buttons.forEach(button => {
+                button.click()
+            })
+        }, 100)
     }
 
     //#endregion

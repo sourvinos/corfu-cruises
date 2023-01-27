@@ -1504,6 +1504,10 @@
                 "description": "Σ"
             },
             {
+                "id": "headerNoShow",
+                "description": "Δ/Ε"
+            },
+            {
                 "id": "createPdfButton",
                 "description": "ΔΗΜΙΟΥΡΓΙΑ PDF"
             },

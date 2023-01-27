@@ -1504,6 +1504,10 @@
                 "description": "Σ"
             },
             {
+                "id": "headerNoShow",
+                "description": "N/P"
+            },
+            {
                 "id": "createPdfButton",
                 "description": "CRÉER UN PDF"
             },

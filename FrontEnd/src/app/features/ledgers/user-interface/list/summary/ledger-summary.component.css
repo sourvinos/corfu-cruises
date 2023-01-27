@@ -2,10 +2,7 @@
     margin: 0 !important;
 }
 
-.total {
-    background-color: var(--color-f) !important;
-}
-
-.detail {
-    background-color: lightblue !important;
+.p-datatable-wrapper {
+    overflow-y: auto;
+    scrollbar-gutter: auto;
 }

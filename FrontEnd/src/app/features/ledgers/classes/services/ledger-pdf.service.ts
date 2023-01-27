@@ -263,7 +263,7 @@ export class LedgerPDFService {
             { text: '', border: [false, false, false, false] },
             { text: '', border: [false, false, false, false] },
             { text: '', border: [false, false, false, false] },
-            { text: port.port, colSpan: 7, border: [true, true, true, true], fillColor: '#deecf5' },
+            { text: port.port.description, colSpan: 7, border: [true, true, true, true], fillColor: '#deecf5' },
             { text: '', border: [false, false, false, false] },
             { text: '', border: [false, false, false, false] },
             { text: '', border: [false, false, false, false] },

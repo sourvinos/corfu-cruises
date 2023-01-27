@@ -7,6 +7,7 @@ namespace API.Features.Ledger {
         public int Free { get; set; }
         public int TotalPersons { get; set; }
         public int TotalPassengers { get; set; }
+        public int TotalNoShow { get; set; }
         public bool HasTransfer { get; set; }
 
     }

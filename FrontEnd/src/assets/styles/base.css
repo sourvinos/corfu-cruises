@@ -122,6 +122,10 @@ ul {
     color: var(--color-icon-warning);
 }
 
+.emoji {
+    padding-top: 0.125rem !important;
+}
+
 ::-webkit-scrollbar {
     width: 0.8rem;
 }

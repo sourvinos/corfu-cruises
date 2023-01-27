@@ -1504,6 +1504,10 @@
                 "description": "Σ"
             },
             {
+                "id": "headerNoShow",
+                "description": "K/V"
+            },
+            {
                 "id": "createPdfButton",
                 "description": "PDF ERSTELLEN"
             },

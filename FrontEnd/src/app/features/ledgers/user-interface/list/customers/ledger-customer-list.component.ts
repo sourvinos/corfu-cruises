@@ -37,12 +37,8 @@ export class LedgerCustomerListComponent {
     public criteriaPanels: LedgerCriteriaVM
 
     public records: LedgerVM[] = []
-    public recordsFiltered: LedgerVM[] = []
+    public recordsFilteredCount: number
     public selectedRecords: LedgerVM[] = []
-
-    public distinctCustomers: any[]
-    public distinctDestinations: any[]
-    public distinctShips: any[]
 
     //#endregion
 
@@ -64,14 +60,11 @@ export class LedgerCustomerListComponent {
     //#region public methods
 
     public exportSelected(): void {
-        if (this.isAnyRowSelected()) {
-            this.ledgerPdfService.createPDF(this.selectedRecords, this.criteriaPanels)
-        }
+        this.ledgerPdfService.createPDF(this.selectedRecords, this.criteriaPanels)
     }
 
     public filterRecords(event: { filteredValue: any[] }): void {
-        this.recordsFiltered = event.filteredValue
-        this.localStorageService.saveItem(this.feature, JSON.stringify(this.table.filters))
+        this.recordsFilteredCount = event.filteredValue.length
     }
 
     public formatDateToLocale(date: string, showWeekday = false, showYear = false): string {
@@ -115,19 +108,11 @@ export class LedgerCustomerListComponent {
         this.unsubscribe.unsubscribe()
     }
 
-    private isAnyRowSelected(): boolean {
-        if (this.selectedRecords == undefined || this.selectedRecords.length == 0) {
-            this.modalActionResultService.open(this.messageSnackbarService.noRecordsSelected(), 'error', ['ok'])
-            return false
-        }
-        return true
-    }
-
     private loadRecords(): void {
         const listResolved = this.activatedRoute.snapshot.data[this.feature]
         if (listResolved.error === null) {
             this.records = Object.assign([], listResolved.result)
-            this.recordsFiltered = this.records
+            this.recordsFilteredCount = this.records.length
         } else {
             this.modalActionResultService.open(this.messageSnackbarService.filterResponse(listResolved.error), 'error', ['ok']).subscribe(() => {
                 this.goBack()

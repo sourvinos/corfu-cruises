@@ -1,5 +1,5 @@
 import { Component, Inject } from '@angular/core'
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog'
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog'
 // Custom
 import { LedgerVM } from '../../../classes/view-models/list/ledger-vm'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
@@ -19,16 +19,16 @@ export class LedgerCustomerSummaryAndReservationsComponent {
 
     //#endregion
 
-    constructor(@Inject(MAT_DIALOG_DATA) public data: any, private dialogRef: MatDialogRef<LedgerCustomerSummaryAndReservationsComponent>, private messageLabelService: MessageLabelService, public dialog: MatDialog) { }
+    constructor(@Inject(MAT_DIALOG_DATA) public data: any, private dialogRef: MatDialogRef<LedgerCustomerSummaryAndReservationsComponent>, private messageLabelService: MessageLabelService) { }
 
     //#region public methods
 
-    public getLabel(id: string): string {
-        return this.messageLabelService.getDescription(this.feature, id)
+    public close(): void {
+        this.dialogRef.close()
     }
 
-    public onClose(): void {
-        this.dialogRef.close()
+    public getLabel(id: string): string {
+        return this.messageLabelService.getDescription(this.feature, id)
     }
 
     //#endregion

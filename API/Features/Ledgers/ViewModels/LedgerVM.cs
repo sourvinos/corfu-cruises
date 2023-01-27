@@ -11,6 +11,7 @@ namespace API.Features.Ledger {
         public int Free { get; set; }
         public int TotalPersons { get; set; }
         public int TotalEmbarked { get; set; }
+        public int TotalNoShow { get; set; }
         public IEnumerable<LedgerPortVM> Ports { get; set; }
         public List<LedgerReservationVM> Reservations { get; set; }
 

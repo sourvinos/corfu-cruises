@@ -1,6 +1,6 @@
-import { SimpleEntity } from 'src/app/shared/classes/simple-entity'
 import { LedgerDestinationVM } from './ledger-destination-vm'
 import { LedgerPortVM } from './ledger-port-vm'
+import { SimpleEntity } from 'src/app/shared/classes/simple-entity'
 
 export interface LedgerReservationVM {
 

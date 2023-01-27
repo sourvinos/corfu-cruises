@@ -4,7 +4,7 @@
         <h1 mat-dialog-title>{{ data.customer.customer.description }}</h1>
     </div>
 
-    <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="start">
+    <mat-tab-group mat-align-tabs="start" mat-stretch-tabs="false">
         <mat-tab label="{{ getLabel('summary-tab') }}">
             <ledger-customer-summary [portGroup]="data.customer.ports"></ledger-customer-summary>
         </mat-tab>
@@ -15,7 +15,7 @@
 
     <div id="dialog-footer">
         <mat-dialog-actions>
-            <button (click)="onClose()" class="primary" mat-flat-button>{{ getLabel('ok-button') }}</button>
+            <button (click)="close()" class="primary" mat-flat-button>{{ getLabel('ok-button') }}</button>
         </mat-dialog-actions>
     </div>
 

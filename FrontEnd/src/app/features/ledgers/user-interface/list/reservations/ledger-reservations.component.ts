@@ -1,5 +1,5 @@
 import { Component, Inject, Input } from '@angular/core'
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog'
+import { MAT_DIALOG_DATA } from '@angular/material/dialog'
 // Custom
 import { DateHelperService } from 'src/app/shared/services/date-helper.service'
 import { DialogService } from 'src/app/shared/services/dialog.service'
@@ -23,7 +23,7 @@ export class LedgerCustomerReservationListComponent {
 
     //#endregion
 
-    constructor(@Inject(MAT_DIALOG_DATA) public data: any, private dateHelperService: DateHelperService, private dialogRef: MatDialogRef<LedgerCustomerReservationListComponent>, private dialogService: DialogService, private emojiService: EmojiService, private messageLabelService: MessageLabelService, public dialog: MatDialog) { }
+    constructor(@Inject(MAT_DIALOG_DATA) public data: any, private dateHelperService: DateHelperService, private dialogService: DialogService, private emojiService: EmojiService, private messageLabelService: MessageLabelService) { }
 
     //#region public methods
 
@@ -47,24 +47,8 @@ export class LedgerCustomerReservationListComponent {
         return remarks.length > 0 ? true : false
     }
 
-    public onShowRemarks(remarks: string): void {
+    public showRemarks(remarks: string): void {
         this.dialogService.open(remarks, 'info', ['ok'])
-    }
-
-    // public onShowSummary(data: LedgerVM): void {
-    //     this.dialog.open(LedgerCustomerSummaryComponent, {
-    //         height: '600px',
-    //         width: '1400px',
-    //         data: {
-    //             data: data,
-    //             actions: ['ok']
-    //         },
-    //         panelClass: 'dialog'
-    //     })
-    // }
-
-    public onClose(): void {
-        this.dialogRef.close()
     }
 
     //#endregion

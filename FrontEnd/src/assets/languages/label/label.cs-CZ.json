@@ -1504,6 +1504,14 @@
                 "description": "Σ"
             },
             {
+                "id": "headerNoShow",
+                "description": "Ž/P"
+            },
+            {
+                "id": "headerNoShow",
+                "description": ""
+            },
+            {
                 "id": "createPdfButton",
                 "description": "VYTVOŘIT PDF"
             },
