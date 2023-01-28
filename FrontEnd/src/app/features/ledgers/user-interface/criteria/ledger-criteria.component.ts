@@ -42,6 +42,8 @@ export class LedgerCriteriaComponent {
     public destinations: SimpleEntity[] = []
     public ships: SimpleEntity[] = []
 
+    public isAdmin = false
+
     //#endregion
 
     constructor(private dateAdapter: DateAdapter<any>, private dateHelperService: DateHelperService, private emojiService: EmojiService, private fieldsetCriteriaService: FieldsetCriteriaService, private formBuilder: FormBuilder, private interactionService: InteractionService, private localStorageService: LocalStorageService, private messageLabelService: MessageLabelService, private router: Router) { }
@@ -51,6 +53,8 @@ export class LedgerCriteriaComponent {
     ngOnInit(): void {
         this.initForm()
         this.populateDropdowns()
+        this.getConnectedUserRole()
+        this.doSimpleUserTasks()
         this.populateFieldsFromStoredVariables()
         this.setSelectedDates()
         this.setLocale()
@@ -123,6 +127,29 @@ export class LedgerCriteriaComponent {
         })
     }
 
+    private doSimpleUserTasks(): void {
+        if (this.isAdmin == false) {
+            if (this.localStorageService.getItem('ledger-criteria') == '') {
+                const customer = this.customers.find(x => x.id == parseInt(this.localStorageService.getItem('customerId')))
+                const controls = this.form.controls['customers'] as FormArray
+                controls.push(new FormControl({
+                    'id': customer.id,
+                    'description': customer.description
+                }))
+                this.form.patchValue({
+                    fromDate: this.dateHelperService.formatDateToIso(new Date(), false),
+                    toDate: this.dateHelperService.formatDateToIso(new Date(), false),
+                })
+                setTimeout(() => {
+                    const checkbox = document.getElementById('customer' + customer.id) as HTMLInputElement
+                    if (checkbox != null) {
+                        checkbox.checked = true
+                    }
+                }, 500)
+            }
+        }
+    }
+
     private checkGroupCheckbox(allCheckbox: string, array: SimpleEntity[], formControlsArray: string): void {
         this.fieldsetCriteriaService.checkGroupCheckbox(this.form, allCheckbox, array, formControlsArray)
     }
@@ -130,6 +157,10 @@ export class LedgerCriteriaComponent {
     private cleanup(): void {
         this.unsubscribe.next()
         this.unsubscribe.unsubscribe()
+    }
+
+    public getConnectedUserRole(): void {
+        this.isAdmin = this.localStorageService.getItem('isAdmin') == 'true'
     }
 
     private initForm(): void {

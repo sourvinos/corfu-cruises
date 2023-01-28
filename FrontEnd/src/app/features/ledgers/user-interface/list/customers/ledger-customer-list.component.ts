@@ -40,9 +40,13 @@ export class LedgerCustomerListComponent {
     public recordsFilteredCount: number
     public selectedRecords: LedgerVM[] = []
 
+    public isAdmin = false
+
     //#endregion
 
-    constructor(private activatedRoute: ActivatedRoute, private dateHelperService: DateHelperService, private helperService: HelperService, private ledgerPdfService: LedgerPDFService, private localStorageService: LocalStorageService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private modalActionResultService: ModalActionResultService, private router: Router, public dialog: MatDialog) { }
+    constructor(private activatedRoute: ActivatedRoute, private dateHelperService: DateHelperService, private helperService: HelperService, private ledgerPdfService: LedgerPDFService, private localStorageService: LocalStorageService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private modalActionResultService: ModalActionResultService, private router: Router, public dialog: MatDialog) { 
+        this.getConnectedUserRole()
+    }
 
     //#region lifecycle hooks
 
@@ -106,6 +110,10 @@ export class LedgerCustomerListComponent {
     private cleanup(): void {
         this.unsubscribe.next()
         this.unsubscribe.unsubscribe()
+    }
+
+    public getConnectedUserRole(): void {
+        this.isAdmin = this.localStorageService.getItem('isAdmin') == 'true'
     }
 
     private loadRecords(): void {

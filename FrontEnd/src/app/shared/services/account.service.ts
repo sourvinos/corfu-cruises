@@ -189,6 +189,8 @@ export class AccountService extends HttpDataService {
         localStorage.setItem('jwt', response.token)
         localStorage.setItem('loginStatus', '1')
         localStorage.setItem('refreshToken', response.refreshToken)
+        localStorage.setItem('isAdmin', response.isAdmin)
+        localStorage.setItem('customerId', response.customerId != undefined ? response.customerId : null)
     }
 
     private populateStorageFromAPI(): void {
