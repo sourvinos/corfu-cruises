@@ -1236,10 +1236,6 @@
                 "description": "Επιβίβαση"
             },
             {
-                "id": "headerRemarks",
-                "description": "Σχόλια"
-            },
-            {
                 "id": "headerRefNo",
                 "description": "RefNo"
             },

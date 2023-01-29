@@ -1,4 +1,4 @@
-import { EmbarkationPassenger } from './embarkation-passenger-vm'
+import { EmbarkationPassengerVM } from './embarkation-passenger-vm'
 
 export interface EmbarkationVM {
 
@@ -17,6 +17,6 @@ export interface EmbarkationVM {
     remarks: string
     passengerIds: number[]
 
-    passengers: EmbarkationPassenger[]
+    passengers: EmbarkationPassengerVM[]
 
 }

@@ -1,0 +1,43 @@
+<div id="table-wrapper">
+    <p-table #table [scrollable]="true" [value]="passengers" [virtualScrollItemSize]="32" [virtualScroll]="true" scrollHeight="flex" selectionMode="single" sortMode="multiple">
+        <ng-template pTemplate="header">
+            <tr>
+                <th class="width-10" pSortableColumn="lastname">{{ getLabel('headerLastname')}}<p-sortIcon field="lastname"></p-sortIcon></th>
+                <th class="width-10" pSortableColumn="firstname">{{ getLabel('headerFirstname') }}<p-sortIcon field="firstname"></p-sortIcon></th>
+                <th class="width-10" pSortableColumn="nationalityDescription">{{ getLabel('headerCountry') }}<p-sortIcon field="nationalityDescription"></p-sortIcon></th>
+                <th class="width-10" pSortableColumn="isCheckedIn">{{ getLabel('headerStatus') }}<p-sortIcon field="isCheckedIn"></p-sortIcon></th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-passenger>
+            <tr style="height:32px">
+                <td style="max-width: 10rem; min-width: 10rem; width: 10rem;">{{ passenger.lastname }}</td>
+                <td style="max-width: 10rem; min-width: 10rem; width: 10rem;">{{ passenger.firstname }}</td>
+                <td style="max-width: 10rem; min-width: 10rem; width: 10rem; justify-content: left;">
+                    <img [src]="getNationalityIcon(passenger.nationalityCode)" style="vertical-align: middle" />
+                    <span style="overflow: hidden;">&nbsp;&nbsp;{{ passenger.nationalityDescription }}</span>
+                </td>
+                <td (click)="toggleEmbarkationStatus(passenger)" class="embarkation-status" [ngClass]="passenger.isCheckedIn ? 'complete' : 'pending'" style="max-width: 10rem; min-width: 10rem; width: 10rem; text-align: center; margin-left: 3px;">
+                    <span *ngIf="passenger.isCheckedIn">{{ getEmoji('ok') }}</span>
+                    <span *ngIf="!passenger.isCheckedIn">{{ getLabel('pending') }}</span>
+                </td>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="footer">
+            <td></td>
+            <td></td>
+            <td></td>
+            <td style="width: 10%; padding: 0; text-align: center;">
+                <button (click)="doEmbarkation(true, data.passengers)" [disabled]=enableAll() class="primary embark-all-passengers" mat-flat-button>
+                    <mat-icon *ngIf="enableAll()==true" class="button-icon">lock</mat-icon>
+                    <span>{{ getLabel('embarkAllPassengers') }}</span>
+                </button>
+            </td>
+        </ng-template>
+    </p-table>
+</div>
+
+<div id="dialog-footer">
+    <mat-dialog-actions>
+        <button mat-flat-button class="primary" (click)="close()">OK</button>
+    </mat-dialog-actions>
+</div>

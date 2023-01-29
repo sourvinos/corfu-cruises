@@ -1236,10 +1236,6 @@
                 "description": "Nalodění"
             },
             {
-                "id": "headerRemarks",
-                "description": "Komentáře"
-            },
-            {
                 "id": "headerRefNo",
                 "description": "RefNo"
             },

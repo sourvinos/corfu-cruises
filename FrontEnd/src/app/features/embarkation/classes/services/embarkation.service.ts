@@ -27,7 +27,7 @@ export class EmbarkationService extends HttpDataService {
         return this.http.patch(this.url + '/embarkPassenger?', null, { params: params })
     }
 
-    embarkAllPassengers(ignoreCurrentStatus: boolean, id: number[]): Observable<any> {
+    embarkPassengers(ignoreCurrentStatus: boolean, id: number[]): Observable<any> {
         let params = new HttpParams().set('ignoreCurrentStatus', ignoreCurrentStatus)
         params = params.append('id', id[0])
         id.forEach((element, index) => {

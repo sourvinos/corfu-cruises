@@ -51,7 +51,9 @@
 }
 
 #criteria .label, #criteria .description, #filters .label, #filters .description, #overbookings .label, #overbookings .description {
+    align-items: center;
     color: var(--color-button-text);
+    line-height: 0;
     margin-left: auto;
 }
 
@@ -60,8 +62,8 @@
 }
 
 .pi-filter {
-    font-size: 8px;
-    margin-top: 6px;
+    font-size: 0.5rem;
+    margin-top: 0.125rem;
 }
 
 .pi-filter::before {

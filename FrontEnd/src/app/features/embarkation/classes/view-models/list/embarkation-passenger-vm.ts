@@ -1,4 +1,4 @@
-export interface EmbarkationPassenger {
+export interface EmbarkationPassengerVM {
 
     id: number,
     lastname: string,

@@ -1236,10 +1236,6 @@
                 "description": "Embarquement"
             },
             {
-                "id": "headerRemarks",
-                "description": "Remarques"
-            },
-            {
                 "id": "headerRefNo",
                 "description": "RefNo"
             },
