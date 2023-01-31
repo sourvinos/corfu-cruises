@@ -62,7 +62,7 @@ export class AccountService extends HttpDataService {
             { 'item': 'date', 'when': 'always' },
             { 'item': 'scrollLeft', 'when': 'always' },
             { 'item': 'year', 'when': 'always' },
-            //  calendars
+            // Calendars
             { 'item': 'activeYearAvailability', 'when': 'always' },
             { 'item': 'activeYearReservations', 'when': 'always' },
             // Criteria
@@ -94,7 +94,10 @@ export class AccountService extends HttpDataService {
             { 'item': 'pickupPoints', 'when': 'always' },
             { 'item': 'ports', 'when': 'always' },
             { 'item': 'shipOwners', 'when': 'always' },
-            { 'item': 'ships', 'when': 'always' }
+            { 'item': 'ships', 'when': 'always' },
+            { 'item': 'shipRoutes', 'when': 'always' },
+            // Misc
+            { 'item': 'scrollTop', 'when': 'always' }
         ])
     }
 

@@ -53,11 +53,6 @@
     padding: var(--gap) 4rem;
 }
 
-#footer .button-group-right {
-    display: flex;
-    gap: 1rem;
-}
-
 .group-field {
     display: flex;
     gap: 1rem;

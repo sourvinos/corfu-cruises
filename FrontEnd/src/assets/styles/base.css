@@ -126,6 +126,17 @@ ul {
     padding-top: 0.125rem !important;
 }
 
+.button-group-left {
+    display: flex;
+    gap: 1rem;
+}
+
+.button-group-right {
+    display: flex;
+    gap: 1rem;
+    margin-left: auto;
+}
+
 ::-webkit-scrollbar {
     width: 0.8rem;
 }

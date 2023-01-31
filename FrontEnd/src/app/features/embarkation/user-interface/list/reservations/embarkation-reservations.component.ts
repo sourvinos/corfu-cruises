@@ -1,5 +1,5 @@
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router'
-import { ChangeDetectorRef, Component, ViewChild } from '@angular/core'
+import { Component, ViewChild } from '@angular/core'
 import { DateAdapter } from '@angular/material/core'
 import { MatDialog } from '@angular/material/dialog'
 import { Subject } from 'rxjs'
@@ -11,10 +11,9 @@ import { EmbarkationCriteriaVM } from '../../../classes/view-models/criteria/emb
 import { EmbarkationGroupVM } from '../../../classes/view-models/list/embarkation-group-vm'
 import { EmbarkationPDFService } from '../../../classes/services/embarkation-pdf.service'
 import { EmbarkationPassengerListComponent } from '../passengers/embarkation-passengers.component'
-import { EmbarkationPassengerVM } from '../../../classes/view-models/list/embarkation-passenger-vm'
-import { EmbarkationService } from '../../../classes/services/embarkation.service'
+import { EmbarkationVM } from '../../../classes/view-models/list/embarkation-vm'
 import { EmojiService } from 'src/app/shared/services/emoji.service'
-import { HelperService, indicate } from 'src/app/shared/services/helper.service'
+import { HelperService } from 'src/app/shared/services/helper.service'
 import { ListResolved } from 'src/app/shared/classes/list-resolved'
 import { LocalStorageService } from 'src/app/shared/services/local-storage.service'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
@@ -57,46 +56,34 @@ export class EmbarkationReservationsComponent {
     public url = '/embarkation/list'
     public scannerEnabled: boolean
     public searchByTicketNo: string
-    private response: any
     public isLoading = new Subject<boolean>()
 
     //#endregion
 
-    constructor(
-        private activatedRoute: ActivatedRoute,
-        private cd: ChangeDetectorRef,
-        private dateAdapter: DateAdapter<any>,
-        private dateHelperService: DateHelperService,
-        private dialogService: DialogService,
-        private embarkationDisplayService: EmbarkationService,
-        private embarkationPDFService: EmbarkationPDFService,
-        private emojiService: EmojiService,
-        private helperService: HelperService,
-        private localStorageService: LocalStorageService,
-        private messageLabelService: MessageLabelService,
-        private messageSnackbarService: MessageSnackbarService,
-        private modalActionResultService: ModalActionResultService,
-        private router: Router,
-        public dialog: MatDialog) {
+    constructor(private activatedRoute: ActivatedRoute, private dateAdapter: DateAdapter<any>, private dateHelperService: DateHelperService, private dialogService: DialogService, private embarkationPDFService: EmbarkationPDFService, private emojiService: EmojiService, private helperService: HelperService, private localStorageService: LocalStorageService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private modalActionResultService: ModalActionResultService, private router: Router, public dialog: MatDialog) {
         this.router.events.subscribe((navigation) => {
             if (navigation instanceof NavigationEnd) {
                 this.url = navigation.url
                 this.loadRecords().then(() => {
+                    this.scrollToSavedRow()
                     this.populateDropdownFilters()
-                    this.enableDisableFilters()
                     this.updateTotals(this.totals, this.records.reservations)
                     this.updateTotals(this.totalsFiltered, this.records.reservations)
                 })
-                this.populateCriteriaPanelsFromStorage()
-                this.getLocale()
             }
         })
     }
 
     //#region lifecycle hooks
 
-    ngAfterContentChecked(): void {
-        this.cd.detectChanges()
+    ngOnInit(): void {
+        this.populateCriteriaPanelsFromStorage()
+        this.getLocale()
+    }
+
+    ngAfterViewInit(): void {
+        this.enableDisableFilters()
+        this.filterTableFromStoredFilters()
     }
 
     ngOnDestroy(): void {
@@ -107,12 +94,27 @@ export class EmbarkationReservationsComponent {
 
     //#region public methods
 
+    public createPdf(): void {
+        this.embarkationPDFService.createPDF(this.records.reservations)
+    }
+
     public filterRecords(event: { filteredValue: any[] }): void {
         this.updateTotals(this.totalsFiltered, event.filteredValue)
     }
 
     public formatDateToLocale(date: string, showWeekday = false, showYear = false): string {
         return this.dateHelperService.formatISODateToLocale(date, showWeekday, showYear)
+    }
+
+    public getEmbarkationStatusIcon(reservationStatus: string): string {
+        switch (reservationStatus) {
+            case 'OK':
+                return this.getEmoji('green-circle')
+            case 'PENDING':
+                return this.getEmoji('red-circle')
+            default:
+                return this.getEmoji('yellow-circle')
+        }
     }
 
     public getEmoji(emoji: string): string {
@@ -127,17 +129,6 @@ export class EmbarkationReservationsComponent {
         return this.messageLabelService.getDescription(this.feature, id)
     }
 
-    public getStatusText(reservationStatus: string): string {
-        switch (reservationStatus) {
-            case 'OK':
-                return this.getEmoji('green-circle')
-            case 'PENDING':
-                return this.getEmoji('red-circle')
-            default:
-                return this.getEmoji('yellow-circle')
-        }
-    }
-
     public goBack(): void {
         this.router.navigate([this.url])
     }
@@ -146,38 +137,14 @@ export class EmbarkationReservationsComponent {
         return remarks.length > 0 ? true : false
     }
 
-    public createPdf(): void {
-        this.embarkationPDFService.createPDF(this.records.reservations)
-    }
-
-
-    public embarkAllPassengers(ignoreCurrentStatus: boolean, id: number[]): void {
-        this.embarkationDisplayService.embarkPassengers(ignoreCurrentStatus, id).pipe(indicate(this.isLoading)).subscribe({
-            complete: () => {
-                this.refreshList()
-            },
-            error: (errorFromInterceptor) => {
-                this.helperService.doPostSaveFormTasks(this.messageSnackbarService.filterResponse(errorFromInterceptor), 'error', '', false, false)
-            }
-        })
-    }
-
-    public onShowScanner(): void {
-        this.searchByTicketNo = ''
-        this.scannerEnabled = true
-        setTimeout(() => {
-            this.positionVideo()
-        }, 1000)
-    }
-
-    public calculateDifference(totalPersons: number, passengerCount: number): string {
-        if (totalPersons > passengerCount) {
+    public calculateDifference(totalPersons: number, embarkedPassengers: number): string {
+        if (totalPersons > embarkedPassengers) {
             return this.emojiService.getEmoji('warning')
         }
-        if (totalPersons == passengerCount) {
+        if (totalPersons == embarkedPassengers) {
             return this.emojiService.getEmoji('ok')
         }
-        if (totalPersons < passengerCount) {
+        if (totalPersons < embarkedPassengers) {
             return this.emojiService.getEmoji('error')
         }
     }
@@ -186,25 +153,21 @@ export class EmbarkationReservationsComponent {
         this.helperService.clearTableTextFilters(this.table, ['refNo', 'ticketNo', 'totalPersons'])
     }
 
-    public showPassengers(passengers: EmbarkationPassengerVM): void {
-        const response = this.dialog.open(EmbarkationPassengerListComponent, {
-            height: '600px',
-            width: '1000px',
-            data: {
-                passengers: passengers,
-                actions: ['abort', 'ok']
-            },
-            panelClass: 'dialog'
-        })
-        response.afterClosed().subscribe(result => {
-            if (result !== undefined) {
-                console.log('Updating embarkation status icon')
-            }
-        })
+    public showPassengers(reservation: EmbarkationVM): void {
+        this.storeScrollTop()
+        this.showPassengersDialog(reservation)
     }
 
     public showRemarks(remarks: string): void {
         this.dialogService.open(remarks, 'info', ['ok'])
+    }
+
+    public showScannerWindow(): void {
+        this.searchByTicketNo = ''
+        this.scannerEnabled = true
+        setTimeout(() => {
+            this.positionVideo()
+        }, 1000)
     }
 
     //#endregion
@@ -223,6 +186,30 @@ export class EmbarkationReservationsComponent {
         }
     }
 
+    private filterColumn(element: { value: any }, field: string, matchMode: string): void {
+        if (element != undefined && (element.value != null || element.value != undefined)) {
+            this.table.filter(element.value, field, matchMode)
+        }
+    }
+
+    private filterTableFromStoredFilters(): void {
+        const filters = this.localStorageService.getFilters(this.feature)
+        if (filters != undefined) {
+            setTimeout(() => {
+                this.filterColumn(filters.isActive, 'refNo', 'contains')
+                this.filterColumn(filters.description, 'ticketNo', 'contains')
+                this.filterColumn(filters.destinationDescription, 'destinationDescription', 'equals')
+                this.filterColumn(filters.customerDescription, 'customerDescription', 'equals')
+                this.filterColumn(filters.pickupPointDescription, 'pickupPointDescription', 'equals')
+                this.filterColumn(filters.driverDescription, 'driverDescription', 'equals')
+                this.filterColumn(filters.portDescription, 'portDescription', 'equals')
+                this.filterColumn(filters.shipDescription, 'shipDescription', 'equals')
+                this.filterColumn(filters.embarkationStatus, 'embarkationStatus', 'equals')
+                this.filterColumn(filters.email, 'totalPersons', 'contains')
+            }, 500)
+        }
+    }
+
     private getLocale(): void {
         this.dateAdapter.setLocale(this.localStorageService.getLanguage())
     }
@@ -232,7 +219,6 @@ export class EmbarkationReservationsComponent {
             const listResolved: ListResolved = this.activatedRoute.snapshot.data[this.feature]
             if (listResolved.error === null) {
                 this.records = listResolved.list
-                console.log(this.records)
                 resolve(this.records)
             } else {
                 this.modalActionResultService.open(this.messageSnackbarService.filterResponse(listResolved.error), 'error', ['ok']).subscribe(() => {
@@ -250,16 +236,18 @@ export class EmbarkationReservationsComponent {
     }
 
     private populateDropdownFilters(): void {
-        this.distinctCustomers = this.helperService.getDistinctRecords(this.records.reservations, 'customerDescription')
-        this.distinctDestinations = this.helperService.getDistinctRecords(this.records.reservations, 'destinationDescription')
-        this.distinctDrivers = this.helperService.getDistinctRecords(this.records.reservations, 'driverDescription')
-        this.distinctPickupPoints = this.helperService.getDistinctRecords(this.records.reservations, 'pickupPointDescription')
-        this.distinctPorts = this.helperService.getDistinctRecords(this.records.reservations, 'portDescription')
-        this.distinctShips = this.helperService.getDistinctRecords(this.records.reservations, 'shipDescription')
-        this.distinctEmbarkationStates = [
-            { label: this.getLabel('boardedFilter'), value: 'OK' },
-            { label: this.getLabel('pendingFilter'), value: 'PENDING' }
-        ]
+        if (this.records.reservations != null) {
+            this.distinctCustomers = this.helperService.getDistinctRecords(this.records.reservations, 'customerDescription')
+            this.distinctDestinations = this.helperService.getDistinctRecords(this.records.reservations, 'destinationDescription')
+            this.distinctDrivers = this.helperService.getDistinctRecords(this.records.reservations, 'driverDescription')
+            this.distinctPickupPoints = this.helperService.getDistinctRecords(this.records.reservations, 'pickupPointDescription')
+            this.distinctPorts = this.helperService.getDistinctRecords(this.records.reservations, 'portDescription')
+            this.distinctShips = this.helperService.getDistinctRecords(this.records.reservations, 'shipDescription')
+            this.distinctEmbarkationStates = [
+                { label: this.getLabel('boardedFilter'), value: 'OK' },
+                { label: this.getLabel('pendingFilter'), value: 'PENDING' }
+            ]
+        }
     }
 
     private positionVideo(): void {
@@ -268,8 +256,35 @@ export class EmbarkationReservationsComponent {
         document.getElementById('video').style.display = 'flex'
     }
 
-    public refreshList(): void {
-        this.router.navigate([this.url])
+    private scrollToSavedRow(): void {
+        setTimeout(() => {
+            document.getElementsByClassName('p-scroller-inline')[0]?.scrollTo({
+                top: parseInt(this.localStorageService.getItem('scrollTop')) || 0,
+                left: 0,
+                behavior: 'auto'
+            })
+        }, 1000)
+    }
+
+    private showPassengersDialog(reservation: EmbarkationVM): void {
+        const response = this.dialog.open(EmbarkationPassengerListComponent, {
+            height: '500px',
+            width: '800px',
+            data: {
+                reservation: reservation,
+                actions: ['abort', 'ok']
+            },
+            panelClass: 'dialog'
+        })
+        response.afterClosed().subscribe(result => {
+            if (result !== undefined && result == true) {
+                this.router.navigate([this.url])
+            }
+        })
+    }
+
+    private storeScrollTop(): void {
+        this.helperService.storeScrollTop('p-scroller-inline')
     }
 
     private updateTotals(totals: number[], filteredValue: any[]): void {

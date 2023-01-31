@@ -23,24 +23,34 @@
             <p-table #table (onFilter)="filterRecords($event)" [globalFilterFields]="['ticketNo']" [scrollable]="true" [value]="records.reservations" [virtualScrollItemSize]="32" [virtualScroll]="true" dataKey="ticketNo" scrollHeight="flex" selectionMode="single" sortMode="multiple">
                 <ng-template pTemplate="header">
                     <tr>
-                        <th class="width-2"></th>
-                        <th class="width-7" pSortableColumn="refNo">{{ getLabel('headerRefNo') }}<p-sortIcon field="refNo"></p-sortIcon></th>
-                        <th pSortableColumn="ticketNo">{{ getLabel('headerTicketNo') }}<p-sortIcon field="ticketNo"></p-sortIcon></th>
-                        <th class="width-10" pSortableColumn="destinationDescription">{{ getLabel('headerDestination') }}<p-sortIcon field="destinationDescription"></p-sortIcon></th>
-                        <th class="width-10" pSortableColumn="customerDescription">{{ getLabel('headerCustomer') }}<p-sortIcon field="customerDescription"></p-sortIcon></th>
-                        <th class="width-10" pSortableColumn="pickupPointDescription">{{ getLabel('headerPickupPoint') }}<p-sortIcon field="pickupPointDescription"></p-sortIcon></th>
-                        <th class="width-10" pSortableColumn="driverDescription">{{ getLabel('headerDriver') }}<p-sortIcon field="driverDescription"></p-sortIcon></th>
-                        <th class="width-10" pSortableColumn="portDescription">{{ getLabel('headerPort') }}<p-sortIcon field="portDescription"></p-sortIcon></th>
-                        <th class="width-10" pSortableColumn="shipDescription">{{ getLabel('headerShip') }}<p-sortIcon field="shipDescription"></p-sortIcon></th>
+                        <th class="width-5" pSortableColumn="embarkationStatus">{{ getLabel('headerEmbarkationState') }}</th>
+                        <th class="width-7" pSortableColumn="refNo">{{ getLabel('headerRefNo') }}</th>
+                        <th class="width-10" pSortableColumn="ticketNo">{{ getLabel('headerTicketNo') }}</th>
+                        <th class="width-7" pSortableColumn="destinationDescription">{{ getLabel('headerDestination') }}</th>
+                        <th class="width-10" pSortableColumn="customerDescription">{{ getLabel('headerCustomer') }}</th>
+                        <th class="width-10" pSortableColumn="pickupPointDescription">{{ getLabel('headerPickupPoint') }}</th>
+                        <th class="width-7" pSortableColumn="driverDescription">{{ getLabel('headerDriver') }}</th>
+                        <th class="width-7" pSortableColumn="portDescription">{{ getLabel('headerPort') }}</th>
+                        <th class="width-7" pSortableColumn="shipDescription">{{ getLabel('headerShip') }}</th>
                         <th class="width-5">{{ getLabel('headerPersons') }}</th>
                         <th class="width-3">{{ getLabel('headerPlusMinus') }}</th>
-                        <th class="width-10" pSortableColumn="embarkationStatus">{{ getLabel('headerEmbarkationState') }}<p-sortIcon field="embarkationStatus"></p-sortIcon></th>
+                        <th class="width-2"></th>
                     </tr>
                     <tr>
-                        <th class="width-2"></th>
+                        <th class="width-5">
+                            <p-columnFilter field="embarkationStatus" matchMode="contains" [showMenu]="false">
+                                <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+                                    <p-dropdown [ngModel]="value" [options]="distinctEmbarkationStates" (onChange)="filter($event.value)" placeholder="⭐" [showClear]="true">
+                                        <ng-template let-option pTemplate="item">
+                                            <span>{{ option.label }}</span>
+                                        </ng-template>
+                                    </p-dropdown>
+                                </ng-template>
+                            </p-columnFilter>
+                        </th>
                         <th class="width-7"><input type="text" class="p-inputtext" (input)="table.filter($event.target.value, 'refNo', 'contains')" [value]="$any(table).filters['refNo']?.value"></th>
-                        <th><input type="text" class="p-inputtext" (input)="table.filter($event.target.value, 'ticketNo', 'contains')" [value]="$any(table).filters['ticketNo']?.value"></th>
-                        <th class="width-10">
+                        <th class="width-10"><input type="text" class="p-inputtext" (input)="table.filter($event.target.value, 'ticketNo', 'contains')" [value]="$any(table).filters['ticketNo']?.value"></th>
+                        <th class="width-7">
                             <p-columnFilter field="destinationDescription" matchMode="equals" [showMenu]="false">
                                 <ng-template pTemplate="filter" let-value let-filter="filterCallback">
                                     <p-dropdown [disabled]="records.reservations.length==0" [ngModel]="value" [options]="distinctDestinations" (onChange)="filter($event.value)" placeholder="⭐" [showClear]="true">
@@ -73,7 +83,7 @@
                                 </ng-template>
                             </p-columnFilter>
                         </th>
-                        <th class="width-10">
+                        <th class="width-7">
                             <p-columnFilter field="driverDescription" matchMode="equals" [showMenu]="false">
                                 <ng-template pTemplate="filter" let-value let-filter="filterCallback">
                                     <p-dropdown [disabled]="records.reservations.length==0" [ngModel]="value" [options]="distinctDrivers" (onChange)="filter($event.value)" placeholder="⭐" [showClear]="true">
@@ -84,7 +94,7 @@
                                 </ng-template>
                             </p-columnFilter>
                         </th>
-                        <th class="width-10">
+                        <th class="width-7">
                             <p-columnFilter field="portDescription" matchMode="equals" [showMenu]="false">
                                 <ng-template pTemplate="filter" let-value let-filter="filterCallback">
                                     <p-dropdown [disabled]="records.reservations.length==0" [ngModel]="value" [options]="distinctPorts" (onChange)="filter($event.value)" placeholder="⭐" [showClear]="true">
@@ -95,7 +105,7 @@
                                 </ng-template>
                             </p-columnFilter>
                         </th>
-                        <th class="width-10">
+                        <th class="width-7">
                             <p-columnFilter field="shipDescription" matchMode="equals" [showMenu]="false">
                                 <ng-template pTemplate="filter" let-value let-filter="filterCallback">
                                     <p-dropdown [disabled]="records.reservations.length==0" [ngModel]="value" [options]="distinctShips" (onChange)="filter($event.value)" placeholder="⭐" [showClear]="true">
@@ -108,33 +118,23 @@
                         </th>
                         <th class="width-5"><input type="text" class="p-inputtext" (input)="table.filter($event.target.value, 'totalPersons', 'equals')" [value]="$any(table).filters['totalPersons']?.value"></th>
                         <th class="width-3"></th>
-                        <th class="width-10">
-                            <p-columnFilter field="embarkationStatus" matchMode="contains" [showMenu]="false">
-                                <ng-template pTemplate="filter" let-value let-filter="filterCallback">
-                                    <p-dropdown [ngModel]="value" [options]="distinctEmbarkationStates" (onChange)="filter($event.value)" placeholder="⭐" [showClear]="true">
-                                        <ng-template let-option pTemplate="item">
-                                            <span>{{ option.label }}</span>
-                                        </ng-template>
-                                    </p-dropdown>
-                                </ng-template>
-                            </p-columnFilter>
-                        </th>
+                        <th class="width-2"></th>
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="body" let-reservation>
-                    <tr [pSelectableRow]="reservation" (dblclick)="showPassengers(reservation.passengers)" style="height:32px">
-                        <td class="center width-2"><span (click)="showRemarks(reservation.remarks)" [ngClass]="hasRemarks(reservation.remarks)?'clickable':''" *ngIf="hasRemarks(reservation.remarks)">{{ getEmoji('remarks') }}</span></td>
+                    <tr [pSelectableRow]="reservation" (dblclick)="showPassengers(reservation)" style="height:32px">
+                        <td class="center width-5">{{ getEmbarkationStatusIcon(reservation.embarkationStatus) }}</td>
                         <td class="center width-7">{{ reservation.refNo }}</td>
-                        <td class="center">{{ reservation.ticketNo }}</td>
-                        <td class="width-10">{{ reservation.destinationDescription }}</td>
+                        <td class="center width-10">{{ reservation.ticketNo }}</td>
+                        <td class="width-7">{{ reservation.destinationDescription }}</td>
                         <td class="width-10">{{ reservation.customerDescription }}</td>
                         <td class="width-10">{{ reservation.pickupPointDescription }}</td>
-                        <td class="width-10">{{ reservation.driverDescription }}</td>
-                        <td class="width-10">{{ reservation.portDescription }}</td>
-                        <td class="width-10">{{ reservation.shipDescription }}</td>
+                        <td class="width-7">{{ reservation.driverDescription }}</td>
+                        <td class="width-7">{{ reservation.portDescription }}</td>
+                        <td class="width-7">{{ reservation.shipDescription }}</td>
                         <td class="center width-5">{{ reservation.totalPersons }}</td>
                         <td class="center width-3">{{ calculateDifference(reservation.totalPersons, reservation.passengers.length) }}</td>
-                        <td class="center width-10">{{ getStatusText(reservation.embarkationStatus) }}</td>
+                        <td class="center width-2"><span (click)="showRemarks(reservation.remarks)" [ngClass]="hasRemarks(reservation.remarks)?'clickable':''" *ngIf="hasRemarks(reservation.remarks)">{{ getEmoji('remarks') }}</span></td>
                     </tr>
                 </ng-template>
             </p-table>
@@ -167,7 +167,7 @@
                 <mat-icon *ngIf="records.reservations.length == 0" class="button-icon">lock</mat-icon>
                 <span>{{ getLabel("createPDF") }}</span>
             </button>
-            <button (click)="onShowScanner()" [disabled]="records.reservations.length == 0" class="primary" mat-flat-button>
+            <button (click)="showScannerWindow()" [disabled]="records.reservations.length == 0" class="primary" mat-flat-button>
                 <mat-icon *ngIf="records.reservations.length == 0" class="button-icon">lock</mat-icon>
                 <span>{{ getLabel('scanOpenButton') }}</span>
             </button>

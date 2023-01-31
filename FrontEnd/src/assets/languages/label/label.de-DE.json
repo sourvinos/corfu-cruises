@@ -1276,10 +1276,6 @@
                 "description": "+/-"
             },
             {
-                "id": "headerEmbarkationState",
-                "description": "Einschiffung"
-            },
-            {
                 "id": "headerLastname",
                 "description": "Name"
             },
@@ -1296,10 +1292,6 @@
                 "description": "Einschiffung"
             },
             {
-                "id": "no-results",
-                "description": "Wir haben nichts gefunden!"
-            },
-            {
                 "id": "criteria-destinations",
                 "description": "Reiseziele"
             },
@@ -1310,22 +1302,6 @@
             {
                 "id": "criteria-ships",
                 "description": "Schiffe"
-            },
-            {
-                "id": "criteriaEmbarkedPassengers",
-                "description": "Eingeschiffte"
-            },
-            {
-                "id": "criteriaPendingPersons",
-                "description": "Ausstehende"
-            },
-            {
-                "id": "boarded",
-                "description": "OK"
-            },
-            {
-                "id": "pending",
-                "description": "EINSCHIFFEN"
             },
             {
                 "id": "boardedFilter",
@@ -1352,8 +1328,8 @@
                 "description": "EMBARK ALLES"
             },
             {
-                "id": "no-passengers",
-                "description": "Wir haben keine Passagiere gefunden!"
+                "id": "okButton",
+                "description": "OK"
             }
         ]
     },

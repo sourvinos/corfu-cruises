@@ -26,18 +26,6 @@
     padding: var(--gap) 4rem;
 }
 
-#footer .button-group-right {
-    display: flex;
-    gap: 1rem;
-    margin-left: auto;
-}
-
-#footer .button-group-left {
-    display: flex;
-    gap: 1rem;
-    margin-right: auto;
-}
-
 .is-active {
     color: var(--color-list-active-item);
 }

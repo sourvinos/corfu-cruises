@@ -1276,10 +1276,6 @@
                 "description": "+/-"
             },
             {
-                "id": "headerEmbarkationState",
-                "description": "Επιβίβαση"
-            },
-            {
                 "id": "headerLastname",
                 "description": "Επώνυμο"
             },
@@ -1296,10 +1292,6 @@
                 "description": "Επιβίβαση"
             },
             {
-                "id": "no-results",
-                "description": "Δεν βρήκαμε τίποτα!"
-            },
-            {
                 "id": "criteria-destinations",
                 "description": "Προορισμοί"
             },
@@ -1310,22 +1302,6 @@
             {
                 "id": "criteria-ships",
                 "description": "Πλοία"
-            },
-            {
-                "id": "criteriaEmbarkedPassengers",
-                "description": "Επιβιβασμένοι"
-            },
-            {
-                "id": "criteriaPendingPersons",
-                "description": "Σε εκκρεμότητα"
-            },
-            {
-                "id": "boarded",
-                "description": "ΟΚ"
-            },
-            {
-                "id": "pending",
-                "description": "ΕΠΙΒΙΒΑΣΗ"
             },
             {
                 "id": "boardedFilter",
@@ -1352,8 +1328,8 @@
                 "description": "ΕΠΙΒΙΒΑΣΗ ΟΛΩΝ"
             },
             {
-                "id": "no-passengers",
-                "description": "Δεν βρήκαμε κανέναν επιβάτη!"
+                "id": "okButton",
+                "description": "OK"
             }
         ]
     },

@@ -1276,10 +1276,6 @@
                 "description": "+/-"
             },
             {
-                "id": "headerEmbarkationState",
-                "description": "Nalodění"
-            },
-            {
                 "id": "headerLastname",
                 "description": "Příjmení"
             },
@@ -1296,10 +1292,6 @@
                 "description": "Nalodění"
             },
             {
-                "id": "no-results",
-                "description": "Nic jsme nenašli!"
-            },
-            {
                 "id": "criteria-destinations",
                 "description": "Destinace"
             },
@@ -1310,22 +1302,6 @@
             {
                 "id": "criteria-ships",
                 "description": "Lodě"
-            },
-            {
-                "id": "criteriaEmbarkedPassengers",
-                "description": "Nastoupivší"
-            },
-            {
-                "id": "criteriaPendingPersons",
-                "description": "Čeká se na"
-            },
-            {
-                "id": "boarded",
-                "description": "OK"
-            },
-            {
-                "id": "pending",
-                "description": "NALODĚNÍ"
             },
             {
                 "id": "boardedFilter",
@@ -1352,8 +1328,8 @@
                 "description": "EMBARK VŠE"
             },
             {
-                "id": "no-passengers",
-                "description": "Nenašli jsme žádné cestující!"
+                "id": "okButton",
+                "description": "OK"
             }
         ]
     },
@@ -1502,10 +1478,6 @@
             {
                 "id": "headerNoShow",
                 "description": "Ž/P"
-            },
-            {
-                "id": "headerNoShow",
-                "description": ""
             },
             {
                 "id": "createPdfButton",

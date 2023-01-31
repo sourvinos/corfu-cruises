@@ -1,14 +1,14 @@
 import { Component, Inject, NgZone } from '@angular/core'
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog'
 import { Subject } from 'rxjs'
-import { indicate } from 'src/app/shared/services/helper.service'
 // Custom
 import { EmbarkationPassengerVM } from '../../../classes/view-models/list/embarkation-passenger-vm'
 import { EmbarkationService } from '../../../classes/services/embarkation.service'
+import { EmbarkationVM } from '../../../classes/view-models/list/embarkation-vm'
 import { EmojiService } from './../../../../../shared/services/emoji.service'
+import { HelperService, indicate } from 'src/app/shared/services/helper.service'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { environment } from 'src/environments/environment'
-import { TempPassengerVM } from '../../../classes/view-models/list/temp-passenger-vm'
 
 @Component({
     selector: 'embarkation-passengers',
@@ -21,32 +21,22 @@ export class EmbarkationPassengerListComponent {
     //#region variables
 
     private feature = 'embarkationList'
-    private tempPassengers: TempPassengerVM[] = []
-    public passengers: EmbarkationPassengerVM[]
+    public reservation: EmbarkationVM
+    public initialReservation: EmbarkationVM
     public isLoading = new Subject<boolean>()
 
     //#endregion
 
-    constructor(@Inject(MAT_DIALOG_DATA) public data: any, private dialogRef: MatDialogRef<EmbarkationPassengerListComponent>, private embarkationService: EmbarkationService, private emojiService: EmojiService, private messageLabelService: MessageLabelService, private ngZone: NgZone) {
-        this.passengers = data.passengers
-        console.log(data.passengers)
-    }
-
-    ngOnInit(): void {
-        this.data.passengers.forEach((passenger: { id: any; isCheckedIn: any }) => {
-            this.tempPassengers.push({
-                id: passenger.id,
-                isCheckedIn: passenger.isCheckedIn
-            })
-        })
-        console.log('Init', this.tempPassengers)
+    constructor(@Inject(MAT_DIALOG_DATA) public data: any, private dialogRef: MatDialogRef<EmbarkationPassengerListComponent>, private embarkationService: EmbarkationService, private emojiService: EmojiService, private helperService: HelperService, private messageLabelService: MessageLabelService, private ngZone: NgZone) {
+        this.reservation = data.reservation
+        this.initialReservation = JSON.parse(JSON.stringify(this.reservation))
     }
 
     //#region public methods
 
     public close(): void {
         this.ngZone.run(() => {
-            this.dialogRef.close(this.passengers)
+            this.dialogRef.close(this.listMustBeRefreshed())
         })
     }
 
@@ -58,10 +48,8 @@ export class EmbarkationPassengerListComponent {
         this.embarkationService.embarkPassengers(ignoreCurrentStatus, ids).pipe(indicate(this.isLoading)).subscribe({
             complete: () => {
                 passengers.forEach(passenger => {
-                    const z = this.passengers.find(x => x.id == passenger.id)
-                    if (ignoreCurrentStatus == false) {
-                        z.isCheckedIn = !z.isCheckedIn
-                    }
+                    const z = this.reservation.passengers.find(x => x.id == passenger.id)
+                    z.isCheckedIn = ignoreCurrentStatus || !z.isCheckedIn
                 })
             }
         })
@@ -85,9 +73,16 @@ export class EmbarkationPassengerListComponent {
         return environment.nationalitiesIconDirectory + nationalityCode.toLowerCase() + '.png'
     }
 
-    public enableAll(): boolean {
-        const z = this.passengers.filter(x => x.isCheckedIn == false)
-        return z.length == 0
+    public isEmbarkAllAllowed(): boolean {
+        return this.reservation.passengers.filter(x => x.isCheckedIn == false).length == 0
+    }
+
+    //#endregion
+
+    //#region private methods
+
+    private listMustBeRefreshed(): boolean {
+        return !this.helperService.deepEqual(this.initialReservation.passengers, this.reservation.passengers)
     }
 
     //#endregion

@@ -1276,10 +1276,6 @@
                 "description": "+/-"
             },
             {
-                "id": "headerEmbarkationState",
-                "description": "Embarkation"
-            },
-            {
                 "id": "headerLastname",
                 "description": "Lastname"
             },
@@ -1296,10 +1292,6 @@
                 "description": "Embarkation"
             },
             {
-                "id": "no-results",
-                "description": "We found nothing!"
-            },
-            {
                 "id": "criteria-destinations",
                 "description": "Destinations"
             },
@@ -1310,22 +1302,6 @@
             {
                 "id": "criteria-ships",
                 "description": "Πλοία"
-            },
-            {
-                "id": "criteriaEmbarkedPassengers",
-                "description": "Embarked"
-            },
-            {
-                "id": "criteriaPendingPersons",
-                "description": "Pending"
-            },
-            {
-                "id": "boarded",
-                "description": "OK"
-            },
-            {
-                "id": "pending",
-                "description": "EMBARK"
             },
             {
                 "id": "boardedFilter",
@@ -1352,8 +1328,8 @@
                 "description": "EMBARK ALL"
             },
             {
-                "id": "no-passengers",
-                "description": "We didn't find any passengers!"
+                "id": "okButton",
+                "description": "OK"
             }
         ]
     },

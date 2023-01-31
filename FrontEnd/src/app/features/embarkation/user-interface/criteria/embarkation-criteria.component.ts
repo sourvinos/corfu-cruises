@@ -164,6 +164,7 @@ export class EmbarkationCriteriaComponent {
     }
 
     private navigateToList(): void {
+        this.localStorageService.deleteItems([{ 'item': 'scrollTop', 'when': 'always' }])
         this.router.navigate(['embarkation/list'])
     }
 

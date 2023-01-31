@@ -9,7 +9,7 @@
 .mat-dialog-container {
     background-color: var(--color-a);
     overflow: hidden !important;
-    padding: 2rem !important;
+    padding: 2rem 0.6rem 2rem 2rem !important;
 }
 
 #dialog {
@@ -49,9 +49,10 @@
 }
 
 #dialog-footer {
+    display: flex !important;
+    justify-content: space-between !important;
     margin-top: auto;
     padding: 1.5rem 1rem 0 0;
-    text-align: end;
 }
 
 .mat-dialog-actions {

@@ -22,7 +22,7 @@ button.primary {
 
 button.secondary {
     background-color: var(--color-button-background-secondary) !important;
-    color: var(--color-c) !important;
+    color: var(--color-button-text) !important;
 }
 
 button.primary:hover:not([disabled]) {
@@ -52,7 +52,7 @@ button.transparent {
 }
 
 button.transparent:hover {
-    background-color: var(--color-button-background-primary) !important;
+    background-color: var(--color-button-background-secondary) !important;
     color: var(--color-button-text) !important;
 }
 

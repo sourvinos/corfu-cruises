@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core'
 import { Router } from '@angular/router'
+import { Table } from 'primeng/table'
 import { defer, finalize, Observable, Subject } from 'rxjs'
 // Custom
+import { LocalStorageService } from './local-storage.service'
 import { ModalActionResultService } from './modal-action-result.service'
-import { Table } from 'primeng/table'
 import { environment } from 'src/environments/environment'
 
 export function prepare<T>(callback: () => void): (source: Observable<T>) => Observable<T> {
@@ -30,7 +31,7 @@ export class HelperService {
 
     //#endregion
 
-    constructor(private modalActionResultService: ModalActionResultService, private router: Router) { }
+    constructor(private localStorageService: LocalStorageService, private modalActionResultService: ModalActionResultService, private router: Router) { }
 
     //#region public methods
 
@@ -188,6 +189,39 @@ export class HelperService {
             }
             return 0
         })
+    }
+
+    public storeScrollTop(element: string): void {
+        const body = document.getElementsByClassName(element)[0]
+        this.localStorageService.saveItem('scrollTop', body.scrollTop.toString())
+    }
+
+    public deepEqual(object1: any, object2: any): boolean {
+        const keys1 = Object.keys(object1)
+        const keys2 = Object.keys(object2)
+        if (keys1.length !== keys2.length) {
+            return false
+        }
+        for (const key of keys1) {
+            const val1 = object1[key]
+            const val2 = object2[key]
+            const areObjects = this.isObject(val1) && this.isObject(val2)
+            if (
+                areObjects && !this.deepEqual(val1, val2) ||
+                !areObjects && val1 !== val2
+            ) {
+                return false
+            }
+        }
+        return true
+    }
+
+    //#endregion
+
+    //#region private methods
+
+    private isObject(object: any): boolean {
+        return object != null && typeof object === 'object'
     }
 
     //#endregion

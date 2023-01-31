@@ -1,7 +1,11 @@
-:host {
-    height: 100%;
-}
-
 #table-wrapper {
     margin: 0 !important;
+}
+
+#dialog-footer {
+    padding-right: 1.5rem !important;
+}
+
+.embarkation-status:hover {
+    cursor: pointer;
 }
