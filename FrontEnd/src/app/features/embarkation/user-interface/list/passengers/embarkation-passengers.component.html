@@ -1,7 +1,10 @@
 <div id="dialog">
 
     <div id="dialog-header">
-        <h1 mat-dialog-title>{{ reservation.refNo }}, {{ reservation.ticketNo }}</h1>
+        <h1 mat-dialog-title>
+            <span>{{ getLabel('headerRefNo') }}: </span><span class="title">{{ reservation.refNo }}</span>&nbsp;&nbsp;
+            <span>{{ getLabel('headerTicketNo') }}: </span><span class="title">{{ reservation.ticketNo }}</span>
+        </h1>
     </div>
 
     <div id="table-wrapper">

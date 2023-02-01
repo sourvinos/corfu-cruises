@@ -53,10 +53,6 @@
     background-color: var(--color-f) !important;
 }
 
-.p-datatable .p-datatable-tbody > tr:not(.no-hover):hover {
-    background-color: var(--color-f) !important;
-}
-
 .p-datatable .p-datatable-tbody > tr {
     background-color: transparent !important;
 }
@@ -74,7 +70,7 @@
     overflow: hidden !important;
     padding: 0.4375rem 0.5rem;
     text-overflow: ellipsis !important;
-    transition: all var(--theme-change-delay) ease-in;
+    transition: background-color var(--theme-change-delay) ease-in, color var(--theme-change-delay) ease-in;
     white-space: nowrap !important;
 }
 

@@ -8,3 +8,7 @@
     flex-direction: row;
     height: 100%;
 }
+
+.boo td:first-child {
+    border-left: 2px solid red;
+}

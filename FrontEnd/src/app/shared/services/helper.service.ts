@@ -216,6 +216,13 @@ export class HelperService {
         return true
     }
 
+    public unHighlightAllRows(): void {
+        const x = document.querySelectorAll('.p-highlight')
+        x.forEach(row => {
+            row.classList.remove('p-highlight')
+        })
+    }
+
     //#endregion
 
     //#region private methods

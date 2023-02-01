@@ -65,10 +65,12 @@ export class EmbarkationReservationsComponent {
             if (navigation instanceof NavigationEnd) {
                 this.url = navigation.url
                 this.loadRecords().then(() => {
-                    this.scrollToSavedRow()
-                    this.populateDropdownFilters()
-                    this.updateTotals(this.totals, this.records.reservations)
-                    this.updateTotals(this.totalsFiltered, this.records.reservations)
+                    this.scrollToSavedRow().then(() => {
+                        this.highlightRowFromStorage()
+                        this.populateDropdownFilters()
+                        this.updateTotals(this.totals, this.records.reservations)
+                        this.updateTotals(this.totalsFiltered, this.records.reservations)
+                    })
                 })
             }
         })
@@ -155,6 +157,8 @@ export class EmbarkationReservationsComponent {
 
     public showPassengers(reservation: EmbarkationVM): void {
         this.storeScrollTop()
+        this.storeSelectedRefNo(reservation)
+        this.highlightRow(reservation)
         this.showPassengersDialog(reservation)
     }
 
@@ -168,6 +172,10 @@ export class EmbarkationReservationsComponent {
         setTimeout(() => {
             this.positionVideo()
         }, 1000)
+    }
+
+    public unHighlightAllRows(): void {
+        this.helperService.unHighlightAllRows()
     }
 
     //#endregion
@@ -214,8 +222,18 @@ export class EmbarkationReservationsComponent {
         this.dateAdapter.setLocale(this.localStorageService.getLanguage())
     }
 
+    private highlightRow(reservation: EmbarkationVM): void {
+        document.getElementById(reservation.refNo)?.classList.add('p-highlight')
+    }
+
+    private highlightRowFromStorage(): void {
+        setTimeout(() => {
+            document.getElementById(this.localStorageService.getItem('refNo'))?.classList.add('p-highlight')
+        }, 1000)
+    }
+
     private loadRecords(): Promise<any> {
-        const promise = new Promise((resolve) => {
+        return new Promise((resolve) => {
             const listResolved: ListResolved = this.activatedRoute.snapshot.data[this.feature]
             if (listResolved.error === null) {
                 this.records = listResolved.list
@@ -226,7 +244,6 @@ export class EmbarkationReservationsComponent {
                 })
             }
         })
-        return promise
     }
 
     private populateCriteriaPanelsFromStorage(): void {
@@ -236,7 +253,7 @@ export class EmbarkationReservationsComponent {
     }
 
     private populateDropdownFilters(): void {
-        if (this.records.reservations != null) {
+        if (this.records != null) {
             this.distinctCustomers = this.helperService.getDistinctRecords(this.records.reservations, 'customerDescription')
             this.distinctDestinations = this.helperService.getDistinctRecords(this.records.reservations, 'destinationDescription')
             this.distinctDrivers = this.helperService.getDistinctRecords(this.records.reservations, 'driverDescription')
@@ -256,14 +273,17 @@ export class EmbarkationReservationsComponent {
         document.getElementById('video').style.display = 'flex'
     }
 
-    private scrollToSavedRow(): void {
-        setTimeout(() => {
-            document.getElementsByClassName('p-scroller-inline')[0]?.scrollTo({
-                top: parseInt(this.localStorageService.getItem('scrollTop')) || 0,
-                left: 0,
-                behavior: 'auto'
-            })
-        }, 1000)
+    private scrollToSavedRow(): Promise<any> {
+        return new Promise((resolve) => {
+            setTimeout(() => {
+                document.getElementsByClassName('p-scroller-inline')[0]?.scrollTo({
+                    top: parseInt(this.localStorageService.getItem('scrollTop')) || 0,
+                    left: 0,
+                    behavior: 'auto'
+                })
+                resolve(null)
+            }, 0)
+        })
     }
 
     private showPassengersDialog(reservation: EmbarkationVM): void {
@@ -281,6 +301,10 @@ export class EmbarkationReservationsComponent {
                 this.router.navigate([this.url])
             }
         })
+    }
+
+    private storeSelectedRefNo(reservation: EmbarkationVM): void {
+        this.localStorageService.saveItem('refNo', reservation.refNo)
     }
 
     private storeScrollTop(): void {
