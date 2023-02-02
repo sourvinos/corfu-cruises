@@ -4,6 +4,7 @@ import { MatDialog } from '@angular/material/dialog'
 import { Subject } from 'rxjs'
 import { Table } from 'primeng/table'
 // Custom
+import { ConnectedUser } from 'src/app/shared/classes/connected-user'
 import { DateHelperService } from 'src/app/shared/services/date-helper.service'
 import { HelperService } from 'src/app/shared/services/helper.service'
 import { LedgerCriteriaVM } from '../../../classes/view-models/criteria/ledger-criteria-vm'
@@ -113,7 +114,7 @@ export class LedgerCustomerListComponent {
     }
 
     public getConnectedUserRole(): void {
-        this.isAdmin = this.localStorageService.getItem('isAdmin') == 'true'
+        this.isAdmin = ConnectedUser.isAdmin
     }
 
     private loadRecords(): void {

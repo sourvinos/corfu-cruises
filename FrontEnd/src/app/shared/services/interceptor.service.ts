@@ -60,12 +60,11 @@ export class InterceptorService {
             return this.accountService.getNewRefreshToken().pipe(
                 switchMap((tokenresponse: any) => {
                     if (tokenresponse) {
-                        this.tokenSubject.next(tokenresponse.response.token)
+                        this.tokenSubject.next(tokenresponse.token)
                         localStorage.setItem('loginStatus', '1')
-                        localStorage.setItem('jwt', tokenresponse.response.token)
-                        localStorage.setItem('displayname', tokenresponse.response.displayname)
-                        localStorage.setItem('expiration', tokenresponse.response.expiration)
-                        localStorage.setItem('refreshToken', tokenresponse.response.refreshToken)
+                        localStorage.setItem('jwt', tokenresponse.token)
+                        localStorage.setItem('expiration', tokenresponse.expiration)
+                        localStorage.setItem('refreshToken', tokenresponse.refreshToken)
                         console.log('Token refreshed after expiration')
                         return next.handle(this.attachTokenToRequest(request))
                     }

@@ -6,6 +6,7 @@ import { Router } from '@angular/router'
 import { Subject } from 'rxjs'
 import { takeUntil } from 'rxjs/operators'
 // Custom
+import { ConnectedUser } from 'src/app/shared/classes/connected-user'
 import { DateHelperService } from 'src/app/shared/services/date-helper.service'
 import { EmojiService } from './../../../../shared/services/emoji.service'
 import { FieldsetCriteriaService } from 'src/app/shared/services/fieldset-criteria.service'
@@ -130,7 +131,7 @@ export class LedgerCriteriaComponent {
     private doSimpleUserTasks(): void {
         if (this.isAdmin == false) {
             if (this.localStorageService.getItem('ledger-criteria') == '') {
-                const customer = this.customers.find(x => x.id == parseInt(this.localStorageService.getItem('customerId')))
+                const customer = this.customers.find(x => x.id == ConnectedUser.customerId)
                 const controls = this.form.controls['customers'] as FormArray
                 controls.push(new FormControl({
                     'id': customer.id,
@@ -160,7 +161,7 @@ export class LedgerCriteriaComponent {
     }
 
     public getConnectedUserRole(): void {
-        this.isAdmin = this.localStorageService.getItem('isAdmin') == 'true'
+        this.isAdmin = ConnectedUser.isAdmin
     }
 
     private initForm(): void {

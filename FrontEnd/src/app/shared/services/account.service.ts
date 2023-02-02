@@ -58,6 +58,7 @@ export class AccountService extends HttpDataService {
             { 'item': 'loginStatus', 'when': 'always' },
             { 'item': 'refreshToken', 'when': 'always' },
             { 'item': 'returnUrl', 'when': 'always' },
+            { 'item': 'isAdmin', 'when': 'always' },
             // Reservations
             { 'item': 'date', 'when': 'always' },
             { 'item': 'scrollLeft', 'when': 'always' },
@@ -67,7 +68,7 @@ export class AccountService extends HttpDataService {
             { 'item': 'activeYearReservations', 'when': 'always' },
             // Criteria
             { 'item': 'embarkation-criteria', 'when': 'production' },
-            { 'item': 'ledger-criteria', 'when': 'production' },
+            { 'item': 'ledger-criteria', 'when': 'always' },
             { 'item': 'manifest-criteria', 'when': 'production' },
             // Table filters
             { 'item': 'coachRoute-list', 'when': 'always' },
@@ -97,7 +98,8 @@ export class AccountService extends HttpDataService {
             { 'item': 'ships', 'when': 'always' },
             { 'item': 'shipRoutes', 'when': 'always' },
             // Misc
-            { 'item': 'scrollTop', 'when': 'always' }
+            { 'item': 'scrollTop', 'when': 'always' },
+            { 'item': 'refNo', 'when': 'always' }
         ])
     }
 
@@ -114,14 +116,14 @@ export class AccountService extends HttpDataService {
     }
 
     public getNewRefreshToken(): Observable<any> {
-        const userId = localStorage.getItem('userId')
+        const userId = ConnectedUser.id
         const refreshToken = localStorage.getItem('refreshToken')
         const grantType = 'refresh_token'
         return this.http.post<any>(this.urlToken, { userId, refreshToken, grantType }).pipe(
             map(response => {
-                if (response.response.token) {
+                if (response.token) {
                     this.setLoginStatus(true)
-                    this.setAuthSettings(response.response)
+                    this.setAuthSettings(response)
                 }
                 return <any>response
             })
@@ -192,8 +194,6 @@ export class AccountService extends HttpDataService {
         localStorage.setItem('jwt', response.token)
         localStorage.setItem('loginStatus', '1')
         localStorage.setItem('refreshToken', response.refreshToken)
-        localStorage.setItem('isAdmin', response.isAdmin)
-        localStorage.setItem('customerId', response.customerId != undefined ? response.customerId : null)
     }
 
     private populateStorageFromAPI(): void {
