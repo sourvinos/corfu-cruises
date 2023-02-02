@@ -1,5 +1,5 @@
 #table-wrapper {
-    margin-left: 1rem;
+    margin: 0 1.75rem 0 1rem;
     width: 100%;
 }
 
@@ -9,6 +9,11 @@
     height: 100%;
 }
 
-.boo td:first-child {
-    border-left: 2px solid red;
+@media only screen and (max-width: 1919px) {
+    #criteria-panel {
+        display: none !important;
+    }
+    #table-wrapper {
+        margin: 0 1.75rem 0 3rem;
+    }
 }

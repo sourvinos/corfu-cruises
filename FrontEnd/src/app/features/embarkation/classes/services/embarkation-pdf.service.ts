@@ -10,7 +10,6 @@ import pdfFonts from 'pdfmake/build/vfs_fonts'
 import pdfMake from 'pdfmake/build/pdfmake'
 import { strAkaAcidCanterBold } from '../../../../../assets/fonts/Aka-Acid-CanterBold.Base64.encoded'
 import { strPFHandbookPro } from '../../../../../assets/fonts/PF-Handbook-Pro.Base64.encoded'
-import { strSimplifica } from '../../../../../assets/fonts/Simplifica.Base64.encoded'
 
 pdfMake.vfs = pdfFonts.pdfMake.vfs
 
@@ -53,9 +52,6 @@ export class EmbarkationPDFService {
                 PFHandbookPro: {
                     font: 'PFHandbookPro',
                 },
-                Simplifica: {
-                    font: 'Simplifica',
-                },
                 paddingLeft: {
                     margin: [40, 0, 0, 0]
                 },
@@ -86,7 +82,7 @@ export class EmbarkationPDFService {
         if (this.localStorageService.getItem('embarkation-criteria')) {
             const criteria = JSON.parse(this.localStorageService.getItem('embarkation-criteria'))
             return {
-                'date': criteria.date
+                'date': criteria.fromDate
             }
         }
     }
@@ -151,16 +147,12 @@ export class EmbarkationPDFService {
     private setFonts(): void {
         pdfFonts.pdfMake.vfs['AkaAcidCanterBold'] = strAkaAcidCanterBold
         pdfFonts.pdfMake.vfs['PFHandbookPro'] = strPFHandbookPro
-        pdfFonts.pdfMake.vfs['Simplifica'] = strSimplifica
         pdfMake.fonts = {
             PFHandbookPro: {
                 normal: 'PFHandbookPro',
             },
             AkaAcidCanterBold: {
                 normal: 'AkaAcidCanterBold'
-            },
-            Simplifica: {
-                normal: 'Simplifica'
             }
         }
     }
@@ -189,9 +181,9 @@ export class EmbarkationPDFService {
             type: 'none',
             margin: [0, 0, 0, 0],
             ul: [
-                { text: 'CORFU CRUISES', fontSize: 14, style: 'AkaAcidCanterBold' },
-                { text: 'ΚΑΤΑΣΤΑΣΗ ΕΠΙΒΙΒΑΣΗΣ', fontSize: 18, style: 'Simplifica' },
-                { text: this.dateHelperService.formatISODateToLocale(criteriaFromStorage.date, true), fontSize: 12, style: 'Simplifica' },
+                { text: 'CORFU CRUISES' },
+                { text: 'ΚΑΤΑΣΤΑΣΗ ΕΠΙΒΙΒΑΣΗΣ', fontSize: 13, style: 'AkaAcidCanterBold' },
+                { text: this.dateHelperService.formatISODateToLocale(criteriaFromStorage.date, true) },
                 { text: ' ' },
                 { text: ' ' }
 

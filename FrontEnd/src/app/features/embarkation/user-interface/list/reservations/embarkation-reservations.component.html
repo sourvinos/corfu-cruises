@@ -24,11 +24,11 @@
                 <ng-template pTemplate="header">
                     <tr>
                         <th class="width-5" pSortableColumn="embarkationStatus">{{ getLabel('headerEmbarkationState') }}</th>
-                        <th class="width-7" pSortableColumn="refNo">{{ getLabel('headerRefNo') }}</th>
+                        <th class="width-5" pSortableColumn="refNo">{{ getLabel('headerRefNo') }}</th>
                         <th class="width-10" pSortableColumn="ticketNo">{{ getLabel('headerTicketNo') }}</th>
                         <th class="width-7" pSortableColumn="destinationDescription">{{ getLabel('headerDestination') }}</th>
-                        <th class="width-10" pSortableColumn="customerDescription">{{ getLabel('headerCustomer') }}</th>
-                        <th class="width-10" pSortableColumn="pickupPointDescription">{{ getLabel('headerPickupPoint') }}</th>
+                        <th class="width-7" pSortableColumn="customerDescription">{{ getLabel('headerCustomer') }}</th>
+                        <th class="width-8" pSortableColumn="pickupPointDescription">{{ getLabel('headerPickupPoint') }}</th>
                         <th class="width-7" pSortableColumn="driverDescription">{{ getLabel('headerDriver') }}</th>
                         <th class="width-7" pSortableColumn="portDescription">{{ getLabel('headerPort') }}</th>
                         <th class="width-7" pSortableColumn="shipDescription">{{ getLabel('headerShip') }}</th>
@@ -48,7 +48,7 @@
                                 </ng-template>
                             </p-columnFilter>
                         </th>
-                        <th class="width-7"><input type="text" class="p-inputtext" (input)="table.filter($event.target.value, 'refNo', 'contains')" [value]="$any(table).filters['refNo']?.value"></th>
+                        <th class="width-5"><input type="text" class="p-inputtext" (input)="table.filter($event.target.value, 'refNo', 'contains')" [value]="$any(table).filters['refNo']?.value"></th>
                         <th class="width-10"><input type="text" class="p-inputtext" (input)="table.filter($event.target.value, 'ticketNo', 'contains')" [value]="$any(table).filters['ticketNo']?.value"></th>
                         <th class="width-7">
                             <p-columnFilter field="destinationDescription" matchMode="equals" [showMenu]="false">
@@ -61,7 +61,7 @@
                                 </ng-template>
                             </p-columnFilter>
                         </th>
-                        <th class="width-10">
+                        <th class="width-7">
                             <p-columnFilter field="customerDescription" matchMode="equals" [showMenu]="true">
                                 <ng-template pTemplate="filter" let-value let-filter="filterCallback">
                                     <p-dropdown [disabled]="records.reservations.length==0" [ngModel]="value" [options]="distinctCustomers" (onChange)="filter($event.value)" placeholder="⭐" [showClear]="true">
@@ -72,7 +72,7 @@
                                 </ng-template>
                             </p-columnFilter>
                         </th>
-                        <th class="width-10">
+                        <th class="width-8">
                             <p-columnFilter field="pickupPointDescription" matchMode="equals" [showMenu]="false">
                                 <ng-template pTemplate="filter" let-value let-filter="filterCallback">
                                     <p-dropdown [disabled]="records.reservations.length==0" [ngModel]="value" [options]="distinctPickupPoints" (onChange)="filter($event.value)" placeholder="⭐" [showClear]="true">
@@ -122,13 +122,13 @@
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="body" let-reservation>
-                    <tr [attr.id]=reservation.refNo [pSelectableRow]="reservation" (click)="unHighlightAllRows()"(dblclick)="showPassengers(reservation)" style="height:32px">
+                    <tr [attr.id]=reservation.refNo [pSelectableRow]="reservation" (click)="unHighlightAllRows()" (dblclick)="showPassengers(reservation)" style="height:32px">
                         <td class="border-left center width-5">{{ getEmbarkationStatusIcon(reservation.embarkationStatus) }}</td>
-                        <td class="center width-7">{{ reservation.refNo }}</td>
+                        <td class="center width-5">{{ reservation.refNo }}</td>
                         <td class="center width-10">{{ reservation.ticketNo }}</td>
                         <td class="width-7">{{ reservation.destinationDescription }}</td>
-                        <td class="width-10">{{ reservation.customerDescription }}</td>
-                        <td class="width-10">{{ reservation.pickupPointDescription }}</td>
+                        <td class="width-7">{{ reservation.customerDescription }}</td>
+                        <td class="width-8">{{ reservation.pickupPointDescription }}</td>
                         <td class="width-7">{{ reservation.driverDescription }}</td>
                         <td class="width-7">{{ reservation.portDescription }}</td>
                         <td class="width-7">{{ reservation.shipDescription }}</td>

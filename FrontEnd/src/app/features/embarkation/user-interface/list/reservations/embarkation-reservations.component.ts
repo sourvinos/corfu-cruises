@@ -222,6 +222,16 @@ export class EmbarkationReservationsComponent {
         this.dateAdapter.setLocale(this.localStorageService.getLanguage())
     }
 
+    // private getScreenWidth(): void {
+    //     if (this.helperService.getScreenWidth() <= 1280) {
+    //         document.getElementById('criteria-panel').style.display = 'none'
+    //         document.getElementById('criteria-panel-toggler').style.display = 'flex'
+    //     } else{
+    //         document.getElementById('criteria-panel').style.display = 'flex'
+    //         document.getElementById('criteria-panel-toggler').style.display = 'none'
+    //     }
+    // }
+
     private highlightRow(reservation: EmbarkationVM): void {
         document.getElementById(reservation.refNo)?.classList.add('p-highlight')
     }

@@ -24,8 +24,8 @@
                 <ng-template pTemplate="header">
                     <tr>
                         <th class="width-10" pSortableColumn="occupantDescription">{{ getLabel("headerOccupant") }}<p-sortIcon field="occupantDescription"></p-sortIcon></th>
-                        <th class="width-15" pSortableColumn="nationalityDescription">{{ getLabel("headerCountry") }}<p-sortIcon field="nationalityDescription"></p-sortIcon></th>
                         <th class="width-10" pSortableColumn="genderDescription">{{ getLabel("headerGender") }}<p-sortIcon field="genderDescription"></p-sortIcon></th>
+                        <th class="width-15" pSortableColumn="nationalityDescription">{{ getLabel("headerCountry") }}<p-sortIcon field="nationalityDescription"></p-sortIcon></th>
                         <th pSortableColumn="lastname">{{ getLabel('headerLastname') }}<p-sortIcon field="lastname"></p-sortIcon></th>
                         <th pSortableColumn="firstname">{{ getLabel('headerFirstname') }}<p-sortIcon field="firstname"></p-sortIcon></th>
                     </tr>
@@ -34,17 +34,6 @@
                             <p-columnFilter field="occupantDescription" matchMode="equals" [showMenu]="false">
                                 <ng-template pTemplate="filter" let-value let-filter="filterCallback">
                                     <p-dropdown [disabled]="records.passengers.length==0" [ngModel]="value" [options]="distinctOccupants" (onChange)="filter($event.value)" placeholder="⭐" [showClear]="true">
-                                        <ng-template let-option pTemplate="item">
-                                            <span>{{ option }}</span>
-                                        </ng-template>
-                                    </p-dropdown>
-                                </ng-template>
-                            </p-columnFilter>
-                        </th>
-                        <th class="width-15">
-                            <p-columnFilter field="nationalityDescription" matchMode="equals" [showMenu]="false">
-                                <ng-template pTemplate="filter" let-value let-filter="filterCallback">
-                                    <p-dropdown [disabled]="records.passengers.length==0" [ngModel]="value" [options]="distinctNationalities" (onChange)="filter($event.value)" placeholder="⭐" [showClear]="true">
                                         <ng-template let-option pTemplate="item">
                                             <span>{{ option }}</span>
                                         </ng-template>
@@ -63,6 +52,17 @@
                                 </ng-template>
                             </p-columnFilter>
                         </th>
+                        <th class="width-15">
+                            <p-columnFilter field="nationalityDescription" matchMode="equals" [showMenu]="false">
+                                <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+                                    <p-dropdown [disabled]="records.passengers.length==0" [ngModel]="value" [options]="distinctNationalities" (onChange)="filter($event.value)" placeholder="⭐" [showClear]="true">
+                                        <ng-template let-option pTemplate="item">
+                                            <span>{{ option }}</span>
+                                        </ng-template>
+                                    </p-dropdown>
+                                </ng-template>
+                            </p-columnFilter>
+                        </th>
                         <th><input (input)="table.filter($event.target.value, 'lastname', 'contains')" [disabled]="records.passengers.length==0" [value]="$any(table).filters['lastname']?.value" class="p-inputtext"></th>
                         <th><input (input)="table.filter($event.target.value, 'firstname', 'contains')" [disabled]="records.passengers.length==0" [value]="$any(table).filters['firstname']?.value" class="p-inputtext"></th>
                     </tr>
@@ -70,11 +70,11 @@
                 <ng-template pTemplate="body" let-rowData>
                     <tr [pSelectableRow]="rowData" style="height:32px">
                         <td class="width-10">{{ rowData.occupantDescription }}</td>
+                        <td class="width-10">{{ rowData.genderDescription }}</td>
                         <td class="width-15" style="align-items: center; display: flex;">
                             <img [src]="getNationalityIcon(rowData.nationalityCode)" style="vertical-align: middle" />
                             <span style="overflow: hidden;">&nbsp;&nbsp;{{ rowData.nationalityDescription }}</span>
                         </td>
-                        <td class="width-10">{{ rowData.genderDescription }}</td>
                         <td>{{ rowData.lastname }}</td>
                         <td>{{ rowData.firstname }}</td>
                     </tr>

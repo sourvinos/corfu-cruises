@@ -1,5 +1,5 @@
 #table-wrapper {
-    margin-left: 1rem;
+    margin: 0 1.75rem 0 1rem;
     width: 100%;
 }
 
@@ -7,4 +7,13 @@
     display: flex;
     flex-direction: row;
     height: 100%;
+}
+
+@media only screen and (max-width: 1919px) {
+    #criteria-panel {
+        display: none !important;
+    }
+    #table-wrapper {
+        margin: 0 1.75rem 0 3rem;
+    }
 }
