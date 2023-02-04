@@ -22,8 +22,13 @@
 #dialog-header {
     align-items: left;
     display: flex;
-    flex-direction: column;
-    padding: 0 1rem 1rem 1rem;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 0 2rem 1rem 1rem;
+}
+
+#dialog-header .material-symbols-outlined {
+    color: var(--color-c);
 }
 
 #dialog-header #navigation {
@@ -49,10 +54,11 @@
 }
 
 #dialog-footer {
+    align-items: center;
     display: flex !important;
     justify-content: space-between !important;
     margin-top: auto;
-    padding: 1.5rem 1rem 0 0;
+    padding: 1.5rem 1rem 0 0.7rem;
 }
 
 .mat-dialog-actions {

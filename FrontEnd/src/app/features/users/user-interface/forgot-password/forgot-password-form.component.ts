@@ -123,10 +123,6 @@ export class ForgotPasswordFormComponent {
         })
     }
 
-    private showMessage(message: string, type: string): void {
-        this.dialogService.open(message, type, ['ok'])
-    }
-
     //#endregion
 
     //#region getters

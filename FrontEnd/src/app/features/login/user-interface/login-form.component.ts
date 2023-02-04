@@ -115,10 +115,10 @@ export class LoginFormComponent {
     private showError(error: any): void {
         switch (error.status) {
             case 0:
-                this.dialogService.open(this.messageSnackbarService.noContactWithServer(), 'error', ['ok'])
+                this.dialogService.open(this.messageSnackbarService.noContactWithServer(), 'error', 'center-buttons', ['ok'])
                 break
             case 401:
-                this.dialogService.open(this.messageSnackbarService.authenticationFailed(), 'error', ['ok'])
+                this.dialogService.open(this.messageSnackbarService.authenticationFailed(), 'error', 'center-buttons', ['ok'])
                 break
         }
     }

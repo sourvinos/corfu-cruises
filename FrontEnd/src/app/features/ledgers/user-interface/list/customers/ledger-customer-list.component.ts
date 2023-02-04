@@ -45,7 +45,7 @@ export class LedgerCustomerListComponent {
 
     //#endregion
 
-    constructor(private activatedRoute: ActivatedRoute, private dateHelperService: DateHelperService, private helperService: HelperService, private ledgerPdfService: LedgerPDFService, private localStorageService: LocalStorageService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private modalActionResultService: ModalActionResultService, private router: Router, public dialog: MatDialog) { 
+    constructor(private activatedRoute: ActivatedRoute, private dateHelperService: DateHelperService, private helperService: HelperService, private ledgerPdfService: LedgerPDFService, private localStorageService: LocalStorageService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private modalActionResultService: ModalActionResultService, private router: Router, public dialog: MatDialog) {
         this.getConnectedUserRole()
     }
 
@@ -95,13 +95,18 @@ export class LedgerCustomerListComponent {
     public showCustomerReservations(customer: LedgerVM): void {
         this.dialog.open(LedgerCustomerSummaryAndReservationsComponent, {
             height: '600px',
-            width: '1400px',
+            width: '1000px',
+            maxWidth: '1000px',
             data: {
                 customer: customer,
                 actions: ['abort', 'ok']
             },
             panelClass: 'dialog'
         })
+    }
+
+    public unHighlightAllRows(): void {
+        this.helperService.unHighlightAllRows()
     }
 
     //#endregion

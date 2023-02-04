@@ -1,5 +1,6 @@
 export interface ManifestPassengerVM {
 
+    id: number
     lastname: string
     firstname: string
     birthdate: string

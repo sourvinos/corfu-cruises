@@ -62,7 +62,7 @@ export class ChangePasswordFormComponent {
 
     canDeactivate(): boolean {
         if (this.form.dirty) {
-            this.dialogService.open(this.messageSnackbarService.askConfirmationToAbortEditing(), 'warning', ['abort', 'ok']).subscribe(response => {
+            this.dialogService.open(this.messageSnackbarService.askConfirmationToAbortEditing(), 'warning', 'right-buttons', ['abort', 'ok']).subscribe(response => {
                 if (response) {
                     this.resetForm()
                     this.goBack()

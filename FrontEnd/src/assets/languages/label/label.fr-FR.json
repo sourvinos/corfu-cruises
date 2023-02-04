@@ -1269,7 +1269,7 @@
             },
             {
                 "id": "headerPersons",
-                "description": "Personnes"
+                "description": "Pax"
             },
             {
                 "id": "headerPlusMinus",
@@ -1326,6 +1326,14 @@
             {
                 "id": "embarkAllPassengers",
                 "description": "EMBARQUER TOUT"
+            },
+            {
+                "id": "missingPassenger",
+                "description": "Pas de données pour 1 passager"
+            },
+            {
+                "id": "missingPassengers",
+                "description": "Pas de données pour xx passagers"
             },
             {
                 "id": "okButton",
@@ -1448,12 +1456,12 @@
                 "description": "RefNo"
             },
             {
-                "id": "headerTicketNo",
+                "id": "headerTicket",
                 "description": "Billet"
             },
             {
                 "id": "headerHasTransfer",
-                "description": "Transfert"
+                "description": "XFER"
             },
             {
                 "id": "headerAdults",
@@ -1468,16 +1476,12 @@
                 "description": "L"
             },
             {
-                "id": "headerRemarks",
-                "description": "Remarques"
-            },
-            {
                 "id": "headerTotalPersons",
                 "description": "Σ"
             },
             {
                 "id": "headerNoShow",
-                "description": "N/P"
+                "description": "N/S"
             },
             {
                 "id": "createPdfButton",
@@ -1568,6 +1572,10 @@
             {
                 "id": "headerOccupant",
                 "description": "Propriété"
+            },
+            {
+                "id": "headerId",
+                "description": "Id"
             },
             {
                 "id": "headerLastname",

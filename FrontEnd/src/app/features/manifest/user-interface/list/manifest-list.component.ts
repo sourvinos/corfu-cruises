@@ -128,7 +128,7 @@ export class ManifestListComponent {
             this.helperService.disableTableDropdownFilters()
             this.helperService.disableTableTextFilters()
         }
-     }
+    }
 
     private loadRecords(): Promise<any> {
         const promise = new Promise((resolve) => {

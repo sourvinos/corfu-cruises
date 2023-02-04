@@ -71,7 +71,7 @@ export class ScheduleEditFormComponent {
 
     canDeactivate(): boolean {
         if (this.form.dirty) {
-            this.dialogService.open(this.messageSnackbarService.askConfirmationToAbortEditing(), 'warning', ['abort', 'ok']).subscribe(response => {
+            this.dialogService.open(this.messageSnackbarService.askConfirmationToAbortEditing(), 'warning', 'right-buttons', ['abort', 'ok']).subscribe(response => {
                 if (response) {
                     this.resetForm()
                     this.goBack()
@@ -109,7 +109,7 @@ export class ScheduleEditFormComponent {
     }
 
     public onDelete(): void {
-        this.dialogService.open(this.messageSnackbarService.warning(), 'warning', ['abort', 'ok']).subscribe(response => {
+        this.dialogService.open(this.messageSnackbarService.warning(), 'warning', 'right-buttons', ['abort', 'ok']).subscribe(response => {
             if (response) {
                 this.scheduleService.delete(this.form.value.id).pipe(indicate(this.isLoading)).subscribe({
                     complete: () => {

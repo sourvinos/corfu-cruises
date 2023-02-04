@@ -20,14 +20,14 @@ export class MessageLabelService {
 
     //#region public methods
 
-    public getDescription(feature: string, id: string): string {
+    public getDescription(feature: string, id: string, stringToReplace = ''): string {
         let returnValue = ''
         if (this.messages != undefined) {
             this.messages.filter((f: { feature: string; labels: any[] }) => {
                 if (f.feature === feature) {
                     f.labels.filter(l => {
                         if (l.id == id) {
-                            returnValue = l.description
+                            returnValue = l.description.replace('xx', stringToReplace)
                         }
                     })
                 }

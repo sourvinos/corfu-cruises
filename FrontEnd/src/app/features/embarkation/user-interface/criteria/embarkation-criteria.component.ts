@@ -77,6 +77,7 @@ export class EmbarkationCriteriaComponent {
 
     public doTasks(): void {
         this.storeCriteria()
+        this.clearListFilters()
         this.navigateToList()
     }
 
@@ -145,6 +146,12 @@ export class EmbarkationCriteriaComponent {
     private cleanup(): void {
         this.unsubscribe.next()
         this.unsubscribe.unsubscribe()
+    }
+
+    private clearListFilters(): void {
+        this.localStorageService.deleteItems([
+            { 'item': 'embarkationList', 'when': 'always' }
+        ])
     }
 
     private initForm(): void {

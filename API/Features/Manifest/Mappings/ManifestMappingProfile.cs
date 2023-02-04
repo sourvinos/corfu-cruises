@@ -60,6 +60,7 @@ namespace API.Features.Manifest {
                     ToTime = source.ShipRoute.ToTime
                 }))
                 .ForMember(x => x.Passengers, x => x.MapFrom(source => source.Passengers.Select(passenger => new ManifestFinalPassengerVM {
+                    Id = passenger.Id,
                     Lastname = passenger.Lastname.ToUpper(),
                     Firstname = passenger.Firstname.ToUpper(),
                     Birthdate = DateHelpers.DateToISOString(passenger.Birthdate),

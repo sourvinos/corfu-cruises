@@ -7,10 +7,6 @@ export class LocalStorageService {
 
     //#region public methods
 
-    public clearStoredPrimeTableFilters(): void {
-        sessionStorage.clear()
-    }
-
     public clearSessionStorage(list: any, key: any): void {
         if (key == 'all') {
             sessionStorage.removeItem(list)

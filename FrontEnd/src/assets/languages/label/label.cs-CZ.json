@@ -1269,7 +1269,7 @@
             },
             {
                 "id": "headerPersons",
-                "description": "Osob"
+                "description": "Pax"
             },
             {
                 "id": "headerPlusMinus",
@@ -1326,6 +1326,14 @@
             {
                 "id": "embarkAllPassengers",
                 "description": "EMBARK VŠE"
+            },
+            {
+                "id": "missingPassenger",
+                "description": "Žádné údaje pro 1 cestujícího"
+            },
+            {
+                "id": "missingPassengers",
+                "description": "Žádné údaje pro xx cestující"
             },
             {
                 "id": "okButton",
@@ -1448,12 +1456,12 @@
                 "description": "RefNo"
             },
             {
-                "id": "headerTicketNo",
-                "description": "Číslo lístku"
+                "id": "headerTicket",
+                "description": "Vstupenka"
             },
             {
                 "id": "headerHasTransfer",
-                "description": "Převod"
+                "description": "XFER"
             },
             {
                 "id": "headerAdults",
@@ -1466,10 +1474,6 @@
             {
                 "id": "headerFree",
                 "description": "Z"
-            },
-            {
-                "id": "headerRemarks",
-                "description": "Komentáře"
             },
             {
                 "id": "headerTotalPersons",
@@ -1568,6 +1572,10 @@
             {
                 "id": "headerOccupant",
                 "description": "Majetek"
+            },
+            {
+                "id": "headerId",
+                "description": "Id"
             },
             {
                 "id": "headerLastname",

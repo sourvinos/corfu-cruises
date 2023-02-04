@@ -1269,7 +1269,7 @@
             },
             {
                 "id": "headerPersons",
-                "description": "Άτομα"
+                "description": "Pax"
             },
             {
                 "id": "headerPlusMinus",
@@ -1326,6 +1326,14 @@
             {
                 "id": "embarkAllPassengers",
                 "description": "ΕΠΙΒΙΒΑΣΗ ΟΛΩΝ"
+            },
+            {
+                "id": "missingPassenger",
+                "description": "Δεν υπάρχουν δεδομένα για 1 επιβάτη"
+            },
+            {
+                "id": "missingPassengers",
+                "description": "Δεν υπάρχουν δεδομένα για xx επιβάτες"
             },
             {
                 "id": "okButton",
@@ -1429,7 +1437,7 @@
             },
             {
                 "id": "headerDate",
-                "description": "Ημερομηνία"
+                "description": "Ημερ/νία"
             },
             {
                 "id": "headerDestination",
@@ -1448,12 +1456,12 @@
                 "description": "RefNo"
             },
             {
-                "id": "headerTicketNo",
-                "description": "Αρ. εισιτηρίου"
+                "id": "headerTicket",
+                "description": "Εισιτήριο"
             },
             {
                 "id": "headerHasTransfer",
-                "description": "Μεταφορά"
+                "description": "XFER"
             },
             {
                 "id": "headerAdults",
@@ -1468,16 +1476,12 @@
                 "description": "Δ"
             },
             {
-                "id": "headerRemarks",
-                "description": "Σχόλια"
-            },
-            {
                 "id": "headerTotalPersons",
                 "description": "Σ"
             },
             {
                 "id": "headerNoShow",
-                "description": "Δ/Ε"
+                "description": "N/S"
             },
             {
                 "id": "createPdfButton",
@@ -1568,6 +1572,10 @@
             {
                 "id": "headerOccupant",
                 "description": "Ιδιότητα"
+            },
+            {
+                "id": "headerId",
+                "description": "Id"
             },
             {
                 "id": "headerLastname",

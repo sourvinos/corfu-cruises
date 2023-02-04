@@ -85,6 +85,19 @@ ul {
     text-align: center !important;
 }
 
+.right {
+    text-align: right !important;
+}
+
+.center-buttons {
+    margin: 0 auto;
+}
+
+.right-buttons {
+    margin-left: auto;
+    margin-right: 2rem;
+}
+
 .hidden {
     visibility: hidden !important;
 }
@@ -102,33 +115,15 @@ ul {
 }
 
 .subscript {
-    font-size: 0.6875rem;
-    padding-top: 0.25rem;
+    font-size: 0.5rem;
 }
 
 .clickable:hover {
     cursor: pointer;
 }
 
-.icon-ok {
-    color: var(--color-icon-ok);
-}
-
-.icon-error {
-    color: var(--color-icon-error);
-}
-
-.icon-warning {
-    color: var(--color-icon-warning);
-}
-
-.emoji {
-    padding-top: 0.125rem !important;
-}
-
-.button-group-left {
-    display: flex;
-    gap: 1rem;
+.emoji-with-text {
+    margin-left: 0.3rem;
 }
 
 .button-group-right {

@@ -68,6 +68,7 @@ export class EmbarkationReservationsComponent {
                     this.scrollToSavedRow().then(() => {
                         this.highlightRowFromStorage()
                         this.populateDropdownFilters()
+                        this.filterTableFromStoredFilters()
                         this.updateTotals(this.totals, this.records.reservations)
                         this.updateTotals(this.totalsFiltered, this.records.reservations)
                     })
@@ -85,7 +86,6 @@ export class EmbarkationReservationsComponent {
 
     ngAfterViewInit(): void {
         this.enableDisableFilters()
-        this.filterTableFromStoredFilters()
     }
 
     ngOnDestroy(): void {
@@ -101,6 +101,7 @@ export class EmbarkationReservationsComponent {
     }
 
     public filterRecords(event: { filteredValue: any[] }): void {
+        this.localStorageService.saveItem(this.feature, JSON.stringify(this.table.filters))
         this.updateTotals(this.totalsFiltered, event.filteredValue)
     }
 
@@ -163,7 +164,7 @@ export class EmbarkationReservationsComponent {
     }
 
     public showRemarks(remarks: string): void {
-        this.dialogService.open(remarks, 'info', ['ok'])
+        this.dialogService.open(remarks, 'info', 'center-buttons', ['ok'])
     }
 
     public showScannerWindow(): void {
@@ -204,8 +205,8 @@ export class EmbarkationReservationsComponent {
         const filters = this.localStorageService.getFilters(this.feature)
         if (filters != undefined) {
             setTimeout(() => {
-                this.filterColumn(filters.isActive, 'refNo', 'contains')
-                this.filterColumn(filters.description, 'ticketNo', 'contains')
+                this.filterColumn(filters.refNo, 'refNo', 'contains')
+                this.filterColumn(filters.ticketNo, 'ticketNo', 'contains')
                 this.filterColumn(filters.destinationDescription, 'destinationDescription', 'equals')
                 this.filterColumn(filters.customerDescription, 'customerDescription', 'equals')
                 this.filterColumn(filters.pickupPointDescription, 'pickupPointDescription', 'equals')
@@ -213,7 +214,7 @@ export class EmbarkationReservationsComponent {
                 this.filterColumn(filters.portDescription, 'portDescription', 'equals')
                 this.filterColumn(filters.shipDescription, 'shipDescription', 'equals')
                 this.filterColumn(filters.embarkationStatus, 'embarkationStatus', 'equals')
-                this.filterColumn(filters.email, 'totalPersons', 'contains')
+                this.filterColumn(filters.totalPersons, 'totalPersons', 'contains')
             }, 500)
         }
     }
@@ -221,16 +222,6 @@ export class EmbarkationReservationsComponent {
     private getLocale(): void {
         this.dateAdapter.setLocale(this.localStorageService.getLanguage())
     }
-
-    // private getScreenWidth(): void {
-    //     if (this.helperService.getScreenWidth() <= 1280) {
-    //         document.getElementById('criteria-panel').style.display = 'none'
-    //         document.getElementById('criteria-panel-toggler').style.display = 'flex'
-    //     } else{
-    //         document.getElementById('criteria-panel').style.display = 'flex'
-    //         document.getElementById('criteria-panel-toggler').style.display = 'none'
-    //     }
-    // }
 
     private highlightRow(reservation: EmbarkationVM): void {
         document.getElementById(reservation.refNo)?.classList.add('p-highlight')

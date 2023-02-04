@@ -40,6 +40,10 @@ export class EmbarkationPassengerListComponent {
         })
     }
 
+    public countMissingPassengers(): number {
+        return this.reservation.totalPersons - this.reservation.passengers.length
+    }
+
     public doEmbarkation(ignoreCurrentStatus: boolean, passengers: EmbarkationPassengerVM[]): void {
         const ids: number[] = []
         passengers.forEach(passenger => {
@@ -65,8 +69,8 @@ export class EmbarkationPassengerListComponent {
         return this.emojiService.getEmoji(emoji)
     }
 
-    public getLabel(id: string): string {
-        return this.messageLabelService.getDescription(this.feature, id)
+    public getLabel(id: string, stringToReplace = ''): string {
+        return this.messageLabelService.getDescription(this.feature, id, stringToReplace)
     }
 
     public getNationalityIcon(nationalityCode: string): any {
@@ -75,6 +79,10 @@ export class EmbarkationPassengerListComponent {
 
     public isEmbarkAllAllowed(): boolean {
         return this.reservation.passengers.filter(x => x.isCheckedIn == false).length == 0
+    }
+
+    public missingPassengers(): boolean {
+        return this.reservation.totalPersons != this.reservation.passengers.length
     }
 
     //#endregion

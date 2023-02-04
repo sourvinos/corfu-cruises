@@ -23,18 +23,15 @@
             <p-table #table (onFilter)="filterRecords($event)" [(selection)]="selectedRecords" [scrollable]="true" [value]="records" [virtualScrollItemSize]="32" [virtualScroll]="true" dataKey="customer.description" scrollHeight="flex" selectionMode="single" sortMode="multiple">
                 <ng-template pTemplate="header">
                     <tr>
-                        <th class="width-3"></th>
-                        <th pSortableColumn="customer.description">{{ getLabel("headerCustomer") }}<p-sortIcon field="customer.description"></p-sortIcon></th>
+                        <th pSortableColumn="customer.description">{{ getLabel("headerCustomer") }}</th>
                     </tr>
                     <tr>
-                        <th class="width-3"><p-tableHeaderCheckbox></p-tableHeaderCheckbox></th>
                         <th><input (input)="table.filter($event.target.value, 'customer.description', 'contains')" [value]="$any(table).filters['customer.description']?.value" class="p-inputtext" type="text"></th>
                     </tr>
                 </ng-template>
-                <ng-template let-rowData pTemplate="body">
-                    <tr style="height:32px">
-                        <td class="center width-3"><p-tableCheckbox [value]="rowData"></p-tableCheckbox></td>
-                        <td (click)="showCustomerReservations(rowData)" class="clickable">{{ rowData.customer.description }}</td>
+                <ng-template let-customer pTemplate="body">
+                    <tr [attr.id]=customer.description [pSelectableRow]="customer" (click)="unHighlightAllRows()" (dblclick)="showCustomerReservations(customer)" style="height:32px">
+                        <td>{{ customer.customer.description }}</td>
                     </tr>
                 </ng-template>
             </p-table>
@@ -44,8 +41,8 @@
     <div id="footer">
         <table-total-filtered-records [filteredRecordCount]="recordsFilteredCount" [recordCount]="records.length"></table-total-filtered-records>
         <div class="button-group-right">
-            <button (click)="exportSelected()" [disabled]="selectedRecords.length==0" class="primary" mat-flat-button>
-                <mat-icon *ngIf="selectedRecords.length==0" class="button-icon">lock</mat-icon>
+            <button (click)="exportSelected()" class="primary" mat-flat-button>
+                <mat-icon class="button-icon">lock</mat-icon>
                 <span>{{ getLabel("createPdfButton") }}</span>
             </button>
         </div>

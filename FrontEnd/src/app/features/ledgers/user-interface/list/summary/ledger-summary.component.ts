@@ -26,10 +26,6 @@ export class LedgerCustomerSummaryComponent {
 
     //#region lifecycle hooks
 
-    ngAfterViewInit(): void {
-        this.expandAllPorts()
-    }
-
     //#endregion
 
     //#region public methods
@@ -45,15 +41,6 @@ export class LedgerCustomerSummaryComponent {
     //#endregion
 
     //#region private methods
-
-    private expandAllPorts(): void {
-        setTimeout(() => {
-            const buttons = document.querySelectorAll<HTMLElement>('.p-button-icon-only')
-            buttons.forEach(button => {
-                button.click()
-            })
-        }, 100)
-    }
 
     //#endregion
 
