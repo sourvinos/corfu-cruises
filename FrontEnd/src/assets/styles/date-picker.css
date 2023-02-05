@@ -9,10 +9,8 @@
     height: 400px;
     margin-bottom: 1rem;
     max-height: 400px;
-    max-width: 350px;
     min-height: 400px;
-    min-width: 350px;
-    width: 350px;
+    width: 300px;
 }
 
 #calendar-card {
@@ -49,7 +47,7 @@
 
 .mat-calendar, .date-range-selector {
     height: max-content;
-    width: 90% !important;
+    width: 100% !important;
 }
 
 .mat-calendar-header {
@@ -63,7 +61,7 @@
 
 .mat-calendar-controls .mat-button .mat-button-wrapper {
     color: var(--color-c);
-    font-family: var(--font-family-ubuntu);
+    font-family: var(--font-family-roboto);
     font-size: var(--font-size-datepicker-header-month);
     transition: all var(--hover-change-delay) ease-in;
 }

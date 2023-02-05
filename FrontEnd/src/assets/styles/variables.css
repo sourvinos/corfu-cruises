@@ -20,9 +20,9 @@
     --theme-change-delay: 1s;
     /* Common sizes in all screen resolutions */
     --font-size-button: 0.8rem;
-    --font-size-calendar-day: 1rem;
-    --font-size-checkbox: 0.75rem;
-    --font-size-datepicker-header-month: 1.8rem;
+    --font-size-calendar-day: 0.85rem;
+    --font-size-checkbox: 0.65rem;
+    --font-size-datepicker-header-month: 1.25rem;
     --font-size-dialog: 1.5rem;
     --font-size-fieldset-legend: 0.8rem;
     --font-size-h1: 1.12rem;
