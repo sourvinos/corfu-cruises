@@ -9,13 +9,21 @@
 #header {
     align-items: center;
     display: flex;
+    justify-content: space-between;
     padding: 0 4rem 1rem 4rem !important;
 }
 
 .content, #content {
+    display: flex;
+    flex-direction: row;
+    height: 100%;
     overflow-x: hidden;
     overflow-y: auto;
     width: auto;
+}
+
+#table-wrapper {
+    width: 100%;
 }
 
 #footer {
@@ -32,4 +40,16 @@
 
 .is-not-active {
     color: var(--color-list-inactive-item);
+}
+
+@media only screen and (max-width: 1919px) {
+    #table-wrapper {
+        margin: 0 0.75rem 0 2rem;
+    }
+}
+
+@media only screen and (min-width: 1920px) {
+    #table-wrapper {
+        margin: 0 1.75rem 0 3rem;
+    }
 }

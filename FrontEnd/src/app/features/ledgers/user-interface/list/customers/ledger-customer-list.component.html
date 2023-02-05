@@ -2,9 +2,9 @@
 
     <div id="header">
         <home-button-and-title [feature]="feature" [featureIcon]="featureIcon" [icon]="icon" [parentUrl]="parentUrl"></home-button-and-title>
-        <div id="criteria">
-            <div class="pill date">
-                <img width="1.25rem" [src]="getIcon('calendar')">
+        <div class="filter-pill">
+            <div class="pill">
+                <img [src]="getIcon('calendar')">
                 <div class="description">{{ formatDateToLocale(criteriaPanels.fromDate, true, true) }} - {{ formatDateToLocale(criteriaPanels.toDate, true, true) }}</div>
             </div>
             <button (click)="resetTableFilters()" [disabled]="records.length==recordsFilteredCount" class="primary" mat-flat-button>

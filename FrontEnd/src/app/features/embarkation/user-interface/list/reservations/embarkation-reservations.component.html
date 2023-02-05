@@ -2,9 +2,9 @@
 
     <div id="header">
         <home-button-and-title [feature]="feature" [featureIcon]="featureIcon" [icon]="icon" [parentUrl]="parentUrl"></home-button-and-title>
-        <div id="criteria">
-            <div class="pill date">
-                <img width="1.25rem" [src]="getIcon('calendar')">
+        <div class="filter-pill">
+            <div class="pill">
+                <img [src]="getIcon('calendar')">
                 <div class="description">{{ formatDateToLocale(criteriaPanels.fromDate, true, true) }}</div>
             </div>
             <button (click)="resetTableFilters()" [disabled]="totals[0]==totalsFiltered[0]" class="primary" mat-flat-button>
@@ -143,33 +143,33 @@
     </div>
 
     <div id="footer">
-        <div id="filters">
+        <div class="filter-pill">
             <div class="pill">
                 <img [src]="getIcon('total')">
                 <div class="number description">
-                    <span class="monotype">{{ totals[0] | padNumber : 3 : ' ' }}</span>
+                    <span>{{ totals[0] | padNumber : 3 : ' ' }}</span>
                 </div>
                 <img [src]="getIcon('boarded')">
                 <div class="number description">
-                    <span class="monotype">{{ totals[1] | padNumber : 3 : ' ' }}</span>
+                    <span>{{ totals[1] | padNumber : 3 : ' ' }}</span>
                 </div>
                 <img [src]="getIcon('pending')">
                 <div class="number description">
-                    <span class="monotype">{{ totals[2] | padNumber : 3 : ' ' }}</span>
+                    <span>{{ totals[2] | padNumber : 3 : ' ' }}</span>
                 </div>
             </div>
             <div class="pill">
                 <img [src]="getIcon('filter')">
                 <div class="number description">
-                    <span class="monotype">{{ totalsFiltered[0] | padNumber : 3 : ' ' }}</span>
+                    <span>{{ totalsFiltered[0] | padNumber : 3 : ' ' }}</span>
                 </div>
                 <img [src]="getIcon('boarded')">
                 <div class="number description">
-                    <span class="monotype">{{ totalsFiltered[1] | padNumber : 3 : ' ' }}</span>
+                    <span>{{ totalsFiltered[1] | padNumber : 3 : ' ' }}</span>
                 </div>
                 <img [src]="getIcon('pending')">
                 <div class="number description">
-                    <span class="monotype">{{ totalsFiltered[2] | padNumber : 3 : ' ' }}</span>
+                    <span>{{ totalsFiltered[2] | padNumber : 3 : ' ' }}</span>
                 </div>
             </div>
         </div>
