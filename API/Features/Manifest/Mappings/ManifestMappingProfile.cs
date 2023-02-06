@@ -39,6 +39,7 @@ namespace API.Features.Manifest {
                         .ToList(),
                     Crew = source.Ship.ShipCrews
                         .ConvertAll(crew => new ManifestFinalCrewVM {
+                            Id = crew.Id,
                             Lastname = crew.Lastname.ToUpper(),
                             Firstname = crew.Firstname.ToUpper(),
                             Birthdate = DateHelpers.DateToISOString(crew.Birthdate),
