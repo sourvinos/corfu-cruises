@@ -35,7 +35,6 @@ export class ManifestListComponent {
     public featureIcon = 'manifest'
     public icon = 'arrow_back'
     public parentUrl = '/manifest'
-    public isVirtual = true
 
     public criteriaPanels: ManifestCriteriaVM
 
@@ -74,7 +73,6 @@ export class ManifestListComponent {
     //#region public methods
 
     public filterRecords(event: { filteredValue: any[] }): void {
-        this.disableVirtualTable()
         this.updateTotals(this.totalsFiltered, event.filteredValue)
     }
 
@@ -137,10 +135,6 @@ export class ManifestListComponent {
     private cleanup(): void {
         this.unsubscribe.next()
         this.unsubscribe.unsubscribe()
-    }
-
-    private disableVirtualTable(): void {
-        this.isVirtual = this.helperService.disableVirtualTable()
     }
 
     private enableDisableFilters(): void {
