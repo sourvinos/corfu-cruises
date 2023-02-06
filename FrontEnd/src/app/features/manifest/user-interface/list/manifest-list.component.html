@@ -3,7 +3,7 @@
     <div id="header">
         <home-button-and-title [feature]="feature" [featureIcon]="featureIcon" [icon]="icon" [parentUrl]="parentUrl"></home-button-and-title>
         <div class="filter-pill">
-            <div class="pill">
+            <div class="pill date">
                 <img [src]="getIcon('calendar')">
                 <div class="description">{{ formatDateToLocale(records.date, true, true) }}</div>
             </div>
@@ -20,12 +20,12 @@
             <criteria-panel [backgroundColor]="'var(--color-criteria-c)'" [feature]="feature" [header]="'criteriaShip'" [icon]="'ships'" [records]="criteriaPanels.ships"></criteria-panel>
         </div>
         <div id="table-wrapper">
-            <p-table #table (onFilter)="filterRecords($event)" [scrollable]="true" [value]="records.passengers" [virtualScrollItemSize]="32" [virtualScroll]="true" dataKey="id" scrollHeight="flex" selectionMode="single" sortMode="multiple">
+            <p-table #table (onFilter)="filterRecords($event)" [scrollable]="true" [value]="records.passengers" [virtualScrollItemSize]="32" [virtualScroll]="isVirtual" dataKey="id" scrollHeight="flex" selectionMode="single" sortMode="multiple">
                 <ng-template pTemplate="header">
                     <tr>
                         <th class="width-10" pSortableColumn="occupantDescription">{{ getLabel("headerOccupant") }}</th>
                         <th class="width-10" pSortableColumn="genderDescription">{{ getLabel("headerGender") }}</th>
-                        <th class="width-15" pSortableColumn="nationalityDescription">{{ getLabel("headerCountry") }}</th>
+                        <th class="width-10" pSortableColumn="nationalityDescription">{{ getLabel("headerCountry") }}</th>
                         <th pSortableColumn="lastname">{{ getLabel('headerLastname') }}</th>
                         <th pSortableColumn="firstname">{{ getLabel('headerFirstname') }}</th>
                     </tr>
@@ -52,7 +52,7 @@
                                 </ng-template>
                             </p-columnFilter>
                         </th>
-                        <th class="width-15">
+                        <th class="width-10">
                             <p-columnFilter field="nationalityDescription" matchMode="equals" [showMenu]="false">
                                 <ng-template pTemplate="filter" let-value let-filter="filterCallback">
                                     <p-dropdown [disabled]="records.passengers.length==0" [ngModel]="value" [options]="distinctNationalities" (onChange)="filter($event.value)" placeholder="⭐" [showClear]="true">
@@ -71,9 +71,9 @@
                     <tr [attr.id]=passenger.id [pSelectableRow]="passenger" style="height:32px">
                         <td class="width-10">{{ passenger.occupantDescription }}</td>
                         <td class="width-10">{{ passenger.genderDescription }}</td>
-                        <td class="width-15" style="align-items: center; display: flex;">
+                        <td class="width-10" style="align-items: center; display: flex;">
                             <img [src]="getNationalityIcon(passenger.nationalityCode)" style="vertical-align: middle" />
-                            <span style="overflow: hidden;">&nbsp;&nbsp;{{ passenger.nationalityDescription }}</span>
+                            <span style="overflow: hidden;">&nbsp;&nbsp;&nbsp;&nbsp;{{ passenger.nationalityDescription }}</span>
                         </td>
                         <td>{{ passenger.lastname }}</td>
                         <td>{{ passenger.firstname }}</td>
@@ -109,7 +109,7 @@
             </div>
         </div>
         <div class="button-group-right">
-            <button (click)="createPdf()" [disabled]="records.passengers.length==0" class="primary" mat-flat-button>
+            <button (click)="showRouteSelectorDialog()" [disabled]="records.passengers.length==0" class="primary" mat-flat-button>
                 <mat-icon *ngIf="records.passengers.length==0" class="button-icon">lock</mat-icon>
                 <span>{{ getLabel("createPdf") }}</span>
             </button>

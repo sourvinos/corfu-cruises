@@ -9,12 +9,13 @@
     box-shadow: none;
     display: flex;
     margin-right: 1rem !important;
-    transition: all var(--theme-change-delay) ease-in;
+    transition: all var(--hover-change-delay) ease-in;
 }
 
 #title {
     align-items: center;
     display: flex;
+    line-height: 0;
 }
 
 #feature-icon {

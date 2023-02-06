@@ -5,7 +5,7 @@
     { "id": "reservations-ledgers", "description": "Η καρτέλα μου" },
     
     { "id": "tasks-embarkation", "description": "Επιβίβαση" },
-    { "id": "tasks-manifest", "description": "Κατάσταση επιβατών" },
+    { "id": "tasks-manifest", "description": "Κατάσταση επιβαινόντων" },
     { "id": "tasks-ledgers", "description": "Καρτέλες πελατών" },
 
     { "id": "tables-coachRoutes", "description": "Δρομολόγια λεωφορείων" },

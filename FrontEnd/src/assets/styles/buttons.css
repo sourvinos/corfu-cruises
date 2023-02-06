@@ -68,12 +68,14 @@ button .mat-button-wrapper img {
     margin-top: -0.1875rem !important;
 }
 
-button.mat-mini-fab {
+button.mat-mini-fab:not(.transparent) {
     background-color: var(--color-b) !important;
     box-shadow: none !important;
     color: var(--color-a) !important;
+    height: 38px !important;
     margin: 0 !important;
     outline: 0 !important;
+    width: 38px !important;
 }
 
 button.mat-mini-fab .mat-button-wrapper {
@@ -81,15 +83,16 @@ button.mat-mini-fab .mat-button-wrapper {
     line-height: 1.4375rem !important;
     margin: 0 auto;
     padding: 0 !important;
-    transition: color 0.2s ease-in;
+    transition: all var(--hover-change-delay) ease-in;
 }
 
 button.mat-mini-fab .mat-button-wrapper .material-icons {
     margin-top: -0.25rem !important;
 }
 
-button.mat-mini-fab:hover {
-    background-color: var(--color-a) !important;
+button.mat-mini-fab:hover:not(.transparent) {
+    background-color: var(--color-c) !important;
+    color: var(--color-a) !important;
 }
 
 button:disabled {

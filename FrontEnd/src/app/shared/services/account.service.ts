@@ -207,7 +207,7 @@ export class AccountService extends HttpDataService {
         this.portService.getActive().subscribe(response => { this.localStorageService.saveItem('ports', JSON.stringify(response)) })
         this.shipService.getActive().subscribe(response => { this.localStorageService.saveItem('ships', JSON.stringify(response)) })
         this.shipOwnerService.getActive().subscribe(response => { this.localStorageService.saveItem('shipOwners', JSON.stringify(response)) })
-        this.shipRouteService.getActive().subscribe(response => { this.localStorageService.saveItem('shipRoutes', JSON.stringify(response)) })
+        this.shipRouteService.getAll().subscribe(response => { this.localStorageService.saveItem('shipRoutes', JSON.stringify(response)) })
     }
 
     private setLoginStatus(status: boolean): void {

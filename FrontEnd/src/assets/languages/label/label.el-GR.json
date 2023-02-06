@@ -1396,7 +1396,7 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Καρτέλες πελατών"
+                "description": "Κριτήρια δημιουργίας καρτελών πελατών"
             },
             {
                 "id": "date",
@@ -1518,7 +1518,11 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Δημιουργία κατάστασης επιβατών"
+                "description": "Κριτήρια δημιουργίας κατάστασης επιβαινόντων"
+            },
+            {
+                "id": "headerRouteSelector",
+                "description": "Επιλογή δρομολογίου"
             },
             {
                 "id": "date",
@@ -1547,6 +1551,14 @@
             {
                 "id": "searchButton",
                 "description": "ΑΝΑΖΗΤΗΣΗ"
+            },
+            {
+                "id": "okButton",
+                "description": "OK"
+            },
+            {
+                "id": "cancelButton",
+                "description": "ΑΚΥΡΟ"
             }
         ]
     },
@@ -1555,7 +1567,7 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Κατάσταση επιβατών"
+                "description": "Κατάσταση επιβαινόντων"
             },
             {
                 "id": "criteriaDestination",

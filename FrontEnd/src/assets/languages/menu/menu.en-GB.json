@@ -5,7 +5,7 @@
     { "id": "reservations-ledgers", "description": "My ledger" },
 
     { "id": "tasks-embarkation", "description": "Embarkation" },
-    { "id": "tasks-manifest", "description": "Passenger manifest" },
+    { "id": "tasks-manifest", "description": "Passengers manifest" },
     { "id": "tasks-ledgers", "description": "Customer Ledgers" },
 
     { "id": "tables-coachRoutes", "description": "Coach routes" },

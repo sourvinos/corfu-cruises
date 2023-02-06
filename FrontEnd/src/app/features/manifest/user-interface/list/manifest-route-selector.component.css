@@ -1,0 +1,22 @@
+#dialog-header h1 .title {
+    color: var(--color-c);
+}
+
+#dialog-footer {
+    justify-content: flex-end !important;
+    padding-right: 1.5rem !important;
+}
+
+#form {
+    height: 100% !important;
+}
+
+.fieldset {
+    width: 99% !important;
+}
+
+.list-wrapper {
+    height: 75% !important;
+    overflow-y: scroll !important;
+    width: 100% !important;
+}

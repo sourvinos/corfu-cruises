@@ -5,7 +5,7 @@
     { "id": "reservations-ledgers", "description": "Mon registre" },
 
     { "id": "tasks-embarkation", "description": "Embarquement" },
-    { "id": "tasks-manifest", "description": "Manifeste du navire" },
+    { "id": "tasks-manifest", "description": "Manifeste des passagers" },
     { "id": "tasks-ledgers", "description": "Registres des clients" },
 
     { "id": "tables-coachRoutes", "description": "Routes de bus" },

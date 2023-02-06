@@ -17,7 +17,7 @@ namespace API.Features.Manifest {
             this.mapper = mapper;
         }
 
-        public ManifestFinalVM Get(string date, int destinationId, int shipId, int shipRouteId, int[] portIds) {
+        public ManifestFinalVM Get(string date, int destinationId, int shipId, int[] portIds) {
             var manifest = new ManifestInitialVM {
                 Date = date,
                 Destination = context.Destinations
@@ -30,8 +30,7 @@ namespace API.Features.Manifest {
                     .Include(x => x.ShipCrews.Where(x => x.IsActive)).ThenInclude(x => x.Nationality)
                     .Include(x => x.ShipCrews.Where(x => x.IsActive)).ThenInclude(x => x.Occupant)
                     .FirstOrDefault(x => x.Id == shipId),
-                ShipRoute = context.ShipRoutes
-                    .FirstOrDefault(x => x.Id == shipRouteId),
+                ShipRoute = null,
                 Passengers = context.Passengers
                     .Include(x => x.Nationality)
                     .Include(x => x.Occupant)

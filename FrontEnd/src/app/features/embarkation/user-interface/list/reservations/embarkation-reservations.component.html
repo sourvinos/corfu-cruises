@@ -3,7 +3,7 @@
     <div id="header">
         <home-button-and-title [feature]="feature" [featureIcon]="featureIcon" [icon]="icon" [parentUrl]="parentUrl"></home-button-and-title>
         <div class="filter-pill">
-            <div class="pill">
+            <div class="pill date">
                 <img [src]="getIcon('calendar')">
                 <div class="description">{{ formatDateToLocale(criteriaPanels.fromDate, true, true) }}</div>
             </div>
@@ -47,8 +47,8 @@
                                 </ng-template>
                             </p-columnFilter>
                         </th>
-                        <th class="width-5"><input type="text" class="p-inputtext" (input)="table.filter($event.target.value, 'refNo', 'contains')" [value]="$any(table).filters['refNo']?.value"></th>
-                        <th class="width-8"><input type="text" class="p-inputtext" (input)="table.filter($event.target.value, 'ticketNo', 'contains')" [value]="$any(table).filters['ticketNo']?.value"></th>
+                        <th class="width-5"><input (input)="table.filter($event.target.value, 'refNo', 'contains')" [disabled]="records.reservations.length==0" [value]="$any(table).filters['refNo']?.value" class="p-inputtext"></th>
+                        <th class="width-8"><input (input)="table.filter($event.target.value, 'ticketNo', 'contains')" [disabled]="records.reservations.length==0" [value]="$any(table).filters['ticketNo']?.value" class="p-inputtext"></th>
                         <th class="width-6">
                             <p-columnFilter field="destinationDescription" matchMode="equals" [showMenu]="false">
                                 <ng-template pTemplate="filter" let-value let-filter="filterCallback">
@@ -115,7 +115,7 @@
                                 </ng-template>
                             </p-columnFilter>
                         </th>
-                        <th class="width-3"><input type="text" class="p-inputtext" (input)="table.filter($event.target.value, 'totalPersons', 'equals')" [value]="$any(table).filters['totalPersons']?.value"></th>
+                        <th class="width-3"><input (input)="table.filter($event.target.value, 'totalPersons', 'equals')" [disabled]="records.reservations.length==0" [value]="$any(table).filters['totalPersons']?.value" class="p-inputtext">
                         <th class="width-2"></th>
                     </tr>
                 </ng-template>

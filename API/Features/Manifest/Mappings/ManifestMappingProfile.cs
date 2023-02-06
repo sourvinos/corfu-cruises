@@ -51,13 +51,13 @@ namespace API.Features.Manifest {
                         .ToList()
                 }))
                 .ForMember(x => x.ShipRoute, x => x.MapFrom(source => new ManifestFinalShipRouteVM {
-                    Description = source.ShipRoute.Description,
-                    FromPort = source.ShipRoute.FromPort,
-                    FromTime = source.ShipRoute.FromTime,
-                    ViaPort = source.ShipRoute.ViaPort,
-                    ViaTime = source.ShipRoute.ViaTime,
-                    ToPort = source.ShipRoute.ToPort,
-                    ToTime = source.ShipRoute.ToTime
+                    Description = "",
+                    FromPort = "",
+                    FromTime = "",
+                    ViaPort = "",
+                    ViaTime = "",
+                    ToPort = "",
+                    ToTime = ""
                 }))
                 .ForMember(x => x.Passengers, x => x.MapFrom(source => source.Passengers.Select(passenger => new ManifestFinalPassengerVM {
                     Id = passenger.Id,
@@ -70,7 +70,6 @@ namespace API.Features.Manifest {
                     NationalityCode = passenger.Nationality.Code,
                     NationalityDescription = passenger.Nationality.Description,
                     OccupantDescription = passenger.Occupant.Description
-
                 }).OrderBy(x => x.Lastname).ThenBy(x => x.Firstname).ThenBy(x => x.Birthdate)));
         }
 

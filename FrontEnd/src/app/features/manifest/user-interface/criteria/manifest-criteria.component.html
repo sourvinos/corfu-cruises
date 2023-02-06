@@ -107,37 +107,6 @@
                     </div>
                 </div>
             </fieldset>
-            <!-- Ship routes -->
-            <fieldset class="fieldset">
-                <legend>
-                    <span>{{ getLabel('shipRoute') }}</span>
-                    <div class="selected">
-                        <span class="selected-count">{{ getLabel("selected") }}: {{ form.value.shipRoutes.length }}</span>
-                        <span class="icon">{{ getEmoji(form.value.shipRoutes.length > 0 ? 'ok' : 'warning') }}</span>
-                    </div>
-                </legend>
-                <div class="filter">
-                    <div class="styled-input-square">
-                        <div class="styled-input-single disabled">
-                            <input id="all-shipRoutes" type="checkbox" formControlName="allShipRoutesCheckbox">
-                            <label class="no-label" for="all-shipRoutes"></label>
-                        </div>
-                    </div>
-                    <mat-form-field class="list-filter">
-                        <input (keyup)="filterList($event, 'shipRoutes')" formControlName="shipRoutesFilter" id="shipRoutesFilter" matInput>
-                    </mat-form-field>
-                </div>
-                <div class="list-wrapper">
-                    <div *ngFor="let shipRoute of shipRoutes" [attr.id]=shipRoute.description>
-                        <div class="styled-input-rounded">
-                            <div class="styled-input-single rounded">
-                                <input (click)="updateRadioButtons(form, 'shipRoutes', 'shipRoute', shipRoute.id, shipRoute.description)" class="shipRoutes" formArrayName="shipRoutes" type="radio" [value]="shipRoute.id" [attr.id]="'shipRoute' + shipRoute.id" [checked]="lookup('ships', shipRoute.id)">
-                                <label [attr.for]="'shipRoute' + shipRoute.id" [attr.id]="'shipRoute-label' + shipRoute.id">{{ shipRoute.description }}</label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </fieldset>
         </form>
     </div>
 

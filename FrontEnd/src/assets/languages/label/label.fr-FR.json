@@ -1396,7 +1396,7 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Registres des clients"
+                "description": "Critères de création des registres des clients"
             },
             {
                 "id": "date",
@@ -1518,7 +1518,11 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Créer un manifeste des passagers"
+                "description": "Critères pour la création d'un manifeste des passagers"
+            },
+            {
+                "id": "headerRouteSelector",
+                "description": "Επιλογή δρομολογίου"
             },
             {
                 "id": "date",

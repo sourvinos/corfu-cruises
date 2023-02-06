@@ -1396,7 +1396,7 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Customer ledgers"
+                "description": "Criteria for creating customer ledgers"
             },
             {
                 "id": "date",
@@ -1518,7 +1518,11 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Create passenger manifest"
+                "description": "Criteria for creating a passengers manifest"
+            },
+            {
+                "id": "headerRouteSelector",
+                "description": "Επιλογή δρομολογίου"
             },
             {
                 "id": "date",
@@ -1555,7 +1559,7 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Passenger manifest"
+                "description": "Passengers manifest"
             },
             {
                 "id": "criteriaDestination",

@@ -1396,7 +1396,7 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Kundenbücher"
+                "description": "Kriterien für die Erstellung von Kundenbüchern"
             },
             {
                 "id": "date",
@@ -1518,7 +1518,11 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Passagiermanifest erstellen"
+                "description": "Kriterien für die Erstellung eines Passagiermanifests"
+            },
+            {
+                "id": "headerRouteSelector",
+                "description": "Επιλογή δρομολογίου"
             },
             {
                 "id": "date",

@@ -5,7 +5,7 @@
     { "id": "reservations-ledgers", "description": "Moje kniha" },
 
     { "id": "tasks-embarkation", "description": "Nalodění" },
-    { "id": "tasks-manifest", "description": "Zpráva o plavidle" },
+    { "id": "tasks-manifest", "description": "Seznam cestujících" },
     { "id": "tasks-ledgers", "description": "Knihy zákazníků" },
 
     { "id": "tables-coachRoutes", "description": "Trasy autobusů" },

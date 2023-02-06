@@ -18,8 +18,7 @@ export class ManifestListResolver {
         const destinationId = criteria.destinations[0].id
         const portIds = this.buildPorts(criteria)
         const shipId = criteria.ships[0].id
-        const shipRouteId = criteria.shipRoutes[0].id
-        return this.manifestService.get(date, destinationId, shipId, shipRouteId, portIds).pipe(
+        return this.manifestService.get(date, destinationId, shipId, portIds).pipe(
             map((manifestList) => new ManifestListResolved(manifestList)),
             catchError((err: any) => of(new ManifestListResolved(null, err)))
         )

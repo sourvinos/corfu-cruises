@@ -119,7 +119,7 @@ export class ManifestPdfService {
                 { text: 'ΔΡΟΜΟΛΟΓΙΟ ' + this.dateHelperService.formatISODateToLocale(manifest.date, false, true) },
                 { text: 'ΚΑΤΑΣΤΑΣΗ ΕΠΙΒΑΙΝΟΝΤΩΝ', fontSize: 13, style: 'AkaAcidCanterBold' },
                 { text: 'ΠΛΟΙΟ: ' + manifest.ship.description },
-                { text: 'ΤΕΛΙΚΟΣ ΠΡΟΟΡΙΣΜΟΣ: ' + manifest.shipRoute.toPort },
+                { text: 'ΤΕΛΙΚΟΣ ΠΡΟΟΡΙΣΜΟΣ: ' + manifest.destination },
             ]
         }
     }

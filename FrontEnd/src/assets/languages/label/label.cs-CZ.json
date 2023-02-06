@@ -1396,7 +1396,7 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Vyúčtování zákazníkům"
+                "description": "Kritéria pro vytváření knih zákazníků"
             },
             {
                 "id": "date",
@@ -1518,7 +1518,11 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Vytvořit manifest cestujících"
+                "description": "Kritéria pro vytvoření seznamu cestujících"
+            },
+            {
+                "id": "headerRouteSelector",
+                "description": "Επιλογή δρομολογίου"
             },
             {
                 "id": "date",

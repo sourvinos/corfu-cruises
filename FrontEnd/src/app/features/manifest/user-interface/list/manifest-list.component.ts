@@ -1,5 +1,6 @@
 import { ActivatedRoute, Router } from '@angular/router'
 import { Component, ViewChild } from '@angular/core'
+import { MatDialog } from '@angular/material/dialog'
 import { Subject } from 'rxjs'
 import { Table } from 'primeng/table'
 // Custom
@@ -9,6 +10,7 @@ import { ListResolved } from 'src/app/shared/classes/list-resolved'
 import { LocalStorageService } from './../../../../shared/services/local-storage.service'
 import { ManifestCriteriaVM } from '../../classes/view-models/criteria/manifest-criteria-vm'
 import { ManifestPdfService } from '../../classes/services/manifest-pdf.service'
+import { ManifestRouteSelectorComponent } from './manifest-route-selector.component'
 import { ManifestVM } from '../../classes/view-models/list/manifest-vm'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { MessageSnackbarService } from '../../../../shared/services/messages-snackbar.service'
@@ -33,6 +35,7 @@ export class ManifestListComponent {
     public featureIcon = 'manifest'
     public icon = 'arrow_back'
     public parentUrl = '/manifest'
+    public isVirtual = true
 
     public criteriaPanels: ManifestCriteriaVM
 
@@ -46,7 +49,7 @@ export class ManifestListComponent {
 
     //#endregion
 
-    constructor(private activatedRoute: ActivatedRoute, private dateHelperService: DateHelperService, private helperService: HelperService, private localStorageService: LocalStorageService, private manifestPdfService: ManifestPdfService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private modalActionResultService: ModalActionResultService, private router: Router) { }
+    constructor(private activatedRoute: ActivatedRoute, private dateHelperService: DateHelperService, private helperService: HelperService, private localStorageService: LocalStorageService, private manifestPdfService: ManifestPdfService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private modalActionResultService: ModalActionResultService, private router: Router, public dialog: MatDialog) { }
 
     //#region lifecycle hooks
 
@@ -70,11 +73,8 @@ export class ManifestListComponent {
 
     //#region public methods
 
-    public createPdf(): void {
-        this.manifestPdfService.createReport(this.records)
-    }
-
     public filterRecords(event: { filteredValue: any[] }): void {
+        this.disableVirtualTable()
         this.updateTotals(this.totalsFiltered, event.filteredValue)
     }
 
@@ -102,6 +102,22 @@ export class ManifestListComponent {
         this.helperService.clearTableTextFilters(this.table, ['lastname', 'firstname'])
     }
 
+    public showRouteSelectorDialog(): void {
+        const response = this.dialog.open(ManifestRouteSelectorComponent, {
+            data: this.records,
+            disableClose: false,
+            height: '500px',
+            panelClass: 'dialog',
+            width: '800px',
+        })
+        response.afterClosed().subscribe(result => {
+            if (result !== undefined) {
+                this.records.shipRoute = result
+                this.manifestPdfService.createReport(this.records)
+            }
+        })
+    }
+
     //#endregion
 
     //#region private methods
@@ -121,6 +137,10 @@ export class ManifestListComponent {
     private cleanup(): void {
         this.unsubscribe.next()
         this.unsubscribe.unsubscribe()
+    }
+
+    private disableVirtualTable(): void {
+        this.isVirtual = this.helperService.disableVirtualTable()
     }
 
     private enableDisableFilters(): void {

@@ -223,6 +223,12 @@ export class HelperService {
         })
     }
 
+    public disableVirtualTable(): any {
+        setTimeout(() => {
+            return false
+        }, 2000)
+    }
+
     //#endregion
 
     //#region private methods

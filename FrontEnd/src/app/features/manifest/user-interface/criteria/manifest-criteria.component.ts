@@ -41,7 +41,6 @@ export class ManifestCriteriaComponent {
     public destinations: SimpleEntity[] = []
     public ports: SimpleEntity[] = []
     public ships: SimpleEntity[] = []
-    public shipRoutes: SimpleEntity[]
 
     //#endregion
 
@@ -142,15 +141,12 @@ export class ManifestCriteriaComponent {
             destinations: this.formBuilder.array([], Validators.required),
             ports: this.formBuilder.array([], Validators.required),
             ships: this.formBuilder.array([], Validators.required),
-            shipRoutes: this.formBuilder.array([], Validators.required),
             destinationsFilter: '',
             portsFilter: '',
             shipsFilter: '',
-            shipRoutesFilter: '',
             allDestinationsCheckbox: '',
             allPortsCheckbox: '',
             allShipsCheckbox: '',
-            allShipRoutesCheckbox: ''
         })
     }
 
@@ -166,7 +162,6 @@ export class ManifestCriteriaComponent {
         this.populateDropdownFromLocalStorage('destinations')
         this.populateDropdownFromLocalStorage('ships')
         this.populateDropdownFromLocalStorage('ports')
-        this.populateDropdownFromLocalStorage('shipRoutes')
     }
 
     private populateFieldsFromStoredVariables(): void {
@@ -178,7 +173,6 @@ export class ManifestCriteriaComponent {
                 destinations: this.addSelectedCriteriaFromStorage('destinations'),
                 ports: this.addSelectedCriteriaFromStorage('ports'),
                 ships: this.addSelectedCriteriaFromStorage('ships'),
-                shipRoutes: this.addSelectedCriteriaFromStorage('shipRoutes'),
                 allPortsCheckbox: this.criteria.allPortsCheckbox,
             })
         }
