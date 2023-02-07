@@ -30,7 +30,7 @@ export class CoachRouteListComponent {
     public icon = 'home'
     public parentUrl = '/'
     public records: CoachRouteListVM[] = []
-    public recordsFiltered: CoachRouteListVM[] = []
+    public recordsFilteredCount: number
 
     //#endregion
 
@@ -39,7 +39,11 @@ export class CoachRouteListComponent {
     //#region lifecycle hooks
 
     ngOnInit(): void {
-        this.loadRecords()
+        this.loadRecords().then(() => {
+            this.scrollToSavedRow().then(() => {
+                this.highlightRowFromStorage()
+            })
+        })
     }
 
     ngAfterViewInit(): void {
@@ -55,12 +59,14 @@ export class CoachRouteListComponent {
     //#region public methods
 
     public editRecord(id: number): void {
+        this.storeScrollTop()
+        this.storeSelectedId(id)
         this.router.navigate([this.url, id])
     }
 
     public filterRecords(event: { filteredValue: any[] }): void {
-        this.recordsFiltered = event.filteredValue
         this.localStorageService.saveItem(this.feature, JSON.stringify(this.table.filters))
+        this.recordsFilteredCount = event.filteredValue.length
     }
 
     public getLabel(id: string): string {
@@ -73,6 +79,10 @@ export class CoachRouteListComponent {
 
     public resetTableFilters(): void {
         this.helperService.clearTableTextFilters(this.table, ['abbreviation', 'description'])
+    }
+
+    public unHighlightAllRows(): void {
+        this.helperService.unHighlightAllRows()
     }
 
     //#endregion
@@ -106,19 +116,46 @@ export class CoachRouteListComponent {
         this.router.navigate([this.parentUrl])
     }
 
+    private highlightRowFromStorage(): void {
+        setTimeout(() => {
+            document.getElementById(this.localStorageService.getItem('id'))?.classList.add('p-highlight')
+        }, 1000)
+    }
+
     private loadRecords(): Promise<any> {
-        const promise = new Promise((resolve) => {
+        return new Promise((resolve) => {
             const listResolved: ListResolved = this.activatedRoute.snapshot.data[this.feature]
             if (listResolved.error == null) {
-                this.records = listResolved.list
-                this.recordsFiltered = listResolved.list
+                this.records = Object.assign([], listResolved.list)
+                this.recordsFilteredCount = this.records.length
                 resolve(this.records)
             } else {
-                this.goBack()
-                this.modalActionResultService.open(this.messageSnackbarService.filterResponse(new Error('500')), 'error', ['ok'])
+                this.modalActionResultService.open(this.messageSnackbarService.filterResponse(listResolved.error), 'error', ['ok']).subscribe(() => {
+                    this.goBack()
+                })
             }
         })
-        return promise
+    }
+
+    private scrollToSavedRow(): Promise<any> {
+        return new Promise((resolve) => {
+            setTimeout(() => {
+                document.getElementsByClassName('p-scroller-inline')[0]?.scrollTo({
+                    top: parseInt(this.localStorageService.getItem('scrollTop')) || 0,
+                    left: 0,
+                    behavior: 'auto'
+                })
+                resolve(null)
+            }, 0)
+        })
+    }
+
+    private storeScrollTop(): void {
+        this.helperService.storeScrollTop('p-scroller-inline')
+    }
+
+    private storeSelectedId(id: number): void {
+        this.localStorageService.saveItem('id', id.toString())
     }
 
     //#endregion

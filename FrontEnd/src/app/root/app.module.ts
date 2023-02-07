@@ -33,7 +33,7 @@ import { InterceptorService } from '../shared/services/interceptor.service'
         TasksMenuComponent,
         TopBarComponent,
         TopMenuComponent,
-        UserMenuComponent,
+        UserMenuComponent
     ],
     imports: [
         AppRoutingModule,

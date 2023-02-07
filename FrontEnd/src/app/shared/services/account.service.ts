@@ -71,7 +71,7 @@ export class AccountService extends HttpDataService {
             { 'item': 'ledger-criteria', 'when': 'always' },
             { 'item': 'manifest-criteria', 'when': 'production' },
             // Table filters
-            { 'item': 'coachRoute-list', 'when': 'always' },
+            { 'item': 'coachRouteList', 'when': 'always' },
             { 'item': 'customer-list', 'when': 'always' },
             { 'item': 'destination-list', 'when': 'always' },
             { 'item': 'driver-list', 'when': 'always' },
