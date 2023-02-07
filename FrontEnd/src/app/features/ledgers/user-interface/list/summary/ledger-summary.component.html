@@ -10,7 +10,6 @@
                 <th class="width-3">{{ getLabel('headerTotalPersons') }}</th>
                 <th class="width-3">{{ getLabel('headerTotalPersons') }}<span class="subscript">1</span></th>
                 <th class="width-3">{{ getLabel('headerNoShow') }}</th>
-                <th class="width-3">+/-</th>
             </tr>
         </ng-template>
         <ng-template let-allPorts let-expanded="expanded" pTemplate="body">
@@ -22,43 +21,40 @@
                 <td class="number width-3">{{ allPorts.free | replaceZero }}</td>
                 <td class="number width-3">{{ allPorts.totalPersons | replaceZero }}</td>
                 <td class="number width-3">{{ allPorts.totalPassengers | replaceZero }}</td>
-                <td class="number width-3">{{ allPorts.totalNoShow | replaceZero }}</td>
-                <td class="center emoji width-3">
-                    <span *ngIf="allPorts.totalPersons - allPorts.totalPassengers == 0">{{ getEmoji('ok') }}</span>
-                    <span *ngIf="allPorts.totalPersons - allPorts.totalPassengers != 0">{{ getEmoji('warning') }}</span>
+                <td class="text-with-emoji number width-3">
+                    <span>{{ allPorts.totalNoShow | replaceZero }}</span>
+                    <span *ngIf="allPorts.totalPersons - allPorts.totalPassengers == 0" class="emoji"></span>
+                    <span *ngIf="allPorts.totalPersons - allPorts.totalPassengers != 0" class="emoji">&nbsp;{{ getEmoji('error') }}</span>
                 </td>
             </tr>
         </ng-template>
         <ng-template let-port pTemplate="rowexpansion">
             <tr class="group-row no-hover">
-                <td colspan="9">
+                <td colspan="5" style="padding-left: 100px;">
                     <div class="passengers-row">
                         <p-table [value]="port.hasTransferGroup" class="nested-table" dataKey="hasTransferGroup">
                             <ng-template pTemplate="header">
                                 <tr>
-                                    <th class="width-2"></th>
                                     <th class="width-3">{{ getLabel('headerAdults') }}</th>
                                     <th class="width-3">{{ getLabel('headerKids') }}</th>
                                     <th class="width-3">{{ getLabel('headerFree') }}</th>
                                     <th class="width-3">{{ getLabel('headerTotalPersons') }}</th>
                                     <th class="width-3">{{ getLabel('headerTotalPersons') }}<span class="subscript">1</span></th>
                                     <th class="width-3">{{ getLabel('headerNoShow') }}</th>
-                                    <th class="width-3">+/-</th>
                                     <th class="width-4">{{ getLabel('headerHasTransfer') }}</th>
                                 </tr>
                             </ng-template>
                             <ng-template let-hasTransfer pTemplate="body">
                                 <tr>
-                                    <td class="width-2"></td>
                                     <td class="number width-3">{{ hasTransfer.adults | replaceZero }}</td>
                                     <td class="number width-3">{{ hasTransfer.kids | replaceZero }}</td>
                                     <td class="number width-3">{{ hasTransfer.free | replaceZero }}</td>
                                     <td class="number width-3">{{ hasTransfer.totalPersons | replaceZero }}</td>
                                     <td class="number width-3">{{ hasTransfer.totalPassengers | replaceZero }}</td>
-                                    <td class="number width-3">{{ hasTransfer.totalNoShow | replaceZero }}</td>
-                                    <td class="center emoji width-4">
-                                        <span *ngIf="hasTransfer.totalPersons - hasTransfer.totalPassengers == 0">{{ getEmoji('ok') }}</span>
-                                        <span *ngIf="hasTransfer.totalPersons - hasTransfer.totalPassengers != 0">{{ getEmoji('warning') }}</span>
+                                    <td class="text-with-emoji number width-3">
+                                        <span>{{ hasTransfer.totalNoShow | replaceZero }}</span>
+                                        <span *ngIf="hasTransfer.totalPersons - hasTransfer.totalPassengers == 0" class="emoji"></span>
+                                        <span *ngIf="hasTransfer.totalPersons - hasTransfer.totalPassengers != 0" class="emoji">&nbsp;{{ getEmoji('error') }}</span>
                                     </td>
                                     <td [ngClass]="hasTransfer.hasTransfer ? 'has-transfer' : 'no-transfer'" class="center width-4">
                                         <span *ngIf="hasTransfer.hasTransfer">{{ getEmoji('green-circle') }} </span>

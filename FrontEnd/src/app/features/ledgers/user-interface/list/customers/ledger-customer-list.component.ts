@@ -65,6 +65,7 @@ export class LedgerCustomerListComponent {
     //#region public methods
 
     public exportSelected(): void {
+        this.helperService.sortNestedArray(this.selectedRecords, 'customer.description')
         this.ledgerPdfService.createPDF(this.selectedRecords, this.criteriaPanels)
     }
 
@@ -88,6 +89,10 @@ export class LedgerCustomerListComponent {
         this.router.navigate([this.parentUrl])
     }
 
+    public highlightRow(id: any): void {
+        this.helperService.highlightRow(id)
+    }
+
     public resetTableFilters(): void {
         this.helperService.clearTableTextFilters(this.table, ['customer.description'])
     }
@@ -105,10 +110,6 @@ export class LedgerCustomerListComponent {
         })
     }
 
-    public unHighlightAllRows(): void {
-        this.helperService.unHighlightAllRows()
-    }
-
     //#endregion
 
     //#region private methods
@@ -118,7 +119,7 @@ export class LedgerCustomerListComponent {
         this.unsubscribe.unsubscribe()
     }
 
-    public getConnectedUserRole(): void {
+    private getConnectedUserRole(): void {
         this.isAdmin = ConnectedUser.isAdmin
     }
 

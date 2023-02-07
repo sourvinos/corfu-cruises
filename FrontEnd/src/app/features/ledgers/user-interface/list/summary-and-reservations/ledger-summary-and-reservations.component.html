@@ -13,10 +13,12 @@
         </mat-tab>
     </mat-tab-group>
 
-    <div class="button-group-right" id="dialog-footer">
-        <mat-dialog-actions>
-            <button (click)="close()" class="primary" mat-flat-button>{{ getLabel('ok-button') }}</button>
-        </mat-dialog-actions>
+    <div id="dialog-footer">
+        <div class="button-group-right">
+            <mat-dialog-actions>
+                <button (click)="close()" class="primary" mat-flat-button>{{ getLabel('ok-button') }}</button>
+            </mat-dialog-actions>
+        </div>
     </div>
 
 </div>

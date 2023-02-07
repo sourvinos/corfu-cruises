@@ -191,6 +191,22 @@ export class HelperService {
         })
     }
 
+    public sortNestedArray(array: any, property: any): any {
+        property = property.split('.')
+        const len = property.length
+        array.sort((a: any, b: any) => {
+            let i = 0
+            while (i < len) { a = a[property[i]]; b = b[property[i]]; i++ }
+            if (a < b) {
+                return -1
+            } else if (a > b) {
+                return 1
+            } else {
+                return 0
+            }
+        })
+    }
+
     public storeScrollTop(element: string): void {
         const body = document.getElementsByClassName(element)[0]
         this.localStorageService.saveItem('scrollTop', body.scrollTop.toString())
@@ -214,6 +230,14 @@ export class HelperService {
             }
         }
         return true
+    }
+
+    public highlightRow(id: any): void {
+        const x = document.querySelectorAll('.p-highlight')
+        x.forEach(row => {
+            row.classList.remove('p-highlight')
+        })
+        document.getElementById(id).classList.add('p-highlight')
     }
 
     public unHighlightAllRows(): void {

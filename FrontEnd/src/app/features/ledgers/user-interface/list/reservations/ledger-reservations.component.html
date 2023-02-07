@@ -38,7 +38,7 @@
                 <td class="text-with-emoji number width-3">
                     <span>{{ reservation.totalNoShow | replaceZero }}</span>
                     <span *ngIf="reservation.totalPersons - reservation.embarkedPassengers == 0" class="emoji"></span>
-                    <span *ngIf="reservation.totalPersons - reservation.embarkedPassengers != 0" class="emoji">{{ getEmoji('warning') }}</span>
+                    <span *ngIf="reservation.totalPersons - reservation.embarkedPassengers != 0" class="emoji">&nbsp;{{ getEmoji('error') }}</span>
                 </td>
                 <td class="center width-3">
                     <span (click)="showRemarks(reservation.remarks)" [ngClass]="hasRemarks(reservation.remarks)?'clickable':''" *ngIf="hasRemarks(reservation.remarks)" class="remarks">{{ getEmoji('remarks') }}</span>
