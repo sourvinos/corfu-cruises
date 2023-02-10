@@ -16,13 +16,13 @@
     display: flex;
     flex-direction: column;
     height: 100%;
-    padding: 0;
+    padding: 0 1rem 0 0;
 }
 
 #dialog-header {
     align-items: left;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: space-between;
     padding: 0 2rem 1rem 1rem;
 }
@@ -37,8 +37,12 @@
 
 #dialog-header h1 {
     color: var(--color-dialog-header) !important;
-    font-weight: 300 !important;
-    margin-bottom: 0.3rem;
+    margin: 0 !important;
+}
+
+#dialog-header h6 {
+    color: var(--color-c) !important;
+    margin: 0;
 }
 
 #dialog-content {
@@ -49,7 +53,7 @@
     font-weight: var(--font-weight-dialog-content) !important;
     line-height: 2rem;
     margin: 0 2rem;
-    overflow-y: hidden;
+    overflow-y: scroll;
     text-align: center;
 }
 

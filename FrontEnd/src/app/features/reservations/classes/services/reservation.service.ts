@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core'
 import { Observable } from 'rxjs'
 // Custom
 import { HttpDataService } from 'src/app/shared/services/http-data.service'
-import { ReservationGroupDto } from '../dtos/list/reservation-group-dto'
+import { ReservationListVM } from '../view-models/list/reservation-list-vm'
 import { environment } from 'src/environments/environment'
 
 @Injectable({ providedIn: 'root' })
@@ -18,16 +18,16 @@ export class ReservationService extends HttpDataService {
         return this.http.get<any>(this.url + '/year/' + year)
     }
 
-    public getByDate(date: string): Observable<ReservationGroupDto> {
-        return this.http.get<ReservationGroupDto>(this.url + '/date/' + date)
+    public getByDate(date: string): Observable<ReservationListVM> {
+        return this.http.get<ReservationListVM>(this.url + '/date/' + date)
     }
 
     public getByDateAndDriver(date: string, driverId: number): Observable<any> {
         return this.http.get<any>(this.url + '/date/' + date + '/byDriver/' + driverId)
     }
 
-    public getByRefNo(refNo: string): Observable<ReservationGroupDto> {
-        return this.http.get<ReservationGroupDto>(this.url + '/byRefNo/' + refNo)
+    public getByRefNo(refNo: string): Observable<ReservationListVM> {
+        return this.http.get<ReservationListVM>(this.url + '/byRefNo/' + refNo)
     }
 
     public save(formData: any): Observable<any> {

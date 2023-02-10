@@ -27,8 +27,8 @@ namespace API.Features.Reservations {
             this.userManager = userManager;
         }
 
-        public async Task<ReservationFinalGroupVM> GetForDailyListAsync(string date) {
-            IEnumerable<Reservation> reservations = Array.Empty<Reservation>();
+        public async Task<IEnumerable<ReservationListVM>> GetByDateAsync(string date) {
+            IEnumerable<Reservation> reservations;
             if (Identity.IsUserAdmin(httpContext)) {
                 reservations = await GetReservationsFromAllUsersByDateAsync(date);
             } else {
@@ -36,16 +36,11 @@ namespace API.Features.Reservations {
                 var connectedUserDetails = Identity.GetConnectedUserDetails(userManager, simpleUser);
                 reservations = await GetReservationsForLinkedCustomerAsync(date, (int)connectedUserDetails.CustomerId);
             }
-            var x = new ReservationInitialGroupVM {
-                Persons = reservations.Sum(x => x.TotalPersons),
-                Reservations = reservations
-            };
-            return mapper.Map<ReservationInitialGroupVM, ReservationFinalGroupVM>(x);
+            return mapper.Map<IEnumerable<Reservation>, IEnumerable<ReservationListVM>>(reservations);
         }
 
-        public async Task<ReservationFinalGroupVM> GetByRefNoAsync(string refNo) {
-            IEnumerable<Reservation> reservations = Array.Empty<Reservation>();
-            var connectedUser = Identity.GetConnectedUserId(httpContext);
+        public async Task<IEnumerable<ReservationListVM>> GetByRefNoAsync(string refNo) {
+            IEnumerable<Reservation> reservations;
             if (Identity.IsUserAdmin(httpContext)) {
                 reservations = await GetReservationsFromAllUsersByRefNoAsync(refNo);
             } else {
@@ -53,11 +48,7 @@ namespace API.Features.Reservations {
                 var userDetails = Identity.GetConnectedUserDetails(userManager, userId);
                 reservations = await GetReservationsFromLinkedCustomerbyRefNoAsync(refNo, (int)userDetails.CustomerId);
             }
-            var x = new ReservationInitialGroupVM {
-                Persons = reservations.Sum(x => x.TotalPersons),
-                Reservations = reservations,
-            };
-            return mapper.Map<ReservationInitialGroupVM, ReservationFinalGroupVM>(x);
+            return mapper.Map<IEnumerable<Reservation>, IEnumerable<ReservationListVM>>(reservations);
         }
 
         public async Task<ReservationDriverGroupVM> GetByDateAndDriverAsync(string date, int driverId) {
@@ -100,7 +91,8 @@ namespace API.Features.Reservations {
                 .Include(x => x.Customer)
                 .Include(x => x.Destination)
                 .Include(x => x.Driver)
-                .Include(x => x.PickupPoint).ThenInclude(y => y.CoachRoute).ThenInclude(z => z.Port)
+                .Include(x => x.PickupPoint).ThenInclude(y => y.CoachRoute)
+                .Include(x => x.Port)
                 .Include(x => x.Ship)
                 .Include(x => x.Passengers)
                 .Where(x => x.Date == Convert.ToDateTime(date))

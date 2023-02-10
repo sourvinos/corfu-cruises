@@ -13,13 +13,41 @@ namespace API.Features.Reservations {
 
         public ReservationMappingProfile() {
             // List
-            CreateMap<Reservation, ReservationFinalListVM>()
+            CreateMap<Reservation, ReservationListVM>()
                 .ForMember(x => x.Date, x => x.MapFrom(x => DateHelpers.DateToISOString(x.Date)))
-                .ForMember(x => x.CoachRouteAbbreviation, x => x.MapFrom(x => x.PickupPoint.CoachRoute.Abbreviation))
-                .ForMember(x => x.DriverDescription, x => x.NullSubstitute("(EMPTY)"))
-                .ForMember(x => x.PortDescription, x => x.MapFrom(x => x.PickupPoint.CoachRoute.Port.Description))
-                .ForMember(x => x.ShipDescription, x => x.NullSubstitute("(EMPTY)"))
-                .ForMember(x => x.Time, x => x.MapFrom(x => x.PickupPoint.Time))
+                .ForMember(x => x.Customer, x => x.MapFrom(x => new SimpleEntity {
+                    Id = x.Customer.Id,
+                    Description = x.Customer.Description
+                }))
+                .ForMember(x => x.CoachRoute, x => x.MapFrom(x => new CoachRouteListVM {
+                    Id = x.PickupPoint.CoachRoute.Id,
+                    Description = x.PickupPoint.CoachRoute.Abbreviation,
+                    LongDescription = x.PickupPoint.CoachRoute.Description,
+                }))
+                .ForMember(x => x.Destination, x => x.MapFrom(x => new DestinationListVM {
+                    Id = x.Destination.Id,
+                    Description = x.Destination.Abbreviation,
+                    LongDescription = x.Destination.Description
+                }))
+                .ForMember(x => x.PickupPoint, x => x.MapFrom(x => new PickupPointListVM {
+                    Id = x.PickupPoint.Id,
+                    Description = x.PickupPoint.Description,
+                    Time = x.PickupPoint.Time
+                }))
+                .ForMember(x => x.Driver, x => x.MapFrom(x => new DriverListVM {
+                    Id = x.Driver == null ? 0 : x.Driver.Id,
+                    Description = x.Driver == null ? "(EMPTY)" : x.Driver.Description,
+                    Phones = x.Driver == null ? "(EMPTY)" : x.Driver.Phones
+                }))
+                .ForMember(x => x.Port, x => x.MapFrom(x => new PortListVM {
+                    Id = x.Port.Id,
+                    Description = x.Port.Abbreviation,
+                    LongDescription = x.Port.Description
+                }))
+                .ForMember(x => x.Ship, x => x.MapFrom(x => new SimpleEntity {
+                    Id = x.Ship == null ? 0 : x.Ship.Id,
+                    Description = x.Ship == null ? "(EMPTY)" : x.Ship.Description
+                }))
                 .ForMember(x => x.PassengerCount, x => x.MapFrom(x => x.Passengers.Count))
                 .ForMember(x => x.PassengerDifference, x => x.MapFrom(x => x.TotalPersons - x.Passengers.Count));
             // DriverList

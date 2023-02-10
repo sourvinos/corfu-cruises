@@ -17,6 +17,10 @@
     width: auto !important;
 }
 
+.filter-pill .overbooked {
+    width: auto !important;
+}
+
 .filter-pill .pill img {
     width: 1.375rem;
 }

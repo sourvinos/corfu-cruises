@@ -44,8 +44,8 @@ namespace API.Features.Reservations {
 
         [HttpGet("date/{date}")]
         [Authorize(Roles = "user, admin")]
-        public async Task<ReservationFinalGroupVM> GetForDailyListAsync([FromRoute] string date) {
-            return await reservationReadRepo.GetForDailyListAsync(date);
+        public async Task<IEnumerable<ReservationListVM>> GetByDateListAsync([FromRoute] string date) {
+            return await reservationReadRepo.GetByDateAsync(date);
         }
 
         [HttpGet("date/{date}/driver/{driverId}")]
@@ -56,7 +56,7 @@ namespace API.Features.Reservations {
 
         [HttpGet("refNo/{refNo}")]
         [Authorize(Roles = "user, admin")]
-        public async Task<ReservationFinalGroupVM> GetByRefNoAsync([FromRoute] string refNo) {
+        public async Task<IEnumerable<ReservationListVM>> GetByRefNoAsync([FromRoute] string refNo) {
             return await reservationReadRepo.GetByRefNoAsync(refNo);
         }
 

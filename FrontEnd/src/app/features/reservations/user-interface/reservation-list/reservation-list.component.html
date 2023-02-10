@@ -2,166 +2,174 @@
 
     <div id="header">
         <home-button-and-title [feature]="feature" [featureIcon]="featureIcon" [icon]="icon" [parentUrl]="parentUrl"></home-button-and-title>
-        <div id="criteria">
+        <div class="filter-pill">
             <div class="pill date">
                 <img [src]="getIcon('calendar')">
-                <div class="description">{{ formatDate() }}</div>
+                <div class="description">{{ formatDateToLocale(getDateFromStorage(), true, true) }}</div>
             </div>
-            <div class="pill number">
-                <img [src]="getIcon('total')">
-                <div class="description">{{ totals[0].sum }}</div>
-            </div>
-            <div class="pill number">
-                <img [src]="getIcon('filter')">
-                <div class="description">{{ totals[1].sum }}</div>
-            </div>
-            <div class="pill number">
-                <img [src]="getIcon('selected')">
-                <div class="description">{{ totals[2].sum }}</div>
-            </div>
+            <button (click)="resetTableFilters()" [disabled]="totals[0]==totals[1]" class="primary" mat-flat-button>
+                <i class="pi pi-filter-slash"></i>
+            </button>
         </div>
-        <button mat-flat-button class="primary" (click)="doResetTableTasks(table)">
-            <i class="pi pi-filter-slash"></i>
-        </button>
     </div>
 
-    <div id="table-wrapper">
-        <p-table #table (onFilter)="filterRecords($event)" (onHeaderCheckboxToggle)="toggleVisibleRows()" (onRowSelect)="rowSelect($event)" (onRowUnselect)="rowUnselect($event)" [(selection)]="selectedRecords" [autoLayout]="false" [scrollable]="true" [value]="reservationGroupDto.reservations" dataKey="reservationId" scrollHeight="flex" selectionMode="multiple" sortMode="multiple" stateKey="reservation-list" stateStorage="session" width="100%">
-            <ng-template pTemplate="header">
-                <tr>
-                    <th style="width: 3rem;"></th>
-                    <th style="width: 6rem;">{{ getLabel('headerRefNo') }}</th>
-                    <th>{{ getLabel('headerTicketNo') }}</th>
-                    <th style="width: 10rem;" pSortableColumn="customerDescription">{{ getLabel('headerCustomer') }}<p-sortIcon field="customerDescription"></p-sortIcon></th>
-                    <th style="width: 10rem;" pSortableColumn="destinationDescription">{{ getLabel('headerDestination') }}<p-sortIcon field="destinationDescription"></p-sortIcon></th>
-                    <th style="width: 10rem;" pSortableColumn="coachRouteAbbreviation">{{ getLabel('headerRoute') }}<p-sortIcon field="coachRouteAbbreviation"></p-sortIcon></th>
-                    <th style="width: 13rem;" pSortableColumn="pickupPointDescription">{{ getLabel('headerPickupPoint') }}<p-sortIcon field="pickupPointDescription"></p-sortIcon></th>
-                    <th style="width: 7rem;" pSortableColumn="time">{{ getLabel('headerTime') }}<p-sortIcon field="time"></p-sortIcon></th>
-                    <th style="width: 3rem;">Σ</th>
-                    <th style="width: 3rem;">Σ1</th>
-                    <th style="width: 3rem;">{{ getLabel('headerPlusMinus') }}</th>
-                    <th style="width: 10rem;" pSortableColumn="driverDescription">{{ getLabel('headerDriver') }}<p-sortIcon field="driverDescription"></p-sortIcon></th>
-                    <th style="width: 10rem;" pSortableColumn="portDescription">{{ getLabel('headerPort') }}<p-sortIcon field="portDescription"></p-sortIcon></th>
-                    <th style="width: 10rem;" pSortableColumn="shipDescription">{{ getLabel('headerShip') }}<p-sortIcon field="shipDescription"></p-sortIcon></th>
-                </tr>
-                <tr>
-                    <th style="width: 3rem;"><p-tableHeaderCheckbox></p-tableHeaderCheckbox></th>
-                    <th style="width: 6rem;"><input type="text" class="p-inputtext" (input)="table.filter($event.target.value, 'refNo', 'contains')" [value]="$any(table).filters['refNo']?.value"></th>
-                    <th><input type="text" class="p-inputtext" (input)="table.filter($event.target.value, 'ticketNo', 'contains')" [value]="$any(table).filters['ticketNo']?.value"></th>
-                    <th style="width: 10rem">
-                        <p-columnFilter style="width: 100%;" field="customerDescription" matchMode="equals" [showMenu]="false">
-                            <ng-template pTemplate="filter" let-value let-filter="filterCallback">
-                                <p-dropdown [ngModel]="value" [options]="dropdownCustomers" (onChange)="filter($event.value)" [placeholder]="getEmoji('wildcard')" [showClear]="true">
-                                    <ng-template let-option pTemplate="item">
-                                        <span>{{ option.label }}</span>
-                                    </ng-template>
-                                </p-dropdown>
-                            </ng-template>
-                        </p-columnFilter>
-                    </th>
-                    <th style="width: 10rem;">
-                        <p-columnFilter style="width: 100%;" field="destinationDescription" matchMode="equals" [showMenu]="false">
-                            <ng-template pTemplate="filter" let-value let-filter="filterCallback">
-                                <p-dropdown [ngModel]="value" [options]="dropdownDestinations" (onChange)="filter($event.value)" [placeholder]="getEmoji('wildcard')" [showClear]="true">
-                                    <ng-template let-option pTemplate="item">
-                                        <span>{{ option.label }}</span>
-                                    </ng-template>
-                                </p-dropdown>
-                            </ng-template>
-                        </p-columnFilter>
-                    </th>
-                    <th style="width: 10rem;">
-                        <p-columnFilter style="width: 100%;" field="coachRouteAbbreviation" matchMode="equals" [showMenu]="false">
-                            <ng-template pTemplate="filter" let-value let-filter="filterCallback">
-                                <p-dropdown [ngModel]="value" [options]="dropdownCoachRoutes" (onChange)="filter($event.value)" [placeholder]="getEmoji('wildcard')" [showClear]="true">
-                                    <ng-template let-option pTemplate="item">
-                                        <span>{{ option.label }}</span>
-                                    </ng-template>
-                                </p-dropdown>
-                            </ng-template>
-                        </p-columnFilter>
-                    </th>
-                    <th style="width: 13rem;">
-                        <p-columnFilter style="width: 100%;" field="pickupPointDescription" matchMode="equals" [showMenu]="false">
-                            <ng-template pTemplate="filter" let-value let-filter="filterCallback">
-                                <p-dropdown [ngModel]="value" [options]="dropdownPickupPoints" (onChange)="filter($event.value)" [placeholder]="getEmoji('wildcard')" [showClear]="true">
-                                    <ng-template let-option pTemplate="item">
-                                        <span>{{ option.label }}</span>
-                                    </ng-template>
-                                </p-dropdown>
-                            </ng-template>
-                        </p-columnFilter>
-                    </th>
-                    <th style="width: 7rem;"></th>
-                    <th style="width: 3rem;"></th>
-                    <th style="width: 3rem;"></th>
-                    <th style="width: 3rem;"></th>
-                    <th style="width: 10rem;">
-                        <p-columnFilter style="width: 100%;" field="driverDescription" matchMode="equals" [showMenu]="false">
-                            <ng-template pTemplate="filter" let-value let-filter="filterCallback">
-                                <p-dropdown [ngModel]="value" [options]="dropdownDrivers" (onChange)="filter($event.value)" [placeholder]="getEmoji('wildcard')" [showClear]="true">
-                                    <ng-template let-option pTemplate="item">
-                                        <span>{{ option.label }}</span>
-                                    </ng-template>
-                                </p-dropdown>
-                            </ng-template>
-                        </p-columnFilter>
-                    </th>
-                    <th style="width: 10rem;">
-                        <p-columnFilter style="width: 100%;" field="portDescription" matchMode="equals" [showMenu]="false">
-                            <ng-template pTemplate="filter" let-value let-filter="filterCallback">
-                                <p-dropdown [ngModel]="value" [options]="dropdownPorts" (onChange)="filter($event.value)" [placeholder]="getEmoji('wildcard')" [showClear]="true">
-                                    <ng-template let-option pTemplate="item">
-                                        <span>{{ option.label }}</span>
-                                    </ng-template>
-                                </p-dropdown>
-                            </ng-template>
-                        </p-columnFilter>
-                    </th>
-                    <th style="width: 10rem;">
-                        <p-columnFilter style="width: 100%;" field="shipDescription" matchMode="equals" [showMenu]="false">
-                            <ng-template pTemplate="filter" let-value let-filter="filterCallback">
-                                <p-dropdown [ngModel]="value" [options]="dropdownShips" (onChange)="filter($event.value)" [placeholder]="getEmoji('wildcard')" [showClear]="true">
-                                    <ng-template let-option pTemplate="item">
-                                        <span>{{ option.label }}</span>
-                                    </ng-template>
-                                </p-dropdown>
-                            </ng-template>
-                        </p-columnFilter>
-                    </th>
-                </tr>
-            </ng-template>
-            <ng-template pTemplate="body" let-rowData>
-                <tr [class.ui-state-highlight]="rowData == highlighted" (click)="highlighted = rowData" (dblclick)="editRecord(rowData.reservationId)">
-                    <td style="min-width: 3rem; max-width: 6rem; text-align: center;"><p-tableCheckbox [value]="rowData"></p-tableCheckbox></td>
-                    <td style="min-width: 6rem; max-width: 6rem;">{{ formatRefNo(rowData.refNo) }}</td>
-                    <td>{{ rowData.ticketNo }}</td>
-                    <td style="max-width: 10rem; max-width: 10rem;">{{ rowData.customerDescription }}</td>
-                    <td style="max-width: 10rem; max-width: 10rem;">{{ rowData.destinationDescription }}</td>
-                    <td style="max-width: 10rem; max-width: 10rem;">{{ rowData.coachRouteAbbreviation }}</td>
-                    <td style="max-width: 13rem; max-width: 13rem;">{{ rowData.pickupPointDescription }}</td>
-                    <td style="max-width: 7rem; max-width: 7rem; text-align: center;">{{ rowData.time }}</td>
-                    <td style="max-width: 3rem; max-width: 3rem; text-align: right;">{{ rowData.totalPersons }}</td>
-                    <td style="max-width: 3rem; max-width: 3rem; text-align: right;">{{ rowData.passengerCount }} ({{ rowData.passengerDifference * -1 }})</td>
-                    <td style="max-width: 3rem; max-width: 3rem; text-align: center;">{{ showEmoji(rowData.passengerDifference) }}</td>
-                    <td style="max-width: 10rem; max-width: 10rem;">{{ rowData.driverDescription == "(EMPTY)" ? getEmoji('null'): rowData.driverDescription }}</td>
-                    <td style="max-width: 10rem; max-width: 10rem;">{{ rowData.portDescription }}</td>
-                    <td style="max-width: 10rem; max-width: 10rem;">{{ rowData.shipDescription == "(EMPTY)" ? getEmoji('null'): rowData.shipDescription }}</td>
-                </tr>
-            </ng-template>
-        </p-table>
+    <div id="content">
+        <div id="table-wrapper">
+            <p-table #table (onHeaderCheckboxToggle)="calculateSelectedPersons()" (onFilter)="filterRecords($event)" [(selection)]="selectedRecords" [scrollable]="true" [value]="records" [virtualScrollItemSize]="32" [virtualScroll]="true" dataKey="reservationId" scrollHeight="flex" selectionMode="multiple" sortMode="multiple">
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th class="width-3"></th>
+                        <th class="width-5">{{ getLabel('headerRefNo') }}</th>
+                        <th class="width-8">{{ getLabel('headerTicketNo') }}</th>
+                        <th class="width-5" pSortableColumn="customer.description">{{ getLabel('headerCustomer') }}</th>
+                        <th class="width-5" pSortableColumn="destination.description">{{ getLabel('headerDestination') }}</th>
+                        <th class="width-5" pSortableColumn="coachRoute.description">{{ getLabel('headerRoute') }}</th>
+                        <th class="width-8" pSortableColumn="pickupPoint.description">{{ getLabel('headerPickupPoint') }}</th>
+                        <th class="width-3" pSortableColumn="time">{{ getLabel('headerTime') }}</th>
+                        <th class="width-2">{{ getLabel('headerTotal') }}</th>
+                        <th class="width-4">{{ getLabel('headerTotal') }}1</th>
+                        <th class="width-5" pSortableColumn="driver.description">{{ getLabel('headerDriver') }}</th>
+                        <th class="width-5" pSortableColumn="port.description">{{ getLabel('headerPort') }}</th>
+                        <th class="width-5" pSortableColumn="ship.description">{{ getLabel('headerShip') }}</th>
+                    </tr>
+                    <tr>
+                        <th class="width-3"><p-tableHeaderCheckbox></p-tableHeaderCheckbox></th>
+                        <th class="width-5"><input (input)="table.filter($event.target.value, 'refNo', 'contains')" [disabled]="isFilterDisabled()" [value]="$any(table).filters['refNo']?.value" class="p-inputtext"></th>
+                        <th class="width-8"><input (input)="table.filter($event.target.value, 'ticketNo', 'contains')" [disabled]="isFilterDisabled()" [value]="$any(table).filters['ticketNo']?.value" class="p-inputtext"></th>
+                        <th class="width-5">
+                            <p-columnFilter [showMenu]="false" field="customer.description" matchMode="equals">
+                                <ng-template let-filter="filterCallback" let-value pTemplate="filter">
+                                    <p-dropdown (onChange)="filter($event.value != null ? $event.value.description : $event.value)" [disabled]="isFilterDisabled()" [ngModel]="value" [options]="distinctCustomers" [showClear]="true" [placeholder]="getEmoji('wildcard')">
+                                        <ng-template let-option pTemplate="item">
+                                            <span>{{ option.description }}</span>
+                                        </ng-template>
+                                    </p-dropdown>
+                                </ng-template>
+                            </p-columnFilter>
+                        </th>
+                        <th class="width-5">
+                            <p-columnFilter [showMenu]="false" field="destination.description" matchMode="equals">
+                                <ng-template let-filter="filterCallback" let-value pTemplate="filter">
+                                    <p-dropdown (onChange)="filter($event.value != null ? $event.value.description : $event.value)" [disabled]="isFilterDisabled()" [ngModel]="value" [options]="distinctDestinations" [showClear]="true" [placeholder]="getEmoji('wildcard')">
+                                        <ng-template let-option pTemplate="item">
+                                            <span>{{ option.longDescription }}</span>
+                                        </ng-template>
+                                    </p-dropdown>
+                                </ng-template>
+                            </p-columnFilter>
+                        </th>
+                        <th class="width-5">
+                            <p-columnFilter [showMenu]="false" field="coachRoute.description" matchMode="equals">
+                                <ng-template let-filter="filterCallback" let-value pTemplate="filter">
+                                    <p-dropdown (onChange)="filter($event.value != null ? $event.value.description : $event.value)" [disabled]="isFilterDisabled()" [ngModel]="value" [options]="distinctCoachRoutes" [showClear]="true" [placeholder]="getEmoji('wildcard')">
+                                        <ng-template let-option pTemplate="item">
+                                            <span>{{ option.description }}</span>
+                                        </ng-template>
+                                    </p-dropdown>
+                                </ng-template>
+                            </p-columnFilter>
+                        </th>
+                        <th class="width-8">
+                            <p-columnFilter [showMenu]="false" field="pickupPoint.description" matchMode="equals">
+                                <ng-template let-filter="filterCallback" let-value pTemplate="filter">
+                                    <p-dropdown (onChange)="filter($event.value != null ? $event.value.description : $event.value)" [disabled]="isFilterDisabled()" [ngModel]="value" [options]="distinctPickupPoints" [showClear]="true" [placeholder]="getEmoji('wildcard')">
+                                        <ng-template let-option pTemplate="item">
+                                            <span>{{ option.description }}</span>
+                                        </ng-template>
+                                    </p-dropdown>
+                                </ng-template>
+                            </p-columnFilter>
+                        </th>
+                        <th class="width-3"></th>
+                        <th class="width-2"></th>
+                        <th class="width-4"></th>
+                        <th class="width-5">
+                            <p-columnFilter [showMenu]="false" field="driver.description" matchMode="equals">
+                                <ng-template let-filter="filterCallback" let-value pTemplate="filter">
+                                    <p-dropdown (onChange)="filter($event.value != null ? $event.value.description : $event.value)" [disabled]="isFilterDisabled()" [ngModel]="value" [options]="distinctDrivers" [showClear]="true" [placeholder]="getEmoji('wildcard')">
+                                        <ng-template let-option pTemplate="item">
+                                            <span>{{ option.description }}</span>
+                                        </ng-template>
+                                    </p-dropdown>
+                                </ng-template>
+                            </p-columnFilter>
+                        </th>
+                        <th class="width-5">
+                            <p-columnFilter [showMenu]="false" field="port.description" matchMode="equals">
+                                <ng-template let-filter="filterCallback" let-value pTemplate="filter">
+                                    <p-dropdown (onChange)="filter($event.value != null ? $event.value.description : $event.value)" [disabled]="isFilterDisabled()" [ngModel]="value" [options]="distinctPorts" [showClear]="true" [placeholder]="getEmoji('wildcard')">
+                                        <ng-template let-option pTemplate="item">
+                                            <span>{{ option.longDescription }}</span>
+                                        </ng-template>
+                                    </p-dropdown>
+                                </ng-template>
+                            </p-columnFilter>
+                        </th>
+                        <th class="width-5">
+                            <p-columnFilter [showMenu]="false" field="ship.description" matchMode="equals">
+                                <ng-template let-filter="filterCallback" let-value pTemplate="filter">
+                                    <p-dropdown (onChange)="filter($event.value != null ? $event.value.description : $event.value)" [disabled]="isFilterDisabled()" [ngModel]="value" [options]="distinctShips" [showClear]="true" [placeholder]="getEmoji('wildcard')">
+                                        <ng-template let-option pTemplate="item">
+                                            <span>{{ option.description }}</span>
+                                        </ng-template>
+                                    </p-dropdown>
+                                </ng-template>
+                            </p-columnFilter>
+                        </th>
+                    </tr>
+                </ng-template>
+                <ng-template let-reservation pTemplate="body">
+                    <tr [attr.id]="reservation.reservationId" (click)="highlightRow(reservation.reservationId)" (dblclick)="editRecord(reservation.reservationId)" style="height:32px">
+                        <td class="center width-3"><p-tableCheckbox (click)="calculateSelectedPersons()" [value]="reservation"></p-tableCheckbox></td>
+                        <td class="center width-5">{{ formatRefNo(reservation.refNo) }}</td>
+                        <td class="width-8">{{ reservation.ticketNo }}</td>
+                        <td class="width-5">{{ reservation.customer.description }}</td>
+                        <td class="width-5">{{ reservation.destination.description }}</td>
+                        <td class="width-5">{{ reservation.coachRoute.description }}</td>
+                        <td class="width-8">{{ reservation.pickupPoint.description }}</td>
+                        <td class="center width-3">{{ reservation.pickupPoint.time }}</td>
+                        <td class="right width-2">{{ reservation.totalPersons }}</td>
+                        <td class="right width-4">
+                            <span>{{ reservation.passengerCount }} ({{ reservation.passengerDifference * -1 }})</span>
+                            <span>&nbsp;&nbsp;{{ showEmoji(reservation.passengerDifference) }}</span>
+                        </td>
+                        <td class="width-5">{{ reservation.driver.description == "(EMPTY)" ? getEmoji('null'): reservation.driver.description }}</td>
+                        <td class="width-5">{{ reservation.port.description }}</td>
+                        <td class="width-5">{{ reservation.ship.description == "(EMPTY)" ? getEmoji('null'): reservation.ship.description }}</td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
     </div>
 
     <div id="footer">
-        <div  id="utility-buttons">
-            <button [matMenuTriggerFor]="menu" pButton pRipple type="button" icon="pi pi-ellipsis-v" class="p-button-rounded p-button-text secondary"></button>
-            <mat-menu #menu="matMenu" class="primary">
-                <ng-container *ngTemplateOutlet="contextMenu"></ng-container>
-            </mat-menu>
+        <button [matMenuTriggerFor]="menu" pButton pRipple type="button" icon="pi pi-ellipsis-v" class="p-button-rounded p-button-text transparent"></button>
+        <mat-menu #menu="matMenu" class="primary">
+            <ng-container *ngTemplateOutlet="contextMenu"></ng-container>
+        </mat-menu>
+        <div class="filter-pill">
+            <div class="pill">
+                <img [src]="getIcon('total')">
+                <div class="number description">
+                    <span>{{ totals[0] | padNumber : 3 : ' ' }}</span>
+                </div>
+            </div>
+            <div class="pill number">
+                <img [src]="getIcon('filter')">
+                <div class="number description">
+                    <span>{{ totals[1] | padNumber : 3 : ' ' }}</span>
+                </div>
+            </div>
+            <div class="pill number">
+                <img [src]="getIcon('selected')">
+                <div class="number description">
+                    <span>{{ totals[2] | padNumber : 3 : ' ' }}</span>
+                </div>
+            </div>
         </div>
-        <div id="overbookings">
-            <div *ngFor="let x of overbookedDestinations" class="pill">
-                <img [src]="getIcon(x.status == true ? 'error' : 'ok')">
+        <div class="filter-pill">
+            <div *ngFor="let x of overbookedDestinations" class="overbooked pill">
+                <img [src]="getIcon(x.isOverbooked == true ? 'error' : 'ok')">
                 <div class="description">{{ x.description }}</div>
             </div>
         </div>

@@ -29,17 +29,10 @@
 #footer {
     align-items: center;
     display: flex;
+    gap: 1rem;
     justify-content: space-between;
     margin-top: auto;
     padding: var(--gap) 4rem;
-}
-
-.is-active {
-    color: var(--color-list-active-item);
-}
-
-.is-not-active {
-    color: var(--color-list-inactive-item);
 }
 
 @media only screen and (max-width: 1919px) {

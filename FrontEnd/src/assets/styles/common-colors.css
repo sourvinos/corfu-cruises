@@ -1,10 +1,7 @@
 * {
     /* Lists and tables */
-    --color-list-active-item: #7bc3b8;
-    --color-list-inactive-item: #fd99ab;
-    --color-row-hover: #5b7a9f14;
-    --color-row-seperator: #bebebe;
     --color-scrollbar-thumb: #d94040;
+    --color-table-dropdown-filter-clear: #ff7a7a;
     /*  Buttons */
     --color-button-text: #ffffff;
     --color-button-text-primary: #000000;
@@ -13,6 +10,7 @@
     --color-button-background-delete-hover: #af3c3c;
     --color-button-background-primary: #9ee22e;
     --color-button-background-primary-hover: #647997;
+    --color-button-menu-trigger: #cf6755;
     /*  Checkboxes */
     --color-checkbox-background: #3baca3;
     --color-checkbox-label-background-hover: #9acfca42;
@@ -40,10 +38,6 @@
     /* Theme menu */
     --color-sun: #f6ff00;
     --color-moon: #607d8b;
-    /* Embarkation */
-    --color-embarkation-complete: #c8e6c9;
-    --color-embarkation-pending: #feedaf;
-    --color-button-do-embarkation: #3d3b57;
     /* Input */
     --color-input-focus: #65b4ef;
     --color-input-error: #e57b7b;

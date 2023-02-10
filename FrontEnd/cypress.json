@@ -1,8 +1,0 @@
-{
-    "apiUrl": "https://localhost:5001/api",
-    "defaultCommandTimeout": 10000,
-    "homeUrl": "https://localhost:4200/",
-    "video": false,
-    "viewportHeight": 1000,
-    "viewportWidth": 1367
-}

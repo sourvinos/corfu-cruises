@@ -5,12 +5,11 @@ import { Table } from 'primeng/table'
 import { firstValueFrom, Subject } from 'rxjs'
 // Custom
 import { AccountService } from 'src/app/shared/services/account.service'
-import { CoachRouteActiveVM } from 'src/app/features/coachRoutes/classes/view-models/coachRoute-active-vm'
-import { CustomerActiveVM } from '../../../customers/classes/view-models/customer-active-vm'
+import { CoachRouteDistinctVM } from 'src/app/features/coachRoutes/classes/view-models/coachRoute-distinct-vm'
+import { CustomerDistinctVM } from 'src/app/features/customers/classes/view-models/customer-distinct-vm'
 import { DateHelperService } from 'src/app/shared/services/date-helper.service'
-import { DestinationActiveVM } from '../../../destinations/classes/view-models/destination-active-vm'
-import { DestinationService } from 'src/app/features/destinations/classes/services/destination.service'
-import { DriverActiveVM } from '../../../drivers/classes/view-models/driver-active-vm'
+import { DestinationDistinctVM } from 'src/app/features/destinations/classes/view-models/destination-distinct-vm'
+import { DriverDistinctVM } from 'src/app/features/drivers/classes/view-models/driver-distinct-vm'
 import { DriverReportService } from '../../classes/driver-report/services/driver-report.service'
 import { DriverService } from 'src/app/features/drivers/classes/services/driver.service'
 import { EmojiService } from './../../../../shared/services/emoji.service'
@@ -20,14 +19,15 @@ import { LocalStorageService } from 'src/app/shared/services/local-storage.servi
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
 import { ModalActionResultService } from 'src/app/shared/services/modal-action-result.service'
-import { PickupPointActiveVM } from 'src/app/features/pickupPoints/classes/view-models/pickupPoint-active-vm'
-import { PortActiveVM } from 'src/app/features/ports/classes/view-models/port-active-vm'
-import { ReservationGroupDto } from '../../classes/dtos/list/reservation-group-dto'
+import { OverbookedDestinationVM } from '../../classes/view-models/list/overbooked-destination-vm'
+import { PickupPointDistinctVM } from 'src/app/features/pickupPoints/classes/view-models/pickupPoint-distinct-vm'
+import { PortDistinctVM } from 'src/app/features/ports/classes/view-models/port-distinct-vm'
+import { ReservationListVM } from '../../classes/view-models/list/reservation-list-vm'
 import { ReservationService } from './../../classes/services/reservation.service'
 import { ReservationToDriverComponent } from '../reservation-to-driver/reservation-to-driver-form.component'
 import { ReservationToShipComponent } from '../reservation-to-ship/reservation-to-ship-form.component'
-import { ShipRouteActiveVM } from '../../../shipRoutes/classes/view-models/shipRoute-active-vm'
 import { ShipService } from 'src/app/features/ships/classes/services/ship.service'
+import { SimpleEntity } from 'src/app/shared/classes/simple-entity'
 import { environment } from 'src/environments/environment'
 
 @Component({
@@ -42,38 +42,38 @@ export class ReservationListComponent {
 
     @ViewChild('table') table: Table | undefined
 
-    public parentUrl = '/reservations'
     private unsubscribe = new Subject<void>()
-    public icon = 'arrow_back'
     private url = ''
     public feature = 'reservationList'
     public featureIcon = 'reservations'
-    public overbookedDestinations: any
+    public icon = 'arrow_back'
+    public parentUrl = '/reservations'
+    public records: ReservationListVM[] = []
+    public selectedRecords: ReservationListVM[] = []
 
+    public totals = [0, 0, 0]
     public isAdmin: boolean
-    public highlighted: any
-    public reservationGroupDto: ReservationGroupDto
-    public selectedRecords = []
-    public totals: any[] = []
-    public areDestinationsOverbooked = []
+    public overbookedDestinations: OverbookedDestinationVM[] = []
 
-    public dropdownCustomers: CustomerActiveVM[] = []
-    public dropdownDestinations: DestinationActiveVM[] = []
-    public dropdownDrivers: DriverActiveVM[] = []
-    public dropdownPickupPoints: PickupPointActiveVM[] = []
-    public dropdownPorts: PortActiveVM[] = []
-    public dropdownCoachRoutes: CoachRouteActiveVM[] = []
-    public dropdownShips: ShipRouteActiveVM[] = []
+    public distinctCoachRoutes: CoachRouteDistinctVM[] = []
+    public distinctCustomers: CustomerDistinctVM[] = []
+    public distinctDestinations: DestinationDistinctVM[] = []
+    public distinctDrivers: DriverDistinctVM[] = []
+    public distinctPickupPoints: PickupPointDistinctVM[] = []
+    public distinctPorts: PortDistinctVM[] = []
+    public distinctShips: SimpleEntity[] = []
 
     //#endregion
 
-    constructor(private accountService: AccountService, private activatedRoute: ActivatedRoute, private dateHelperService: DateHelperService, private destinationService: DestinationService, private driverReportService: DriverReportService, private driverService: DriverService, private emojiService: EmojiService, private helperService: HelperService, private localStorageService: LocalStorageService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private modalActionResultService: ModalActionResultService, private reservationService: ReservationService, private router: Router, private shipService: ShipService, public dialog: MatDialog) {
+    constructor(private accountService: AccountService, private activatedRoute: ActivatedRoute, private dateHelperService: DateHelperService, private driverReportService: DriverReportService, private driverService: DriverService, private emojiService: EmojiService, private helperService: HelperService, private localStorageService: LocalStorageService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private modalActionResultService: ModalActionResultService, private reservationService: ReservationService, private router: Router, private shipService: ShipService, public dialog: MatDialog) {
         this.router.events.subscribe((navigation) => {
             if (navigation instanceof NavigationEnd) {
                 this.url = navigation.url
                 this.loadRecords()
                 this.populateDropdowns()
                 this.storeDate()
+                this.updateTotals(this.totals, this.records)
+                this.calculateOverbookings()
             }
         })
     }
@@ -81,11 +81,11 @@ export class ReservationListComponent {
     //#region lifecycle hooks
 
     ngOnInit(): void {
-        this.initPersonTotals()
-        this.updateTotals()
         this.getConnectedUserRole()
-        this.doDestinationForOverbookingTasks()
-        this.calculateTableHeight()
+    }
+
+    ngOnDestroy(): void {
+        this.cleanup()
     }
 
     //#endregion
@@ -106,10 +106,10 @@ export class ReservationListComponent {
             })
             dialogRef.afterClosed().subscribe(result => {
                 if (result !== undefined) {
-                    this.reservationService.assignToDriver(result, this.selectedRecords).subscribe(() => {
+                    this.reservationService.assignToDriver(result.drivers[0].id, this.selectedRecords).subscribe(() => {
                         this.modalActionResultService.open(this.messageSnackbarService.success(), 'success', ['ok']).subscribe(() => {
                             this.clearSelectedRecords()
-                            this.clearStorage(false, true)
+                            this.resetTableFilters()
                             this.refreshList()
                         })
                     })
@@ -132,10 +132,10 @@ export class ReservationListComponent {
             })
             dialogRef.afterClosed().subscribe(result => {
                 if (result !== undefined) {
-                    this.reservationService.assignToShip(result, this.selectedRecords).subscribe(() => {
+                    this.reservationService.assignToShip(result.ships[0].id, this.selectedRecords).subscribe(() => {
                         this.modalActionResultService.open(this.messageSnackbarService.success(), 'success', ['ok']).subscribe(() => {
                             this.clearSelectedRecords()
-                            this.clearStorage(false, true)
+                            this.resetTableFilters()
                             this.refreshList()
                         })
                     })
@@ -144,26 +144,12 @@ export class ReservationListComponent {
         }
     }
 
-    public showEmoji(passengerDifference: number): string {
-        if (passengerDifference > 0) {
-            return this.emojiService.getEmoji('warning')
-        }
-        if (passengerDifference == 0) {
-            return this.emojiService.getEmoji('ok')
-        }
-        if (passengerDifference < 0) {
-            return this.emojiService.getEmoji('error')
-        }
+    public calculateSelectedPersons(): void {
+        this.totals[2] = this.selectedRecords.reduce((sum, array) => sum + array.totalPersons, 0)
     }
 
     public createPdf(): void {
-        this.driverReportService.doReportTasks(this.getDistinctDriverIds(this.reservationGroupDto.reservations))
-    }
-
-    public doResetTableTasks(table): void {
-        this.clearTableFilters(table)
-        this.initPersonTotals()
-        this.updateTotals()
+        this.driverReportService.doReportTasks(this.getDistinctDriverIds(this.records))
     }
 
     public editRecord(id: string): void {
@@ -172,23 +158,22 @@ export class ReservationListComponent {
     }
 
     public filterRecords(event?: { filteredValue: any[] }): void {
-        setTimeout(() => {
-            this.totals[0].sum = this.reservationGroupDto.persons
-            this.totals[1].sum = event.filteredValue.reduce((sum: number, array: { totalPersons: number }) => sum + array.totalPersons, 0)
-            this.totals[2].sum = this.selectedRecords.reduce((sum, array) => sum + array.totalPersons, 0)
-        }, 500)
+        this.helperService.clearTableCheckboxes()
+        this.selectedRecords.splice(0)
+        this.updateTotals(this.totals, event.filteredValue)
+        this.localStorageService.saveItem(this.feature, JSON.stringify(this.table.filters))
     }
 
-    public formatDate(): string {
-        if (this.localStorageService.getItem('date')) {
-            return this.dateHelperService.formatISODateToLocale(this.localStorageService.getItem('date'), true, false)
-        } else {
-            return '-'
-        }
+    public formatDateToLocale(date: string, showWeekday = false, showYear = false): string {
+        return this.dateHelperService.formatISODateToLocale(date, showWeekday, showYear)
     }
 
     public formatRefNo(refNo: string): string {
         return this.helperService.formatRefNo(refNo, false)
+    }
+
+    public getDateFromStorage(): string {
+        return this.localStorageService.getItem('date')
     }
 
     public getEmoji(emoji: string): string {
@@ -203,6 +188,14 @@ export class ReservationListComponent {
         return this.messageLabelService.getDescription(this.feature, id)
     }
 
+    public highlightRow(id: any): void {
+        this.helperService.highlightRow(id)
+    }
+
+    public isFilterDisabled(): boolean {
+        return this.records.length == 0
+    }
+
     public newRecord(): void {
         this.localStorageService.saveItem('returnUrl', this.url)
         this.router.navigate([this.parentUrl, 'new'])
@@ -212,43 +205,37 @@ export class ReservationListComponent {
         this.router.navigate([this.parentUrl])
     }
 
-    public rowSelect(event: { data: { totalPersons: any } }): void {
-        this.totals[2].sum += event.data.totalPersons
+    public resetTableFilters(): void {
+        this.helperService.clearTableTextFilters(this.table, ['refNo', 'ticketNo'])
     }
 
-    public rowUnselect(event: { data: { totalPersons: number } }): void {
-        this.totals[2].sum -= event.data.totalPersons
+    public showEmoji(passengerDifference: number): string {
+        if (passengerDifference > 0) {
+            return this.emojiService.getEmoji('yellow-circle')
+        }
+        if (passengerDifference == 0) {
+            return this.emojiService.getEmoji('green-circle')
+        }
+        if (passengerDifference < 0) {
+            return this.emojiService.getEmoji('red-circle')
+        }
     }
 
-    public toggleVisibleRows(): void {
-        this.totals[2].sum = this.selectedRecords.reduce((sum, array) => sum + array.totalPersons, 0)
+    public unHighlightAllRows(): void {
+        this.helperService.unHighlightAllRows()
     }
 
     //#endregion
 
     //#region private methods
 
-    private calculateTableHeight(): void {
-        setTimeout(() => {
-            document.getElementById('table-wrapper').style.height = this.helperService.calculateTableWrapperHeight('top-bar', 'header', 'footer')
-        }, 500)
-    }
-
     private clearSelectedRecords(): void {
         this.selectedRecords = []
     }
 
-    private clearStorage(all: boolean, selectedRows: boolean): void {
-        all ? this.localStorageService.clearSessionStorage('reservation-list', 'all') : null
-        selectedRows ? this.localStorageService.clearSessionStorage('reservation-list', 'selected-rows') : null
-    }
-
-    private initPersonTotals(): void {
-        this.totals.push(
-            { description: 'total', sum: 0 },
-            { description: 'displayed', sum: 0 },
-            { description: 'selected', sum: 0 }
-        )
+    private cleanup(): void {
+        this.unsubscribe.next()
+        this.unsubscribe.unsubscribe()
     }
 
     private isAnyRowSelected(): boolean {
@@ -263,8 +250,8 @@ export class ReservationListComponent {
         const promise = new Promise((resolve) => {
             const listResolved: ListResolved = this.activatedRoute.snapshot.data[this.feature]
             if (listResolved.error === null) {
-                this.reservationGroupDto = listResolved.list
-                resolve(this.reservationGroupDto)
+                this.records = listResolved.list
+                resolve(this.records)
             } else {
                 this.router.navigate([this.parentUrl])
                 this.modalActionResultService.open(this.messageSnackbarService.filterResponse(new Error('500')), 'error', ['ok'])
@@ -283,20 +270,6 @@ export class ReservationListComponent {
         return promise
     }
 
-    private getDistinctDestinations(reservations: any[], field: any): any {
-        const promise = new Promise((resolve) => {
-            let activeDestinations = []
-            let inter = []
-            const elements = [... new Set(reservations.map(x => x[field]))]
-            this.destinationService.getActive().subscribe(response => {
-                activeDestinations = response
-                inter = activeDestinations.filter(element => elements.includes(element.description))
-                resolve(inter)
-            })
-        })
-        return promise
-    }
-
     private getDistinctDriverIds(reservations: any): any[] {
         const driverIds = []
         const x = [... new Set(reservations.map((x: { driverId: any }) => x.driverId))]
@@ -306,37 +279,14 @@ export class ReservationListComponent {
         return driverIds
     }
 
-    private doDestinationForOverbookingTasks(): void {
-        this.getDistinctDestinations(this.reservationGroupDto.reservations, 'destinationDescription').then((response: any) => {
-            this.overbookedDestinations = response
-            this.overbookedDestinations.forEach((destination: { id: number }, index: string | number) => {
-                this.reservationService.isDestinationOverbooked(this.localStorageService.getItem('date'), destination.id).subscribe((response) => {
-                    this.overbookedDestinations[index].status = response
-                })
-            })
-        })
-    }
-
     private populateDropdowns(): void {
-        setTimeout(() => {
-            this.dropdownCoachRoutes = this.helperService.populateTableFiltersDropdowns(this.reservationGroupDto.reservations, 'coachRouteAbbreviation')
-            this.dropdownCustomers = this.helperService.populateTableFiltersDropdowns(this.reservationGroupDto.reservations, 'customerDescription')
-            this.dropdownDestinations = this.helperService.populateTableFiltersDropdowns(this.reservationGroupDto.reservations, 'destinationDescription')
-            this.dropdownDrivers = this.helperService.populateTableFiltersDropdowns(this.reservationGroupDto.reservations, 'driverDescription')
-            this.dropdownPickupPoints = this.helperService.populateTableFiltersDropdowns(this.reservationGroupDto.reservations, 'pickupPointDescription')
-            this.dropdownPorts = this.helperService.populateTableFiltersDropdowns(this.reservationGroupDto.reservations, 'portDescription')
-            this.dropdownShips = this.helperService.populateTableFiltersDropdowns(this.reservationGroupDto.reservations, 'shipDescription')
-        }, 1000)
-    }
-
-    private clearTableFilters(table: { clear: () => void }): void {
-        table.clear()
-        this.table.filter('', 'refNo', 'contains')
-        this.table.filter('', 'ticketNo', 'contains')
-        const boxes = document.querySelectorAll<HTMLInputElement>('.p-inputtext[type="text"]')
-        boxes.forEach(box => {
-            box.value = ''
-        })
+        this.distinctCoachRoutes = this.helperService.getDistinctRecords(this.records, 'coachRoute', 'description')
+        this.distinctCustomers = this.helperService.getDistinctRecords(this.records, 'customer', 'description')
+        this.distinctDestinations = this.helperService.getDistinctRecords(this.records, 'destination', 'description')
+        this.distinctDrivers = this.helperService.getDistinctRecords(this.records, 'driver', 'description')
+        this.distinctPickupPoints = this.helperService.getDistinctRecords(this.records, 'pickupPoint', 'description')
+        this.distinctPorts = this.helperService.getDistinctRecords(this.records, 'port', 'description')
+        this.distinctShips = this.helperService.getDistinctRecords(this.records, 'ship', 'descriptiοn')
     }
 
     private refreshList(): void {
@@ -352,8 +302,8 @@ export class ReservationListComponent {
 
     private storeDate(): void {
         if (this.url.includes('byRefNo')) {
-            if (this.reservationGroupDto.reservations.length > 0) {
-                this.localStorageService.saveItem('date', this.reservationGroupDto.reservations[0].date)
+            if (this.records.length > 0) {
+                this.localStorageService.saveItem('date', this.records[0].date)
             } else {
                 this.localStorageService.deleteItems([
                     { 'item': 'date', 'when': 'always' }
@@ -362,11 +312,21 @@ export class ReservationListComponent {
         }
     }
 
-    private updateTotals(): void {
-        Promise.resolve(null).then(() => {
-            this.totals[0].sum = this.reservationGroupDto.persons
-            this.totals[1].sum = this.reservationGroupDto.reservations.reduce((sum: number, array: { totalPersons: number }) => sum + array.totalPersons, 0)
-            this.totals[2].sum = this.selectedRecords.reduce((sum, array) => sum + array.totalPersons, 0)
+    private updateTotals(totals: number[], filteredValue: any[]): void {
+        totals[0] = this.records.reduce((sum: number, array: { totalPersons: number }) => sum + array.totalPersons, 0)
+        totals[1] = filteredValue.reduce((sum: number, array: { totalPersons: number }) => sum + array.totalPersons, 0)
+        totals[2] = this.selectedRecords.reduce((sum: number, array: { totalPersons: number }) => sum + array.totalPersons, 0)
+    }
+
+    private calculateOverbookings(): void {
+        this.overbookedDestinations = []
+        this.distinctDestinations.forEach((destination) => {
+            this.reservationService.isDestinationOverbooked(this.localStorageService.getItem('date'), destination.id).subscribe((response) => {
+                this.overbookedDestinations.push({
+                    description: destination.longDescription,
+                    isOverbooked: response
+                })
+            })
         })
     }
 

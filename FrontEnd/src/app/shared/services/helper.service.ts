@@ -71,23 +71,15 @@ export class HelperService {
         return this.appName
     }
 
-    public getDistinctRecords(records: any[], field: string): any[] {
-        const array: any[] = []
-        const key = field
-        const distinctRecords = [...new Map(records.map(item => [item[key], item])).values()]
-        distinctRecords.forEach(element => {
-            array.push(element[field])
-        })
-        array.sort((a, b) => {
-            if (a < b) {
-                return -1
+    public getDistinctRecords(records: any[], object: string, orderField = 'description'): any[] {
+        const distinctRecords = (Object.values(records.reduce(function (x, item) {
+            if (!x[item[object].id]) {
+                x[item[object].id] = item[object]
             }
-            if (a > b) {
-                return 1
-            }
-            return 0
-        })
-        return array
+            return x
+        }, {})))
+        distinctRecords.sort((a, b) => (a[orderField] > b[orderField]) ? 1 : -1)
+        return distinctRecords
     }
 
     public populateTableFiltersDropdowns(records: any[], field: any): any[] {
@@ -98,7 +90,8 @@ export class HelperService {
                 array.push({ label: element == '(EMPTY)' ? '(EMPTY)' : element, value: element })
             }
             if (typeof (element) == 'object') {
-                array.push({ label: element.description == '(EMPTY)' ? '(EMPTY)' : element.description, value: element.description })
+                // array.push({ label: element.description == '(EMPTY)' ? '(EMPTY)' : element.description, value: element.description })
+                array.push({ id: element.id, value: element.description })
             }
 
         })
@@ -245,6 +238,15 @@ export class HelperService {
         x.forEach(row => {
             row.classList.remove('p-highlight')
         })
+    }
+
+    public clearTableCheckboxes(): void {
+        setTimeout(() => {
+            const x = document.querySelectorAll('.p-checkbox-icon.pi')
+            x.forEach(row => {
+                row.classList.remove('pi-check')
+            })
+        }, 500)
     }
 
     //#endregion

@@ -99,7 +99,8 @@ export class AccountService extends HttpDataService {
             { 'item': 'shipRoutes', 'when': 'always' },
             // Misc
             { 'item': 'scrollTop', 'when': 'always' },
-            { 'item': 'refNo', 'when': 'always' }
+            { 'item': 'refNo', 'when': 'always' },
+            { 'item': 'id', 'when': 'always' }
         ])
     }
 

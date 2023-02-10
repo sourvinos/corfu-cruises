@@ -5,8 +5,7 @@
         "ng": "ng",
         "start": "ng serve --hmr --ssl --ssl-cert ssl\\localhost.pem --ssl-key ssl\\localhost-key.pem",
         "build": "ng build",
-        "lint": "eslint ./",
-        "e2e": "cypress open"
+        "lint": "eslint ./"
     },
     "private": true,
     "dependencies": {
@@ -24,7 +23,6 @@
         "@zxing/browser": "0.1.1",
         "@zxing/library": "0.19.1",
         "@zxing/ngx-scanner": "3.6.2",
-        "file-saver": "2.0.5",
         "font-awesome": "4.7.0",
         "guid-typescript": "1.0.9",
         "jwt-decode": "3.1.2",
@@ -47,7 +45,6 @@
         "@typescript-eslint/eslint-plugin": "5.43.0",
         "@typescript-eslint/parser": "5.43.0",
         "eslint": "8.28.0",
-        "eslint-plugin-cypress": "2.12.1",
         "stylelint-config-standard": "29.0.0",
         "typescript": "4.8.3"
     }

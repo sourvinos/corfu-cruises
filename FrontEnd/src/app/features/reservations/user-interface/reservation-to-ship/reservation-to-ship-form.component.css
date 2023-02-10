@@ -1,3 +1,11 @@
 .mat-form-field {
     width: 100%;
 }
+
+#dialog-content {
+    margin-left: 1rem !important;
+}
+
+#dialog-footer {
+    padding-right: 1.5rem !important;
+}

@@ -70,7 +70,6 @@ export class EmbarkationReservationsComponent {
                         this.populateDropdownFilters()
                         this.filterTableFromStoredFilters()
                         this.updateTotals(this.totals, this.records.reservations)
-                        this.updateTotals(this.totalsFiltered, this.records.reservations)
                     })
                 })
             }
@@ -317,10 +316,7 @@ export class EmbarkationReservationsComponent {
         totals[1] = 0
         totals[2] = 0
         filteredValue.forEach(reservation => {
-            totals[0] += reservation.totalPersons
-            if (reservation.passengers && reservation.passengers.length > 0) {
-                totals[1] += reservation.passengers.filter((x: { isCheckedIn: any }) => x.isCheckedIn).length
-            }
+            totals[1] += reservation.totalPersons
         })
         totals[2] = totals[0] - totals[1]
     }

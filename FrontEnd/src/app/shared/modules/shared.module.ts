@@ -20,7 +20,7 @@ import { ModalActionResultComponent } from '../components/modal-action-result/mo
 import { MonthSelectorComponent } from '../components/month-selector/month-selector.component'
 import { PadNumberPipe } from '../pipes/pad-number.pipe'
 import { ReplaceZeroPipe } from '../pipes/replace-zero.pipe'
-import { SafeStylePipe } from '../pipes/safeStyle.pipe'
+import { SafeStylePipe } from '../pipes/safe-style.pipe'
 import { SnackbarComponent } from '../components/snackbar/snackbar.component'
 import { TableTotalFilteredRecordsComponent } from '../components/table-total-filtered-records/table-total-filtered-records.component'
 import { ThemeMenuComponent } from './../components/top-bar-wrapper/theme-menu/theme-menu.component'

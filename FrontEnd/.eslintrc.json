@@ -26,6 +26,12 @@
         "@typescript-eslint/explicit-function-return-type": "warn",
         "@typescript-eslint/no-explicit-any": "off",
         "cypress/no-unnecessary-waiting": "off",
+        "@typescript-eslint/no-empty-interface": [
+            "error",
+            {
+                "allowSingleExtends": true
+            }
+        ],
         "quotes": [
             "warn",
             "single"

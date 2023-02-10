@@ -108,22 +108,27 @@ button.mat-button-toggle-label-content {
     line-height: 2.5rem !important;
 }
 
-.button-icon {
+button.button-icon {
     font-size: 1.3125rem !important;
     font-size: 1rem !important;
     height: 1.0625rem !important;
     margin-top: -0.125rem !important;
 }
 
-button.square {
-    border-radius: 5px !important;
-    line-height: 0 !important;
-}
-
-button.square.primary {
-    background-color: var(--color-button-background-primary) !important;
-}
-
 .mat-menu-item:hover:not([disabled]), .mat-menu-item.cdk-program-focused:not([disabled]), .mat-menu-item-highlighted:not([disabled]):hover {
     background-color: var(--color-a) !important;
+}
+
+button.mat-menu-trigger, button.mat-menu-trigger:hover {
+    background-color: var(--color-button-menu-trigger) !important;
+    height: 2.375rem !important;
+}
+
+button.mat-menu-trigger span {
+    color: var(--color-button-text) !important;
+}
+
+.mat-icon {
+    font-size: 1rem;
+    line-height: 1.25rem;
 }

@@ -4,7 +4,13 @@ h1 {
     font-size: var(--font-size-h1) !important;
     font-weight: 300 !important;
     padding: 0 !important;
-    transform: scale(1.4, 1);
-    transform-origin: left;
+    transition: all var(--theme-change-delay) ease-in;
+}
+
+h6 {
+    font-family: var(--font-family-asty) !important;
+    font-size: var(--font-size-h6) !important;
+    font-weight: 300 !important;
+    padding: 0 !important;
     transition: all var(--theme-change-delay) ease-in;
 }

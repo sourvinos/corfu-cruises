@@ -1,19 +1,35 @@
 <div id="dialog">
 
-    <div  id="dialog-header">
+    <div id="dialog-header">
         <h1 mat-dialog-title>{{ getLabel('header') }}</h1>
         <h6 mat-dialog-title>{{ getLabel('sub-header') }}</h6>
     </div>
 
     <div id="dialog-content">
-        <p-listbox [options]="drivers" [(ngModel)]="selectedDriverId" optionLabel="description" optionValue="id"></p-listbox>
+        <form id="form" [formGroup]="form" autocomplete="off">
+            <div *ngFor="let driver of drivers" [attr.id]=driver.description>
+                <div class="styled-input-rounded">
+                    <div class="styled-input-single rounded">
+                        <input (click)="updateRadioButtons(form, 'drivers', 'driver', driver.id, driver.description)" class="drivers" formArrayName="drivers" type="radio" [value]="driver.id" [attr.id]="'driver' + driver.id" [checked]="false">
+                        <label [attr.for]="'driver' + driver.id" [attr.id]="'driver-label' + driver.id">{{ driver.description }}</label>
+                    </div>
+                </div>
+            </div>
+        </form>
     </div>
 
     <div id="dialog-footer">
-        <mat-dialog-actions>
-            <button mat-flat-button class="transparent" tabindex="-1" (click)="onClose()">{{ getLabel('noButton') }}</button>
-            <button mat-flat-button class="primary" [disabled]="isDriverSelected()" (click)="onSave()">{{ getLabel('okButton') }}</button>
-        </mat-dialog-actions>
+        <div class="button-group-right">
+            <mat-dialog-actions>
+                <button (click)="close()" class="transparent" mat-flat-button tabindex="-1">
+                    <span>{{ getLabel("noButton") }}</span>
+                </button>
+                <button (click)="save()" [disabled]="!form.valid" class="primary" mat-flat-button>
+                    <mat-icon *ngIf="!form.valid" class="button-icon">lock</mat-icon>
+                    <span>{{ getLabel("okButton") }}</span>
+                </button>
+            </mat-dialog-actions>
+        </div>
     </div>
 
 </div>

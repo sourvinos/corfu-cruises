@@ -25,7 +25,7 @@
                 <td class="width-6">{{ reservation.ship.description }}</td>
                 <td class="center width-6">{{ reservation.port.abbreviation }}</td>
                 <td class="center width-5">{{ reservation.refNo }}</td>
-                <td class="center width-5">{{ reservation.ticketNo }}</td>
+                <td class="width-5">{{ reservation.ticketNo }}</td>
                 <td [ngClass]="reservation.hasTransfer ? 'has-transfer' : 'no-transfer'" class="center emoji width-4">
                     <span *ngIf="reservation.hasTransfer">{{ getEmoji('green-circle') }} </span>
                     <span *ngIf="!reservation.hasTransfer">{{ getEmoji('red-circle') }}</span>

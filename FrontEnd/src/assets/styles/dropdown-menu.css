@@ -29,7 +29,6 @@ button.show-sub-menu {
 
 button.hoverable:hover {
     background-color: var(--color-d) !important;
-    /* transition: all var(--hover-change-delay) ease-in; */
 }
 
 span {
@@ -123,7 +122,6 @@ li:hover .sub-menu {
         opacity: 0;
         transform: translateY(0.625rem);
     }
-
     to {
         opacity: 1;
         transform: none;
@@ -134,7 +132,6 @@ li:hover .sub-menu {
     from {
         opacity: 0;
     }
-
     to {
         opacity: 1;
     }

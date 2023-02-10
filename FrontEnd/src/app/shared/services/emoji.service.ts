@@ -12,7 +12,7 @@ export class EmojiService {
             case 'null': return '🚫'
             case 'ok': return '✔️'
             case 'warning': return '⚠️'
-            case 'wildcard': return '[ ⭐ ]'
+            case 'wildcard': return '⭐'
             case 'remarks': return '🔔'
             case 'sum': return '∑'
             case 'no-passengers': return '😕'

@@ -709,7 +709,7 @@
             },
             {
                 "id": "headerTotal",
-                "description": "Total"
+                "description": "Pax"
             },
             {
                 "id": "headerDriver",
@@ -721,7 +721,7 @@
             },
             {
                 "id": "headerShip",
-                "description": " bateau"
+                "description": "Bateau"
             },
             {
                 "id": "headerTime",

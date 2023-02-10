@@ -100,8 +100,8 @@ export class LedgerCustomerListComponent {
     public showCustomerReservations(customer: LedgerVM): void {
         this.dialog.open(LedgerCustomerSummaryAndReservationsComponent, {
             height: '600px',
-            width: '1000px',
-            maxWidth: '1000px',
+            width: '1010px',
+            maxWidth: '1010px',
             data: {
                 customer: customer,
                 actions: ['abort', 'ok']

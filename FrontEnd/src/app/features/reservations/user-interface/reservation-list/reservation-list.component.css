@@ -9,7 +9,3 @@
     display: flex;
     margin-right: 1rem;
 }
-
-#footer {
-    padding: var(--gap) 4rem var(--gap) 4rem;
-}
