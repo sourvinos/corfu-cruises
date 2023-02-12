@@ -120,7 +120,7 @@ button.button-icon {
 }
 
 button.mat-menu-trigger, button.mat-menu-trigger:hover {
-    background-color: var(--color-button-menu-trigger) !important;
+    background-color: transparent !important;
     height: 2.375rem !important;
 }
 
@@ -131,4 +131,15 @@ button.mat-menu-trigger span {
 .mat-icon {
     font-size: 1rem;
     line-height: 1.25rem;
+}
+
+.mat-form-field-prefix .mat-icon-button, .mat-form-field-suffix .mat-icon-button {
+    height: 2rem !important;
+    width: 2rem !important;
+}
+
+.button-group-right {
+    display: flex;
+    gap: 1rem;
+    margin-left: auto;
 }

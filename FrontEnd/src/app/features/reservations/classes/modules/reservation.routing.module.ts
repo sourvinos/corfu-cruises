@@ -16,7 +16,7 @@ const routes: Routes = [
     { path: 'date/:date', component: ReservationListComponent, canActivate: [AuthGuardService], resolve: { reservationList: ReservationListResolverByDate }, runGuardsAndResolvers: 'always' },
     { path: 'byRefNo/:refNo', component: ReservationListComponent, canActivate: [AuthGuardService], resolve: { reservationList: ReservationListResolverByRefNo }, runGuardsAndResolvers: 'always' },
     { path: 'new', component: ReservationFormComponent, canActivate: [AuthGuardService], canDeactivate: [CanDeactivateGuard] },
-    { path: ':id', component: ReservationFormComponent, canActivate: [AuthGuardService], canDeactivate: [CanDeactivateGuard], resolve: { reservationForm: ReservationFormResolver } }
+    { path: ':id', component: ReservationFormComponent, canActivate: [AuthGuardService], resolve: { reservationForm: ReservationFormResolver } }
 ]
 
 @NgModule({

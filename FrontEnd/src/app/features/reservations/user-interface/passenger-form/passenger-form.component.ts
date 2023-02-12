@@ -1,4 +1,3 @@
-import moment from 'moment'
 import { Component, Inject, NgZone } from '@angular/core'
 import { DateAdapter } from '@angular/material/core'
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms'
@@ -6,20 +5,13 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog'
 import { Observable, Subject } from 'rxjs'
 import { map, startWith } from 'rxjs/operators'
 // Custom
-import { ButtonClickService } from 'src/app/shared/services/button-click.service'
-import { AccountService } from 'src/app/shared/services/account.service'
-import { GenderService } from 'src/app/features/genders/classes/services/gender.service'
 import { HelperService } from 'src/app/shared/services/helper.service'
 import { InputTabStopDirective } from 'src/app/shared/directives/input-tabstop.directive'
-import { KeyboardShortcuts, Unlisten } from 'src/app/shared/services/keyboard-shortcuts.service'
 import { LocalStorageService } from './../../../../shared/services/local-storage.service'
 import { MessageHintService } from 'src/app/shared/services/messages-hint.service'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
-import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
 import { NationalityDropdownVM } from 'src/app/features/nationalities/classes/view-models/nationality-dropdown-vm'
-import { NationalityService } from 'src/app/features/nationalities/classes/services/nationality.service'
 import { PassengerReadDto } from '../../classes/dtos/form/passenger-read-dto'
-import { SnackbarService } from 'src/app/shared/services/snackbar.service'
 import { ValidationService } from 'src/app/shared/services/validation.service'
 import { GenderActiveVM } from 'src/app/features/genders/classes/view-models/gender-active-vm'
 
@@ -33,7 +25,7 @@ export class PassengerFormComponent {
 
     //#region variables
 
-    private unlisten: Unlisten
+    private record: PassengerReadDto
     private unsubscribe = new Subject<void>()
     public feature = 'passengerForm'
     public featureIcon = ''
@@ -56,21 +48,21 @@ export class PassengerFormComponent {
 
     //#endregion
 
-    constructor(@Inject(MAT_DIALOG_DATA) public data: PassengerReadDto, private accountService: AccountService, private buttonClickService: ButtonClickService, private dateAdapter: DateAdapter<any>, private dialogRef: MatDialogRef<PassengerFormComponent>, private formBuilder: FormBuilder, private genderService: GenderService, private helperService: HelperService, private keyboardShortcutsService: KeyboardShortcuts, private localStorageService: LocalStorageService, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private nationalityService: NationalityService, private ngZone: NgZone, private snackbarService: SnackbarService) { }
+    constructor(@Inject(MAT_DIALOG_DATA) public data: PassengerReadDto, private dateAdapter: DateAdapter<any>, private dialogRef: MatDialogRef<PassengerFormComponent>, private formBuilder: FormBuilder, private helperService: HelperService, private localStorageService: LocalStorageService, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private ngZone: NgZone) {
+        this.record = data
+    }
 
     //#region lifecycle hooks
 
     ngOnInit(): void {
         this.initForm()
-        this.addShortcuts()
         this.populateDropdowns()
-        this.populateFields(this.data)
+        this.populateFields()
         this.setLocale()
     }
 
     ngOnDestroy(): void {
         this.cleanup()
-        this.unlisten()
     }
 
     //#endregion
@@ -85,6 +77,10 @@ export class PassengerFormComponent {
         if (event.target.value == '') this.isAutoCompleteDisabled = true
     }
 
+    public close(): void {
+        this.dialogRef.close()
+    }
+
     public enableOrDisableAutoComplete(event: any): void {
         this.isAutoCompleteDisabled = this.helperService.enableOrDisableAutoComplete(event)
     }
@@ -97,7 +93,7 @@ export class PassengerFormComponent {
         return this.messageLabelService.getDescription(this.feature, id)
     }
 
-    public onSave(): void {
+    public save(): void {
         this.ngZone.run(() => {
             this.dialogRef.close(this.flattenForm(this.form))
         })
@@ -107,29 +103,13 @@ export class PassengerFormComponent {
 
     //#region private methods
 
-    private addShortcuts(): void {
-        this.unlisten = this.keyboardShortcutsService.listen({
-            'Escape': (event: KeyboardEvent) => {
-                if (document.getElementsByClassName('cdk-overlay-pane').length === 0) {
-                    this.buttonClickService.clickOnButton(event, 'goBack')
-                }
-            },
-            'Alt.S': (event: KeyboardEvent) => {
-                this.buttonClickService.clickOnButton(event, 'save')
-            }
-        }, {
-            priority: 3,
-            inputs: true
-        })
+    private assignTempIdToNewPassenger(): number {
+        return Math.round(Math.random() * new Date().getMilliseconds())
     }
 
     private cleanup(): void {
         this.unsubscribe.next()
         this.unsubscribe.unsubscribe()
-    }
-
-    private assignTempIdToNewPassenger(): number {
-        return Math.round(Math.random() * new Date().getMilliseconds())
     }
 
     private filterAutocomplete(array: string, field: string, value: any): any[] {
@@ -147,7 +127,7 @@ export class PassengerFormComponent {
             'lastname': form.value.lastname,
             'firstname': form.value.firstname,
             'occupantId': 2,
-            'birthdate': moment(form.value.birthdate).format('YYYY-MM-DD'),
+            'birthdate': form.value.birthdate.format('YYYY-MM-DD'),
             'nationality': form.value.nationality,
             'gender': form.value.gender,
             'specialCare': form.value.specialCare,
@@ -182,27 +162,23 @@ export class PassengerFormComponent {
         this.populateDropdownFromLocalStorage('nationalities', 'filteredNationalities', 'nationality', 'description')
     }
 
-    private populateFields(result: PassengerReadDto): void {
+    private populateFields(): void {
         this.form.setValue({
-            id: result.id,
-            reservationId: result.reservationId,
-            gender: { 'id': result.gender.id, 'description': result.gender.description },
-            nationality: { 'id': result.nationality.id, 'description': result.nationality.description },
-            lastname: result.lastname,
-            firstname: result.firstname,
-            birthdate: result.birthdate,
-            specialCare: result.specialCare,
-            remarks: result.remarks,
-            isCheckedIn: result.isCheckedIn
+            id: this.record.id,
+            reservationId: this.record.reservationId,
+            gender: { 'id': this.record.gender.id, 'description': this.record.gender.description },
+            nationality: { 'id': this.record.nationality.id, 'description': this.record.nationality.description },
+            lastname: this.record.lastname,
+            firstname: this.record.firstname,
+            birthdate: this.record.birthdate,
+            specialCare: this.record.specialCare,
+            remarks: this.record.remarks,
+            isCheckedIn: this.record.isCheckedIn
         })
     }
 
     private setLocale(): void {
         this.dateAdapter.setLocale(this.localStorageService.getLanguage())
-    }
-
-    private showSnackbar(message: string, type: string): void {
-        this.snackbarService.open(message, type)
     }
 
     //#endregion

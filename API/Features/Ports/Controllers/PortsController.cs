@@ -39,7 +39,7 @@ namespace API.Features.Ports {
         }
 
         [HttpGet("{id}")]
-        [Authorize(Roles = "admin")]
+        [Authorize(Roles = "user, admin")]
         public async Task<ResponseWithBody> GetByIdAsync(int id) {
             var x = await portRepo.GetByIdAsync(id);
             if (x != null) {

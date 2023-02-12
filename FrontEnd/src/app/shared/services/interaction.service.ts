@@ -14,7 +14,7 @@ export class InteractionService {
     public updateDateAdapters(): void {
         setTimeout(() => {
             this._refreshDateAdapter.next(null)
-        }, 0)
+        }, 1000)
     }
 
     public updateMenus(): void {

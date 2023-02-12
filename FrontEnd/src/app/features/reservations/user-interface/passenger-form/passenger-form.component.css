@@ -1,14 +1,11 @@
-#form-wrapper {
-    background-image: none;
-    padding: 0;
-    width: 50rem;
+#dialog-header {
+    margin: 0 0 1.1rem 1rem;
 }
 
-#header {
-    margin: 0 1rem 1rem 1rem !important;
+#dialog-content {
+    overflow-y: hidden;
 }
 
-#footer {
-    margin: 0.5rem 1rem 0 auto !important;
-    padding: 0 !important;
+#dialog-footer {
+    margin: 2rem 1rem 0 0;
 }

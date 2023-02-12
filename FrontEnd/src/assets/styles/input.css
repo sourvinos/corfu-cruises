@@ -45,7 +45,7 @@ input:-internal-autofill-previewed, input:-internal-autofill-selected {
     border: 1px solid var(--color-b) !important;
     line-height: 132%;
     margin-top: var(--form-field-margin) !important;
-    padding: 1rem;
+    padding: 0.5rem 1rem;
     width: 100% !important;
 }
 
@@ -65,6 +65,8 @@ input:-internal-autofill-previewed, input:-internal-autofill-selected {
 .mat-form-field-infix {
     border-top: 20px solid transparent;
     display: flex !important;
+    font-family: var(--font-family-asty) !important;
+    font-weight: 300 !important;
     padding: 0 !important;
     width: 100% !important;
 }
@@ -74,7 +76,9 @@ input:-internal-autofill-previewed, input:-internal-autofill-selected {
 }
 
 .mat-hint, .mat-error {
-    font-size: var(--font-size-input-hint) !important;
+    font-family: var(--font-family-asty);
+    font-size: var(--font-size-input-hint);
+    font-weight: 300;
 }
 
 .mat-form-field-label-wrapper {

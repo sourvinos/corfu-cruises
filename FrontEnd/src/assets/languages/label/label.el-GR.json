@@ -734,7 +734,7 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Κράτηση"
+                "description": "Επεξεργασία κράτησης"
             },
             {
                 "id": "tabGeneral",
@@ -743,10 +743,6 @@
             {
                 "id": "tabPassengers",
                 "description": "Επιβάτες"
-            },
-            {
-                "id": "tabMoreInfo",
-                "description": "Λοιπά"
             },
             {
                 "id": "refNo",
@@ -1144,8 +1140,12 @@
                 "description": "Έχει επιβιβαστεί"
             },
             {
-                "id": "saveButton",
-                "description": "ΑΠΟΘΗΚΕΥΣΗ"
+                "id": "cancelButton",
+                "description": "ΑΚΥΡΟ"
+            },
+            {
+                "id": "okButton",
+                "description": "OK"
             }
         ]
     },

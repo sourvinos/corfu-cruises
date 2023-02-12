@@ -7,7 +7,6 @@ import { firstValueFrom, Observable, Subject } from 'rxjs'
 import { map, startWith, takeUntil } from 'rxjs/operators'
 // Custom
 import { AccountService } from 'src/app/shared/services/account.service'
-import { ButtonClickService } from 'src/app/shared/services/button-click.service'
 import { CustomerActiveVM } from '../../../customers/classes/view-models/customer-active-vm'
 import { DestinationActiveVM } from 'src/app/features/destinations/classes/view-models/destination-active-vm'
 import { DialogService } from 'src/app/shared/services/dialog.service'
@@ -17,7 +16,6 @@ import { FormResolved } from 'src/app/shared/classes/form-resolved'
 import { HelperService, indicate } from 'src/app/shared/services/helper.service'
 import { InputTabStopDirective } from 'src/app/shared/directives/input-tabstop.directive'
 import { InteractionService } from 'src/app/shared/services/interaction.service'
-import { KeyboardShortcuts, Unlisten } from 'src/app/shared/services/keyboard-shortcuts.service'
 import { LocalStorageService } from 'src/app/shared/services/local-storage.service'
 import { MessageHintService } from 'src/app/shared/services/messages-hint.service'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
@@ -45,7 +43,6 @@ export class ReservationFormComponent {
 
     //#region variables
 
-    private unlisten: Unlisten
     private reservation: ReservationReadDto
     private unsubscribe = new Subject<void>()
     public feature = 'reservationForm'
@@ -74,9 +71,12 @@ export class ReservationFormComponent {
 
     public passengerDifferenceIcon: string
 
+    public isReservationTabVisible: boolean
+    public isPassengersTabVisible: boolean
+
     //#endregion
 
-    constructor(private accountService: AccountService, private activatedRoute: ActivatedRoute, private buttonClickService: ButtonClickService, private dateAdapter: DateAdapter<any>, private dialogService: DialogService, private emojiService: EmojiService, private formBuilder: FormBuilder, private helperService: HelperService, private interactionService: InteractionService, private keyboardShortcutsService: KeyboardShortcuts, private localStorageService: LocalStorageService, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private modalActionResultService: ModalActionResultService, private okIconService: OkIconService, private reservationService: ReservationService, private router: Router, private userService: UserService, private voucherService: VoucherService, private warningIconService: WarningIconService) {
+    constructor(private accountService: AccountService, private activatedRoute: ActivatedRoute, private dateAdapter: DateAdapter<any>, private dialogService: DialogService, private emojiService: EmojiService, private formBuilder: FormBuilder, private helperService: HelperService, private interactionService: InteractionService, private localStorageService: LocalStorageService, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private modalActionResultService: ModalActionResultService, private okIconService: OkIconService, private reservationService: ReservationService, private router: Router, private userService: UserService, private voucherService: VoucherService, private warningIconService: WarningIconService) {
         this.activatedRoute.params.subscribe(x => {
             this.initForm()
             if (x.id) {
@@ -84,6 +84,8 @@ export class ReservationFormComponent {
                 this.populateFields(this.reservation)
                 this.setNewRecord(false)
                 this.doPostInitJobs()
+                this.isReservationTabVisible = true
+                this.isPassengersTabVisible = false
             } else {
                 this.readStoredVariables()
                 this.setNewRecord(true)
@@ -95,31 +97,15 @@ export class ReservationFormComponent {
     //#region lifecycle hooks
 
     ngOnInit(): void {
-        this.addShortcuts()
         this.subscribeToInteractionService()
         this.setLocale()
-        this.focusOnField('date')
     }
 
     ngOnDestroy(): void {
         this.cleanup()
-        this.unlisten()
         this.clearStoredVariables()
     }
 
-    canDeactivate(): boolean {
-        if (this.form.dirty) {
-            this.dialogService.open(this.messageSnackbarService.askConfirmationToAbortEditing(), 'warning', 'right-buttons', ['abort', 'ok']).subscribe(response => {
-                if (response) {
-                    this.resetForm()
-                    this.goBack()
-                    return true
-                }
-            })
-        } else {
-            return true
-        }
-    }
     //#endregion
 
     //#region public methods
@@ -208,6 +194,16 @@ export class ReservationFormComponent {
         this.form.patchValue({ passengers: passengers })
     }
 
+    public scrollToReservation(): void {
+        this.isPassengersTabVisible = false
+        this.isReservationTabVisible = true
+    }
+
+    public scrollToPassengers(): void {
+        this.isPassengersTabVisible = true
+        this.isReservationTabVisible = false
+    }
+
     public updateFieldsAfterPickupPointSelection(value: PickupPointActiveVM): void {
         this.form.patchValue({
             exactPoint: value.exactPoint,
@@ -219,26 +215,6 @@ export class ReservationFormComponent {
     //#endregion
 
     //#region private methods
-
-    private addShortcuts(): void {
-        this.unlisten = this.keyboardShortcutsService.listen({
-            'Escape': (event: KeyboardEvent) => {
-                if (document.getElementsByClassName('cdk-overlay-pane').length === 0) {
-                    this.buttonClickService.clickOnButton(event, 'goBack')
-                }
-            },
-            'Alt.S': (event: KeyboardEvent) => {
-                if (document.getElementsByClassName('cdk-overlay-pane').length === 0) {
-                    if (this.form.value.totalPersons >= this.form.value.passengers.length) {
-                        this.buttonClickService.clickOnButton(event, 'save')
-                    }
-                }
-            }
-        }, {
-            priority: 0,
-            inputs: true
-        })
-    }
 
     private calculateTotalPersons(): void {
         const totalPersons = parseInt(this.form.value.adults, 10) + parseInt(this.form.value.kids, 10) + parseInt(this.form.value.free, 10)
@@ -394,7 +370,7 @@ export class ReservationFormComponent {
     private initForm(): void {
         this.form = this.formBuilder.group({
             reservationId: '',
-            date: '',
+            date: ['', [Validators.required]],
             refNo: '',
             destination: ['', [Validators.required, ValidationService.RequireAutocomplete]],
             customer: ['', [Validators.required, ValidationService.RequireAutocomplete]],

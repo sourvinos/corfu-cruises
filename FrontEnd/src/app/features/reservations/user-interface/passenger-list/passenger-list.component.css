@@ -1,13 +1,16 @@
 :host {
     height: 100%;
-    width: 100%;
+}
+
+#table-wrapper {
+    margin: 0;
 }
 
 #passenger-list {
     display: flex;
     flex-direction: column;
     height: 100%;
-    margin-bottom: var(--gap);
+    margin-top: 0.7rem;
 }
 
 .fa-trash-alt {

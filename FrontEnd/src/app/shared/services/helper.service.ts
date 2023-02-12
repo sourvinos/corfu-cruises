@@ -249,6 +249,13 @@ export class HelperService {
         }, 500)
     }
 
+public disableInputTextboxes():void{
+    const x = document.getElementsByTagName('input') as HTMLCollectionOf<HTMLInputElement>
+    for (let i = 0; i < x.length; i++) {
+        x[i].setAttribute('disabled', '')
+    }
+}
+
     //#endregion
 
     //#region private methods

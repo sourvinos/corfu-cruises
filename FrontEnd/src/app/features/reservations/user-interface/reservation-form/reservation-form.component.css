@@ -1,71 +1,55 @@
-:host > .content {
-    margin: 0 auto;
+#content {
     display: flex;
-    background: none;
-}
-
-:host ::ng-deep .mat-tab-group.vertical {
-    flex-direction: row;
-}
-
-:host ::ng-deep .mat-tab-group.horizontal {
     flex-direction: column;
-}
-
-:host ::ng-deep .mat-tab-header {
-    border-bottom: none;
-}
-
-:host ::ng-deep .mat-tab-header-pagination {
-    display: none !important;
-}
-
-:host ::ng-deep .vertical .mat-tab-labels {
-    flex-direction: column;
-}
-
-:host ::ng-deep .vertical .mat-tab-label {
-    margin: 1rem 0 0 0;
-}
-
-:host ::ng-deep .vertical .mat-tab-label:nth-child(1) {
-    background-color: var(--color-tab-overview);
-}
-
-:host ::ng-deep .vertical .mat-tab-label:nth-child(2) {
-    background-color: var(--color-tab-passengers);
-}
-
-:host ::ng-deep .vertical .mat-tab-label:nth-child(3) {
-    background-color: var(--color-tab-more);
-}
-
-:host ::ng-deep .mat-tab-label .mat-tab-label-content {
-    color: var(--color-button-text) !important;
-    font-weight: bold !important;
-}
-
-:host ::ng-deep .mat-ink-bar {
     height: 100%;
-    left: -100% !important;
+    justify-content: center;
+    margin: 0 auto;
+    width: 1000px;
 }
 
-:host ::ng-deep .mat-tab-body-wrapper {
-    flex: 1 1 auto;
+#header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: 0.3rem !important;
 }
 
-#content::before, #main-content::before, #content::after, #main-content::after {
-    content: "";
-    display: table;
+#header-buttons {
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    gap: 0.5rem;
 }
 
-#content::after, #main-content::after {
-    clear: both;
+#tab-scroller {
+    display: flex;
+    gap: 0.5rem;
 }
 
 #form {
+    display: flex;
+    flex-direction: row !important;
     height: 100%;
-    padding: 0 1rem;
+    overflow: hidden;
+    scroll-behavior: smooth;
+    scroll-snap-type: x mandatory;
+}
+
+.tab-content {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 1000px;
+}
+
+#tab-overview {
+    background-color: var(--color-tab-overview);
+    color: var(--color-button-text);
+}
+
+#tab-passengers {
+    background-color: var(--color-tab-passengers);
+    color: var(--color-button-text);
 }
 
 #qr-code {
@@ -77,11 +61,8 @@
     margin-top: auto;
 }
 
-#passenger-check-total-icon {
-    align-items: center;
-    display: flex;
-    font-size: 1.5625rem;
-    margin-bottom: 0.3125rem;
+#table-wrapper {
+    margin: 0;
 }
 
 #footer {

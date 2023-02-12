@@ -3,7 +3,9 @@ h1 {
     font-family: var(--font-family-asty) !important;
     font-size: var(--font-size-h1) !important;
     font-weight: 300 !important;
+    line-height: var(--font-size-line-height-h1) !important;
     padding: 0 !important;
+    transform: scale(1, 1.5);
     transition: all var(--theme-change-delay) ease-in;
 }
 

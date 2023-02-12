@@ -1,11 +1,13 @@
 import { ActivatedRoute, Router } from '@angular/router'
-import { Component } from '@angular/core'
-import { DateAdapter } from '@angular/material/core'
+import { Component, Inject } from '@angular/core'
+import { DateAdapter, MAT_DATE_LOCALE } from '@angular/material/core'
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms'
 import { Observable, Subject } from 'rxjs'
 import { map, startWith, takeUntil } from 'rxjs/operators'
 // Custom
+import { DateHelperService } from 'src/app/shared/services/date-helper.service'
 import { DialogService } from 'src/app/shared/services/dialog.service'
+import { FormResolved } from 'src/app/shared/classes/form-resolved'
 import { GenderActiveVM } from '../../genders/classes/view-models/gender-active-vm'
 import { HelperService, indicate } from 'src/app/shared/services/helper.service'
 import { InputTabStopDirective } from 'src/app/shared/directives/input-tabstop.directive'
@@ -16,18 +18,16 @@ import { MessageLabelService } from 'src/app/shared/services/messages-label.serv
 import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
 import { ModalActionResultService } from 'src/app/shared/services/modal-action-result.service'
 import { NationalityDropdownVM } from '../../nationalities/classes/view-models/nationality-dropdown-vm'
+import { ShipActiveVM } from '../../ships/classes/view-models/ship-active-vm'
 import { ShipCrewReadDto } from '../classes/dtos/shipCrew-read-dto'
 import { ShipCrewService } from '../classes/services/shipCrew.service'
 import { ShipCrewWriteDto } from '../classes/dtos/shipCrew-write-dto'
-import { ShipActiveVM } from '../../ships/classes/view-models/ship-active-vm'
 import { ValidationService } from 'src/app/shared/services/validation.service'
-import { FormResolved } from 'src/app/shared/classes/form-resolved'
-import { DateHelperService } from 'src/app/shared/services/date-helper.service'
 
 @Component({
     selector: 'ship-crew-form',
     templateUrl: './shipCrew-form.component.html',
-    styleUrls: ['../../../../assets/styles/forms.css', './shipCrew-form.component.css']
+    styleUrls: ['../../../../assets/styles/forms.css', './shipCrew-form.component.css'],
 })
 
 export class ShipCrewFormComponent {
@@ -54,7 +54,7 @@ export class ShipCrewFormComponent {
 
     //#endregion
 
-    constructor(private activatedRoute: ActivatedRoute, private crewService: ShipCrewService, private dateAdapter: DateAdapter<any>, private dateHelperService: DateHelperService, private dialogService: DialogService, private formBuilder: FormBuilder, private helperService: HelperService, private interactionService: InteractionService, private localStorageService: LocalStorageService, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private modalActionResultService: ModalActionResultService, private router: Router, private shipCrewService: ShipCrewService,) {
+    constructor(@Inject(MAT_DATE_LOCALE) private locale: string, private activatedRoute: ActivatedRoute, private crewService: ShipCrewService, private _adapter: DateAdapter<any>, private dateHelperService: DateHelperService, private dialogService: DialogService, private formBuilder: FormBuilder, private helperService: HelperService, private interactionService: InteractionService, private localStorageService: LocalStorageService, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private modalActionResultService: ModalActionResultService, private router: Router, private shipCrewService: ShipCrewService,) {
         this.activatedRoute.params.subscribe(x => {
             if (x.id) {
                 this.initForm()
@@ -243,7 +243,9 @@ export class ShipCrewFormComponent {
     }
 
     private setLocale(): void {
-        this.dateAdapter.setLocale(this.localStorageService.getLanguage())
+        this.locale = this.localStorageService.getLanguage()
+        this._adapter.setLocale(this.locale)
+        // this.dateAdapter.setLocale(this.localStorageService.getLanguage())
     }
 
     private subscribeToInteractionService(): void {

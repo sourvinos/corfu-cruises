@@ -1,13 +1,13 @@
 #table-wrapper {
-    margin: 0 !important;
+    margin: 1rem 0 1.4rem 0 !important;
+}
+
+.p-scroller {
+    overflow-y: auto !important;
 }
 
 #dialog-header h1 .title {
     color: var(--color-c);
-}
-
-#dialog-footer {
-    padding-right: 1.5rem !important;
 }
 
 #missing-passengers {

@@ -7,7 +7,6 @@ import { Table } from 'primeng/table'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { PassengerFormComponent } from '../passenger-form/passenger-form.component'
 import { PassengerReadDto } from '../../classes/dtos/form/passenger-read-dto'
-import { AccountService } from 'src/app/shared/services/account.service'
 
 @Component({
     selector: 'passenger-list',
@@ -30,7 +29,7 @@ export class PassengerListComponent {
 
     //#endregion
 
-    constructor(public dialog: MatDialog, private accountService: AccountService, private messageLabelService: MessageLabelService) { }
+    constructor(public dialog: MatDialog, private messageLabelService: MessageLabelService) { }
 
     //#region lifecycle hooks
 
@@ -47,18 +46,18 @@ export class PassengerListComponent {
         return this.messageLabelService.getDescription(this.feature, id)
     }
 
-    public onDeleteRow(record: PassengerReadDto): void {
+    public deleteRow(record: PassengerReadDto): void {
         const index = this.passengers.indexOf(record)
         this.passengers.splice(index, 1)
         this.outputPassengerCount.emit(this.passengers.length)
         this.outputPassengers.emit(this.passengers)
     }
 
-    public onEditRecord(record: any): void {
+    public editRecord(record: any): void {
         this.showPassengerForm(record)
     }
 
-    public onNew(): void {
+    public newRow(): void {
         this.showPassengerForm()
     }
 
@@ -68,6 +67,7 @@ export class PassengerListComponent {
 
     private sendPassengerToForm(passenger: PassengerReadDto): void {
         const dialog = this.dialog.open(PassengerFormComponent, {
+            disableClose: true,
             data: {
                 id: passenger.id,
                 reservationId: passenger.reservationId,

@@ -734,7 +734,7 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Rezervace"
+                "description": "Upravit rezervaci"
             },
             {
                 "id": "tabGeneral",
@@ -743,10 +743,6 @@
             {
                 "id": "tabPassengers",
                 "description": "Cestující"
-            },
-            {
-                "id": "tabMoreInfo",
-                "description": "Více"
             },
             {
                 "id": "refNo",
@@ -1144,8 +1140,12 @@
                 "description": "Odbavený"
             },
             {
-                "id": "saveButton",
-                "description": "ULOŽIT"
+                "id": "cancelButton",
+                "description": "ZRUŠIT"
+            },
+            {
+                "id": "okButton",
+                "description": "OK"
             }
         ]
     },
@@ -1551,6 +1551,14 @@
             {
                 "id": "searchButton",
                 "description": "VYHLEDÁVÁNÍ"
+            },
+            {
+                "id": "okButton",
+                "description": "OK"
+            },
+            {
+                "id": "cancelButton",
+                "description": "ZRUŠIT"
             }
         ]
     },

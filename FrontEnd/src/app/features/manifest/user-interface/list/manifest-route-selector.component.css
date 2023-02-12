@@ -1,10 +1,10 @@
-#dialog-header h1 .title {
-    color: var(--color-c);
+#dialog-header {
+    margin: 0 0 1.1rem 1rem;
 }
 
-#dialog-footer {
-    justify-content: flex-end !important;
-    padding-right: 1.5rem !important;
+#dialog-content {
+    height: 100%;
+    overflow-y: hidden;
 }
 
 #form {
@@ -19,4 +19,9 @@
     height: 75% !important;
     overflow-y: scroll !important;
     width: 100% !important;
+}
+
+#dialog-footer {
+    gap: 0.5rem;
+    margin: 1.8rem 1rem 0 0;
 }

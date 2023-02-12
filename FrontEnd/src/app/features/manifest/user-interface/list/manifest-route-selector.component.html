@@ -1,9 +1,7 @@
 <div id="dialog">
 
     <div id="dialog-header">
-        <h1 mat-dialog-title>
-            <span>{{ getLabel('headerRouteSelector') }}</span>
-        </h1>
+        <h1 mat-dialog-title>{{ getLabel('headerRouteSelector') }}</h1>
     </div>
 
     <div id="dialog-content">
@@ -42,13 +40,11 @@
     </div>
 
     <div id="dialog-footer">
-        <mat-dialog-actions>
-            <button (click)="close()" class="transparent" mat-flat-button>{{ getLabel('cancelButton') }}</button>
-            <button (click)="continue()" [disabled]="!form.valid" class="primary" mat-flat-button>
-                <mat-icon *ngIf="!form.valid" class="button-icon">lock</mat-icon>
-                <span>{{ getLabel("okButton") }}</span>
-            </button>
-        </mat-dialog-actions>
+        <button (click)="close()" class="transparent" mat-flat-button>{{ getLabel('cancelButton') }}</button>
+        <button (click)="continue()" [disabled]="!form.valid" class="primary" mat-flat-button>
+            <mat-icon *ngIf="!form.valid" class="button-icon">lock</mat-icon>
+            <span>{{ getLabel("okButton") }}</span>
+        </button>
     </div>
 
 </div>

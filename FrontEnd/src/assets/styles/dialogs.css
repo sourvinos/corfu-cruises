@@ -9,22 +9,20 @@
 .mat-dialog-container {
     background-color: var(--color-a);
     overflow: hidden !important;
-    padding: 2rem 0.6rem 2rem 2rem !important;
+    padding: 2rem 2rem 2rem 2rem !important;
 }
 
 #dialog {
     display: flex;
     flex-direction: column;
     height: 100%;
-    padding: 0 1rem 0 0;
 }
 
 #dialog-header {
-    align-items: left;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    padding: 0 2rem 1rem 1rem;
+    align-items: left !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: space-between !important;
 }
 
 #dialog-header .material-symbols-outlined {
@@ -46,23 +44,12 @@
 }
 
 #dialog-content {
-    color: var(--color-c);
-    flex: 1;
-    font-family: var(--font-family-handbook) !important;
-    font-size: var(--font-size-dialog) !important;
-    font-weight: var(--font-weight-dialog-content) !important;
-    line-height: 2rem;
-    margin: 0 2rem;
     overflow-y: scroll;
-    text-align: center;
 }
 
 #dialog-footer {
-    align-items: center;
     display: flex !important;
-    justify-content: space-between !important;
-    margin-top: auto;
-    padding: 1.5rem 1rem 0 0.7rem;
+    justify-content: flex-end;
 }
 
 .mat-dialog-actions {

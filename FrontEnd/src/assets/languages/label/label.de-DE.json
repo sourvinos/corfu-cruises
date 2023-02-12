@@ -734,7 +734,7 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Reservierung"
+                "description": "Reservierung bearbeiten"
             },
             {
                 "id": "tabGeneral",
@@ -743,10 +743,6 @@
             {
                 "id": "tabPassengers",
                 "description": "Passagiere"
-            },
-            {
-                "id": "tabMoreInfo",
-                "description": "Mehr"
             },
             {
                 "id": "refNo",
@@ -1144,8 +1140,12 @@
                 "description": "Einchecken"
             },
             {
-                "id": "saveButton",
-                "description": "SPEICHERN"
+                "id": "cancelButton",
+                "description": "ABBRECHEN"
+            },
+            {
+                "id": "okButton",
+                "description": "OK"
             }
         ]
     },
@@ -1551,6 +1551,14 @@
             {
                 "id": "searchButton",
                 "description": "SUCHEN"
+            },
+            {
+                "id": "okButton",
+                "description": "OK"
+            },
+            {
+                "id": "cancelButton",
+                "description": "ABBRECHEN"
             }
         ]
     },

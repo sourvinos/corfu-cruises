@@ -60,9 +60,9 @@ export class AccountService extends HttpDataService {
             { 'item': 'returnUrl', 'when': 'always' },
             { 'item': 'isAdmin', 'when': 'always' },
             // Reservations
-            { 'item': 'date', 'when': 'always' },
-            { 'item': 'scrollLeft', 'when': 'always' },
-            { 'item': 'year', 'when': 'always' },
+            { 'item': 'date', 'when': 'production' },
+            { 'item': 'scrollLeft', 'when': 'production' },
+            { 'item': 'year', 'when': 'production' },
             // Calendars
             { 'item': 'activeYearAvailability', 'when': 'always' },
             { 'item': 'activeYearReservations', 'when': 'always' },
@@ -208,7 +208,7 @@ export class AccountService extends HttpDataService {
         this.portService.getActive().subscribe(response => { this.localStorageService.saveItem('ports', JSON.stringify(response)) })
         this.shipService.getActive().subscribe(response => { this.localStorageService.saveItem('ships', JSON.stringify(response)) })
         this.shipOwnerService.getActive().subscribe(response => { this.localStorageService.saveItem('shipOwners', JSON.stringify(response)) })
-        this.shipRouteService.getAll().subscribe(response => { this.localStorageService.saveItem('shipRoutes', JSON.stringify(response)) })
+        this.shipRouteService.getActive().subscribe(response => { this.localStorageService.saveItem('shipRoutes', JSON.stringify(response)) })
     }
 
     private setLoginStatus(status: boolean): void {
