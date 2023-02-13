@@ -14,7 +14,7 @@ export class ManifestListResolver {
 
     resolve(): Observable<ManifestListResolved> {
         const criteria = JSON.parse(this.localStorageService.getItem('manifest-criteria'))
-        const date = criteria.fromDate
+        const date = criteria.date
         const destinationId = criteria.destinations[0].id
         const portIds = this.buildPorts(criteria)
         const shipId = criteria.ships[0].id

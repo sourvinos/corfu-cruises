@@ -1,4 +1,5 @@
 using System.Linq;
+using API.Infrastructure.Classes;
 using API.Infrastructure.Helpers;
 using AutoMapper;
 
@@ -9,7 +10,10 @@ namespace API.Features.Manifest {
         public ManifestMappingProfile() {
             CreateMap<ManifestInitialVM, ManifestFinalVM>()
                 .ForMember(x => x.Date, x => x.MapFrom(source => source.Date))
-                .ForMember(x => x.Destination, x => x.MapFrom(source => source.Destination.Description))
+                .ForMember(x => x.Destination, x => x.MapFrom(source => new SimpleEntity {
+                    Id = source.Destination.Id,
+                    Description = source.Destination.Description
+                }))
                 .ForMember(x => x.Ship, x => x.MapFrom(source => new ManifestFinalShipVM {
                     Description = source.Ship.Description,
                     IMO = source.Ship.IMO,
@@ -43,10 +47,19 @@ namespace API.Features.Manifest {
                             Lastname = crew.Lastname.ToUpper(),
                             Firstname = crew.Firstname.ToUpper(),
                             Birthdate = DateHelpers.DateToISOString(crew.Birthdate),
-                            GenderDescription = crew.Gender.Description,
-                            NationalityCode = crew.Nationality.Code,
-                            NationalityDescription = crew.Nationality.Description,
-                            OccupantDescription = crew.Occupant.Description,
+                            Gender = new SimpleEntity {
+                                Id = crew.Gender.Id,
+                                Description = crew.Gender.Description
+                            },
+                            Nationality = new ManifestFinalNationalityVM {
+                                Id = crew.Nationality.Id,
+                                Code = crew.Nationality.Code,
+                                Description = crew.Nationality.Description
+                            },
+                            Occupant = new SimpleEntity {
+                                Id = crew.Occupant.Id,
+                                Description = crew.Occupant.Description
+                            }
                         })
                         .OrderBy(x => x.Lastname).ThenBy(x => x.Firstname)
                         .ToList()
@@ -67,10 +80,19 @@ namespace API.Features.Manifest {
                     Birthdate = DateHelpers.DateToISOString(passenger.Birthdate),
                     Remarks = passenger.Remarks,
                     SpecialCare = passenger.SpecialCare,
-                    GenderDescription = passenger.Gender.Description,
-                    NationalityCode = passenger.Nationality.Code,
-                    NationalityDescription = passenger.Nationality.Description,
-                    OccupantDescription = passenger.Occupant.Description
+                    Gender = new SimpleEntity {
+                        Id = passenger.Gender.Id,
+                        Description = passenger.Gender.Description
+                    },
+                    Nationality = new ManifestFinalNationalityVM {
+                        Id = passenger.Nationality.Id,
+                        Code = passenger.Nationality.Code,
+                        Description = passenger.Nationality.Description
+                    },
+                    Occupant = new SimpleEntity {
+                        Id = passenger.Occupant.Id,
+                        Description = passenger.Occupant.Description
+                    }
                 }).OrderBy(x => x.Lastname).ThenBy(x => x.Firstname).ThenBy(x => x.Birthdate)));
         }
 

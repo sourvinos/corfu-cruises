@@ -46,7 +46,7 @@ export class ManifestRouteSelectorComponent {
     public continue(): void {
         this.ngZone.run(() => {
             const x = JSON.parse(this.localStorageService.getItem('shipRoutes'))
-            const z = x.find(z => z.id == this.form.value.shipRoutes[0].id)
+            const z = x.find((z: any) => z.id == this.form.value.shipRoutes[0].id)
             this.dialogRef.close(z)
         })
     }

@@ -116,10 +116,10 @@ export class ManifestPdfService {
             type: 'none',
             margin: [0, 0, 0, 0],
             ul: [
-                { text: 'ΔΡΟΜΟΛΟΓΙΟ ' + this.dateHelperService.formatISODateToLocale(manifest.date, false, true) },
+                { text: 'ΗΜΕΡΟΜΗΝΙΑ ' + this.dateHelperService.formatISODateToLocale(manifest.date, false, true) },
                 { text: 'ΚΑΤΑΣΤΑΣΗ ΕΠΙΒΑΙΝΟΝΤΩΝ', fontSize: 13, style: 'AkaAcidCanterBold' },
                 { text: 'ΠΛΟΙΟ: ' + manifest.ship.description },
-                { text: 'ΤΕΛΙΚΟΣ ΠΡΟΟΡΙΣΜΟΣ: ' + manifest.destination },
+                { text: 'ΤΕΛΙΚΟΣ ΠΡΟΟΡΙΣΜΟΣ: ' + manifest.destination.description },
             ]
         }
     }
@@ -157,9 +157,9 @@ export class ManifestPdfService {
             margin: [0, 0, 0, 0],
             ul: [
                 { text: 'ΛΙΜΕΝΕΣ', fontSize: 9, style: 'AkaAcidCanterBold' },
-                { text: 'ΛΙΜΕΝΑΣ ΑΠΟΠΛΟΥ: ' + manifest.shipRoute.fromPort + ' ΗΜΕΡΟΜΗΝΙΑ ' + this.dateHelperService.formatISODateToLocale(manifest.date) + ' ΩΡΑ ' + manifest.shipRoute.fromTime },
+                { text: 'ΛΙΜΕΝΑΣ ΑΠΟΠΛΟΥ: ' + manifest.shipRoute.fromPort + ' ΩΡΑ ' + manifest.shipRoute.fromTime },
                 { text: 'ΕΝΔΙΑΜΕΣΟΙ ΛΙΜΕΝΕΣ ΠΡΟΣΕΓΓΙΣΗΣ: ' + this.buildViaPorts(manifest) },
-                { text: 'ΛΙΜΕΝΑΣ ΚΑΤΑΠΛΟΥ: ' + manifest.shipRoute.toPort + ' ΗΜΕΡΟΜΗΝΙΑ ' + this.dateHelperService.formatISODateToLocale(manifest.date) + ' ΩΡΑ ' + manifest.shipRoute.toTime }
+                { text: 'ΛΙΜΕΝΑΣ ΚΑΤΑΠΛΟΥ: ' + manifest.shipRoute.toPort + ' ΩΡΑ ' + manifest.shipRoute.toTime }
             ]
         }
     }
@@ -313,7 +313,7 @@ export class ManifestPdfService {
 
     private buildViaPorts(manifest: ManifestVM): any {
         if (manifest.shipRoute.viaPort != '') {
-            return manifest.shipRoute.viaPort + ' ΗΜΕΡΟΜΗΝΙΑ ' + this.dateHelperService.formatISODateToLocale(manifest.date) + ' ΩΡΑ ' + manifest.shipRoute.viaTime
+            return manifest.shipRoute.viaPort + ' ΩΡΑ ' + manifest.shipRoute.viaTime
         } else {
             return '-'
         }

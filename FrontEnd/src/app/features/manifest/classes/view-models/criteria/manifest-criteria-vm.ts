@@ -2,8 +2,7 @@ import { SimpleEntity } from 'src/app/shared/classes/simple-entity'
 
 export interface ManifestCriteriaVM {
 
-    fromDate: string
-    toDate: string
+    date: string
     destinations: SimpleEntity[]
     ports: SimpleEntity[]
     ships: SimpleEntity[]

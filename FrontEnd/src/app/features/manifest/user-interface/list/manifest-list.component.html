@@ -20,7 +20,7 @@
             <criteria-panel [backgroundColor]="'var(--color-criteria-c)'" [feature]="feature" [header]="'criteriaShip'" [icon]="'ships'" [records]="criteriaPanels.ships"></criteria-panel>
         </div>
         <div id="table-wrapper">
-            <p-table #table (onFilter)="filterRecords($event)" [scrollable]="true" [value]="records.passengers" [virtualScrollItemSize]="32" [virtualScroll]="true" dataKey="id" scrollHeight="flex" selectionMode="single" sortMode="multiple">
+            <p-table #table (onFilter)="filterRecords($event)" [scrollable]="true" [value]="records.passengers" [virtualScrollItemSize]="32" [virtualScroll]="isVirtual" dataKey="id" scrollHeight="flex" selectionMode="single" sortMode="multiple">
                 <ng-template pTemplate="header">
                     <tr>
                         <th class="width-10" pSortableColumn="occupantDescription">{{ getLabel("headerOccupant") }}</th>
@@ -31,33 +31,33 @@
                     </tr>
                     <tr>
                         <th class="width-10">
-                            <p-columnFilter field="occupantDescription" matchMode="equals" [showMenu]="false">
-                                <ng-template pTemplate="filter" let-value let-filter="filterCallback">
-                                    <p-dropdown [disabled]="records.passengers.length==0" [ngModel]="value" [options]="distinctOccupants" (onChange)="filter($event.value)" placeholder="⭐" [showClear]="true">
+                            <p-columnFilter [showMenu]="false" field="occupant.description" matchMode="equals">
+                                <ng-template let-filter="filterCallback" let-value pTemplate="filter">
+                                    <p-dropdown (onChange)="filter($event.value != null ? $event.value.description : $event.value)" [disabled]="isFilterDisabled()" [ngModel]="value" [options]="distinctOccupants" [showClear]="true" placeholder="⭐">
                                         <ng-template let-option pTemplate="item">
-                                            <span>{{ option }}</span>
+                                            <span>{{ option.description }}</span>
                                         </ng-template>
                                     </p-dropdown>
                                 </ng-template>
                             </p-columnFilter>
                         </th>
                         <th class="width-10">
-                            <p-columnFilter field="genderDescription" matchMode="equals" [showMenu]="false">
-                                <ng-template pTemplate="filter" let-value let-filter="filterCallback">
-                                    <p-dropdown [disabled]="records.passengers.length==0" [ngModel]="value" [options]="distinctGenders" (onChange)="filter($event.value)" placeholder="⭐" [showClear]="true">
+                            <p-columnFilter [showMenu]="false" field="gender.description" matchMode="equals">
+                                <ng-template let-filter="filterCallback" let-value pTemplate="filter">
+                                    <p-dropdown (onChange)="filter($event.value != null ? $event.value.description : $event.value)" [disabled]="isFilterDisabled()" [ngModel]="value" [options]="distinctGenders" [showClear]="true" placeholder="⭐">
                                         <ng-template let-option pTemplate="item">
-                                            <span>{{ option }}</span>
+                                            <span>{{ option.description }}</span>
                                         </ng-template>
                                     </p-dropdown>
                                 </ng-template>
                             </p-columnFilter>
                         </th>
                         <th class="width-10">
-                            <p-columnFilter field="nationalityDescription" matchMode="equals" [showMenu]="false">
-                                <ng-template pTemplate="filter" let-value let-filter="filterCallback">
-                                    <p-dropdown [disabled]="records.passengers.length==0" [ngModel]="value" [options]="distinctNationalities" (onChange)="filter($event.value)" placeholder="⭐" [showClear]="true">
+                            <p-columnFilter [showMenu]="false" field="nationality.description" matchMode="equals">
+                                <ng-template let-filter="filterCallback" let-value pTemplate="filter">
+                                    <p-dropdown (onChange)="filter($event.value != null ? $event.value.description : $event.value)" [disabled]="isFilterDisabled()" [ngModel]="value" [options]="distinctNationalities" [showClear]="true" placeholder="⭐">
                                         <ng-template let-option pTemplate="item">
-                                            <span>{{ option }}</span>
+                                            <span>{{ option.description }}</span>
                                         </ng-template>
                                     </p-dropdown>
                                 </ng-template>
@@ -69,11 +69,11 @@
                 </ng-template>
                 <ng-template let-passenger pTemplate="body">
                     <tr [attr.id]=passenger.id [pSelectableRow]="passenger" style="height:32px">
-                        <td class="width-10">{{ passenger.occupantDescription }}</td>
-                        <td class="width-10">{{ passenger.genderDescription }}</td>
+                        <td class="width-10">{{ passenger.occupant.description }}</td>
+                        <td class="width-10">{{ passenger.gender.description }}</td>
                         <td class="width-10" style="align-items: center; display: flex;">
-                            <img [src]="getNationalityIcon(passenger.nationalityCode)" style="vertical-align: middle" />
-                            <span style="overflow: hidden;">&nbsp;&nbsp;&nbsp;&nbsp;{{ passenger.nationalityDescription }}</span>
+                            <img [src]="getNationalityIcon(passenger.nationality.code)" style="vertical-align: middle" />
+                            <span style="overflow: hidden;">&nbsp;&nbsp;&nbsp;&nbsp;{{ passenger.nationality.description }}</span>
                         </td>
                         <td>{{ passenger.lastname }}</td>
                         <td>{{ passenger.firstname }}</td>

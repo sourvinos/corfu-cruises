@@ -64,14 +64,13 @@ export class EmbarkationReservationsComponent {
         this.router.events.subscribe((navigation) => {
             if (navigation instanceof NavigationEnd) {
                 this.url = navigation.url
-                this.loadRecords().then(() => {
-                    this.scrollToSavedRow().then(() => {
-                        this.highlightRowFromStorage()
-                        this.populateDropdownFilters()
-                        this.filterTableFromStoredFilters()
-                        this.updateTotals(this.totals, this.records.reservations)
-                    })
-                })
+                this.loadRecords()
+                this.populateDropdownFilters()
+                // this.filterTableFromStoredFilters()
+                this.updateTotals(this.totals, this.records.reservations)
+                // this.scrollToSavedRow().then(() => {
+                //     this.highlightRowFromStorage()
+                // })
             }
         })
     }
@@ -233,7 +232,7 @@ export class EmbarkationReservationsComponent {
     }
 
     private loadRecords(): Promise<any> {
-        return new Promise((resolve) => {
+        const promise = new Promise((resolve) => {
             const listResolved: ListResolved = this.activatedRoute.snapshot.data[this.feature]
             if (listResolved.error === null) {
                 this.records = listResolved.list
@@ -244,6 +243,7 @@ export class EmbarkationReservationsComponent {
                 })
             }
         })
+        return promise
     }
 
     private populateCriteriaPanelsFromStorage(): void {
@@ -253,18 +253,16 @@ export class EmbarkationReservationsComponent {
     }
 
     private populateDropdownFilters(): void {
-        if (this.records != null) {
-            this.distinctCustomers = this.helperService.getDistinctRecords(this.records.reservations, 'customerDescription')
-            this.distinctDestinations = this.helperService.getDistinctRecords(this.records.reservations, 'destinationDescription')
-            this.distinctDrivers = this.helperService.getDistinctRecords(this.records.reservations, 'driverDescription')
-            this.distinctPickupPoints = this.helperService.getDistinctRecords(this.records.reservations, 'pickupPointDescription')
-            this.distinctPorts = this.helperService.getDistinctRecords(this.records.reservations, 'portDescription')
-            this.distinctShips = this.helperService.getDistinctRecords(this.records.reservations, 'shipDescription')
-            this.distinctEmbarkationStates = [
-                { label: this.getLabel('boardedFilter'), value: 'OK' },
-                { label: this.getLabel('pendingFilter'), value: 'PENDING' }
-            ]
-        }
+        this.distinctCustomers = this.helperService.getDistinctRecords(this.records.reservations, 'customerDescription')
+        this.distinctDestinations = this.helperService.getDistinctRecords(this.records.reservations, 'destinationDescription')
+        this.distinctDrivers = this.helperService.getDistinctRecords(this.records.reservations, 'driverDescription')
+        this.distinctPickupPoints = this.helperService.getDistinctRecords(this.records.reservations, 'pickupPointDescription')
+        this.distinctPorts = this.helperService.getDistinctRecords(this.records.reservations, 'portDescription')
+        this.distinctShips = this.helperService.getDistinctRecords(this.records.reservations, 'shipDescription')
+        this.distinctEmbarkationStates = [
+            { label: this.getLabel('boardedFilter'), value: 'OK' },
+            { label: this.getLabel('pendingFilter'), value: 'PENDING' }
+        ]
     }
 
     private positionVideo(): void {

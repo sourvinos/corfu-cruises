@@ -8,7 +8,7 @@
             <!-- Date -->
             <div class="group-field">
                 <mat-form-field id="date">
-                    <input [inputTabStop]="input" [matDatepicker]="picker" [placeholder]="getLabel('date')" (dateChange)="addEvent('change', $event)" data-tabindex="1" id="date" formControlName="date" matInput>
+                    <input (dateChange)="patchFormWithSelectedDate($event)" [matDatepicker]="picker" [placeholder]="getLabel('date')" formControlName="date" matInput>
                     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                     <mat-datepicker #picker></mat-datepicker>
                     <mat-error *ngIf="date.hasError('required')">{{ getHint("invalid") }}</mat-error>

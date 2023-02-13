@@ -913,8 +913,8 @@
                 "description": "Sélection du conducteur"
             },
             {
-                "id": "sub-header",
-                "description": "Sélectionnez le chauffeur qui transférera les passagers au port"
+                "id": "subHeader",
+                "description": "Sélectionnez le chauffeur qui transférera les passagers au port."
             },
             {
                 "id": "okButton",
@@ -934,8 +934,8 @@
                 "description": "Sélection des navires"
             },
             {
-                "id": "sub-header",
-                "description": "Choisir le navire qui transportera les passagers vers leur destination"
+                "id": "subHeader",
+                "description": "Choisir le navire qui transportera les passagers vers leur destination."
             },
             {
                 "id": "okButton",
@@ -1522,7 +1522,11 @@
             },
             {
                 "id": "headerRouteSelector",
-                "description": "Επιλογή δρομολογίου"
+                "description": "Sélection de l'itinéraire"
+            },
+            {
+                "id": "subHeaderRouteSelector",
+                "description": "Sélectionnez la route que le navire suivra."
             },
             {
                 "id": "date",

@@ -913,8 +913,8 @@
                 "description": "Driver selection"
             },
             {
-                "id": "sub-header",
-                "description": "Select which driver will transfer the passengers to the port"
+                "id": "subHeader",
+                "description": "Select which driver will transfer the passengers to the port."
             },
             {
                 "id": "okButton",
@@ -934,8 +934,8 @@
                 "description": "Ship selection"
             },
             {
-                "id": "sub-header",
-                "description": "Select which ship will carry the passengers to the destination"
+                "id": "subHeader",
+                "description": "Select which ship will carry the passengers to the destination."
             },
             {
                 "id": "okButton",
@@ -1522,7 +1522,11 @@
             },
             {
                 "id": "headerRouteSelector",
-                "description": "Επιλογή δρομολογίου"
+                "description": "Shiproute selection"
+            },
+            {
+                "id": "subHeaderRouteSelector",
+                "description": "Select which route the ship will follow."
             },
             {
                 "id": "date",

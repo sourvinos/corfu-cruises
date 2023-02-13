@@ -1,5 +1,5 @@
-import { Component, Inject } from '@angular/core'
-import { DateAdapter, MAT_DATE_LOCALE } from '@angular/material/core'
+import { Component } from '@angular/core'
+import { DateAdapter } from '@angular/material/core'
 import { FormGroup, FormBuilder, Validators, FormArray, FormControl, AbstractControl } from '@angular/forms'
 import { Router } from '@angular/router'
 import { Subject } from 'rxjs'
@@ -9,7 +9,6 @@ import { DateHelperService } from 'src/app/shared/services/date-helper.service'
 import { EmbarkationCriteriaVM } from '../../classes/view-models/criteria/embarkation-criteria-vm'
 import { EmojiService } from 'src/app/shared/services/emoji.service'
 import { FieldsetCriteriaService } from 'src/app/shared/services/fieldset-criteria.service'
-import { InputTabStopDirective } from 'src/app/shared/directives/input-tabstop.directive'
 import { InteractionService } from 'src/app/shared/services/interaction.service'
 import { LocalStorageService } from 'src/app/shared/services/local-storage.service'
 import { MatDatepickerInputEvent } from '@angular/material/datepicker'
@@ -33,7 +32,6 @@ export class EmbarkationCriteriaComponent {
     public form: FormGroup
     public icon = 'home'
     public parentUrl = null
-    public input: InputTabStopDirective
 
     private criteria: EmbarkationCriteriaVM
 
@@ -43,7 +41,7 @@ export class EmbarkationCriteriaComponent {
 
     //#endregion
 
-    constructor(@Inject(MAT_DATE_LOCALE) private locale, private dateAdapter: DateAdapter<any>, private dateHelperService: DateHelperService, private emojiService: EmojiService, private fieldsetCriteriaService: FieldsetCriteriaService, private formBuilder: FormBuilder, private interactionService: InteractionService, private localStorageService: LocalStorageService, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private router: Router) { }
+    constructor(private dateAdapter: DateAdapter<any>, private dateHelperService: DateHelperService, private emojiService: EmojiService, private fieldsetCriteriaService: FieldsetCriteriaService, private formBuilder: FormBuilder, private interactionService: InteractionService, private localStorageService: LocalStorageService, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private router: Router) { }
 
     //#region lifecycle hooks
 
@@ -107,6 +105,12 @@ export class EmbarkationCriteriaComponent {
         }
     }
 
+    public patchFormWithSelectedDate(event: MatDatepickerInputEvent<Date>): void {
+        this.form.patchValue({
+            date: this.dateHelperService.formatDateToIso(new Date(event.value))
+        })
+    }
+
     public toggleAllCheckboxes(form: FormGroup, array: string, allCheckboxes: string): void {
         this.fieldsetCriteriaService.toggleAllCheckboxes(form, array, allCheckboxes)
     }
@@ -155,9 +159,13 @@ export class EmbarkationCriteriaComponent {
         ])
     }
 
+    private getToday(): string {
+        return (this.dateHelperService.formatDateToIso(new Date()))
+    }
+
     private initForm(): void {
         this.form = this.formBuilder.group({
-            date: ['', [Validators.required]],
+            date: [this.getToday(), Validators.required],
             destinations: this.formBuilder.array([], Validators.required),
             ports: this.formBuilder.array([], Validators.required),
             ships: this.formBuilder.array([], Validators.required),
@@ -204,8 +212,7 @@ export class EmbarkationCriteriaComponent {
     }
 
     private setLocale(): void {
-        this.locale = this.localStorageService.getLanguage()
-        this.dateAdapter.setLocale(this.locale)
+        this.dateAdapter.setLocale(this.localStorageService.getLanguage())
     }
 
     private storeCriteria(): void {
@@ -227,11 +234,5 @@ export class EmbarkationCriteriaComponent {
     }
 
     //#endregion
-
-    public addEvent(type: string, event: MatDatepickerInputEvent<Date>): void {
-        this.form.patchValue({
-            date: this.dateHelperService.formatDateToIso(new Date(event.value))
-        })
-    }
 
 }

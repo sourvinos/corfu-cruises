@@ -8,7 +8,10 @@
 }
 
 #form {
+    border-radius: 0.625rem;
+    border: 0.0625rem solid var(--color-e);
     height: 100% !important;
+    padding: 1rem;
 }
 
 .fieldset {

@@ -913,8 +913,8 @@
                 "description": "Výběr ovladače"
             },
             {
-                "id": "sub-header",
-                "description": "Vyberte řidiče, který přepraví cestující do přístavu"
+                "id": "subHeader",
+                "description": "Vyberte řidiče, který přepraví cestující do přístavu."
             },
             {
                 "id": "okButton",
@@ -935,7 +935,7 @@
             },
             {
                 "id": "header",
-                "description": "Vyberte loď, která přepraví cestující do cílové destinace"
+                "description": "Vyberte loď, která přepraví cestující do cílové destinace."
             },
             {
                 "id": "okButton",
@@ -1522,7 +1522,11 @@
             },
             {
                 "id": "headerRouteSelector",
-                "description": "Επιλογή δρομολογίου"
+                "description": "Výběr trasy lodi"
+            },
+            {
+                "id": "subHeaderRouteSelector",
+                "description": "Vyberte trasu, po které se loď vydá."
             },
             {
                 "id": "date",

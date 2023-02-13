@@ -1,7 +1,7 @@
-import { Component, ViewChild } from '@angular/core'
+import { Component } from '@angular/core'
 import { DateAdapter } from '@angular/material/core'
-import { DateRange, MatCalendar } from '@angular/material/datepicker'
-import { FormGroup, FormBuilder, Validators, FormArray, FormControl } from '@angular/forms'
+import { FormGroup, FormBuilder, Validators, FormArray, FormControl, AbstractControl } from '@angular/forms'
+import { MatDatepickerInputEvent } from '@angular/material/datepicker'
 import { Router } from '@angular/router'
 import { Subject } from 'rxjs'
 import { takeUntil } from 'rxjs/operators'
@@ -12,20 +12,19 @@ import { FieldsetCriteriaService } from 'src/app/shared/services/fieldset-criter
 import { InteractionService } from 'src/app/shared/services/interaction.service'
 import { LocalStorageService } from 'src/app/shared/services/local-storage.service'
 import { ManifestCriteriaVM } from '../../classes/view-models/criteria/manifest-criteria-vm'
+import { MessageHintService } from 'src/app/shared/services/messages-hint.service'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { SimpleEntity } from 'src/app/shared/classes/simple-entity'
 
 @Component({
     selector: 'manifest-criteria',
     templateUrl: './manifest-criteria.component.html',
-    styleUrls: ['../../../../../assets/styles/forms.css']
+    styleUrls: ['../../../../../assets/styles/forms.css', './manifest-criteria.component.css']
 })
 
 export class ManifestCriteriaComponent {
 
     //#region variables
-
-    @ViewChild('calendar', { static: false }) calendar: MatCalendar<Date>
 
     private unsubscribe = new Subject<void>()
     public feature = 'manifestCriteria'
@@ -35,16 +34,14 @@ export class ManifestCriteriaComponent {
     public parentUrl = null
 
     private criteria: ManifestCriteriaVM
-    public selectedFromDate = new Date()
-    public selectedRangeValue: DateRange<Date>
-    public selectedToDate = new Date()
+
     public destinations: SimpleEntity[] = []
     public ports: SimpleEntity[] = []
     public ships: SimpleEntity[] = []
 
     //#endregion
 
-    constructor(private dateAdapter: DateAdapter<any>, private dateHelperService: DateHelperService, private emojiService: EmojiService, private fieldsetCriteriaService: FieldsetCriteriaService, private formBuilder: FormBuilder, private interactionService: InteractionService, private localStorageService: LocalStorageService, private messageLabelService: MessageLabelService, private router: Router) { }
+    constructor(private dateAdapter: DateAdapter<any>, private dateHelperService: DateHelperService, private emojiService: EmojiService, private fieldsetCriteriaService: FieldsetCriteriaService, private formBuilder: FormBuilder, private interactionService: InteractionService, private localStorageService: LocalStorageService, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private router: Router) { }
 
     //#region lifecycle hooks
 
@@ -52,7 +49,6 @@ export class ManifestCriteriaComponent {
         this.initForm()
         this.populateDropdowns()
         this.populateFieldsFromStoredVariables()
-        this.setSelectedDates()
         this.setLocale()
         this.subscribeToInteractionService()
     }
@@ -86,8 +82,18 @@ export class ManifestCriteriaComponent {
         return this.emojiService.getEmoji(emoji)
     }
 
+    public getHint(id: string, minmax = 0): string {
+        return this.messageHintService.getDescription(id, minmax)
+    }
+
     public getLabel(id: string): string {
         return this.messageLabelService.getDescription(this.feature, id)
+    }
+
+    public gotoToday(): void {
+        this.form.patchValue({
+            date: this.dateHelperService.formatDateToIso(new Date())
+        })
     }
 
     public lookup(array: string, arrayId: number): boolean {
@@ -96,10 +102,9 @@ export class ManifestCriteriaComponent {
         }
     }
 
-    public patchFormWithSelectedDates(event: any): void {
+    public patchFormWithSelectedDate(event: MatDatepickerInputEvent<Date>): void {
         this.form.patchValue({
-            fromDate: event.start != null ? this.dateHelperService.formatDateToIso(event.start) : '',
-            toDate: event.start != null ? this.dateHelperService.formatDateToIso(event.start) : ''
+            date: this.dateHelperService.formatDateToIso(new Date(event.value))
         })
     }
 
@@ -134,10 +139,13 @@ export class ManifestCriteriaComponent {
         this.unsubscribe.unsubscribe()
     }
 
+    private getToday(): string {
+        return (this.dateHelperService.formatDateToIso(new Date()))
+    }
+
     private initForm(): void {
         this.form = this.formBuilder.group({
-            fromDate: ['', [Validators.required]],
-            toDate: ['', [Validators.required]],
+            date: [this.getToday(), Validators.required],
             destinations: this.formBuilder.array([], Validators.required),
             ports: this.formBuilder.array([], Validators.required),
             ships: this.formBuilder.array([], Validators.required),
@@ -168,8 +176,7 @@ export class ManifestCriteriaComponent {
         if (this.localStorageService.getItem('manifest-criteria')) {
             this.criteria = JSON.parse(this.localStorageService.getItem('manifest-criteria'))
             this.form.patchValue({
-                fromDate: this.criteria.fromDate,
-                toDate: this.criteria.toDate,
+                date: this.criteria.date,
                 destinations: this.addSelectedCriteriaFromStorage('destinations'),
                 ports: this.addSelectedCriteriaFromStorage('ports'),
                 ships: this.addSelectedCriteriaFromStorage('ships'),
@@ -182,18 +189,6 @@ export class ManifestCriteriaComponent {
         this.dateAdapter.setLocale(this.localStorageService.getLanguage())
     }
 
-    private setSelectedDates(): void {
-        if (this.criteria != undefined) {
-            this.selectedRangeValue = new DateRange(new Date(this.criteria.fromDate), new Date(this.criteria.toDate))
-        } else {
-            this.selectedRangeValue = new DateRange(new Date(), new Date())
-            this.form.patchValue({
-                fromDate: this.dateHelperService.formatDateToIso(new Date(), false),
-                toDate: this.dateHelperService.formatDateToIso(new Date(), false),
-            })
-        }
-    }
-
     private storeCriteria(): void {
         this.localStorageService.saveItem('manifest-criteria', JSON.stringify(this.form.value))
     }
@@ -202,6 +197,14 @@ export class ManifestCriteriaComponent {
         this.interactionService.refreshDateAdapter.pipe(takeUntil(this.unsubscribe)).subscribe(() => {
             this.setLocale()
         })
+    }
+
+    //#endregion
+
+    //#region getters
+
+    get date(): AbstractControl {
+        return this.form.get('date')
     }
 
     //#endregion

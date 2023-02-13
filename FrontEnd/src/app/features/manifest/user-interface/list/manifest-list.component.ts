@@ -35,6 +35,7 @@ export class ManifestListComponent {
     public featureIcon = 'manifest'
     public icon = 'arrow_back'
     public parentUrl = '/manifest'
+    public isVirtual = false
 
     public criteriaPanels: ManifestCriteriaVM
 
@@ -48,20 +49,25 @@ export class ManifestListComponent {
 
     //#endregion
 
-    constructor(private activatedRoute: ActivatedRoute, private dateHelperService: DateHelperService, private helperService: HelperService, private localStorageService: LocalStorageService, private manifestPdfService: ManifestPdfService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private modalActionResultService: ModalActionResultService, private router: Router, public dialog: MatDialog) { }
+    constructor(private activatedRoute: ActivatedRoute, private dateHelperService: DateHelperService, private helperService: HelperService, private localStorageService: LocalStorageService, private manifestPdfService: ManifestPdfService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private modalActionResultService: ModalActionResultService, private router: Router, public dialog: MatDialog) {
+        this.toggleVirtualTable()
+        this.populateCriteriaPanelsFromStorage()
+    }
 
     //#region lifecycle hooks
 
     ngOnInit(): void {
         this.loadRecords().then(() => {
-            this.addCrewToPassengers().then(() => {
-                this.populateDropdownFilters()
-                this.enableDisableFilters()
-                this.updateTotals(this.totals, this.records.passengers)
-                this.updateTotals(this.totalsFiltered, this.records.passengers)
-            })
+            this.addCrewToPassengers()
+            this.populateDropdownFilters()
+            this.enableDisableFilters()
+            this.updateTotals(this.totals, this.records.passengers)
+            this.updateTotals(this.totalsFiltered, this.records.passengers)
         })
-        this.populateCriteriaPanelsFromStorage()
+    }
+
+    ngAfterViewInit(): void {
+        this.toggleVirtualTable()
     }
 
     ngOnDestroy(): void {
@@ -73,7 +79,10 @@ export class ManifestListComponent {
     //#region public methods
 
     public filterRecords(event: { filteredValue: any[] }): void {
+        this.toggleVirtualTable()
         this.updateTotals(this.totalsFiltered, event.filteredValue)
+        this.storeFilters()
+        this.toggleVirtualTable()
     }
 
     public formatDateToLocale(date: string, showWeekday = false, showYear = false): string {
@@ -94,6 +103,10 @@ export class ManifestListComponent {
 
     public goBack(): void {
         this.router.navigate([this.parentUrl])
+    }
+
+    public isFilterDisabled(): boolean {
+        return this.records.passengers.length == 0
     }
 
     public resetTableFilters(): void {
@@ -120,16 +133,12 @@ export class ManifestListComponent {
 
     //#region private methods
 
-    private addCrewToPassengers(): Promise<any> {
-        const promise = new Promise((resolve) => {
-            if (this.records.passengers.length > 0) {
-                this.records.ship.crew.forEach(crew => {
-                    this.records.passengers.push(crew)
-                    resolve(this.records)
-                })
-            }
-        })
-        return promise
+    private addCrewToPassengers(): void {
+        if (this.records.passengers.length > 0) {
+            this.records.ship.crew.forEach(crew => {
+                this.records.passengers.push(crew)
+            })
+        }
     }
 
     private cleanup(): void {
@@ -167,16 +176,24 @@ export class ManifestListComponent {
 
     private populateDropdownFilters(): void {
         if (this.records.passengers.length > 0) {
-            this.distinctGenders = this.helperService.getDistinctRecords(this.records.passengers, 'genderDescription')
-            this.distinctNationalities = this.helperService.getDistinctRecords(this.records.passengers, 'nationalityDescription')
-            this.distinctOccupants = this.helperService.getDistinctRecords(this.records.passengers, 'occupantDescription')
+            this.distinctGenders = this.helperService.getDistinctRecords(this.records.passengers, 'gender', 'description')
+            this.distinctNationalities = this.helperService.getDistinctRecords(this.records.passengers, 'nationality', 'description')
+            this.distinctOccupants = this.helperService.getDistinctRecords(this.records.passengers, 'occupant', 'description')
         }
+    }
+
+    private storeFilters(): void {
+        this.localStorageService.saveItem(this.feature, JSON.stringify(this.table.filters))
+    }
+
+    private toggleVirtualTable(): void {
+        this.helperService.toggleVirtualTable(this.isVirtual)
     }
 
     private updateTotals(totals: number[], filteredVelue: any[]): void {
         totals[0] = filteredVelue.length
-        totals[1] = filteredVelue.filter(x => x.occupantDescription == 'PASSENGER').length
-        totals[2] = filteredVelue.filter(x => x.occupantDescription == 'CREW').length
+        totals[1] = filteredVelue.filter(x => x.occupant.description == 'PASSENGER').length
+        totals[2] = filteredVelue.filter(x => x.occupant.description == 'CREW').length
     }
 
     //#endregion

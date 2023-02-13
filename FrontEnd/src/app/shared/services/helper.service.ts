@@ -249,12 +249,16 @@ export class HelperService {
         }, 500)
     }
 
-public disableInputTextboxes():void{
-    const x = document.getElementsByTagName('input') as HTMLCollectionOf<HTMLInputElement>
-    for (let i = 0; i < x.length; i++) {
-        x[i].setAttribute('disabled', '')
+    public disableInputTextboxes(): void {
+        const x = document.getElementsByTagName('input') as HTMLCollectionOf<HTMLInputElement>
+        for (let i = 0; i < x.length; i++) {
+            x[i].setAttribute('disabled', '')
+        }
     }
-}
+
+    public toggleVirtualTable(isVirtual: boolean): any {
+        setTimeout(() => { return !isVirtual }, 500)
+    }
 
     //#endregion
 

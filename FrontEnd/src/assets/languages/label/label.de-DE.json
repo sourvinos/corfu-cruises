@@ -913,8 +913,8 @@
                 "description": "Auswahl des Fahrers"
             },
             {
-                "id": "sub-header",
-                "description": "Wählen Sie den Fahrer, der die Passagiere zum Hafen bringt"
+                "id": "subHeader",
+                "description": "Wählen Sie den Fahrer, der die Passagiere zum Hafen bringt."
             },
             {
                 "id": "okButton",
@@ -934,8 +934,8 @@
                 "description": "Auswahl der Schiffe"
             },
             {
-                "id": "sub-header",
-                "description": "Wählen Sie das Schiff aus, das die Passagiere zum Zielort bringt"
+                "id": "subHeader",
+                "description": "Wählen Sie das Schiff aus, das die Passagiere zum Zielort bringt."
             },
             {
                 "id": "okButton",
@@ -1522,7 +1522,11 @@
             },
             {
                 "id": "headerRouteSelector",
-                "description": "Επιλογή δρομολογίου"
+                "description": "Auswahl der Schiffsroute"
+            },
+            {
+                "id": "subHeaderRouteSelector",
+                "description": "Wählen Sie die Route, der das Schiff folgen soll."
             },
             {
                 "id": "date",
