@@ -95,6 +95,9 @@ input:-internal-autofill-previewed, input:-internal-autofill-selected {
 
 .mat-datepicker-toggle, .mat-datepicker-content .mat-datepicker-content {
     color: var(--color-c);
+    left: -1.6875rem;
+    position: absolute;
+    top: -0.4375rem;
 }
 
 .mat-form-field-flex {

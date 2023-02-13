@@ -14,9 +14,9 @@ export class EmbarkationService extends HttpDataService {
         super(httpClient, environment.apiUrl + '/embarkation')
     }
 
-    get(fromDate: string, toDate: string, destinationIds: number[], portIds: number[], shipIds: number[]): Observable<EmbarkationVM> {
+    get(date: string, destinationIds: number[], portIds: number[], shipIds: number[]): Observable<EmbarkationVM> {
         return this.http.get<any>(
-            this.url + '?fromDate=' + fromDate + '&toDate=' + toDate
+            this.url + '?date=' + date
             + this.buildDestinationsQuery(destinationIds)
             + this.buildPortsQuery(portIds)
             + this.buildShipsQuery(shipIds))

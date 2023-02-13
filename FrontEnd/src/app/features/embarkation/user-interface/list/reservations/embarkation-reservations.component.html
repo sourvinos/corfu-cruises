@@ -5,7 +5,7 @@
         <div class="filter-pill">
             <div class="pill date">
                 <img [src]="getIcon('calendar')">
-                <div class="description">{{ formatDateToLocale(criteriaPanels.fromDate, true, true) }}</div>
+                <div class="description">{{ formatDateToLocale(criteriaPanels.date, true, true) }}</div>
             </div>
             <button (click)="resetTableFilters()" [disabled]="totals[0]==totalsFiltered[0]" class="primary" mat-flat-button>
                 <i class="pi pi-filter-slash"></i>

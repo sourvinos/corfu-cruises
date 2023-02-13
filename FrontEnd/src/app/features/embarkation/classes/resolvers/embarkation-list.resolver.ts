@@ -16,8 +16,7 @@ export class EmbarkationListResolver {
     resolve(): Observable<EmbarkationListResolved> {
         const criteria: EmbarkationCriteriaVM = JSON.parse(this.localStorageService.getItem('embarkation-criteria'))
         return this.embarkationService.get(
-            criteria.fromDate,
-            criteria.toDate,
+            criteria.date,
             this.buildIds(criteria, 'destinations'),
             this.buildIds(criteria, 'ports'),
             this.buildIds(criteria, 'ships')).pipe(

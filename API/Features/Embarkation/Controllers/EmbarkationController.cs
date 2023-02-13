@@ -20,8 +20,8 @@ namespace API.Features.Embarkation {
         #endregion
 
         [Authorize(Roles = "admin")]
-        public async Task<EmbarkationFinalGroupVM> Get([FromQuery(Name = "fromDate")] string fromDate, [FromQuery(Name = "toDate")] string toDate, [FromQuery(Name = "destinationId")] int[] destinationIds, [FromQuery(Name = "portId")] int[] portIds, [FromQuery(Name = "shipId")] int?[] shipIds) {
-            return await repo.Get(fromDate, toDate, destinationIds, portIds, shipIds);
+        public async Task<EmbarkationFinalGroupVM> Get([FromQuery(Name = "date")] string date, [FromQuery(Name = "destinationId")] int[] destinationIds, [FromQuery(Name = "portId")] int[] portIds, [FromQuery(Name = "shipId")] int?[] shipIds) {
+            return await repo.Get(date, destinationIds, portIds, shipIds);
         }
 
         [HttpPatch("embarkPassengers")]

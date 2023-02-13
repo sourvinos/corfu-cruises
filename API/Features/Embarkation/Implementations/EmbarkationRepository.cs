@@ -23,7 +23,7 @@ namespace API.Features.Embarkation {
             this.testingSettings = testingSettings.Value;
         }
 
-        public async Task<EmbarkationFinalGroupVM> Get(string fromDate, string toDate, int[] destinationIds, int[] portIds, int?[] shipIds) {
+        public async Task<EmbarkationFinalGroupVM> Get(string date, int[] destinationIds, int[] portIds, int?[] shipIds) {
             var reservations = await context.Reservations
                 .AsNoTracking()
                 .Include(x => x.Customer)
@@ -33,7 +33,7 @@ namespace API.Features.Embarkation {
                 .Include(x => x.Port)
                 .Include(x => x.Ship)
                 .Include(x => x.Passengers).ThenInclude(x => x.Nationality)
-                .Where(x => x.Date >= Convert.ToDateTime(fromDate) && x.Date <= Convert.ToDateTime(toDate) &&
+                .Where(x => x.Date == Convert.ToDateTime(date) &&
                     destinationIds.Contains(x.DestinationId) &&
                     portIds.Contains(x.PortId) &&
                     shipIds.Contains(x.ShipId)

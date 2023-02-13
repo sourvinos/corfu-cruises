@@ -5,7 +5,6 @@ import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/fo
 import { Observable, Subject } from 'rxjs'
 import { map, startWith, takeUntil } from 'rxjs/operators'
 // Custom
-import { DateHelperService } from 'src/app/shared/services/date-helper.service'
 import { DialogService } from 'src/app/shared/services/dialog.service'
 import { FormResolved } from 'src/app/shared/classes/form-resolved'
 import { GenderActiveVM } from '../../genders/classes/view-models/gender-active-vm'
@@ -54,7 +53,7 @@ export class ShipCrewFormComponent {
 
     //#endregion
 
-    constructor(@Inject(MAT_DATE_LOCALE) private locale: string, private activatedRoute: ActivatedRoute, private crewService: ShipCrewService, private _adapter: DateAdapter<any>, private dateHelperService: DateHelperService, private dialogService: DialogService, private formBuilder: FormBuilder, private helperService: HelperService, private interactionService: InteractionService, private localStorageService: LocalStorageService, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private modalActionResultService: ModalActionResultService, private router: Router, private shipCrewService: ShipCrewService,) {
+    constructor(@Inject(MAT_DATE_LOCALE) private locale: string, private activatedRoute: ActivatedRoute, private crewService: ShipCrewService, private dateAdapter: DateAdapter<any>,  private dialogService: DialogService, private formBuilder: FormBuilder, private helperService: HelperService, private interactionService: InteractionService, private localStorageService: LocalStorageService, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private modalActionResultService: ModalActionResultService, private router: Router, private shipCrewService: ShipCrewService,) {
         this.activatedRoute.params.subscribe(x => {
             if (x.id) {
                 this.initForm()
@@ -244,8 +243,7 @@ export class ShipCrewFormComponent {
 
     private setLocale(): void {
         this.locale = this.localStorageService.getLanguage()
-        this._adapter.setLocale(this.locale)
-        // this.dateAdapter.setLocale(this.localStorageService.getLanguage())
+        this.dateAdapter.setLocale(this.locale)
     }
 
     private subscribeToInteractionService(): void {
