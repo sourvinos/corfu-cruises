@@ -24,7 +24,7 @@
                         <span>{{ getLabel('destination') }}</span>
                         <div class="selected">
                             <span class="selected-count">{{ getLabel("selected") }}: {{ form.value.destinations.length }}</span>
-                            <span class="icon">{{ getEmoji(form.value.destinations.length > 0 ? 'ok' : 'warning') }}</span>
+                            <span class="icon">{{ getEmoji(form.value.destinations.length > 0 ? 'ok' : 'error') }}</span>
                         </div>
                     </legend>
                     <div class="filter">
@@ -55,7 +55,7 @@
                         <span>{{ getLabel('ports') }}</span>
                         <div class="selected">
                             <span class="selected-count">{{ getLabel("selected") }}: {{ form.value.ports.length }}</span>
-                            <span class="icon">{{ getEmoji(form.value.ports.length > 0 ? 'ok' : 'warning') }}</span>
+                            <span class="icon">{{ getEmoji(form.value.ports.length > 0 ? 'ok' : 'error') }}</span>
                         </div>
                     </legend>
                     <div class="filter">
@@ -86,7 +86,7 @@
                         <span>{{ getLabel('ship') }}</span>
                         <div class="selected">
                             <span class="selected-count">{{ getLabel("selected") }}: {{ form.value.ships.length }}</span>
-                            <span class="icon">{{ getEmoji(form.value.ships.length > 0 ? 'ok' : 'warning') }}</span>
+                            <span class="icon">{{ getEmoji(form.value.ships.length > 0 ? 'ok' : 'error') }}</span>
                         </div>
                     </legend>
                     <div class="filter">

@@ -9,6 +9,7 @@ import pdfFonts from 'pdfmake/build/vfs_fonts'
 import pdfMake from 'pdfmake/build/pdfmake'
 import { strAkaAcidCanterBold } from '../../../../../assets/fonts/Aka-Acid-CanterBold.Base64.encoded'
 import { strPFHandbookPro } from '../../../../../assets/fonts/PF-Handbook-Pro.Base64.encoded'
+import { ManifestPassengerVM } from '../view-models/list/manifest-passenger-vm'
 
 pdfMake.vfs = pdfFonts.pdfMake.vfs
 
@@ -19,6 +20,7 @@ export class ManifestPdfService {
     //#region variables
 
     private rowCount: number
+    private pdfVM: ManifestVM
 
     //#endregion
 
@@ -26,11 +28,12 @@ export class ManifestPdfService {
 
     //#region public methods
 
+
     public createReport(manifest: ManifestVM): void {
-        const passengers = this.flattedPassengers(manifest.passengers)
-        manifest.passengers = passengers
-        this.setFonts()
+        this.pdfVM = JSON.parse(JSON.stringify(manifest))
+        this.pdfVM.passengers = this.flattedPassengers(this.pdfVM.passengers)
         this.rowCount = 0
+        this.setFonts()
         const dd = {
             background: this.setBackgroundImage(),
             pageOrientation: 'portrait',
@@ -40,10 +43,10 @@ export class ManifestPdfService {
                     {
                         table: {
                             body: [
-                                [this.createOurCompany(manifest), this.createTitle(manifest)],
-                                [this.createShipData(manifest), this.createManager(manifest)],
-                                [this.createShipRoute(manifest), ''],
-                                [this.createDataEntryPrimaryPerson(manifest), this.createDataEntrySecondaryPerson(manifest)]
+                                [this.createOurCompany(this.pdfVM), this.createTitle(this.pdfVM)],
+                                [this.createShipData(this.pdfVM), this.createManager(this.pdfVM)],
+                                [this.createShipRoute(this.pdfVM), ''],
+                                [this.createDataEntryPrimaryPerson(this.pdfVM), this.createDataEntrySecondaryPerson(this.pdfVM)]
                             ],
                             style: 'table',
                             widths: ['50%', '50%'],
@@ -51,15 +54,15 @@ export class ManifestPdfService {
                         layout: 'noBorders'
                     },
                     [
-                        this.createTable(manifest,
+                        this.createTable(this.pdfVM,
                             ['', '', '', 'date', '', '', '', '', ''],
-                            ['', 'lastname', 'firstname', 'birthdate', 'nationalityCode', 'occupantDescription', 'genderDescription', 'specialCare', 'remarks'],
+                            ['', 'lastname', 'firstname', 'birthdate', 'nationality', 'occupant', 'gender', 'specialCare', 'remarks'],
                             ['right', 'left', 'left', 'center', 'center', 'left', 'left', 'left', 'left'])
                     ],
                     {
                         table: {
                             body: [
-                                ['', this.createSignature(manifest)]
+                                ['', this.createSignature(this.pdfVM)]
                             ],
                             widths: ['50%', '50%']
                         },
@@ -319,7 +322,7 @@ export class ManifestPdfService {
         }
     }
 
-    private flattedPassengers(passengers: any): any {
+    private flattedPassengers(passengers: ManifestPassengerVM[]): any {
         passengers.forEach(passenger => {
             const nationality = this.helperService.flattenObject(passenger.nationality)
             passenger.nationality = nationality.code

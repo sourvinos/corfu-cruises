@@ -1,13 +1,11 @@
-import { Component, Inject, NgZone } from '@angular/core'
+import { Component, NgZone } from '@angular/core'
 import { FormBuilder, FormGroup, Validators } from '@angular/forms'
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog'
+import { MatDialogRef } from '@angular/material/dialog'
 // Custom
-import { EmojiService } from 'src/app/shared/services/emoji.service'
 import { FieldsetCriteriaService } from 'src/app/shared/services/fieldset-criteria.service'
 import { LocalStorageService } from './../../../../shared/services/local-storage.service'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { ShipRouteActiveVM } from './../../../shipRoutes/classes/view-models/shipRoute-active-vm'
-// Custom
 
 @Component({
     selector: 'manifest-route-selector',
@@ -26,7 +24,7 @@ export class ManifestRouteSelectorComponent {
 
     //#endregion
 
-    constructor(@Inject(MAT_DIALOG_DATA) public data: any, private dialogRef: MatDialogRef<ManifestRouteSelectorComponent>, private emojiService: EmojiService, private fieldsetCriteriaService: FieldsetCriteriaService, private formBuilder: FormBuilder, private localStorageService: LocalStorageService, private messageLabelService: MessageLabelService, private ngZone: NgZone) { }
+    constructor(private dialogRef: MatDialogRef<ManifestRouteSelectorComponent>, private fieldsetCriteriaService: FieldsetCriteriaService, private formBuilder: FormBuilder, private localStorageService: LocalStorageService, private messageLabelService: MessageLabelService, private ngZone: NgZone) { }
 
     //#region lifecycle hooks
 
@@ -51,14 +49,6 @@ export class ManifestRouteSelectorComponent {
         })
     }
 
-    public filterList(event: { target: { value: any } }, list: string | number): void {
-        this.fieldsetCriteriaService.filterList(event.target.value, this[list])
-    }
-
-    public getEmoji(emoji: string): string {
-        return this.emojiService.getEmoji(emoji)
-    }
-
     public getLabel(id: string): string {
         return this.messageLabelService.getDescription(this.feature, id)
     }
@@ -79,9 +69,7 @@ export class ManifestRouteSelectorComponent {
 
     private initForm(): void {
         this.form = this.formBuilder.group({
-            shipRoutes: this.formBuilder.array([], Validators.required),
-            shipRoutesFilter: '',
-            allShipRoutesCheckbox: ''
+            shipRoutes: this.formBuilder.array([], Validators.required)
         })
     }
 

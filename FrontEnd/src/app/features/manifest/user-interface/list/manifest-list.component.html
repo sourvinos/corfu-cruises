@@ -23,9 +23,9 @@
             <p-table #table (onFilter)="filterRecords($event)" [scrollable]="true" [value]="records.passengers" [virtualScrollItemSize]="32" [virtualScroll]="isVirtual" dataKey="id" scrollHeight="flex" selectionMode="single" sortMode="multiple">
                 <ng-template pTemplate="header">
                     <tr>
-                        <th class="width-10" pSortableColumn="occupantDescription">{{ getLabel("headerOccupant") }}</th>
-                        <th class="width-10" pSortableColumn="genderDescription">{{ getLabel("headerGender") }}</th>
-                        <th class="width-10" pSortableColumn="nationalityDescription">{{ getLabel("headerCountry") }}</th>
+                        <th class="width-10" pSortableColumn="occupant.description">{{ getLabel("headerOccupant") }}</th>
+                        <th class="width-10" pSortableColumn="gender.description">{{ getLabel("headerGender") }}</th>
+                        <th class="width-10" pSortableColumn="nationality.description">{{ getLabel("headerCountry") }}</th>
                         <th pSortableColumn="lastname">{{ getLabel('headerLastname') }}</th>
                         <th pSortableColumn="firstname">{{ getLabel('headerFirstname') }}</th>
                     </tr>
