@@ -1236,6 +1236,10 @@
                 "description": "Nalodění"
             },
             {
+                "id": "headerEmbarkationStatus",
+                "description": "Status"
+            },
+            {
                 "id": "headerRefNo",
                 "description": "RefNo"
             },
@@ -1306,6 +1310,10 @@
             {
                 "id": "boardedFilter",
                 "description": "NALODĚNÍ"
+            },
+            {
+                "id": "indeterminateFilter",
+                "description": "NEURČITÝ"
             },
             {
                 "id": "pendingFilter",

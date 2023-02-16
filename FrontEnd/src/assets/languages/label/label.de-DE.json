@@ -1236,6 +1236,10 @@
                 "description": "Einschiffung"
             },
             {
+                "id": "headerEmbarkationStatus",
+                "description": "Zustand"
+            },
+            {
                 "id": "headerRefNo",
                 "description": "RefNo"
             },
@@ -1306,6 +1310,10 @@
             {
                 "id": "boardedFilter",
                 "description": "EINGESCHIFFT"
+            },
+            {
+                "id": "indeterminateFilter",
+                "description": "UNBESTIMMT"
             },
             {
                 "id": "pendingFilter",

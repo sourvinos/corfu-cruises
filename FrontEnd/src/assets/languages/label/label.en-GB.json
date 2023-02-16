@@ -1236,6 +1236,10 @@
                 "description": "Embarkation"
             },
             {
+                "id": "headerEmbarkationStatus",
+                "description": "Status"
+            },
+            {
                 "id": "headerRefNo",
                 "description": "RefNo"
             },
@@ -1306,6 +1310,10 @@
             {
                 "id": "boardedFilter",
                 "description": "EMBARKED"
+            },
+            {
+                "id": "indeterminateFilter",
+                "description": "INDETERMINATE"
             },
             {
                 "id": "pendingFilter",

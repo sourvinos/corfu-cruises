@@ -19,6 +19,7 @@ import { LocalStorageService } from 'src/app/shared/services/local-storage.servi
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { MessageSnackbarService } from '../../../../../shared/services/messages-snackbar.service'
 import { ModalActionResultService } from 'src/app/shared/services/modal-action-result.service'
+import { SimpleEntity } from 'src/app/shared/classes/simple-entity'
 import { environment } from 'src/environments/environment'
 
 @Component({
@@ -38,6 +39,8 @@ export class EmbarkationReservationsComponent {
     public featureIcon = 'embarkation'
     public icon = 'arrow_back'
     public parentUrl = '/embarkation'
+    public isVirtual = true
+    private scrollableElement: any
 
     public criteriaPanels: EmbarkationCriteriaVM
 
@@ -51,12 +54,11 @@ export class EmbarkationReservationsComponent {
     public distinctPickupPoints: string[]
     public distinctPorts: string[]
     public distinctShips: string[]
-    public distinctEmbarkationStates: any[]
+    public distinctEmbarkationStatuses: string[]
 
     public url = '/embarkation/list'
     public scannerEnabled: boolean
     public searchByTicketNo: string
-    public isLoading = new Subject<boolean>()
 
     //#endregion
 
@@ -64,13 +66,15 @@ export class EmbarkationReservationsComponent {
         this.router.events.subscribe((navigation) => {
             if (navigation instanceof NavigationEnd) {
                 this.url = navigation.url
-                this.loadRecords()
-                this.populateDropdownFilters()
-                // this.filterTableFromStoredFilters()
-                this.updateTotals(this.totals, this.records.reservations)
-                // this.scrollToSavedRow().then(() => {
-                //     this.highlightRowFromStorage()
-                // })
+                this.isVirtual = true
+                this.loadRecords().then(() => {
+                    this.isVirtual = false
+                    this.populateDropdownFilters()
+                    this.filterTableFromStoredFilters()
+                    this.updateTotals('totals', this.records.reservations)
+                    this.updateTotals('totalsFiltered', this.records.reservations)
+                    this.hightlightSavedRow()
+                })
             }
         })
     }
@@ -84,6 +88,7 @@ export class EmbarkationReservationsComponent {
 
     ngAfterViewInit(): void {
         this.enableDisableFilters()
+        this.getScrollerElement()
     }
 
     ngOnDestroy(): void {
@@ -100,18 +105,29 @@ export class EmbarkationReservationsComponent {
 
     public filterRecords(event: { filteredValue: any[] }): void {
         this.localStorageService.saveItem(this.feature, JSON.stringify(this.table.filters))
-        this.updateTotals(this.totalsFiltered, event.filteredValue)
+        this.updateTotals('totalsFiltered', event.filteredValue)
     }
 
     public formatDateToLocale(date: string, showWeekday = false, showYear = false): string {
         return this.dateHelperService.formatISODateToLocale(date, showWeekday, showYear)
     }
 
-    public getEmbarkationStatusIcon(reservationStatus: string): string {
-        switch (reservationStatus) {
-            case 'OK':
+    public getEmbarkationStatusDescription(reservationStatus: SimpleEntity): string {
+        switch (reservationStatus.id) {
+            case 1:
+                return this.getLabel('boardedFilter')
+            case 2:
+                return this.getLabel('pendingFilter')
+            case 3:
+                return this.getLabel('indeterminateFilter')
+        }
+    }
+
+    public getEmbarkationStatusIcon(reservationStatus: SimpleEntity): string {
+        switch (reservationStatus.id) {
+            case 1:
                 return this.getEmoji('green-circle')
-            case 'PENDING':
+            case 2:
                 return this.getEmoji('red-circle')
             default:
                 return this.getEmoji('yellow-circle')
@@ -138,16 +154,16 @@ export class EmbarkationReservationsComponent {
         return remarks.length > 0 ? true : false
     }
 
-    public calculateDifference(totalPersons: number, embarkedPassengers: number): string {
-        if (totalPersons > embarkedPassengers) {
-            return this.emojiService.getEmoji('warning')
+    public isListFiltered(): boolean {
+        const filters = this.localStorageService.getItem(this.feature)
+        if (filters != undefined && filters != '') {
+            const x = []
+            for (const i in JSON.parse(filters)) {
+                x.push(JSON.parse(filters)[i])
+            }
+            return x.filter(({ value }) => value != null).length != 0
         }
-        if (totalPersons == embarkedPassengers) {
-            return this.emojiService.getEmoji('ok')
-        }
-        if (totalPersons < embarkedPassengers) {
-            return this.emojiService.getEmoji('error')
-        }
+        return false
     }
 
     public resetTableFilters(): void {
@@ -157,7 +173,7 @@ export class EmbarkationReservationsComponent {
     public showPassengers(reservation: EmbarkationVM): void {
         this.storeScrollTop()
         this.storeSelectedRefNo(reservation)
-        this.highlightRow(reservation)
+        this.highlightRow()
         this.showPassengersDialog(reservation)
     }
 
@@ -203,15 +219,16 @@ export class EmbarkationReservationsComponent {
         const filters = this.localStorageService.getFilters(this.feature)
         if (filters != undefined) {
             setTimeout(() => {
+                this.filterColumn(filters.embarkationStatusDescription, 'embarkationStatusDescription', 'in')
                 this.filterColumn(filters.refNo, 'refNo', 'contains')
                 this.filterColumn(filters.ticketNo, 'ticketNo', 'contains')
-                this.filterColumn(filters.destinationDescription, 'destinationDescription', 'equals')
-                this.filterColumn(filters.customerDescription, 'customerDescription', 'equals')
-                this.filterColumn(filters.pickupPointDescription, 'pickupPointDescription', 'equals')
-                this.filterColumn(filters.driverDescription, 'driverDescription', 'equals')
-                this.filterColumn(filters.portDescription, 'portDescription', 'equals')
-                this.filterColumn(filters.shipDescription, 'shipDescription', 'equals')
-                this.filterColumn(filters.embarkationStatus, 'embarkationStatus', 'equals')
+                this.filterColumn(filters.destinationDescription, 'destinationDescription', 'in')
+                this.filterColumn(filters.customerDescription, 'customerDescription', 'in')
+                this.filterColumn(filters.pickupPointDescription, 'pickupPointDescription', 'in')
+                this.filterColumn(filters.driverDescription, 'driverDescription', 'in')
+                this.filterColumn(filters.portDescription, 'portDescription', 'in')
+                this.filterColumn(filters.shipDescription, 'shipDescription', 'in')
+                this.filterColumn(filters.embarkationStatus, 'embarkationStatus', 'in')
                 this.filterColumn(filters.totalPersons, 'totalPersons', 'contains')
             }, 500)
         }
@@ -221,13 +238,18 @@ export class EmbarkationReservationsComponent {
         this.dateAdapter.setLocale(this.localStorageService.getLanguage())
     }
 
-    private highlightRow(reservation: EmbarkationVM): void {
-        document.getElementById(reservation.refNo)?.classList.add('p-highlight')
+    private getScrollerElement(): void {
+        this.scrollableElement = document.getElementsByClassName('p-datatable-wrapper')[0]
     }
 
-    private highlightRowFromStorage(): void {
+    private highlightRow(): void {
+        document.getElementById(this.localStorageService.getItem('refNo'))?.classList.add('p-highlight')
+    }
+
+    private hightlightSavedRow(): void {
         setTimeout(() => {
-            document.getElementById(this.localStorageService.getItem('refNo'))?.classList.add('p-highlight')
+            this.scrollToSavedPosition()
+            this.highlightRow()
         }, 1000)
     }
 
@@ -253,16 +275,14 @@ export class EmbarkationReservationsComponent {
     }
 
     private populateDropdownFilters(): void {
-        this.distinctCustomers = this.helperService.getDistinctRecords(this.records.reservations, 'customerDescription')
-        this.distinctDestinations = this.helperService.getDistinctRecords(this.records.reservations, 'destinationDescription')
-        this.distinctDrivers = this.helperService.getDistinctRecords(this.records.reservations, 'driverDescription')
-        this.distinctPickupPoints = this.helperService.getDistinctRecords(this.records.reservations, 'pickupPointDescription')
-        this.distinctPorts = this.helperService.getDistinctRecords(this.records.reservations, 'portDescription')
-        this.distinctShips = this.helperService.getDistinctRecords(this.records.reservations, 'shipDescription')
-        this.distinctEmbarkationStates = [
-            { label: this.getLabel('boardedFilter'), value: 'OK' },
-            { label: this.getLabel('pendingFilter'), value: 'PENDING' }
-        ]
+        this.distinctCustomers = this.helperService.getDistinctRecords(this.records.reservations, 'customer', 'description')
+        this.distinctDestinations = this.helperService.getDistinctRecords(this.records.reservations, 'destination', 'description')
+        this.distinctDrivers = this.helperService.getDistinctRecords(this.records.reservations, 'driver', 'description')
+        this.distinctPickupPoints = this.helperService.getDistinctRecords(this.records.reservations, 'pickupPoint', 'description')
+        this.distinctPorts = this.helperService.getDistinctRecords(this.records.reservations, 'port', 'description')
+        this.distinctShips = this.helperService.getDistinctRecords(this.records.reservations, 'ship', 'description')
+        this.distinctEmbarkationStatuses = this.helperService.getDistinctRecords(this.records.reservations, 'embarkationStatus', 'description')
+        // this.distinctEmbarkationStatuses = this.helperService.getEmbarkationStatus()
     }
 
     private positionVideo(): void {
@@ -271,17 +291,8 @@ export class EmbarkationReservationsComponent {
         document.getElementById('video').style.display = 'flex'
     }
 
-    private scrollToSavedRow(): Promise<any> {
-        return new Promise((resolve) => {
-            setTimeout(() => {
-                document.getElementsByClassName('p-scroller-inline')[0]?.scrollTo({
-                    top: parseInt(this.localStorageService.getItem('scrollTop')) || 0,
-                    left: 0,
-                    behavior: 'auto'
-                })
-                resolve(null)
-            }, 0)
-        })
+    private scrollToSavedPosition(): void {
+        this.scrollableElement.scrollTop = parseInt(this.localStorageService.getItem('scrollTop')) | 0
     }
 
     private showPassengersDialog(reservation: EmbarkationVM): void {
@@ -306,17 +317,22 @@ export class EmbarkationReservationsComponent {
     }
 
     private storeScrollTop(): void {
-        this.helperService.storeScrollTop('p-scroller-inline')
+        this.localStorageService.saveItem('scrollTop', this.scrollableElement.scrollTop)
     }
 
-    private updateTotals(totals: number[], filteredValue: any[]): void {
-        totals[0] = 0
-        totals[1] = 0
-        totals[2] = 0
-        filteredValue.forEach(reservation => {
-            totals[1] += reservation.totalPersons
+    private updateTotals(totalsArray: string, reservations: any[]): void {
+        const x = [0, 0, 0]
+        reservations.forEach(reservation => {
+            x[0] += reservation.totalPersons
         })
-        totals[2] = totals[0] - totals[1]
+        reservations.reduce((_, reservation) => {
+            const embarkedPassengers = reservation.passengers.filter(({ isCheckedIn }) => isCheckedIn)
+            if (embarkedPassengers.length > 0) {
+                x[1] += embarkedPassengers.length
+            }
+        }, [])
+        x[2] = x[0] - x[1]
+        this[totalsArray] = x
     }
 
     //#endregion

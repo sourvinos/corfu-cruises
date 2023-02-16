@@ -104,11 +104,11 @@ export class EmbarkationPDFService {
             rows.push([
                 { text: reservation.refNo, fontSize: 5, margin: [0, 0, 0, 0] },
                 { text: reservation.ticketNo, fontSize: 5 },
-                { text: reservation.customerDescription, fontSize: 5 },
-                { text: reservation.destinationDescription, fontSize: 5 },
-                { text: reservation.driverDescription, fontSize: 5 },
-                { text: reservation.portDescription, fontSize: 5 },
-                { text: reservation.shipDescription, fontSize: 5 },
+                // { text: reservation.customerDescription, fontSize: 5 },
+                // { text: reservation.destinationDescription, fontSize: 5 },
+                // { text: reservation.driverDescription, fontSize: 5 },
+                // { text: reservation.portDescription, fontSize: 5 },
+                // { text: reservation.shipDescription, fontSize: 5 },
                 { text: reservation.remarks, fontSize: 5 },
                 { text: reservation.totalPersons, alignment: 'right', fontSize: 5 }
             ])

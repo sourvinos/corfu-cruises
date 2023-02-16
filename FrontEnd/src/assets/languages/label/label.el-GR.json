@@ -1236,6 +1236,10 @@
                 "description": "Επιβίβαση"
             },
             {
+                "id": "headerEmbarkationStatus",
+                "description": "Κατάσταση"
+            },
+            {
                 "id": "headerRefNo",
                 "description": "RefNo"
             },
@@ -1306,6 +1310,10 @@
             {
                 "id": "boardedFilter",
                 "description": "ΕΠΙΒΙΒΑΣΜΕΝΟΙ"
+            },
+            {
+                "id": "indeterminateFilter",
+                "description": "ΑΠΡΟΣΔΙΟΡΙΣΤΟ"
             },
             {
                 "id": "pendingFilter",

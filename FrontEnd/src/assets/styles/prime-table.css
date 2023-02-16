@@ -106,10 +106,6 @@
     outline: none;
 }
 
-.p-column-filter-row .p-column-filter-menu-button, .p-column-filter-row .p-column-filter-clear-button {
-    display: none;
-}
-
 .p-datatable .p-sortable-column:not(.p-highlight):hover {
     background-color: var(--color-b) !important;
 }

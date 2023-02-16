@@ -6,6 +6,7 @@ import { defer, finalize, Observable, Subject } from 'rxjs'
 import { LocalStorageService } from './local-storage.service'
 import { ModalActionResultService } from './modal-action-result.service'
 import { environment } from 'src/environments/environment'
+import { MessageLabelService } from './messages-label.service'
 
 export function prepare<T>(callback: () => void): (source: Observable<T>) => Observable<T> {
     return (source: Observable<T>): Observable<T> => defer(() => {
@@ -31,7 +32,7 @@ export class HelperService {
 
     //#endregion
 
-    constructor(private localStorageService: LocalStorageService, private modalActionResultService: ModalActionResultService, private router: Router) { }
+    constructor(private localStorageService: LocalStorageService, private messageLabelService: MessageLabelService, private modalActionResultService: ModalActionResultService, private router: Router) { }
 
     //#region public methods
 
@@ -90,7 +91,6 @@ export class HelperService {
                 array.push({ label: element == '(EMPTY)' ? '(EMPTY)' : element, value: element })
             }
             if (typeof (element) == 'object') {
-                // array.push({ label: element.description == '(EMPTY)' ? '(EMPTY)' : element.description, value: element.description })
                 array.push({ id: element.id, value: element.description })
             }
 
@@ -126,7 +126,7 @@ export class HelperService {
     }
 
     public disableTableDropdownFilters(): void {
-        const dropdownFilters = document.querySelectorAll('.p-dropdown')
+        const dropdownFilters = document.querySelectorAll('.p-dropdown, .p-multiselect')
         dropdownFilters.forEach(x => {
             x.classList.add('p-disabled')
         })
@@ -201,8 +201,10 @@ export class HelperService {
     }
 
     public storeScrollTop(element: string): void {
-        const body = document.getElementsByClassName(element)[0]
-        this.localStorageService.saveItem('scrollTop', body.scrollTop.toString())
+        setTimeout(() => {
+            const body = document.getElementsByClassName(element)[0]
+            this.localStorageService.saveItem('scrollTop', body.scrollTop.toString())
+        }, 1000)
     }
 
     public deepEqual(object1: any, object2: any): boolean {
@@ -257,12 +259,32 @@ export class HelperService {
     }
 
     public toggleVirtualTable(isVirtual: boolean): any {
-        setTimeout(() => { return !isVirtual }, 500)
+        setTimeout(() => {
+            return !isVirtual
+        }, 300)
     }
+
+    public getEmbarkationStatus(): any {
+        const x = [
+            { id: 0, description: 'OK' },
+            { id: 1, description: 'PENDING' }
+        ]
+        return x
+    }
+    // public getEmbarkationStatus(): any {
+    //     return [
+    //         { id: 'OK', description: this.getLabel('embarkationList', 'boardedFilter') },
+    //         { id: 'PENDING', description: this.getLabel('embarkationList', 'pendingFilter') }
+    //     ]
+    // }
 
     //#endregion
 
     //#region private methods
+
+    public getLabel(feature: string, id: string): string {
+        return this.messageLabelService.getDescription(feature, id)
+    }
 
     private isObject(object: any): boolean {
         return object != null && typeof object === 'object'
