@@ -2,6 +2,7 @@
     /* Lists and tables */
     --color-scrollbar-thumb: #d94040;
     --color-table-dropdown-filter-clear: #ff7a7a;
+    --color-table-dropdown-filter-background: #bfbdd7;
     /*  Buttons */
     --color-button-text: #ffffff;
     --color-button-text-primary: #000000;
@@ -26,7 +27,6 @@
     --color-criteria-c: #ca874c;
     --color-criteria-d: #cf6755;
     /* Date picker */
-    --color-day-border: #ffc107;
     --color-range-between: #ffeb3b;
     --color-day-selected: #ffc107;
     /* Custom calendar */

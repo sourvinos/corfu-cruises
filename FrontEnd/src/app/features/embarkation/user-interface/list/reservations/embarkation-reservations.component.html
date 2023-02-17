@@ -26,8 +26,8 @@
                         <th class="width-4" pSortableColumn="embarkationStatus.description">{{ getLabel('headerEmbarkationStatus') }}</th>
                         <th class="width-5" pSortableColumn="refNo">{{ getLabel('headerRefNo') }}</th>
                         <th class="width-8" pSortableColumn="ticketNo">{{ getLabel('headerTicketNo') }}</th>
-                        <th class="width-6" pSortableColumn="destination.description">{{ getLabel('headerDestination') }}</th>
                         <th class="width-6" pSortableColumn="customer.description">{{ getLabel('headerCustomer') }}</th>
+                        <th class="width-6" pSortableColumn="destination.description">{{ getLabel('headerDestination') }}</th>
                         <th class="width-8" pSortableColumn="pickupPoint.description">{{ getLabel('headerPickupPoint') }}</th>
                         <th class="width-6" pSortableColumn="driver.description">{{ getLabel('headerDriver') }}</th>
                         <th class="width-5" pSortableColumn="port.description">{{ getLabel('headerPort') }}</th>
@@ -53,9 +53,9 @@
                         <th class="width-5"><input (input)="table.filter($event.target.value, 'refNo', 'contains')" [disabled]="records.reservations.length==0" [value]="$any(table).filters['refNo']?.value" class="center p-inputtext"></th>
                         <th class="width-8"><input (input)="table.filter($event.target.value, 'ticketNo', 'contains')" [disabled]="records.reservations.length==0" [value]="$any(table).filters['ticketNo']?.value" class="p-inputtext"></th>
                         <th class="width-6">
-                            <p-columnFilter [showMenu]="false" field="destination" matchMode="in">
+                            <p-columnFilter [showMenu]="false" field="customer" matchMode="in">
                                 <ng-template let-filter="filterCallback" let-value pTemplate="filter">
-                                    <p-multiSelect [ngModel]="value" [options]="distinctDestinations" [placeholder]="getEmoji('wildcard')" (onChange)="filter($event.value)" optionLabel="description">
+                                    <p-multiSelect [ngModel]="value" [options]="distinctCustomers" [placeholder]="getEmoji('wildcard')" (onChange)="filter($event.value)" optionLabel="description">
                                         <ng-template let-option pTemplate="item">
                                             <div class="p-multiselect-option">
                                                 <span>{{ option.description }}</span>
@@ -66,9 +66,9 @@
                             </p-columnFilter>
                         </th>
                         <th class="width-6">
-                            <p-columnFilter [showMenu]="false" field="customer" matchMode="in">
+                            <p-columnFilter [showMenu]="false" field="destination" matchMode="in">
                                 <ng-template let-filter="filterCallback" let-value pTemplate="filter">
-                                    <p-multiSelect [ngModel]="value" [options]="distinctCustomers" [placeholder]="getEmoji('wildcard')" (onChange)="filter($event.value)" optionLabel="description">
+                                    <p-multiSelect [ngModel]="value" [options]="distinctDestinations" [placeholder]="getEmoji('wildcard')" (onChange)="filter($event.value)" optionLabel="description">
                                         <ng-template let-option pTemplate="item">
                                             <div class="p-multiselect-option">
                                                 <span>{{ option.description }}</span>
@@ -142,11 +142,11 @@
                         </td>
                         <td class="center width-5">{{ reservation.refNo }}</td>
                         <td class="width-8">{{ reservation.ticketNo }}</td>
-                        <td class="width-6">{{ reservation.destination.description }}</td>
                         <td class="width-6">{{ reservation.customer.description }}</td>
+                        <td class="width-6">{{ reservation.destination.abbreviation }}</td>
                         <td class="width-8">{{ reservation.pickupPoint.description }}</td>
                         <td class="width-6">{{ reservation.driver.description }}</td>
-                        <td class="width-5">{{ reservation.port.description }}</td>
+                        <td class="width-5">{{ reservation.port.abbreviation }}</td>
                         <td class="width-5">{{ reservation.ship.description }}</td>
                         <td class="right width-3">
                             <span>{{ reservation.totalPersons | replaceZero }}</span>

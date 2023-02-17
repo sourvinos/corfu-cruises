@@ -10,13 +10,21 @@ namespace API.Features.Embarkation {
         public EmbarkationMappingProfile() {
             CreateMap<Reservation, EmbarkationFinalVM>()
                 .ForMember(x => x.Customer, x => x.MapFrom(x => new SimpleEntity { Id = x.Customer.Id, Description = x.Customer.Description }))
-                .ForMember(x => x.Destination, x => x.MapFrom(x => new SimpleEntity { Id = x.Destination.Id, Description = x.Destination.Description }))
+                .ForMember(x => x.Destination, x => x.MapFrom(x => new EmbarkationFinalDestinationListVM {
+                    Id = x.Destination.Id,
+                    Description = x.Destination.Description,
+                    Abbreviation = x.Destination.Abbreviation
+                }))
                 .ForMember(x => x.Driver, x => x.MapFrom(x => new SimpleEntity {
                     Id = x.Driver != null ? x.Driver.Id : 0,
                     Description = x.Driver != null ? x.Driver.Description : "(EMPTY)"
                 }))
                 .ForMember(x => x.PickupPoint, x => x.MapFrom(x => new SimpleEntity { Id = x.PickupPoint.Id, Description = x.PickupPoint.Description }))
-                .ForMember(x => x.Port, x => x.MapFrom(x => new SimpleEntity { Id = x.Port.Id, Description = x.Port.Description }))
+                .ForMember(x => x.Port, x => x.MapFrom(x => new EmbarkationFinalPortListVM {
+                    Id = x.Port.Id,
+                    Description = x.Port.Description,
+                    Abbreviation = x.Port.Abbreviation
+                }))
                 .ForMember(x => x.Ship, x => x.MapFrom(x => new SimpleEntity { Id = x.Ship.Id, Description = x.Ship.Description }))
                 .ForMember(x => x.TotalPersons, x => x.MapFrom(x => x.TotalPersons))
                 .ForMember(x => x.EmbarkedPassengers, x => x.MapFrom(x => x.Passengers.Count(x => x.IsCheckedIn)))

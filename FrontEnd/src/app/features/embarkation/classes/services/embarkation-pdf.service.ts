@@ -40,7 +40,7 @@ export class EmbarkationPDFService {
                 {
                     table: {
                         headerRows: 1,
-                        widths: ['*', '*', '*', '*', '*', '*', '*', '*', 25],
+                        widths: ['*', '*', '*', '*', '*', '*', '*', '*', '*', 25],
                         body: this.createLines(records),
                     }, layout: 'lightHorizontalLines'
                 },
@@ -82,7 +82,7 @@ export class EmbarkationPDFService {
         if (this.localStorageService.getItem('embarkation-criteria')) {
             const criteria = JSON.parse(this.localStorageService.getItem('embarkation-criteria'))
             return {
-                'date': criteria.fromDate
+                'date': criteria.date
             }
         }
     }
@@ -92,8 +92,9 @@ export class EmbarkationPDFService {
         rows.push([
             { text: 'RefNo', fontSize: 6, margin: [0, 0, 0, 0] },
             { text: 'TicketNo', fontSize: 6 },
-            { text: 'Destination', fontSize: 6 },
             { text: 'Customer', fontSize: 6 },
+            { text: 'Destination', fontSize: 6 },
+            { text: 'Pickup point', fontSize: 6 },
             { text: 'Driver', fontSize: 6 },
             { text: 'Port', fontSize: 6 },
             { text: 'Ship', fontSize: 6 },
@@ -104,11 +105,12 @@ export class EmbarkationPDFService {
             rows.push([
                 { text: reservation.refNo, fontSize: 5, margin: [0, 0, 0, 0] },
                 { text: reservation.ticketNo, fontSize: 5 },
-                // { text: reservation.customerDescription, fontSize: 5 },
-                // { text: reservation.destinationDescription, fontSize: 5 },
-                // { text: reservation.driverDescription, fontSize: 5 },
-                // { text: reservation.portDescription, fontSize: 5 },
-                // { text: reservation.shipDescription, fontSize: 5 },
+                { text: reservation.customer.description, fontSize: 5 },
+                { text: reservation.destination.abbreviation, fontSize: 5 },
+                { text: reservation.pickupPoint.description, fontSize: 5 },
+                { text: reservation.driver.description, fontSize: 5 },
+                { text: reservation.port.abbreviation, fontSize: 5 },
+                { text: reservation.ship.description, fontSize: 5 },
                 { text: reservation.remarks, fontSize: 5 },
                 { text: reservation.totalPersons, alignment: 'right', fontSize: 5 }
             ])
@@ -124,6 +126,7 @@ export class EmbarkationPDFService {
                         { text: '' },
                         { text: '' },
                         { text: '' },
+                        { text: '' },
                         { text: '' }
                     ])
                 }
@@ -132,6 +135,7 @@ export class EmbarkationPDFService {
                     { text: '' },
                     { text: '' },
                     { text: 'We didn\'t find any passengers!', colSpan: 2, alignment: 'left', fontSize: 5, margin: [10, 0, 0, 0] },
+                    { text: '' },
                     { text: '' },
                     { text: '' },
                     { text: '' },
