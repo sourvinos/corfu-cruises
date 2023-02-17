@@ -5,6 +5,7 @@ import { Subject } from 'rxjs'
 import { Table } from 'primeng/table'
 // Custom
 import { DateHelperService } from 'src/app/shared/services/date-helper.service'
+import { EmojiService } from 'src/app/shared/services/emoji.service'
 import { HelperService } from 'src/app/shared/services/helper.service'
 import { ListResolved } from 'src/app/shared/classes/list-resolved'
 import { LocalStorageService } from './../../../../shared/services/local-storage.service'
@@ -49,7 +50,7 @@ export class ManifestListComponent {
 
     //#endregion
 
-    constructor(private activatedRoute: ActivatedRoute, private dateHelperService: DateHelperService, private helperService: HelperService, private localStorageService: LocalStorageService, private manifestPdfService: ManifestPdfService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private modalActionResultService: ModalActionResultService, private router: Router, public dialog: MatDialog) {
+    constructor(private activatedRoute: ActivatedRoute, private dateHelperService: DateHelperService, private emojiService: EmojiService, private helperService: HelperService, private localStorageService: LocalStorageService, private manifestPdfService: ManifestPdfService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private modalActionResultService: ModalActionResultService, private router: Router, public dialog: MatDialog) {
         this.toggleVirtualTable()
         this.populateCriteriaPanelsFromStorage()
     }
@@ -87,6 +88,10 @@ export class ManifestListComponent {
 
     public formatDateToLocale(date: string, showWeekday = false, showYear = false): string {
         return this.dateHelperService.formatISODateToLocale(date, showWeekday, showYear)
+    }
+
+    public getEmoji(emoji: string): string {
+        return this.emojiService.getEmoji(emoji)
     }
 
     public getIcon(filename: string): string {

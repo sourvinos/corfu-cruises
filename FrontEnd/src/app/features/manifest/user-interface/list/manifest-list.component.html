@@ -31,35 +31,41 @@
                     </tr>
                     <tr>
                         <th class="width-10">
-                            <p-columnFilter [showMenu]="false" field="occupant.description" matchMode="equals">
+                            <p-columnFilter [showMenu]="false" field="occupant" matchMode="in">
                                 <ng-template let-filter="filterCallback" let-value pTemplate="filter">
-                                    <p-dropdown (onChange)="filter($event.value != null ? $event.value.description : $event.value)" [disabled]="isFilterDisabled()" [ngModel]="value" [options]="distinctOccupants" [showClear]="true" placeholder="⭐">
+                                    <p-multiSelect (onChange)="filter($event.value)" [disabled]="isFilterDisabled()" [ngModel]="value" [options]="distinctOccupants" [placeholder]="getEmoji('wildcard')" optionLabel="description">
                                         <ng-template let-option pTemplate="item">
-                                            <span>{{ option.description }}</span>
+                                            <div class="p-multiselect-option">
+                                                <span>{{ option.description }}</span>
+                                            </div>
                                         </ng-template>
-                                    </p-dropdown>
+                                    </p-multiSelect>
                                 </ng-template>
                             </p-columnFilter>
                         </th>
                         <th class="width-10">
-                            <p-columnFilter [showMenu]="false" field="gender.description" matchMode="equals">
+                            <p-columnFilter [showMenu]="false" field="gender" matchMode="in">
                                 <ng-template let-filter="filterCallback" let-value pTemplate="filter">
-                                    <p-dropdown (onChange)="filter($event.value != null ? $event.value.description : $event.value)" [disabled]="isFilterDisabled()" [ngModel]="value" [options]="distinctGenders" [showClear]="true" placeholder="⭐">
+                                    <p-multiSelect (onChange)="filter($event.value)" [disabled]="isFilterDisabled()" [ngModel]="value" [options]="distinctGenders" [placeholder]="getEmoji('wildcard')" optionLabel="description">
                                         <ng-template let-option pTemplate="item">
-                                            <span>{{ option.description }}</span>
+                                            <div class="p-multiselect-option">
+                                                <span>{{ option.description }}</span>
+                                            </div>
                                         </ng-template>
-                                    </p-dropdown>
+                                    </p-multiSelect>
                                 </ng-template>
                             </p-columnFilter>
                         </th>
                         <th class="width-10">
-                            <p-columnFilter [showMenu]="false" field="nationality.description" matchMode="equals">
+                            <p-columnFilter [showMenu]="false" field="nationality" matchMode="in">
                                 <ng-template let-filter="filterCallback" let-value pTemplate="filter">
-                                    <p-dropdown (onChange)="filter($event.value != null ? $event.value.description : $event.value)" [disabled]="isFilterDisabled()" [ngModel]="value" [options]="distinctNationalities" [showClear]="true" placeholder="⭐">
+                                    <p-multiSelect (onChange)="filter($event.value)" [disabled]="isFilterDisabled()" [ngModel]="value" [options]="distinctNationalities" [placeholder]="getEmoji('wildcard')" optionLabel="description">
                                         <ng-template let-option pTemplate="item">
-                                            <span>{{ option.description }}</span>
+                                            <div class="p-multiselect-option">
+                                                <span>{{ option.description }}</span>
+                                            </div>
                                         </ng-template>
-                                    </p-dropdown>
+                                    </p-multiSelect>
                                 </ng-template>
                             </p-columnFilter>
                         </th>
