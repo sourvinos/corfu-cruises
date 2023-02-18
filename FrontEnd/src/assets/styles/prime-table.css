@@ -1,5 +1,5 @@
 .p-scroller {
-    overflow-x: auto !important;
+    overflow-x: hidden !important;
     overflow-y: scroll !important;
 }
 

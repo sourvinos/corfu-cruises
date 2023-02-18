@@ -98,10 +98,6 @@
     background-color: #6c9091;
 }
 
-/* .mat-datepicker-content .mat-calendar {
-    margin: 2rem !important;
-} */
-
 .mat-calendar-body-cell-content {
     color: var(--color-button-text);
     flex-direction: column;
@@ -135,7 +131,26 @@
 }
 
 .mat-date-range-input-start-wrapper {
-    margin-bottom: 8px !important;
+    margin-bottom: 9px !important;
     overflow: inherit !important;
     width: 100% !important;
+}
+
+.mat-datepicker-toggle, .mat-datepicker-content .mat-datepicker-content {
+    color: var(--color-c);
+    position: fixed;
+    right: 11px !important;
+    top: 26px;
+}
+
+.mat-date-range-input {
+    width: 85% !important;
+}
+
+.mat-date-range-input-container {
+    margin-top: 0 !important;
+}
+
+.mat-date-range-input-inner {
+    margin-top: 3px !important;
 }

@@ -1,7 +1,7 @@
 import { Component, ViewChild } from '@angular/core'
 import { DateAdapter } from '@angular/material/core'
 import { DateRange, MatCalendar } from '@angular/material/datepicker'
-import { FormGroup, FormBuilder, Validators, FormArray, FormControl } from '@angular/forms'
+import { FormGroup, FormBuilder, Validators, FormArray, FormControl, AbstractControl } from '@angular/forms'
 import { Router } from '@angular/router'
 import { Subject } from 'rxjs'
 import { takeUntil } from 'rxjs/operators'
@@ -15,11 +15,12 @@ import { LedgerCriteriaVM } from '../../classes/view-models/criteria/ledger-crit
 import { LocalStorageService } from 'src/app/shared/services/local-storage.service'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { SimpleEntity } from './../../../../shared/classes/simple-entity'
+import { MessageHintService } from 'src/app/shared/services/messages-hint.service'
 
 @Component({
     selector: 'ledger-criteria',
     templateUrl: './ledger-criteria.component.html',
-    styleUrls: ['../../../../../assets/styles/forms.css']
+    styleUrls: ['../../../../../assets/styles/forms.css', './ledger-criteria.component.css']
 })
 
 export class LedgerCriteriaComponent {
@@ -47,7 +48,7 @@ export class LedgerCriteriaComponent {
 
     //#endregion
 
-    constructor(private dateAdapter: DateAdapter<any>, private dateHelperService: DateHelperService, private emojiService: EmojiService, private fieldsetCriteriaService: FieldsetCriteriaService, private formBuilder: FormBuilder, private interactionService: InteractionService, private localStorageService: LocalStorageService, private messageLabelService: MessageLabelService, private router: Router) { }
+    constructor(private dateAdapter: DateAdapter<any>, private dateHelperService: DateHelperService, private emojiService: EmojiService, private fieldsetCriteriaService: FieldsetCriteriaService, private formBuilder: FormBuilder, private messageHintService: MessageHintService, private interactionService: InteractionService, private localStorageService: LocalStorageService, private messageLabelService: MessageLabelService, private router: Router) { }
 
     //#region lifecycle hooks
 
@@ -93,6 +94,10 @@ export class LedgerCriteriaComponent {
         return this.emojiService.getEmoji(emoji)
     }
 
+    public getHint(id: string, minmax = 0): string {
+        return this.messageHintService.getDescription(id, minmax)
+    }
+
     public getLabel(id: string): string {
         return this.messageLabelService.getDescription(this.feature, id)
     }
@@ -103,10 +108,10 @@ export class LedgerCriteriaComponent {
         }
     }
 
-    public patchFormWithSelectedDates(event: any): void {
+    public patchFormWithSelectedDates(fromDate: any, toDate: any): void {
         this.form.patchValue({
-            fromDate: event.start != null ? this.dateHelperService.formatDateToIso(event.start) : '',
-            toDate: event.end != null ? this.dateHelperService.formatDateToIso(event.end) : ''
+            fromDate: fromDate.value != null ? this.dateHelperService.formatDateToIso(new Date(fromDate.value)) : '',
+            toDate: toDate.value != null ? this.dateHelperService.formatDateToIso(new Date(toDate.value)) : ''
         })
     }
 
@@ -237,5 +242,17 @@ export class LedgerCriteriaComponent {
     }
 
     //#endregion
+
+    //#region getters
+
+    get fromDate(): AbstractControl {
+        return this.form.get('fromDate')
+    }
+
+    get toDate(): AbstractControl {
+        return this.form.get('toDate')
+    }
+
+    //#endregion    
 
 }
