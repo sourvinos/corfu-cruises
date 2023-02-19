@@ -20,7 +20,7 @@
             <criteria-panel [backgroundColor]="'var(--color-criteria-c)'" [feature]="feature" [header]="'criteria-ships'" [icon]="'ships'" [records]="criteriaPanels.ships" [sortField]="'description'"></criteria-panel>
         </div>
         <div id="table-wrapper">
-            <p-table #table (onFilter)="filterRecords($event)" [(selection)]="selectedRecords" [scrollable]="true" [value]="records" [virtualScrollItemSize]="32" [virtualScroll]="true" dataKey="customer.id" scrollHeight="flex" selectionMode="multiple" sortMode="multiple">
+            <p-table #table (onFilter)="filterRecords($event)" [(selection)]="selectedRecords" [scrollable]="true" [value]="records" [virtualScrollItemSize]="32" [virtualScroll]="isVirtual" dataKey="customer.id" scrollHeight="flex" selectionMode="multiple" sortMode="multiple">
                 <ng-template pTemplate="header">
                     <tr>
                         <th class="width-3"></th>

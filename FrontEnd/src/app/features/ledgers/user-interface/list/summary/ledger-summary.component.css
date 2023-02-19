@@ -6,3 +6,7 @@
     overflow-y: auto;
     scrollbar-gutter: auto;
 }
+
+.p-datatable-flex-scrollable .p-datatable-wrapper {
+    scrollbar-gutter: auto;
+}

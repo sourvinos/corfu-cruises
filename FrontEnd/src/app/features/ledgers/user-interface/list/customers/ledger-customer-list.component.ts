@@ -34,6 +34,7 @@ export class LedgerCustomerListComponent {
     public featureIcon = 'ledgers'
     public icon = 'arrow_back'
     public parentUrl = '/ledgers'
+    public isVirtual = false
 
     public criteriaPanels: LedgerCriteriaVM
 
@@ -52,7 +53,9 @@ export class LedgerCustomerListComponent {
     //#region lifecycle hooks
 
     ngOnInit(): void {
+        this.toggleVirtualTable()
         this.loadRecords()
+        this.toggleVirtualTable()
         this.populateCriteriaPanelsFromStorage()
     }
 
@@ -139,6 +142,10 @@ export class LedgerCustomerListComponent {
         if (this.localStorageService.getItem('ledger-criteria')) {
             this.criteriaPanels = JSON.parse(this.localStorageService.getItem('ledger-criteria'))
         }
+    }
+
+    private toggleVirtualTable(): void {
+        this.isVirtual = !this.isVirtual
     }
 
     //#endregion

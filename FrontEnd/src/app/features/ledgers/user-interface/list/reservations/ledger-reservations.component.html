@@ -2,24 +2,24 @@
     <p-table #table [scrollable]="true" [value]="data.customer.reservations" [virtualScrollItemSize]="32" [virtualScroll]="true" scrollHeight="flex" selectionMode="single" sortMode="multiple">
         <ng-template pTemplate="header">
             <tr>
-                <th class="width-5">{{ getLabel('headerDate') }}</th>
-                <th class="width-6">{{ getLabel('headerDestination') }}</th>
-                <th class="width-6">{{ getLabel('headerShip') }}</th>
-                <th class="width-6">{{ getLabel('headerPort') }}</th>
-                <th class="width-5">{{ getLabel('headerRefNo') }}</th>
-                <th class="width-5">{{ getLabel('headerTicket') }}</th>
-                <th class="width-4">{{ getLabel('headerHasTransfer') }}</th>
-                <th class="width-3">{{ getLabel('headerAdults') }}</th>
-                <th class="width-3">{{ getLabel('headerKids') }}</th>
-                <th class="width-3">{{ getLabel('headerFree') }}</th>
-                <th class="width-3">Σ</th>
-                <th class="width-3">Σ<span class="subscript">1</span></th>
-                <th class="width-3">{{ getLabel('headerNoShow') }}</th>
-                <th class="width-3"></th>
+                <th class="width-5" pSortableColumn="date">{{ getLabel('headerDate') }}</th>
+                <th class="width-6" pSortableColumn="destination.abbreviation">{{ getLabel('headerDestination') }}</th>
+                <th class="width-6" pSortableColumn="ship.description">{{ getLabel('headerShip') }}</th>
+                <th class="width-6" pSortableColumn="port.abbreviation">{{ getLabel('headerPort') }}</th>
+                <th class="width-5" pSortableColumn="refNo">{{ getLabel('headerRefNo') }}</th>
+                <th class="width-5" pSortableColumn="ticketNo">{{ getLabel('headerTicket') }}</th>
+                <th class="width-4" pSortableColumn="hasTransfer">{{ getLabel('headerHasTransfer') }}</th>
+                <th class="width-3" pSortableColumn="adults">{{ getLabel('headerAdults') }}</th>
+                <th class="width-3" pSortableColumn="kids">{{ getLabel('headerKids') }}</th>
+                <th class="width-3" pSortableColumn="free">{{ getLabel('headerFree') }}</th>
+                <th class="width-3" pSortableColumn="totalPersons">Σ</th>
+                <th class="width-3" pSortableColumn="embarkedPassengers">Σ<span class="subscript">1</span></th>
+                <th class="width-3" pSortableColumn="totalNoShow">{{ getLabel('headerNoShow') }}</th>
+                <th class="width-3">{{ getLabel('headerRemarks') }}</th>
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-reservation>
-            <tr style="height:32px">
+            <tr [pSelectableRow]="reservation" style="height:32px">
                 <td class="center width-5">{{ formatDateToLocale(reservation.date) }}</td>
                 <td class="center width-6">{{ reservation.destination.abbreviation }}</td>
                 <td class="width-6">{{ reservation.ship.description }}</td>
@@ -33,8 +33,8 @@
                 <td class="number width-3">{{ reservation.adults | replaceZero }}</td>
                 <td class="number width-3">{{ reservation.kids | replaceZero }}</td>
                 <td class="number width-3">{{ reservation.free | replaceZero }}</td>
-                <td class="number width-3">{{ reservation.totalPersons | replaceZero }}</td>
-                <td class="number width-3">{{ reservation.embarkedPassengers | replaceZero }}</td>
+                <td class="number width-3">{{ reservation.totalPersons }}</td>
+                <td class="number width-3">{{ reservation.embarkedPassengers }}</td>
                 <td class="text-with-emoji number width-3">
                     <span>{{ reservation.totalNoShow | replaceZero }}</span>
                     <span *ngIf="reservation.totalPersons - reservation.embarkedPassengers == 0" class="emoji"></span>

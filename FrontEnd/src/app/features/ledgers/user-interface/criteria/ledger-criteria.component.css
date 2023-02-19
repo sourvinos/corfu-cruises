@@ -15,6 +15,7 @@
 }
 
 #form .group-field:last-child {
+    height: 100%;
     overflow: auto;
 }
 

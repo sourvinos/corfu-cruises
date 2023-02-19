@@ -13,7 +13,7 @@
             </tr>
         </ng-template>
         <ng-template let-allPorts let-expanded="expanded" pTemplate="body">
-            <tr class="port-total">
+            <tr [pSelectableRow]="allPorts" class="port-total">
                 <td class="center width-3"><button [icon]="expanded ? 'fas fa-angle-down' : 'fas fa-angle-right'" [pRowToggler]="allPorts" class="p-button-text p-button-rounded p-button-plain" pButton pRipple></button></td>
                 <td class="width-10">{{ allPorts.port.description }}</td>
                 <td class="number width-3">{{ allPorts.adults | replaceZero }}</td>
@@ -29,12 +29,13 @@
             </tr>
         </ng-template>
         <ng-template let-port pTemplate="rowexpansion">
-            <tr class="group-row no-hover">
-                <td colspan="5" style="padding-left: 100px;">
+            <tr class="group-row">
+                <td colspan="6" style="padding: 0;">
                     <div class="passengers-row">
-                        <p-table [value]="port.hasTransferGroup" class="nested-table" dataKey="hasTransferGroup">
+                        <p-table [value]="port.hasTransferGroup" class="nested-table">
                             <ng-template pTemplate="header">
                                 <tr>
+                                    <th class="transparent width-3"></th>
                                     <th class="width-3">{{ getLabel('headerAdults') }}</th>
                                     <th class="width-3">{{ getLabel('headerKids') }}</th>
                                     <th class="width-3">{{ getLabel('headerFree') }}</th>
@@ -46,6 +47,7 @@
                             </ng-template>
                             <ng-template let-hasTransfer pTemplate="body">
                                 <tr>
+                                    <td class="width-3"></td>
                                     <td class="number width-3">{{ hasTransfer.adults | replaceZero }}</td>
                                     <td class="number width-3">{{ hasTransfer.kids | replaceZero }}</td>
                                     <td class="number width-3">{{ hasTransfer.free | replaceZero }}</td>

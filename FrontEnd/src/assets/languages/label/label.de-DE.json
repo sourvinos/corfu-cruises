@@ -1492,6 +1492,10 @@
                 "description": "N/S"
             },
             {
+                "id": "headerRemarks",
+                "description": "K"
+            },
+            {
                 "id": "createPdfButton",
                 "description": "PDF ERSTELLEN"
             },

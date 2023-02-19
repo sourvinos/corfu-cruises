@@ -1492,6 +1492,10 @@
                 "description": "N/S"
             },
             {
+                "id": "headerRemarks",
+                "description": "Π"
+            },
+            {
                 "id": "createPdfButton",
                 "description": "ΔΗΜΙΟΥΡΓΙΑ PDF"
             },
