@@ -3,6 +3,8 @@
     --color-scrollbar-thumb: #d94040;
     --color-table-dropdown-filter-clear: #ff7a7a;
     --color-table-dropdown-filter-background: #bfbdd7;
+    --color-table-active: #9bcf6f;
+    --color-table-inactive: #ff7a7a;
     /*  Buttons */
     --color-button-text: #ffffff;
     --color-button-text-primary: #000000;

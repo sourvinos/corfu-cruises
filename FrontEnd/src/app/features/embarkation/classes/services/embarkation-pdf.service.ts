@@ -17,7 +17,7 @@ pdfMake.vfs = pdfFonts.pdfMake.vfs
 
 export class EmbarkationPDFService {
 
-    private criteria: EmbarkationCriteriaComponent
+    // private criteria: EmbarkationCriteriaComponent
 
     constructor(private dateHelperService: DateHelperService, private localStorageService: LocalStorageService, private logoService: LogoService) { }
 
@@ -25,7 +25,7 @@ export class EmbarkationPDFService {
 
     public createPDF(records: EmbarkationVM[]): void {
         this.setFonts()
-        this.criteria = JSON.parse(this.localStorageService.getItem('embarkation-criteria'))
+        // this.criteria = JSON.parse(this.localStorageService.getItem('embarkation-criteria'))
         const dd = {
             background: this.setBackgroundImage(),
             info: this.setPageInfo(),

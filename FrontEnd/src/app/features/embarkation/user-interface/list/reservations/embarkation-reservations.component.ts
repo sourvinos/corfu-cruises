@@ -282,7 +282,6 @@ export class EmbarkationReservationsComponent {
         this.distinctPorts = this.helperService.getDistinctRecords(this.records.reservations, 'port', 'description')
         this.distinctShips = this.helperService.getDistinctRecords(this.records.reservations, 'ship', 'description')
         this.distinctEmbarkationStatuses = this.helperService.getDistinctRecords(this.records.reservations, 'embarkationStatus', 'description')
-        // this.distinctEmbarkationStatuses = this.helperService.getEmbarkationStatus()
     }
 
     private positionVideo(): void {

@@ -264,3 +264,11 @@ div:not(.p-column-filter).p-column-filter-row:hover {
 .align-vertical img, .align-vertical span {
     vertical-align: middle;
 }
+
+.is-active {
+    color: var(--color-table-active);
+}
+
+.is-not-active {
+    color: var(--color-table-inactive);
+}

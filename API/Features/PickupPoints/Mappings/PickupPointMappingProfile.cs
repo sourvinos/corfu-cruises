@@ -1,4 +1,5 @@
 using System;
+using API.Infrastructure.Classes;
 using API.Infrastructure.Helpers;
 using AutoMapper;
 
@@ -9,7 +10,10 @@ namespace API.Features.PickupPoints {
         public PickupPointMappingProfile() {
             // List
             CreateMap<PickupPoint, PickupPointListVM>()
-                .ForMember(x => x.CoachRouteAbbreviation, x => x.MapFrom(x => x.CoachRoute.Abbreviation));
+                .ForMember(x => x.CoachRoute, x => x.MapFrom(x => new SimpleEntity {
+                    Id = x.CoachRoute.Id,
+                    Description = x.CoachRoute.Abbreviation
+                }));
             // Dropdown
             CreateMap<PickupPoint, PickupPointActiveVM>()
                 .ForMember(x => x.Id, x => x.MapFrom(x => x.Id))

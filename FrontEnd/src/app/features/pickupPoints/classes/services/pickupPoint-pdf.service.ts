@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core'
 // Custom
 import { BooleanIconService } from 'src/app/shared/services/boolean-icon.service'
+import { DateHelperService } from 'src/app/shared/services/date-helper.service'
 import { LogoService } from 'src/app/features/reservations/classes/services/logo.service'
 import { PickupPointListVM } from '../view-models/pickupPoint-list-vm'
 // Fonts
@@ -8,7 +9,6 @@ import pdfFonts from 'pdfmake/build/vfs_fonts'
 import pdfMake from 'pdfmake/build/pdfmake'
 import { strAkaAcidCanterBold } from '../../../../../assets/fonts/Aka-Acid-CanterBold.Base64.encoded'
 import { strPFHandbookPro } from '../../../../../assets/fonts/PF-Handbook-Pro.Base64.encoded'
-import { DateHelperService } from 'src/app/shared/services/date-helper.service'
 
 pdfMake.vfs = pdfFonts.pdfMake.vfs
 
@@ -41,8 +41,8 @@ export class PickupPointPdfService {
                     },
                     [
                         this.createTable(pickupPoints,
-                            ['boolean', '', '', '', ''],
-                            ['isActive', 'coachRouteAbbreviation', 'description', 'exactPoint', 'time'],
+                            ['boolean', 'object', '', '', ''],
+                            ['isActive', 'coachRoute', 'description', 'exactPoint', 'time'],
                             ['center', 'center', 'left', 'left', 'center'])
                     ],
                 ],
@@ -95,19 +95,18 @@ export class PickupPointPdfService {
             type: 'none',
             margin: [0, 0, 0, 0],
             ul: [
-                { text: 'PICKUP POINTS', fontSize: 13, style: 'AkaAcidCanterBold' },
-                { text: 'ΔΙΑΔΡΟΜΗ: ' }
+                { text: 'ΣΗΜΕΙΑ ΠΑΡΑΛΑΒΗΣ', fontSize: 13, style: 'AkaAcidCanterBold' }
             ]
         }
     }
 
     private createTableHeaders(): any[] {
         return [
-            { text: 'Active', style: 'tableHeader', alignment: 'center', bold: false },
-            { text: 'Route', style: 'tableHeader', alignment: 'center', bold: false },
-            { text: 'Description', style: 'tableHeader', alignment: 'center', bold: false },
-            { text: 'Exact point', style: 'tableHeader', alignment: 'center', bold: false },
-            { text: 'Time', style: 'tableHeader', alignment: 'center', bold: false },
+            { text: 'ΕΝΕΡΓΟ', style: 'tableHeader', alignment: 'center', bold: false },
+            { text: 'ΔΙΑΔΡΟΜΗ', style: 'tableHeader', alignment: 'center', bold: false },
+            { text: 'ΠΕΡΙΓΡΑΦΗ', style: 'tableHeader', alignment: 'center', bold: false },
+            { text: 'ΑΚΡΙΒΕΣ ΣΗΜΕΙΟ', style: 'tableHeader', alignment: 'center', bold: false },
+            { text: 'ΩΡΑ', style: 'tableHeader', alignment: 'center', bold: false },
         ]
     }
 
@@ -168,13 +167,14 @@ export class PickupPointPdfService {
     private processRow(columnTypes: any[], columns: any[], row: PickupPointListVM, dataRow: any[], align: any[]): any {
         columns.forEach((column, index) => {
             if (columnTypes[index] == 'boolean') {
-                if (row[column] == true) {
-                    dataRow.push({ image: this.booleanIconService.getTrueIcon(), fit: [8, 8], alignment: 'center' })
-                } else {
-                    dataRow.push({ image: this.booleanIconService.getFalseIcon(), fit: [8, 8], alignment: 'center' })
-                }
+                dataRow.push(row[column] == true
+                    ? { image: this.booleanIconService.getTrueIcon(), fit: [8, 8], alignment: 'center' }
+                    : { image: this.booleanIconService.getFalseIcon(), fit: [8, 8], alignment: 'center' })
             }
-            else {
+            if (columnTypes[index] == 'object') {
+                dataRow.push({ text: this.formatField(columnTypes[index], row[column].description), alignment: align[index].toString(), color: '#000000', noWrap: false, margin: [0, 1, 0, 0] })
+            }
+            if (columnTypes[index] == '') {
                 dataRow.push({ text: this.formatField(columnTypes[index], row[column]), alignment: align[index].toString(), color: '#000000', noWrap: false, margin: [0, 1, 0, 0] })
             }
         })
