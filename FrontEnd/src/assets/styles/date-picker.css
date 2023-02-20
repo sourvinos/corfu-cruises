@@ -138,7 +138,7 @@
 
 .mat-datepicker-toggle, .mat-datepicker-content .mat-datepicker-content {
     color: var(--color-c);
-    position: fixed;
+    position: relative;
     right: 11px !important;
     top: 26px;
 }

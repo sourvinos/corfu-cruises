@@ -40,7 +40,7 @@
     font-family: var(--font-family-asty) !important;
     font-size: var(--font-size-table-header) !important;
     font-weight: 300 !important;
-    padding: 0.5rem;
+    padding: 0.5rem 0.5rem 0 0.5rem;
     text-align: center !important;
     transition: all var(--theme-change-delay) ease-in;
 }
@@ -120,6 +120,7 @@
 }
 
 .p-datatable .p-datatable-thead > tr:nth-child(2) > th {
+    padding-bottom: 0 !important;
     padding-top: 0 !important;
 }
 
@@ -138,6 +139,7 @@ div:not(.p-column-filter).p-column-filter-row:hover {
 .header-datepicker {
     align-items: center;
     display: flex;
+    justify-content: center;
     margin: 0;
     padding-bottom: 0.625rem !important;
     padding-top: 0.25rem;
@@ -158,6 +160,11 @@ div:not(.p-column-filter).p-column-filter-row:hover {
     color: var(--color-table-dropdown-filter-clear);
     font-size: 0.91rem;
     padding-top: 0.3125rem;
+    margin: 0 -16px 0 -16px !important;
+}
+
+.date-clear-icon:hover {
+    cursor: pointer;
 }
 
 .number {
@@ -256,6 +263,12 @@ div:not(.p-column-filter).p-column-filter-row:hover {
     width: 15rem;
 }
 
+.width-30 {
+    max-width: 25rem;
+    min-width: 25rem;
+    width: 25rem;
+}
+
 .icon-with-text {
     align-items: center;
     display: flex;
@@ -278,5 +291,5 @@ div:not(.p-column-filter).p-column-filter-row:hover {
 }
 
 .mat-datepicker-toggle, .mat-datepicker-content .mat-datepicker-content {
-    top: 1.15rem !important;
+    top: 0 !important;
 }
