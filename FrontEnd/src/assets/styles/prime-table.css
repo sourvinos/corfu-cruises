@@ -121,7 +121,6 @@
 
 .p-datatable .p-datatable-thead > tr:nth-child(2) > th {
     padding-top: 0 !important;
-    padding-bottom: 0.3125rem !important;
 }
 
 div:not(.p-column-filter).p-column-filter-row:hover {
@@ -140,7 +139,8 @@ div:not(.p-column-filter).p-column-filter-row:hover {
     align-items: center;
     display: flex;
     margin: 0;
-    padding-top: 0 !important;
+    padding-bottom: 0.625rem !important;
+    padding-top: 0.25rem;
 }
 
 .header-datepicker input {
@@ -148,12 +148,16 @@ div:not(.p-column-filter).p-column-filter-row:hover {
     border: 0;
     color: var(--color-c);
     font-family: var(--font-family-manrope) !important;
+    font-weight: 600;
+    outline: none !important;
     padding-top: 0 !important;
+    width: 5rem !important;
 }
 
 .date-clear-icon {
-    color: #6c757d;
-    font-size: 1.4rem;
+    color: var(--color-table-dropdown-filter-clear);
+    font-size: 0.91rem;
+    padding-top: 0.3125rem;
 }
 
 .number {
@@ -271,4 +275,8 @@ div:not(.p-column-filter).p-column-filter-row:hover {
 
 .is-not-active {
     color: var(--color-table-inactive);
+}
+
+.mat-datepicker-toggle, .mat-datepicker-content .mat-datepicker-content {
+    top: 1.15rem !important;
 }
