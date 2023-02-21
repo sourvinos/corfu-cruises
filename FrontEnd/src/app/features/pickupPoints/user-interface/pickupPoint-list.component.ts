@@ -114,8 +114,7 @@ export class PickupPointListComponent {
 
     private enableDisableFilters(): void {
         if (this.records.length == 0) {
-            this.helperService.disableTableDropdownFilters()
-            this.helperService.disableTableTextFilters()
+            this.helperService.disableTableFilters()
         }
     }
 

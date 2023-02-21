@@ -204,8 +204,7 @@ export class EmbarkationReservationsComponent {
 
     private enableDisableFilters(): void {
         if (this.records.reservations.length == 0) {
-            this.helperService.disableTableDropdownFilters()
-            this.helperService.disableTableTextFilters()
+            this.helperService.disableTableFilters()
         }
     }
 

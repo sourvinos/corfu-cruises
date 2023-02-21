@@ -125,17 +125,22 @@ export class HelperService {
         return lookupArray
     }
 
-    public disableTableDropdownFilters(): void {
-        const dropdownFilters = document.querySelectorAll('.p-dropdown, .p-multiselect')
-        dropdownFilters.forEach(x => {
-            x.classList.add('p-disabled')
+    public disableTableFilters(): void {
+        const checkboxes = document.querySelectorAll('.p-checkbox, .p-checkbox-box') as NodeListOf<HTMLElement>
+        checkboxes.forEach(x => {
+            x.classList.add('disabled')
         })
-    }
-
-    public disableTableTextFilters(): void {
+        const datePickers = document.querySelectorAll('.mat-datepicker-toggle, .mat-datepicker-toggle > .mat-button-base > .mat-button-wrapper') as NodeListOf<HTMLElement>
+        datePickers.forEach(x => {
+            x.classList.add('disabled')
+        })
+        const dropdown = document.querySelectorAll('.p-inputwrapper') as NodeListOf<HTMLElement>
+        dropdown.forEach(x => {
+            x.classList.add('disabled')
+        })
         const textFilters = document.querySelectorAll('.p-inputtext')
         textFilters.forEach(x => {
-            x.classList.add('p-disabled')
+            x.classList.add('disabled')
         })
     }
 
@@ -271,12 +276,11 @@ export class HelperService {
         ]
         return x
     }
-    // public getEmbarkationStatus(): any {
-    //     return [
-    //         { id: 'OK', description: this.getLabel('embarkationList', 'boardedFilter') },
-    //         { id: 'PENDING', description: this.getLabel('embarkationList', 'pendingFilter') }
-    //     ]
-    // }
+
+    public clearStyleFromVirtualTable(): void {
+        const x = document.getElementsByClassName('p-scroller-content') as HTMLCollectionOf<HTMLElement>
+        x[0].style.transform = null
+    }
 
     //#endregion
 

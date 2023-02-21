@@ -154,3 +154,7 @@
 .mat-date-range-input-inner {
     margin-top: 3px !important;
 }
+
+.mat-datepicker-toggle .mat-button-disabled {
+    color: #ffffff82 !important;
+}

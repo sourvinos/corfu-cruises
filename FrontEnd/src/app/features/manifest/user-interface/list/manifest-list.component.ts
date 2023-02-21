@@ -153,8 +153,7 @@ export class ManifestListComponent {
 
     private enableDisableFilters(): void {
         if (this.records.passengers.length == 0) {
-            this.helperService.disableTableDropdownFilters()
-            this.helperService.disableTableTextFilters()
+            this.helperService.disableTableFilters()
         }
     }
 

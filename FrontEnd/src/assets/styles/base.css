@@ -28,9 +28,9 @@
 @import url("menu.css");
 @import url("prime-button.css");
 @import url("prime-checkbox.css");
-@import url("prime-dropdown.css");
 @import url("prime-fieldset.css");
 @import url("prime-input.css");
+@import url("prime-table-filters.css");
 @import url("prime-table.css");
 @import url("radio.css");
 @import url("scrollable.css");
@@ -100,7 +100,7 @@ ul {
 }
 
 .no-display {
-    display: none;
+    display: none !important;
 }
 
 .instructions {
@@ -121,6 +121,16 @@ ul {
 
 .emoji-with-text {
     margin-left: 0.3rem;
+}
+
+.disabled {
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+.disabled:hover {
+    cursor: no-drop;
+    pointer-events: all;
 }
 
 ::-webkit-scrollbar {

@@ -19,7 +19,7 @@ import { ScheduleListVM } from './../../classes/view-models/schedule-list-vm'
 @Component({
     selector: 'pickuppoint-list',
     templateUrl: './schedule-list.component.html',
-    styleUrls: ['../../../../../assets/styles/lists.css']
+    styleUrls: ['../../../../../assets/styles/lists.css', './schedule-list.component.css']
 })
 
 export class ScheduleListComponent {
@@ -36,8 +36,7 @@ export class ScheduleListComponent {
     public parentUrl = '/'
     public records: ScheduleListVM[] = []
     public recordsFilteredCount: number
-    public isVirtual = true
-    private scrollableElement: any
+    private virtualElement: any
 
     public filterDate = ''
     public distinctDestinations = []
@@ -50,7 +49,6 @@ export class ScheduleListComponent {
             this.populateDropdownFilters()
             this.filterTableFromStoredFilters()
             this.formatDatesToLocale()
-            this.enableDisableFilters()
             this.subscribeToInteractionService()
             this.setLocale()
         })
@@ -60,9 +58,10 @@ export class ScheduleListComponent {
 
     ngAfterViewInit(): void {
         setTimeout(() => {
-            this.getScrollableElement()
-            this.toggleVirtual()
+            this.getVirtualElement()
+            this.scrollToSavedPosition()
             this.hightlightSavedRow()
+            this.enableDisableFilters()
         }, 500)
     }
 
@@ -96,8 +95,7 @@ export class ScheduleListComponent {
     public filterRecords(event: { filteredValue: any[] }): void {
         this.localStorageService.saveItem(this.feature, JSON.stringify(this.table.filters))
         this.recordsFilteredCount = event.filteredValue.length
-        const x = document.getElementsByClassName('p-scroller-content') as HTMLCollectionOf<HTMLInputElement>
-        x[0].style.transform = null
+        this.helperService.clearStyleFromVirtualTable()
     }
 
     public getEmoji(emoji: string): string {
@@ -136,8 +134,7 @@ export class ScheduleListComponent {
 
     private enableDisableFilters(): void {
         if (this.records.length == 0) {
-            this.helperService.disableTableDropdownFilters()
-            this.helperService.disableTableTextFilters()
+            this.helperService.disableTableFilters()
         }
     }
 
@@ -170,9 +167,8 @@ export class ScheduleListComponent {
         })
     }
 
-    private getScrollableElement(): void {
-        // this.scrollableElement = document.getElementsByClassName('p-datatable-wrapper')[0]
-        this.scrollableElement = document.getElementsByClassName('p-scroller-inline')[0]
+    private getVirtualElement(): void {
+        this.virtualElement = document.getElementsByClassName('p-scroller-inline')[0]
     }
 
     private goBack(): void {
@@ -181,34 +177,24 @@ export class ScheduleListComponent {
 
     private hightlightSavedRow(): void {
         setTimeout(() => {
-            document.getElementsByClassName('p-scroller-inline')[0]?.scrollTo({
-                top: parseInt(this.localStorageService.getItem('scrollTop')) || 0,
-                left: 0,
-                behavior: 'auto'
-            })
-        }, 1000)
-        setTimeout(() => {
             const x = document.getElementById(this.localStorageService.getItem('id'))
-            x.classList.add('p-highlight')
-        }, 1000)
-
-
-        // setTimeout(() => {
-        //     this.scrollableElement.scrollTop = parseInt(this.localStorageService.getItem('scrollTop')) | 0
-        //     document.getElementById(this.localStorageService.getItem('id'))?.classList.add('p-highlight')
-        // }, 1000)
+            if (x != null) {
+                x.classList.add('p-highlight')
+            }
+        }, 500)
     }
 
     private loadRecords(): Promise<any> {
         const promise = new Promise((resolve) => {
             const listResolved: ListResolved = this.activatedRoute.snapshot.data[this.feature]
-            if (listResolved.error === null) {
+            if (listResolved.error == null) {
                 this.records = listResolved.list
                 this.recordsFilteredCount = this.records.length
                 resolve(this.records)
             } else {
-                this.goBack()
-                this.modalActionResultService.open(this.messageSnackbarService.filterResponse(new Error('500')), 'error', ['ok'])
+                this.modalActionResultService.open(this.messageSnackbarService.filterResponse(listResolved.error), 'error', ['ok']).subscribe(() => {
+                    this.goBack()
+                })
             }
         })
         return promise
@@ -223,12 +209,22 @@ export class ScheduleListComponent {
         this.dateAdapter.setLocale(this.localStorageService.getLanguage())
     }
 
+    private scrollToSavedPosition(): void {
+        setTimeout(() => {
+            this.virtualElement.scrollTo({
+                top: parseInt(this.localStorageService.getItem('scrollTop')) || 0,
+                left: 0,
+                behavior: 'auto'
+            })
+        }, 500)
+    }
+
     private storeSelectedId(id: number): void {
         this.localStorageService.saveItem('id', id.toString())
     }
 
     private storeScrollTop(): void {
-        this.localStorageService.saveItem('scrollTop', this.scrollableElement.scrollTop)
+        this.localStorageService.saveItem('scrollTop', this.virtualElement.scrollTop)
     }
 
     private subscribeToInteractionService(): void {
@@ -236,10 +232,6 @@ export class ScheduleListComponent {
             this.formatDatesToLocale()
             this.setLocale()
         })
-    }
-
-    private toggleVirtual(): void {
-        // this.isVirtual = !this.isVirtual
     }
 
     //#endregion
