@@ -30,20 +30,26 @@ export class ShipOwnerListComponent {
     public icon = 'home'
     public parentUrl = '/'
     public records: ShipOwnerListVM[] = []
-    public recordsFiltered: ShipOwnerListVM[] = []
+    public recordsFilteredCount: number
+    private virtualElement: any
 
     //#endregion
 
-    constructor(private activatedRoute: ActivatedRoute, private helperService: HelperService, private localStorageService: LocalStorageService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private modalActionResultService: ModalActionResultService, private router: Router) { }
+    constructor(private activatedRoute: ActivatedRoute, private helperService: HelperService, private localStorageService: LocalStorageService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private modalActionResultService: ModalActionResultService, private router: Router) {
+        this.loadRecords().then(() => {
+            this.filterTableFromStoredFilters()
+        })
+    }
 
     //#region lifecycle hooks
 
-    ngOnInit(): void {
-        this.loadRecords()
-    }
-
     ngAfterViewInit(): void {
-        this.filterTableFromStoredFilters()
+        setTimeout(() => {
+            this.getVirtualElement()
+            this.scrollToSavedPosition()
+            this.hightlightSavedRow()
+            this.enableDisableFilters()
+        }, 500)
     }
 
     ngOnDestroy(): void {
@@ -55,12 +61,15 @@ export class ShipOwnerListComponent {
     //#region public methods
 
     public editRecord(id: number): void {
-        this.router.navigate([this.url, id])
+        this.storeScrollTop()
+        this.storeSelectedId(id)
+        this.navigateToRecord(id)
     }
 
     public filterRecords(event: { filteredValue: any[] }): void {
-        this.recordsFiltered = event.filteredValue
-        this.localStorageService.saveItem(this.feature, JSON.stringify(this.table.filters))
+        this.localStorageService.saveItem(this.feature + '-' + 'filters', JSON.stringify(this.table.filters))
+        this.recordsFilteredCount = event.filteredValue.length
+        this.helperService.clearStyleFromVirtualTable()
     }
 
     public getLabel(id: string): string {
@@ -75,6 +84,10 @@ export class ShipOwnerListComponent {
         this.helperService.clearTableTextFilters(this.table, ['description', 'email', 'phones'])
     }
 
+    public unHighlightAllRows(): void {
+        this.helperService.unHighlightAllRows()
+    }
+
     //#endregion
 
     //#region private methods
@@ -84,6 +97,12 @@ export class ShipOwnerListComponent {
         this.unsubscribe.unsubscribe()
     }
 
+    private enableDisableFilters(): void {
+        if (this.records.length == 0) {
+            this.helperService.disableTableFilters()
+        }
+    }
+
     private filterColumn(element: { value: any }, field: string, matchMode: string): void {
         if (element != undefined && (element.value != null || element.value != undefined)) {
             this.table.filter(element.value, field, matchMode)
@@ -91,7 +110,7 @@ export class ShipOwnerListComponent {
     }
 
     private filterTableFromStoredFilters(): void {
-        const filters = this.localStorageService.getFilters(this.feature)
+        const filters = this.localStorageService.getFilters(this.feature + '-' + 'filters')
         if (filters != undefined) {
             setTimeout(() => {
                 this.filterColumn(filters.isActive, 'isActive', 'contains')
@@ -102,23 +121,46 @@ export class ShipOwnerListComponent {
         }
     }
 
+    private getVirtualElement(): void {
+        this.virtualElement = document.getElementsByClassName('p-scroller-inline')[0]
+    }
+
     private goBack(): void {
         this.router.navigate([this.parentUrl])
     }
 
+    private hightlightSavedRow(): void {
+        this.helperService.highlightSavedRow(this.feature)
+    }
+
     private loadRecords(): Promise<any> {
-        const promise = new Promise((resolve) => {
+        return new Promise((resolve) => {
             const listResolved: ListResolved = this.activatedRoute.snapshot.data[this.feature]
             if (listResolved.error == null) {
                 this.records = listResolved.list
-                this.recordsFiltered = listResolved.list
+                this.recordsFilteredCount = this.records.length
                 resolve(this.records)
             } else {
                 this.goBack()
                 this.modalActionResultService.open(this.messageSnackbarService.filterResponse(new Error('500')), 'error', ['ok'])
             }
         })
-        return promise
+    }
+
+    private navigateToRecord(id: any): void {
+        this.router.navigate([this.url, id])
+    }
+
+    private scrollToSavedPosition(): void {
+        this.helperService.scrollToSavedPosition(this.virtualElement, this.feature)
+    }
+
+    private storeSelectedId(id: number): void {
+        this.localStorageService.saveItem(this.feature + '-id', id.toString())
+    }
+
+    private storeScrollTop(): void {
+        this.localStorageService.saveItem(this.feature + '-scrollTop', this.virtualElement.scrollTop)
     }
 
     //#endregion

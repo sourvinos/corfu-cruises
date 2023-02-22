@@ -74,26 +74,26 @@ export class ScheduleListComponent {
     //#region public methods
 
     public clearDateFilter(): void {
-        this.table.filter('', 'date', 'equals')
+        this.table.filter('', 'birthdate', 'equals')
         this.filterDate = ''
-        this.localStorageService.saveItem(this.feature, JSON.stringify(this.table.filters))
+        this.localStorageService.saveItem(this.feature + '-' + 'filters', JSON.stringify(this.table.filters))
     }
 
     public editRecord(id: number): void {
         this.storeScrollTop()
         this.storeSelectedId(id)
-        this.router.navigate([this.url, id])
+        this.navigateToRecord(id)
     }
 
     public filterByDate(event: MatDatepickerInputEvent<Date>): void {
         const date = this.dateHelperService.formatDateToIso(new Date(event.value), false)
         this.table.filter(date, 'date', 'equals')
         this.filterDate = date
-        this.localStorageService.saveItem(this.feature, JSON.stringify(this.table.filters))
+        this.localStorageService.saveItem(this.feature + '-' + 'filters', JSON.stringify(this.table.filters))
     }
 
     public filterRecords(event: { filteredValue: any[] }): void {
-        this.localStorageService.saveItem(this.feature, JSON.stringify(this.table.filters))
+        this.localStorageService.saveItem(this.feature + '-' + 'filters', JSON.stringify(this.table.filters))
         this.recordsFilteredCount = event.filteredValue.length
         this.helperService.clearStyleFromVirtualTable()
     }
@@ -145,7 +145,7 @@ export class ScheduleListComponent {
     }
 
     private filterTableFromStoredFilters(): void {
-        const filters = this.localStorageService.getFilters(this.feature)
+        const filters = this.localStorageService.getFilters(this.feature + '-' + 'filters')
         if (filters != undefined) {
             setTimeout(() => {
                 this.filterColumn(filters.isActive, 'isActive', 'contains')
@@ -176,16 +176,11 @@ export class ScheduleListComponent {
     }
 
     private hightlightSavedRow(): void {
-        setTimeout(() => {
-            const x = document.getElementById(this.localStorageService.getItem('id'))
-            if (x != null) {
-                x.classList.add('p-highlight')
-            }
-        }, 500)
+        this.helperService.highlightSavedRow(this.feature)
     }
 
     private loadRecords(): Promise<any> {
-        const promise = new Promise((resolve) => {
+        return new Promise((resolve) => {
             const listResolved: ListResolved = this.activatedRoute.snapshot.data[this.feature]
             if (listResolved.error == null) {
                 this.records = listResolved.list
@@ -197,7 +192,10 @@ export class ScheduleListComponent {
                 })
             }
         })
-        return promise
+    }
+
+    private navigateToRecord(id: any): void {
+        this.router.navigate([this.url, id])
     }
 
     private populateDropdownFilters(): void {
@@ -210,21 +208,15 @@ export class ScheduleListComponent {
     }
 
     private scrollToSavedPosition(): void {
-        setTimeout(() => {
-            this.virtualElement.scrollTo({
-                top: parseInt(this.localStorageService.getItem('scrollTop')) || 0,
-                left: 0,
-                behavior: 'auto'
-            })
-        }, 500)
+        this.helperService.scrollToSavedPosition(this.virtualElement, this.feature)
     }
 
     private storeSelectedId(id: number): void {
-        this.localStorageService.saveItem('id', id.toString())
+        this.localStorageService.saveItem(this.feature + '-id', id.toString())
     }
 
     private storeScrollTop(): void {
-        this.localStorageService.saveItem('scrollTop', this.virtualElement.scrollTop)
+        this.localStorageService.saveItem(this.feature + '-scrollTop', this.virtualElement.scrollTop)
     }
 
     private subscribeToInteractionService(): void {

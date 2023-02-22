@@ -34,10 +34,9 @@ export class PickupPointListComponent {
     public records: PickupPointListVM[] = []
     public recordsFiltered: PickupPointListVM[] = []
     public recordsFilteredCount: number
-    public isVirtual = true
-    private scrollableElement: any
+    private virtualElement: any
 
-    public dropdownRoutes = []
+    public distinctRoutes = []
 
     //#endregion
 
@@ -45,7 +44,6 @@ export class PickupPointListComponent {
         this.loadRecords().then(() => {
             this.populateDropdownFilters()
             this.filterTableFromStoredFilters()
-            this.enableDisableFilters()
         })
     }
 
@@ -53,9 +51,10 @@ export class PickupPointListComponent {
 
     ngAfterViewInit(): void {
         setTimeout(() => {
-            this.getScrollableElement()
-            this.toggleVirtual()
+            this.getVirtualElement()
+            this.scrollToSavedPosition()
             this.hightlightSavedRow()
+            this.enableDisableFilters()
         }, 500)
     }
 
@@ -74,13 +73,13 @@ export class PickupPointListComponent {
     public editRecord(id: number): void {
         this.storeScrollTop()
         this.storeSelectedId(id)
-        this.navigateToForm(id)
+        this.navigateToRecord(id)
     }
 
     public filterRecords(event: { filteredValue: any[] }): void {
-        this.localStorageService.saveItem(this.feature, JSON.stringify(this.table.filters))
-        this.recordsFiltered = event.filteredValue
+        this.localStorageService.saveItem(this.feature + '-' + 'filters', JSON.stringify(this.table.filters))
         this.recordsFilteredCount = event.filteredValue.length
+        this.helperService.clearStyleFromVirtualTable()
     }
 
     public getEmoji(emoji: string): string {
@@ -125,7 +124,7 @@ export class PickupPointListComponent {
     }
 
     private filterTableFromStoredFilters(): void {
-        const filters = this.localStorageService.getFilters(this.feature)
+        const filters = this.localStorageService.getFilters(this.feature + '-' + 'filters')
         if (filters != undefined) {
             setTimeout(() => {
                 this.filterColumn(filters.isActive, 'isActive', 'contains')
@@ -137,8 +136,8 @@ export class PickupPointListComponent {
         }
     }
 
-    private getScrollableElement(): void {
-        this.scrollableElement = document.getElementsByClassName('p-datatable-wrapper')[0]
+    private getVirtualElement(): void {
+        this.virtualElement = document.getElementsByClassName('p-scroller-inline')[0]
     }
 
     private goBack(): void {
@@ -146,10 +145,7 @@ export class PickupPointListComponent {
     }
 
     private hightlightSavedRow(): void {
-        setTimeout(() => {
-            this.scrollableElement.scrollTop = parseInt(this.localStorageService.getItem('scrollTop')) | 0
-            document.getElementById(this.localStorageService.getItem('id'))?.classList.add('p-highlight')
-        }, 1000)
+        this.helperService.highlightSavedRow(this.feature)
     }
 
     private loadRecords(): Promise<any> {
@@ -167,24 +163,24 @@ export class PickupPointListComponent {
         })
     }
 
-    private navigateToForm(id: number): void {
+    private navigateToRecord(id: any): void {
         this.router.navigate([this.url, id])
     }
 
     private populateDropdownFilters(): void {
-        this.dropdownRoutes = this.helperService.getDistinctRecords(this.records, 'coachRoute', 'description')
+        this.distinctRoutes = this.helperService.getDistinctRecords(this.records, 'coachRoute', 'abbreviation')
     }
 
-    private storeScrollTop(): void {
-        this.localStorageService.saveItem('scrollTop', this.scrollableElement.scrollTop)
+    private scrollToSavedPosition(): void {
+        this.helperService.scrollToSavedPosition(this.virtualElement, this.feature)
     }
 
     private storeSelectedId(id: number): void {
-        this.localStorageService.saveItem('id', id.toString())
+        this.localStorageService.saveItem(this.feature + '-id', id.toString())
     }
 
-    private toggleVirtual(): void {
-        this.isVirtual = !this.isVirtual
+    private storeScrollTop(): void {
+        this.localStorageService.saveItem(this.feature + '-scrollTop', this.virtualElement.scrollTop)
     }
 
     //#endregion

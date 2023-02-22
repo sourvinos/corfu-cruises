@@ -16,7 +16,7 @@ input::selection {
 
 input.mat-input-element {
     caret-color: var(--color-c) !important;
-    margin-top: 5px !important;
+    margin-top: -0.0625rem !important;
 }
 
 input[type="text"], input[type="email"], input[type="number"], input[type="password"], input:-webkit-autofill, input:-webkit-autofill:active {

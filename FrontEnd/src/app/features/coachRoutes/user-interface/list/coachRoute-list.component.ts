@@ -31,23 +31,25 @@ export class CoachRouteListComponent {
     public parentUrl = '/'
     public records: CoachRouteListVM[] = []
     public recordsFilteredCount: number
+    private virtualElement: any
 
     //#endregion
 
-    constructor(private activatedRoute: ActivatedRoute, private helperService: HelperService, private localStorageService: LocalStorageService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private modalActionResultService: ModalActionResultService, private router: Router) { }
-
-    //#region lifecycle hooks
-
-    ngOnInit(): void {
+    constructor(private activatedRoute: ActivatedRoute, private helperService: HelperService, private localStorageService: LocalStorageService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private modalActionResultService: ModalActionResultService, private router: Router) {
         this.loadRecords().then(() => {
-            this.scrollToSavedRow().then(() => {
-                this.highlightRowFromStorage()
-            })
+            this.filterTableFromStoredFilters()
         })
     }
 
+    //#region lifecycle hooks
+
     ngAfterViewInit(): void {
-        this.filterTableFromStoredFilters()
+        setTimeout(() => {
+            this.getVirtualElement()
+            this.scrollToSavedPosition()
+            this.hightlightSavedRow()
+            this.enableDisableFilters()
+        }, 500)
     }
 
     ngOnDestroy(): void {
@@ -61,12 +63,13 @@ export class CoachRouteListComponent {
     public editRecord(id: number): void {
         this.storeScrollTop()
         this.storeSelectedId(id)
-        this.router.navigate([this.url, id])
+        this.navigateToRecord(id)
     }
 
     public filterRecords(event: { filteredValue: any[] }): void {
-        this.localStorageService.saveItem(this.feature, JSON.stringify(this.table.filters))
+        this.localStorageService.saveItem(this.feature + '-' + 'filters', JSON.stringify(this.table.filters))
         this.recordsFilteredCount = event.filteredValue.length
+        this.helperService.clearStyleFromVirtualTable()
     }
 
     public getLabel(id: string): string {
@@ -94,6 +97,12 @@ export class CoachRouteListComponent {
         this.unsubscribe.unsubscribe()
     }
 
+    private enableDisableFilters(): void {
+        if (this.records.length == 0) {
+            this.helperService.disableTableFilters()
+        }
+    }
+
     private filterColumn(element: { value: any }, field: string, matchMode: string): void {
         if (element != undefined && (element.value != null || element.value != undefined)) {
             this.table.filter(element.value, field, matchMode)
@@ -101,7 +110,7 @@ export class CoachRouteListComponent {
     }
 
     private filterTableFromStoredFilters(): void {
-        const filters = this.localStorageService.getFilters(this.feature)
+        const filters = this.localStorageService.getFilters(this.feature + '-' + 'filters')
         if (filters != undefined) {
             setTimeout(() => {
                 this.filterColumn(filters.isActive, 'isActive', 'contains')
@@ -112,14 +121,16 @@ export class CoachRouteListComponent {
         }
     }
 
+    private getVirtualElement(): void {
+        this.virtualElement = document.getElementsByClassName('p-scroller-inline')[0]
+    }
+
     private goBack(): void {
         this.router.navigate([this.parentUrl])
     }
 
-    private highlightRowFromStorage(): void {
-        setTimeout(() => {
-            document.getElementById(this.localStorageService.getItem('id'))?.classList.add('p-highlight')
-        }, 1000)
+    private hightlightSavedRow(): void {
+        this.helperService.highlightSavedRow(this.feature)
     }
 
     private loadRecords(): Promise<any> {
@@ -137,25 +148,20 @@ export class CoachRouteListComponent {
         })
     }
 
-    private scrollToSavedRow(): Promise<any> {
-        return new Promise((resolve) => {
-            setTimeout(() => {
-                document.getElementsByClassName('p-scroller-inline')[0]?.scrollTo({
-                    top: parseInt(this.localStorageService.getItem('scrollTop')) || 0,
-                    left: 0,
-                    behavior: 'auto'
-                })
-                resolve(null)
-            }, 0)
-        })
+    private navigateToRecord(id: any): void {
+        this.router.navigate([this.url, id])
     }
 
-    private storeScrollTop(): void {
-        this.helperService.storeScrollTop('p-scroller-inline')
+    private scrollToSavedPosition(): void {
+        this.helperService.scrollToSavedPosition(this.virtualElement, this.feature)
     }
 
     private storeSelectedId(id: number): void {
-        this.localStorageService.saveItem('id', id.toString())
+        this.localStorageService.saveItem(this.feature + '-id', id.toString())
+    }
+
+    private storeScrollTop(): void {
+        this.localStorageService.saveItem(this.feature + '-scrollTop', this.virtualElement.scrollTop)
     }
 
     //#endregion

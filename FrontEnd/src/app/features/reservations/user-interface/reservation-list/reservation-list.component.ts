@@ -189,7 +189,7 @@ export class ReservationListComponent {
     }
 
     public highlightRow(id: any): void {
-        this.helperService.highlightRow(id)
+        // this.helperService.highlightRow(id)
     }
 
     public isFilterDisabled(): boolean {

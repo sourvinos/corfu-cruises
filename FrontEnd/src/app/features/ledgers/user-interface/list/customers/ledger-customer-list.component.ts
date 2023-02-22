@@ -93,7 +93,7 @@ export class LedgerCustomerListComponent {
     }
 
     public highlightRow(id: any): void {
-        this.helperService.highlightRow(id)
+        // this.helperService.highlightRow(id)
     }
 
     public resetTableFilters(): void {

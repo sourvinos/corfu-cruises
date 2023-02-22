@@ -379,7 +379,7 @@
             },
             {
                 "id": "headerHasTransfer",
-                "description": "Transfer"
+                "description": "xFER"
             },
             {
                 "id": "headerAbbreviation",
@@ -1469,7 +1469,7 @@
             },
             {
                 "id": "headerHasTransfer",
-                "description": "XFER"
+                "description": "xFER"
             },
             {
                 "id": "headerAdults",

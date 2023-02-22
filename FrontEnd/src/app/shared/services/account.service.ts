@@ -71,20 +71,20 @@ export class AccountService extends HttpDataService {
             { 'item': 'ledger-criteria', 'when': 'always' },
             { 'item': 'manifest-criteria', 'when': 'production' },
             // Table filters
-            { 'item': 'coachRouteList', 'when': 'always' },
-            { 'item': 'customer-list', 'when': 'always' },
-            { 'item': 'destination-list', 'when': 'always' },
-            { 'item': 'driver-list', 'when': 'always' },
-            { 'item': 'gender-list', 'when': 'always' },
-            { 'item': 'pickupPoint-list', 'when': 'always' },
-            { 'item': 'port-list', 'when': 'always' },
-            { 'item': 'registrar-list', 'when': 'always' },
-            { 'item': 'schedule-list', 'when': 'always' },
-            { 'item': 'ship-list', 'when': 'always' },
-            { 'item': 'shipCrew-list', 'when': 'always' },
-            { 'item': 'shipOwner-list', 'when': 'always' },
-            { 'item': 'shipRoute-list', 'when': 'always' },
-            { 'item': 'user-list', 'when': 'always' },
+            { 'item': 'coachRouteList-filters', 'when': 'always' }, { 'item': 'coachRouteList-id', 'when': 'always' }, { 'item': 'coachRouteList-scrollTop', 'when': 'always' },
+            { 'item': 'customerList-filters', 'when': 'always' }, { 'item': 'customerList-id', 'when': 'always' }, { 'item': 'customerList-scrollTop', 'when': 'always' },
+            { 'item': 'destinationList-filters', 'when': 'always' }, { 'item': 'destinationList-id', 'when': 'always' }, { 'item': 'destinationList-scrollTop', 'when': 'always' },
+            { 'item': 'driverList-filters', 'when': 'always' }, { 'item': 'driverList-id', 'when': 'always' }, { 'item': 'driverList-scrollTop', 'when': 'always' },
+            { 'item': 'genderList-filters', 'when': 'always' }, { 'item': 'genderList-id', 'when': 'always' }, { 'item': 'genderList-scrollTop', 'when': 'always' },
+            { 'item': 'pickupPointList-filters', 'when': 'always' }, { 'item': 'pickupPointList-id', 'when': 'always' }, { 'item': 'pickupPointList-scrollTop', 'when': 'always' },
+            { 'item': 'portList-filters', 'when': 'always' }, { 'item': 'portList-id', 'when': 'always' }, { 'item': 'portList-scrollTop', 'when': 'always' },
+            { 'item': 'registrarList-filters', 'when': 'always' }, { 'item': 'registrarList-id', 'when': 'always' }, { 'item': 'registrarList-scrollTop', 'when': 'always' },
+            { 'item': 'scheduleList-filters', 'when': 'always' }, { 'item': 'scheduleList-id', 'when': 'always' }, { 'item': 'scheduleList-scrollTop', 'when': 'always' },
+            { 'item': 'shipCrewList-filters', 'when': 'always' }, { 'item': 'shipCrewList-id', 'when': 'always' }, { 'item': 'shipCrewList-scrollTop', 'when': 'always' },
+            { 'item': 'shipList-filters', 'when': 'always' }, { 'item': 'shipList-id', 'when': 'always' }, { 'item': 'shipList-scrollTop', 'when': 'always' },
+            { 'item': 'shipOwnerList-filters', 'when': 'always' }, { 'item': 'shipOwnerList-id', 'when': 'always' }, { 'item': 'shipOwnerList-scrollTop', 'when': 'always' },
+            { 'item': 'shipRouteList-filters', 'when': 'always' }, { 'item': 'shipRouteList-id', 'when': 'always' }, { 'item': 'shipRouteList-scrollTop', 'when': 'always' },
+            { 'item': 'userList-filters', 'when': 'always' }, { 'item': 'userList-id', 'when': 'always' }, { 'item': 'userList-scrollTop', 'when': 'always' },
             // Tables
             { 'item': 'coachRoutes', 'when': 'always' },
             { 'item': 'customers', 'when': 'always' },
@@ -98,9 +98,7 @@ export class AccountService extends HttpDataService {
             { 'item': 'ships', 'when': 'always' },
             { 'item': 'shipRoutes', 'when': 'always' },
             // Misc
-            { 'item': 'scrollTop', 'when': 'always' },
             { 'item': 'refNo', 'when': 'always' },
-            { 'item': 'id', 'when': 'always' }
         ])
     }
 

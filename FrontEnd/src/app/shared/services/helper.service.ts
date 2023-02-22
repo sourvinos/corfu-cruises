@@ -83,22 +83,6 @@ export class HelperService {
         return distinctRecords
     }
 
-    public populateTableFiltersDropdowns(records: any[], field: any): any[] {
-        const array: any[] = []
-        const elements = [... new Set(records.map(x => x[field]))]
-        elements.forEach(element => {
-            if (typeof (element) == 'string') {
-                array.push({ label: element == '(EMPTY)' ? '(EMPTY)' : element, value: element })
-            }
-            if (typeof (element) == 'object') {
-                array.push({ id: element.id, value: element.description })
-            }
-
-        })
-        array.sort((a, b) => (a.label > b.label) ? 1 : -1)
-        return array
-    }
-
     public focusOnField(element: string): void {
         setTimeout(() => {
             const input = <HTMLInputElement>document.getElementById(element)
@@ -232,12 +216,13 @@ export class HelperService {
         return true
     }
 
-    public highlightRow(id: any): void {
-        const x = document.querySelectorAll('.p-highlight')
-        x.forEach(row => {
-            row.classList.remove('p-highlight')
-        })
-        document.getElementById(id).classList.add('p-highlight')
+    public highlightSavedRow(feature: string): void {
+        setTimeout(() => {
+            const x = document.getElementById(this.localStorageService.getItem(feature + '-' + 'id'))
+            if (x != null) {
+                x.classList.add('p-highlight')
+            }
+        }, 500)
     }
 
     public unHighlightAllRows(): void {
@@ -256,30 +241,26 @@ export class HelperService {
         }, 500)
     }
 
-    public disableInputTextboxes(): void {
-        const x = document.getElementsByTagName('input') as HTMLCollectionOf<HTMLInputElement>
-        for (let i = 0; i < x.length; i++) {
-            x[i].setAttribute('disabled', '')
-        }
-    }
-
     public toggleVirtualTable(isVirtual: boolean): any {
         setTimeout(() => {
             return !isVirtual
         }, 300)
     }
 
-    public getEmbarkationStatus(): any {
-        const x = [
-            { id: 0, description: 'OK' },
-            { id: 1, description: 'PENDING' }
-        ]
-        return x
-    }
-
     public clearStyleFromVirtualTable(): void {
         const x = document.getElementsByClassName('p-scroller-content') as HTMLCollectionOf<HTMLElement>
         x[0].style.transform = null
+    }
+
+    public scrollToSavedPosition(virtualElement: any, feature: string): void {
+        setTimeout(() => {
+            virtualElement.scrollTo({
+                top: parseInt(this.localStorageService.getItem(feature + '-scrollTop')) || 0,
+                left: 0,
+                behavior: 'auto'
+            })
+        }, 500)
+
     }
 
     //#endregion
