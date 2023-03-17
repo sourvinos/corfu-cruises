@@ -24,7 +24,7 @@
 
     <ng-container *ngIf="records.totalPersons > 0">
         <div id="table-wrapper">
-            <p-table #table (onFilter)="filterRecords($event)" [autoLayout]="false" [globalFilterFields]="['ticketNo']" [scrollable]="true" [value]="records.reservations" [virtualScrollItemSize]="33" [virtualScroll]="false" dataKey="ticketNo" scrollHeight="flex" selectionMode="single" sortMode="multiple" stateKey="embarkation-list" stateStorage="session">
+            <p-table #table (onFilter)="filterRecords($event)" [autoLayout]="false" [globalFilterFields]="['ticketNo']" [scrollable]="true" [value]="records.reservations" [virtualScrollItemSize]="33" [virtualScroll]="false" dataKey="ticketNo" scrollHeight="500px" selectionMode="single" sortMode="multiple" stateKey="embarkation-list" stateStorage="session">
                 <ng-template pTemplate="header">
                     <tr>
                         <th style="min-width: 3%; max-width: 3%;"></th>
