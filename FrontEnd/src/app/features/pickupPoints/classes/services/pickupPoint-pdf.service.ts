@@ -1,10 +1,12 @@
-import pdfFonts from 'pdfmake/build/vfs_fonts'
-import pdfMake from 'pdfmake/build/pdfmake'
 import { Injectable } from '@angular/core'
 pdfMake.vfs = pdfFonts.pdfMake.vfs
 // Custom
 import { BooleanIconService } from 'src/app/shared/services/boolean-icon.service'
 import { PickupPointListVM } from '../view-models/pickupPoint-list-vm'
+// Fonts
+import pdfFonts from 'pdfmake/build/vfs_fonts'
+import pdfMake from 'pdfmake/build/pdfmake'
+import { strRoboto } from '../../../../../assets/fonts/Roboto.Base64.encoded'
 
 @Injectable({ providedIn: 'root' })
 
@@ -15,11 +17,17 @@ export class PickupPointPdfService {
     //#region public methods
 
     public createReport(pickupPoints: PickupPointListVM[]): void {
+        this.setFonts()
         const document = {
             defaultStyle: { fontSize: 7 },
             content: [
                 this.buildTable(pickupPoints, ['isActive', 'coachRouteAbbreviation', 'description', 'exactPoint', 'time'], ['boolean', null, null, null, null])
-            ]
+            ],
+            styles: {
+                Roboto: {
+                    font: 'Roboto'
+                }
+            }
         }
         pdfMake.createPdf(document).open()
     }
@@ -76,6 +84,13 @@ export class PickupPointPdfService {
                 layout: 'noBorders'
             },
             layout: 'lightHorizontalLines'
+        }
+    }
+
+    private setFonts(): void {
+        pdfFonts.pdfMake.vfs['Roboto'] = strRoboto
+        pdfMake.fonts = {
+            Roboto: { normal: 'Roboto' }
         }
     }
 
