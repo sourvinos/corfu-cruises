@@ -6,7 +6,10 @@ import { PickupPointListVM } from '../view-models/pickupPoint-list-vm'
 // Fonts
 import pdfFonts from 'pdfmake/build/vfs_fonts'
 import pdfMake from 'pdfmake/build/pdfmake'
-import { strRoboto } from '../../../../../assets/fonts/Roboto.Base64.encoded'
+import { strAkaAcidCanterBold } from '../../../../../assets/fonts/Aka-Acid-CanterBold.Base64.encoded'
+import { strPFHandbookPro } from '../../../../../assets/fonts/PF-Handbook-Pro.Base64.encoded'
+
+pdfMake.vfs = pdfFonts.pdfMake.vfs
 
 @Injectable({ providedIn: 'root' })
 
@@ -19,15 +22,20 @@ export class PickupPointPdfService {
     public createReport(pickupPoints: PickupPointListVM[]): void {
         this.setFonts()
         const document = {
-            defaultStyle: { fontSize: 7 },
             content: [
                 this.buildTable(pickupPoints, ['isActive', 'coachRouteAbbreviation', 'description', 'exactPoint', 'time'], ['boolean', null, null, null, null])
             ],
             styles: {
-                Roboto: {
-                    font: 'Roboto'
+                AkaAcidCanterBold: {
+                    font: 'AkaAcidCanterBold',
+                }, PFHandbookPro: {
+                    font: 'PFHandbookPro',
                 }
-            }
+            },
+            defaultStyle: {
+                font: 'PFHandbookPro',
+                fontSize: 8
+            },
         }
         pdfMake.createPdf(document).open()
     }
@@ -88,9 +96,15 @@ export class PickupPointPdfService {
     }
 
     private setFonts(): void {
-        pdfFonts.pdfMake.vfs['Roboto'] = strRoboto
+        pdfFonts.pdfMake.vfs['AkaAcidCanterBold'] = strAkaAcidCanterBold
+        pdfFonts.pdfMake.vfs['PFHandbookPro'] = strPFHandbookPro
         pdfMake.fonts = {
-            Roboto: { normal: 'Roboto' }
+            PFHandbookPro: {
+                normal: 'PFHandbookPro',
+            },
+            AkaAcidCanterBold: {
+                normal: 'AkaAcidCanterBold'
+            }
         }
     }
 
